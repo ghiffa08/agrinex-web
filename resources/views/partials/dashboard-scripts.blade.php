@@ -1922,40 +1922,8 @@
                         humidity: chartData.humidity?.length || 0
                     });
 
-                    // 🔧 Generate fallback data if API returns empty
-                    const generateFallbackData = (type) => {
-                        const now = new Date();
-                        const data = [];
-                        for (let i = 6; i >= 0; i--) {
-                            const time = new Date(now.getTime() - i * 5 * 60000);
-                            const timeStr = time.getHours().toString().padStart(2, '0') + ':' + 
-                                           time.getMinutes().toString().padStart(2, '0');
-                            
-                            switch(type) {
-                                case 'light':
-                                    data.push({time: timeStr, radiation: Math.random() * 100});
-                                    break;
-                                case 'water':
-                                    data.push({time: timeStr, level: 50 + Math.random() * 30});
-                                    break;
-                                case 'soil':
-                                    data.push({time: timeStr, average: 30 + Math.random() * 20});
-                                    break;
-                                case 'temperature':
-                                    data.push({time: timeStr, soil_temp: 25 + Math.random() * 5});
-                                    break;
-                                case 'humidity':
-                                    data.push({time: timeStr, humidity: 60 + Math.random() * 20});
-                                    break;
-                            }
-                        }
-                        return data;
-                    };
-
                     // ✅ Update light intensity data (API returns: {time, radiation})
-                    const lightData = (chartData.light && chartData.light.length > 0) 
-                        ? chartData.light 
-                        : generateFallbackData('light');
+                    const lightData = chartData.light || [];
                     
                     if (lightData.length > 0) {
                         this.lightIntensityData.labels = [];
@@ -1965,9 +1933,8 @@
                         lightData.forEach(item => {
                             this.lightIntensityData.labels.push(item.time);
                             const rad = parseFloat(item.radiation) || 0;
-                            // Split radiation into two virtual sensors for visual variety
                             this.lightIntensityData.li1.push(rad);
-                            this.lightIntensityData.li2.push(Math.max(0, rad * 0.9 + Math.random() * 10));
+                            this.lightIntensityData.li2.push(rad);
                         });
 
                         if (this.lightIntensityChart) {
@@ -1986,9 +1953,7 @@
                     }
 
                     // ✅ Update water level data (API returns: {time, level})
-                    const waterData = (chartData.water && chartData.water.length > 0) 
-                        ? chartData.water 
-                        : generateFallbackData('water');
+                    const waterData = chartData.water || [];
                     
                     if (waterData.length > 0) {
                         this.waterLevelData.labels = [];
@@ -2016,10 +1981,7 @@
                     }
 
                     // ✅ Update soil moisture data (API returns: {time, average})
-                    // Simulate multiple sensors from average for visual consistency
-                    const soilData = (chartData.soil && chartData.soil.length > 0) 
-                        ? chartData.soil 
-                        : generateFallbackData('soil');
+                    const soilData = chartData.soil || [];
                     
                     if (soilData.length > 0) {
                         this.soilMoistureData.labels = [];
@@ -2031,11 +1993,8 @@
                             this.soilMoistureData.labels.push(item.time);
                             const avg = parseFloat(item.average) || 0;
                             
-                            // Generate realistic variations around average for each sensor
-                            this.soilMoistureSensors.forEach((sensor, idx) => {
-                                const variation = (idx - 4) * 2 + (Math.random() - 0.5) * 3;
-                                const value = Math.max(0, Math.min(100, avg + variation));
-                                this.soilMoistureData.sensors[sensor.id].push(value);
+                            this.soilMoistureSensors.forEach((sensor) => {
+                                this.soilMoistureData.sensors[sensor.id].push(avg);
                             });
                         });
 
@@ -2057,9 +2016,7 @@
                     }
 
                     // ✅ Update temperature data (API returns: {time, soil_temp})
-                    const tempData = (chartData.temperature && chartData.temperature.length > 0) 
-                        ? chartData.temperature 
-                        : generateFallbackData('temperature');
+                    const tempData = chartData.temperature || [];
                     
                     if (tempData.length > 0) {
                         this.temperatureData.labels = [];
@@ -2069,9 +2026,8 @@
                         tempData.forEach(item => {
                             this.temperatureData.labels.push(item.time);
                             const temp = parseFloat(item.soil_temp) || 0;
-                            // Split into two sensors with slight variation
                             this.temperatureData.t1.push(temp);
-                            this.temperatureData.t2.push(temp + (Math.random() - 0.5) * 1.5);
+                            this.temperatureData.t2.push(temp);
                         });
 
                         if (this.temperatureChart) {
@@ -2090,9 +2046,7 @@
                     }
 
                     // ✅ Update humidity data (API returns: {time, humidity})
-                    const humidityData = (chartData.humidity && chartData.humidity.length > 0) 
-                        ? chartData.humidity 
-                        : generateFallbackData('humidity');
+                    const humidityData = chartData.humidity || [];
                     
                     if (humidityData.length > 0) {
                         this.humidityData.labels = [];
@@ -2102,9 +2056,8 @@
                         humidityData.forEach(item => {
                             this.humidityData.labels.push(item.time);
                             const hum = parseFloat(item.humidity) || 0;
-                            // Split into two sensors with slight variation
                             this.humidityData.h1.push(hum);
-                            this.humidityData.h2.push(Math.max(0, Math.min(100, hum + (Math.random() - 0.5) * 3)));
+                            this.humidityData.h2.push(hum);
                         });
 
                         if (this.humidityChart) {

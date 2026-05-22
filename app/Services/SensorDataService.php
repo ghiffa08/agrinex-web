@@ -29,6 +29,19 @@ class SensorDataService
                         'created_at' => now(),
                         'updated_at' => now()
                     ]));
+
+                    // Auto-register master node if it doesn't exist
+                    if (isset($log['node_id'])) {
+                        \App\Models\Node::firstOrCreate(
+                            ['node_id' => $log['node_id']],
+                            [
+                                'group' => 'A',
+                                'kode_perlakuan' => 'P' . $log['node_id'],
+                                'lokasi' => 'Otomatis dari API',
+                                'keterangan' => 'Node ' . $log['node_id'] . ' didaftarkan otomatis'
+                            ]
+                        );
+                    }
                 }
                 $insertedCounts['getdata_logs'] = count($data['getdata_logs']);
             }
@@ -49,6 +62,17 @@ class SensorDataService
                     SensorNodeData::create(array_merge($node, [
                         'sesi_id_getdata' => $sesiId
                     ]));
+
+                    // Auto-register master node if it doesn't exist
+                    \App\Models\Node::firstOrCreate(
+                        ['node_id' => $node['node_id']],
+                        [
+                            'group' => 'A',
+                            'kode_perlakuan' => 'P' . $node['node_id'],
+                            'lokasi' => 'Otomatis dari API',
+                            'keterangan' => 'Node ' . $node['node_id'] . ' didaftarkan otomatis'
+                        ]
+                    );
                 }
                 $insertedCounts['sensor_node_data'] = count($data['sensor_node_data']);
             }

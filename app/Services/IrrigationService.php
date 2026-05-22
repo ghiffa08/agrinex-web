@@ -54,6 +54,19 @@ class IrrigationService
             if (!empty($data['node_logs'])) {
                 foreach ($data['node_logs'] as $nodeLog) {
                     NodeLog::create($nodeLog);
+
+                    // Auto-register master node if it doesn't exist
+                    if (isset($nodeLog['node_id'])) {
+                        \App\Models\Node::firstOrCreate(
+                            ['node_id' => $nodeLog['node_id']],
+                            [
+                                'group' => 'A',
+                                'kode_perlakuan' => 'P' . $nodeLog['node_id'],
+                                'lokasi' => 'Otomatis dari API Irigasi',
+                                'keterangan' => 'Node ' . $nodeLog['node_id'] . ' didaftarkan otomatis'
+                            ]
+                        );
+                    }
                 }
                 $insertedCounts['node_logs'] = count($data['node_logs']);
             }
@@ -137,6 +150,19 @@ class IrrigationService
                     ValveLog::create($valve);
                 }
                 $insertedCounts['valve_logs'] = count($data['valve_logs']);
+            }
+
+            // Auto-register master node if it doesn't exist
+            if ($nodeId) {
+                \App\Models\Node::firstOrCreate(
+                    ['node_id' => $nodeId],
+                    [
+                        'group' => 'A',
+                        'kode_perlakuan' => 'P' . $nodeId,
+                        'lokasi' => 'Otomatis dari API Valve Off',
+                        'keterangan' => 'Node ' . $nodeId . ' didaftarkan otomatis'
+                    ]
+                );
             }
 
             Log::info('Valve OFF data inserted successfully', [
