@@ -1,31 +1,37 @@
-name: Auto Deploy Laravel to Hostinger
+name: Deploy to Hostinger
 
+# Trigger otomatis setiap kali ada push ke branch main
 on:
   push:
     branches:
-      - main
+      - main 
 
 jobs:
   deploy:
+    name: Deploy to Server
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Menjalankan Perintah Deployment via SSH
+      - name: Executing SSH Commands
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          port: ${{ secrets.SSH_PORT }}
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          # Perintah terminal yang akan dieksekusi di server Hostinger
           script: |
-            # Pindah ke folder root pengguna terlebih dahulu
-            cd ~
-            
-            # Masuk ke direktori subdomain target Anda
+            # 1. Masuk ke folder root website Anda (sesuaikan path ini jika berbeda)
             cd domains/smartdrip-system.agrinex.io/public_html
             
-            # Pastikan Git mengenali folder aman di Hostinger Anda
-            git config --global --add safe.directory $(pwd)
-            
-            # Ambil kode pembaruan terbaru dari GitHub
+            # 2. Ambil update terbaru dari GitHub
             git pull origin main
+            
+            # 3. [OPSIONAL] Jalankan command build/install sesuai framework Anda
+            # Jika pakai Laravel:
+            # composer install --no-interaction --prefer-dist --optimize-autoloader
+            # php artisan migrate --force
+            
+            # Jika pakai Node.js (Next/React/Vue):
+            # npm install
+            # npm run build
