@@ -28,7 +28,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" x-show="devices.length && !loadingDevices">
         <template x-for="d in devices" :key="d.device_id">
             <div class="card !p-0 shadow-lg hover:shadow-xl hover:bg-white/5 dark:hover:bg-slate-800/50 transition-all duration-300 overflow-hidden group cursor-pointer hover:-translate-y-1 flex flex-col h-full"
-                @click="openDeviceModal(d)">
+                @click="window.location.href = '{{ url('/nodes') }}/' + d.device_id">
                 
                 <!-- Header with Node Name and Status -->
                 <div class="bg-white/50 dark:bg-slate-800/50 px-5 py-4 border-b border-gray-200/50 dark:border-white/5 flex-shrink-0">
@@ -43,38 +43,38 @@
                         </div>
                     </div>
                     <!-- Treatment Description -->
-                    <div class="text-[11px] text-secondary leading-tight mt-2" x-text="d.treatment_description || 'Irigasi saat kelembaban ≤ 80% FC (678 ADC)'">
+                    <div class="text-[11px] text-secondary leading-tight mt-2 line-clamp-2" x-text="d.treatment_description || 'Irigasi saat kelembaban ≤ 80% FC'">
                     </div>
                 </div>
 
                 <!-- Main Content -->
                 <div class="p-5 space-y-4 flex-1 flex flex-col">
                     <!-- Kelembaban & Suhu (Big Display) -->
-                    <div class="grid grid-cols-2 gap-3 mb-auto">
+                    <div class="grid grid-cols-2 gap-4 mb-auto">
                         <!-- Kelembaban -->
-                        <div class="flex items-center gap-3">
-                            <div class="p-2 bg-[#C7E0ED]/50 dark:bg-blue-900/30 rounded-2xl border border-white dark:border-white/5">
-                                <svg class="w-6 h-6 text-[#1c73a5] dark:text-blue-400" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 2C12 2 6 9 6 13a6 6 0 0 0 12 0c0-4-6-11-6-11z" />
-                                </svg>
+                        <div class="flex flex-col items-start gap-1">
+                            <div class="flex items-center gap-2 mb-1">
+                                <div class="p-1.5 bg-[#C7E0ED]/50 dark:bg-blue-900/30 rounded-lg border border-white dark:border-white/5">
+                                    <svg class="w-4 h-4 text-[#1c73a5] dark:text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 2C12 2 6 9 6 13a6 6 0 0 0 12 0c0-4-6-11-6-11z" />
+                                    </svg>
+                                </div>
+                                <div class="text-[10px] font-bold text-secondary uppercase tracking-wider truncate">Lembap</div>
                             </div>
-                            <div>
-                                <div class="text-[10px] font-semibold text-secondary uppercase tracking-wider">Kelembaban</div>
-                                <div class="text-2xl font-extrabold text-primary" x-text="d.soil_moisture_pct ? Math.round(d.soil_moisture_pct) + '%' : '-'">51%</div>
-                            </div>
+                            <div class="text-2xl font-extrabold text-primary" x-text="d.soil_moisture_pct ? Math.round(d.soil_moisture_pct) + '%' : '-'">51%</div>
                         </div>
 
                         <!-- Suhu -->
-                        <div class="flex items-center gap-3">
-                            <div class="p-2 bg-orange-50 dark:bg-orange-900/30 rounded-2xl border border-white dark:border-white/5">
-                                <svg class="w-6 h-6 text-[#EB5011] dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                                </svg>
+                        <div class="flex flex-col items-start gap-1">
+                            <div class="flex items-center gap-2 mb-1">
+                                <div class="p-1.5 bg-orange-50 dark:bg-orange-900/30 rounded-lg border border-white dark:border-white/5">
+                                    <svg class="w-4 h-4 text-[#EB5011] dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                    </svg>
+                                </div>
+                                <div class="text-[10px] font-bold text-secondary uppercase tracking-wider truncate">Suhu</div>
                             </div>
-                            <div>
-                                <div class="text-[10px] font-semibold text-secondary uppercase tracking-wider">Suhu</div>
-                                <div class="text-2xl font-extrabold text-primary" x-text="d.air_temp_c ? Math.round(d.air_temp_c) + '°' : (d.soil_temp_c ? Math.round(d.soil_temp_c) + '°' : '-')">29°</div>
-                            </div>
+                            <div class="text-2xl font-extrabold text-primary" x-text="d.air_temp_c ? Math.round(d.air_temp_c) + '°' : (d.soil_temp_c ? Math.round(d.soil_temp_c) + '°' : '-')">29°</div>
                         </div>
                     </div>
 
