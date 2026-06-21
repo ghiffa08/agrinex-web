@@ -28,7 +28,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" x-show="devices.length && !loadingDevices">
         <template x-for="d in devices" :key="d.device_id">
             <div class="card !p-0 shadow-lg hover:shadow-xl hover:bg-white/5 dark:hover:bg-slate-800/50 transition-all duration-300 overflow-hidden group cursor-pointer hover:-translate-y-1 flex flex-col h-full"
-                @click="window.location.href = '{{ url('/nodes') }}/' + d.device_id">
+                @click="selectedDevice = d; showDeviceModal = true">
                 
                 <!-- Header with Node Name and Status -->
                 <div class="bg-white/50 dark:bg-slate-800/50 px-5 py-4 border-b border-gray-200/50 dark:border-white/5 flex-shrink-0">

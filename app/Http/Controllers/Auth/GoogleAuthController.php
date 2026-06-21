@@ -49,7 +49,8 @@ class GoogleAuthController extends Controller
             return redirect()->intended('/agrinex-dashboard');
 
         } catch (\Exception $e) {
-            return redirect('/login')->withErrors(['error' => 'Gagal login dengan Google. Pastikan kredensial OAuth valid.']);
+            \Illuminate\Support\Facades\Log::error('Google OAuth Error: ' . $e->getMessage());
+            return redirect('/login')->withErrors(['error' => 'Gagal login dengan Google. Pastikan kredensial OAuth valid. (' . $e->getMessage() . ')']);
         }
     }
 }
