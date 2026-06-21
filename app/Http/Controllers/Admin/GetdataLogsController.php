@@ -4,36 +4,29 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\GetdataLog;
+use App\Services\Admin\GetdataLogsService;
 use Illuminate\Http\Request;
 
 class GetdataLogsController extends Controller
 {
+    protected $logService;
+    
+    public function __construct(GetdataLogsService $logService)
+    {
+        $this->logService = $logService;
+    }
+    
     public function index(Request $request)
     {
-        $query = GetdataLog::orderBy('waktu_mulai', 'desc');
-        
-        // Filter by status
-        if ($request->has('status') && $request->status != '') {
-            $query->where('status', $request->status);
-        }
-        
-        // Filter by date range
-        if ($request->has('start_date') && $request->start_date != '') {
-            $query->whereDate('waktu_mulai', '>=', $request->start_date);
-        }
-        
-        if ($request->has('end_date') && $request->end_date != '') {
-            $query->whereDate('waktu_mulai', '<=', $request->end_date);
-        }
-        
-        $logs = $query->paginate(25);
+        $filters = $request->only(['status', 'start_date', 'end_date']);
+        $logs = $this->logService->getPaginatedLogs($filters, 25);
         
         return view('admin.getdata-logs.index', compact('logs'));
     }
     
     public function show($id)
     {
-        $log = GetdataLog::with(['sensorNodeData', 'sensorWeatherData', 'nodeLogs'])->findOrFail($id);
+        $log = $this->logService->getLogWithRelations($id);
         return view('admin.getdata-logs.show', compact('log'));
     }
     
@@ -45,8 +38,6 @@ class GetdataLogsController extends Controller
     
     public function update(Request $request, $id)
     {
-        $log = GetdataLog::findOrFail($id);
-        
         $validated = $request->validate([
             'node_sukses' => 'required|integer|min:0',
             'node_gagal' => 'required|integer|min:0',
@@ -54,7 +45,7 @@ class GetdataLogsController extends Controller
             'keterangan' => 'nullable|string',
         ]);
         
-        $log->update($validated);
+        $this->logService->updateLog($id, $validated);
         
         return redirect()->route('admin.getdata-logs.show', $id)
             ->with('success', 'Getdata log updated successfully!');
@@ -62,8 +53,7 @@ class GetdataLogsController extends Controller
     
     public function destroy($id)
     {
-        $log = GetdataLog::findOrFail($id);
-        $log->delete();
+        $this->logService->deleteLog($id);
         
         return redirect()->route('admin.getdata-logs.index')
             ->with('success', 'Getdata log deleted successfully!');

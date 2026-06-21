@@ -141,33 +141,5 @@ Route::middleware(['role'])->group(function () {
     });
 });
 
-// Legacy routes (redirect to new URLs)
-Route::get('/index.php', function () {
-    return redirect()->route('welcome');
-});
 
-Route::get('/monitor.php', function () {
-    return redirect()->route('monitor');
-});
-
-Route::get('/test_connection.php', function () {
-    return redirect()->route('test-connection');
-});
-
-Route::get('/cleanup.php', function () {
-    return redirect()->route('cleanup');
-});
-
-// Old route redirects (for backward compatibility)
-Route::get('/monitor', function () {
-    return redirect()->route('monitor');
-});
-
-Route::get('/test-connection', function () {
-    return redirect()->route('test-connection');
-});
-
-Route::get('/cleanup', function () {
-    return redirect()->route('cleanup');
-});
 

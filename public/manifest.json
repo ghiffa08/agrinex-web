@@ -1,0 +1,16 @@
+{
+  "name": "AgriNex Smart Drip",
+  "short_name": "AgriNex",
+  "description": "Smart Agriculture IoT Dashboard",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4ADE80",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    }
+  ]
+}

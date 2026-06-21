@@ -8,20 +8,20 @@
             </svg>
         </div>
         <div class="flex-1">
-            <h3 class="font-bold text-gray-900 text-sm mb-1">Install Aplikasi</h3>
-            <p class="text-xs text-gray-600 mb-3">Install Smart Irrigation sebagai aplikasi di perangkat Anda untuk akses lebih cepat!</p>
+            <h3 class="font-bold text-primary text-sm mb-1">Install Aplikasi</h3>
+            <p class="text-xs text-secondary mb-3">Install Smart Irrigation sebagai aplikasi di perangkat Anda untuk akses lebih cepat!</p>
             <div class="flex gap-2">
                 <button @click="installPWA()" 
                     class="flex-1 bg-green-600 hover:bg-green-700 text-white text-xs font-semibold py-2 px-4 rounded-lg transition">
                     Install
                 </button>
                 <button @click="dismissInstall()" 
-                    class="px-4 py-2 text-xs text-gray-600 hover:text-gray-800 transition">
+                    class="px-4 py-2 text-xs text-secondary hover:text-primary transition">
                     Nanti
                 </button>
             </div>
         </div>
-        <button @click="dismissInstall()" class="text-gray-400 hover:text-gray-600">
+        <button @click="dismissInstall()" class="text-secondary opacity-80 hover:text-secondary">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </svg>

@@ -1,45 +1,34 @@
 {{-- Metrics Gauge Cards Section --}}
 <section>
     <div class="flex items-center justify-between mb-3">
-        <h2 class="text-sm font-semibold tracking-wide text-gray-600 uppercase" x-text="t('environmentSummary')">Ringkasan Lingkungan</h2>
-        <div class="text-[10px] text-gray-500"
+        <h2 class="section-title" x-text="t('environmentSummary')">Ringkasan Lingkungan</h2>
+        <div class="text-[10px] text-secondary dark:text-slate-400"
             x-text="lastUpdated ? ('Update: '+ lastUpdated.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'})) : ''">
         </div>
     </div>
-    <!-- 🖥️ DESKTOP UI: Skeleton Loaders (Hidden on Mobile) -->
-    <div x-show="loadingAll" class="hidden md:grid md:grid-cols-3 xl:grid-cols-6 gap-4">
-        <template x-for="i in 6">
-            <div class="bg-white border border-gray-100 rounded-2xl p-4 flex flex-col shadow-sm animate-pulse h-32">
-                <div class="flex items-center gap-2 mb-4">
-                    <div class="w-8 h-8 rounded-xl bg-gray-200"></div>
-                    <div class="h-4 bg-gray-200 rounded w-16"></div>
+    <!-- Skeleton Load -->
+    <template x-if="loadingAll">
+        <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
+            <template x-for="i in 6" :key="'skeleton-'+i">
+                <div class="card !rounded-3xl !p-4 flex flex-col animate-pulse h-32">
+                    <div class="flex items-center gap-2 mb-2 opacity-70">
+                        <div class="h-6 w-6 rounded-full bg-gray-200 dark:bg-slate-700"></div>
+                        <div class="h-3 w-16 bg-gray-200 dark:bg-slate-700 rounded"></div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="h-6 w-20 bg-gray-200 dark:bg-slate-700 rounded mb-1"></div>
+                        <div class="h-3 w-24 bg-gray-200 dark:bg-slate-700 rounded"></div>
+                    </div>
                 </div>
-                <div class="flex-1 flex items-center justify-center">
-                    <div class="w-16 h-16 rounded-full border-4 border-gray-200"></div>
-                </div>
-            </div>
-        </template>
-    </div>
-
-    <!-- 📱 MOBILE UI: Skeleton Loaders (Hidden on Desktop) -->
-    <div x-show="loadingAll" class="grid md:hidden grid-cols-2 gap-4">
-        <template x-for="i in 4">
-            <div class="bg-white border border-gray-100 rounded-2xl p-4 flex flex-col shadow-sm animate-pulse h-28">
-                <div class="flex items-center gap-2 mb-2">
-                    <div class="w-6 h-6 rounded-lg bg-gray-200"></div>
-                    <div class="h-3 bg-gray-200 rounded w-12"></div>
-                </div>
-                <div class="flex-1 flex items-center justify-center">
-                    <div class="w-12 h-12 rounded-full border-4 border-gray-200"></div>
-                </div>
-            </div>
-        </template>
-    </div>
+            </template>
+        </div>
+    </template>
 
     <!-- Actual Cards -->
-    <div x-show="!loadingAll" style="display: none;" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
+    <div x-show="!loadingAll" x-cloak class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
         <template x-for="m in topMetricCards" :key="m.key">
-            <div class="relative bg-white border border-gray-200 rounded-2xl p-4 flex flex-col overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 group"
+            <div class="card relative !rounded-3xl !p-4 flex flex-col overflow-hidden group"
+                 @click="$dispatch('open-metric', { metric: m.key })"
                 :class="getCardTheme(m.key)">
                 <!-- Background gradient overlay -->
                 <div class="absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity duration-300"
@@ -53,7 +42,7 @@
                         </div>
                         <div class="text-xs font-semibold text-gray-700" x-text="m.label"></div>
                     </div>
-                    <div class="text-[9px] text-gray-400" x-text="m.desc"></div>
+                    <div class="text-[9px] text-secondary opacity-80" x-text="m.desc"></div>
                 </div>
 
                 <!-- Gauge Type - Circular Design -->
@@ -76,11 +65,11 @@
                             <div class="absolute inset-0 flex flex-col items-center justify-center">
                                 <span class="text-lg font-bold" x-text="m.display"
                                     :style="`color: ${getGaugeColor(m.key)}`"></span>
-                                <span class="text-[9px] text-gray-500" x-text="m.unit"></span>
+                                <span class="text-[9px] text-secondary" x-text="m.unit"></span>
                             </div>
                         </div>
                         <!-- Range indicators -->
-                        <div class="flex items-center justify-between w-full text-[9px] text-gray-500">
+                        <div class="flex items-center justify-between w-full text-[9px] text-secondary">
                             <span x-text="m.min + m.unit"></span>
                             <span class="font-semibold" x-text="Math.round(m.pct) + '%'"></span>
                             <span x-text="m.max + m.unit"></span>
@@ -95,7 +84,7 @@
                         <div class="flex items-end justify-between mb-2">
                             <div class="text-2xl font-bold" x-text="m.display"
                                 :style="`color: ${getGaugeColor(m.key)}`"></div>
-                            <div class="text-xs text-gray-500" x-text="m.unit"></div>
+                            <div class="text-xs text-secondary" x-text="m.unit"></div>
                         </div>
 
                         <!-- Horizontal progress bar -->
@@ -112,7 +101,7 @@
                         </div>
 
                         <!-- Range indicators -->
-                        <div class="flex items-center justify-between text-[9px] text-gray-400">
+                        <div class="flex items-center justify-between text-[9px] text-secondary opacity-80">
                             <span x-text="m.min + m.unit"></span>
                             <span x-text="m.desc"></span>
                             <span x-text="m.max + m.unit"></span>
@@ -127,9 +116,9 @@
                         <div class="text-2xl font-bold mb-1 text-center" x-text="m.display"
                             :style="`color: ${getGaugeColor(m.key)}`"></div>
                         <!-- Unit -->
-                        <div class="text-xs text-gray-500 mb-2" x-text="m.unit"></div>
+                        <div class="text-xs text-secondary mb-2" x-text="m.unit"></div>
                         <!-- Status indicator -->
-                        <div class="text-[10px] text-gray-400 px-2 py-1 rounded-full bg-gray-100"
+                        <div class="text-[10px] text-secondary opacity-80 px-2 py-0.5 rounded border border-gray-200 dark:border-white/10 bg-white/80 dark:bg-slate-800/80"
                             x-text="m.desc"></div>
                         <!-- Decorative animated drops for rain -->
                         <template x-if="m.key === 'rain'">

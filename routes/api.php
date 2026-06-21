@@ -8,6 +8,8 @@ use App\Http\Controllers\Api\ExportController;
 use App\Http\Controllers\Api\MonitorController;
 use App\Http\Controllers\Api\DashboardApiController;
 use App\Http\Controllers\Api\DataIngestionController;
+use App\Http\Controllers\Api\WeatherController;
+use App\Http\Controllers\Api\DeviceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +21,7 @@ use App\Http\Controllers\Api\DataIngestionController;
 Route::prefix('v1')->group(function () {
     
     // Data Ingestion Endpoints (NEW - for IoT devices)
-    Route::prefix('ingest')->group(function () {
+    Route::prefix('ingest')->middleware(['throttle:60,1', 'iot.api'])->group(function () {
         Route::get('/health', [DataIngestionController::class, 'healthCheck']);
         Route::post('/sensor-data', [DataIngestionController::class, 'storeSensorData']);
         Route::post('/valve-on', [DataIngestionController::class, 'storeValveOn']);
@@ -70,94 +72,15 @@ Route::prefix('v1')->group(function () {
 });
 
 // BMKG Weather Proxy (untuk bypass CORS)
-Route::get('/bmkg/forecast', function () {
-    try {
-        $response = \Illuminate\Support\Facades\Http::get('https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=35.78.11.1001');
-        $raw = $response->json();
-
-        // Attempt to normalize BMKG response into flat entries array
-        $entries = [];
-
-        // Case A: BMKG v2 style: data -> [ { cuaca: [ [entry,...], [entry,...] ] } ]
-        if (isset($raw['data'][0]['cuaca']) && is_array($raw['data'][0]['cuaca'])) {
-            foreach ($raw['data'][0]['cuaca'] as $block) {
-                if (is_array($block)) {
-                    foreach ($block as $entry) {
-                        if (!is_array($entry)) continue;
-                        $entries[] = [
-                            'local_datetime' => $entry['local_datetime'] ?? ($entry['datetime'] ?? null),
-                            't' => $entry['t'] ?? $entry['temperature_c'] ?? null,
-                            'humidity' => $entry['h'] ?? $entry['humidity'] ?? null,
-                            'rain' => $entry['tp'] ?? $entry['rain'] ?? null,
-                            'weather_desc' => $entry['weather_desc'] ?? ($entry['weather'] ?? null),
-                            'weather_icon' => $entry['image'] ?? ($entry['weather_icon'] ?? null),
-                            'wind_speed_ms' => $entry['ws'] ?? $entry['wind_speed_ms'] ?? null,
-                            'wind_dir_cardinal' => $entry['wd'] ?? ($entry['wind_dir_cardinal'] ?? null),
-                            'tcc' => $entry['tcc'] ?? null,
-                        ];
-                    }
-                }
-            }
-        }
-
-        // Case B: Some proxies return entries directly
-        if (empty($entries)) {
-            if (is_array($raw) && count($raw) && array_values($raw) === $raw) {
-                // top-level array
-                $entries = $raw;
-            } elseif (isset($raw['entries']) && is_array($raw['entries'])) {
-                $entries = $raw['entries'];
-            } elseif (isset($raw['data']) && is_array($raw['data']) && array_values($raw['data']) === $raw['data']) {
-                // If data is already an array of entries, try to flatten
-                $possible = [];
-                foreach ($raw['data'] as $d) {
-                    if (is_array($d)) $possible[] = $d;
-                }
-                if ($possible) $entries = $possible;
-            }
-        }
-
-        // If we have normalized entries, return them under `entries` key for frontend convenience
-        if (!empty($entries)) {
-            return response()->json(['entries' => $entries]);
-        }
-
-        // Fallback: return raw response if normalization failed
-        return response()->json($raw);
-    } catch (\Exception $e) {
-        return response()->json([
-            'success' => false,
-            'message' => 'Failed to fetch BMKG data: ' . $e->getMessage()
-        ], 500);
-    }
-});
+Route::get('/bmkg/forecast', [WeatherController::class, 'getForecast']);
 
 // Device-specific endpoints (untuk detail pages)
 Route::prefix('devices/{deviceId}')->group(function () {
-    Route::get('/irrigation/sessions', function ($deviceId) {
-        // Mock data - implement when irrigate_logs table available
-        return response()->json([
-            'success' => true,
-            'data' => [],
-            'note' => 'irrigate_logs table not available'
-        ]);
-    });
-    
-    Route::get('/usage-history', function ($deviceId) {
-        // Mock data - implement when irrigate_logs table available
-        return response()->json([
-            'success' => true,
-            'data' => [],
-            'note' => 'irrigate_logs table not available'
-        ]);
-    });
+    Route::get('/irrigation/sessions', [DeviceController::class, 'getIrrigationSessions']);
+    Route::get('/usage-history', [DeviceController::class, 'getUsageHistory']);
 });
 
-// Legacy compatibility routes (untuk backward compatibility dengan Raspberry Pi)
-Route::post('/index.php', [SensorDataController::class, 'store']);
-Route::post('/api_getdata.php', [SensorDataController::class, 'store']);
-Route::post('/api_irrigate.php', [IrrigationController::class, 'store']);
-Route::get('/export_data.php', [ExportController::class, 'export']);
+
 
 // Health check
 Route::get('/health', function () {

@@ -199,9 +199,14 @@
                 }
             },
             darkMode: localStorage.getItem('sis_dark') === '1',
+            sidebarOpen: false,
             loadingAll: false,
             loadingDevices: false,
             loadingWeather: true,
+            loadingTank: true,
+            loadingUsage: true,
+            loadingCharts: true,
+            loadingSchedule: true,
             fetchError: false,
             lastUpdated: null,
             devices: [],
@@ -276,7 +281,7 @@
                     icon: '🚚'
                 },
                 idle: {
-                    bg: 'bg-gradient-to-b from-gray-200 to-gray-300 text-gray-700',
+                    bg: 'bg-gradient-to-b from-gray-50 to-gray-100 dark:from-slate-800/80 dark:to-slate-700/80 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-white/5',
                     icon: '➖'
                 },
             },
@@ -635,69 +640,24 @@
                 return icons[key] || icons.temp;
             },
             getCardTheme(key) {
-                const themes = {
-                    temp: 'hover:border-red-200',
-                    humidity: 'hover:border-blue-200',
-                    light: 'hover:border-yellow-200',
-                    wind: 'hover:border-cyan-200',
-                    rain: 'hover:border-indigo-200',
-                    tank: 'hover:border-green-200',
-                    battery: 'hover:border-orange-200',
-                    devices: 'hover:border-purple-200'
-                };
-                return themes[key] || themes.temp;
+                // Unified theme
+                return 'hover:border-emerald-200 dark:hover:border-emerald-900/50';
             },
             getCardGradient(key) {
-                const gradients = {
-                    temp: 'background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%)',
-                    humidity: 'background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)',
-                    light: 'background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%)',
-                    wind: 'background: linear-gradient(135deg, #cffafe 0%, #a5f3fc 100%)',
-                    rain: 'background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%)',
-                    tank: 'background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%)',
-                    battery: 'background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%)',
-                    devices: 'background: linear-gradient(135deg, #e9d5ff 0%, #ddd6fe 100%)'
-                };
-                return gradients[key] || gradients.temp;
+                // Unified subtle gradient
+                return 'background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(16, 185, 129, 0.1) 100%)';
             },
             getIconBackground(key) {
-                const backgrounds = {
-                    temp: 'background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
-                    humidity: 'background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
-                    light: 'background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
-                    wind: 'background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)',
-                    rain: 'background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
-                    tank: 'background: linear-gradient(135deg, #10b981 0%, #059669 100%)',
-                    battery: 'background: linear-gradient(135deg, #f97316 0%, #ea580c 100%)',
-                    devices: 'background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)'
-                };
-                return backgrounds[key] || backgrounds.temp;
+                // Unified emerald background
+                return 'background: linear-gradient(135deg, #10b981 0%, #059669 100%)';
             },
             getGaugeColor(key) {
-                const colors = {
-                    temp: '#ef4444',
-                    humidity: '#3b82f6',
-                    light: '#f59e0b',
-                    wind: '#06b6d4',
-                    rain: '#6366f1',
-                    tank: '#10b981',
-                    battery: '#f97316',
-                    devices: '#8b5cf6'
-                };
-                return colors[key] || colors.temp;
+                // Unified emerald color
+                return '#10b981';
             },
             getLinearGradient(key) {
-                const gradients = {
-                    temp: 'background: linear-gradient(0deg, #fecaca 0%, #fee2e2 100%)',
-                    humidity: 'background: linear-gradient(0deg, #bfdbfe 0%, #dbeafe 100%)',
-                    light: 'background: linear-gradient(0deg, #fed7aa 0%, #fef3c7 100%)',
-                    wind: 'background: linear-gradient(0deg, #a5f3fc 0%, #cffafe 100%)',
-                    rain: 'background: linear-gradient(0deg, #c7d2fe 0%, #e0e7ff 100%)',
-                    tank: 'background: linear-gradient(0deg, #a7f3d0 0%, #d1fae5 100%)',
-                    battery: 'background: linear-gradient(0deg, #fdba74 0%, #fed7aa 100%)',
-                    devices: 'background: linear-gradient(0deg, #ddd6fe 0%, #e9d5ff 100%)'
-                };
-                return gradients[key] || gradients.temp;
+                // Unified emerald linear gradient
+                return 'from-emerald-400 to-emerald-500';
             },
             computeTopMetrics() {
                 // Temperature
@@ -1659,20 +1619,14 @@
                     fillOpacity: 0.1
                 }).addTo(map);
                 L.marker([this.villageCenter.lat, this.villageCenter.lng], {
-                    title: 'Lokasi'
-                }).addTo(map);
-                map.fitBounds(poly.getBounds(), {
-                    padding: [40, 40]
-                });
+                    icon: L.divIcon({ className: 'bg-green-600 rounded-full w-4 h-4 border-2 border-white shadow-lg' })
+                }).bindPopup('Pusat Lahan').addTo(map);
                 this.leafletFullInited = true;
             },
             async loadDevices() {
                 this.loadingDevices = true;
-                this.fetchError = false;
                 try {
-                    const response = await fetch('/api/v1/dashboard/devices');
-                    const jsonData = await response.json();
-                    if (!response.ok) throw new Error(jsonData.message || 'err');
+                    const jsonData = await this.fetchWithCache('/api/v1/dashboard/devices', 'cache_devices');
                     
                     console.log('📊 Devices loaded from API:', jsonData.data?.length || 0);
                     
@@ -1688,8 +1642,8 @@
                         treatment_description: device.treatment_description || 'Perlakuan optimal',
                         treatment_type: device.treatment_type,
                         treatment_code: device.treatment_code,
-                        fc_target: device.fc_target, // FC Target percentage (80.00%)
-                        threshold: device.threshold, // Threshold percentage (17.70%)
+                        fc_target: device.fc_target ? parseFloat(device.fc_target) : null, // FC Target percentage (80.00%)
+                        threshold: device.threshold ? parseFloat(device.threshold) : null, // Threshold percentage (17.70%)
                         threshold_adc: device.threshold_adc, // ADC value (678)
                         
                         // Sensor data - use exact field names from API
@@ -1784,10 +1738,9 @@
                 this.deviceUsageHistory = [];
             },
             async loadTank() {
+                this.loadingTank = true;
                 try {
-                    const response = await fetch('/api/v1/dashboard/tank');
-                    const jsonData = await response.json();
-                    if (!response.ok) throw new Error();
+                    const jsonData = await this.fetchWithCache('/api/v1/dashboard/tank', 'cache_tank');
                     const tankData = jsonData.data || jsonData;
                     if (tankData) {
                         this.tank = {
@@ -1809,13 +1762,14 @@
                 } catch (e) {
                     console.error('Tank fetch error', e);
                     this.fetchError = true;
+                } finally {
+                    this.loadingTank = false;
                 }
             },
             async loadPlan() {
+                this.loadingSchedule = true;
                 try {
-                    const response = await fetch('/api/v1/dashboard/schedule');
-                    const jsonData = await response.json();
-                    if (!response.ok) throw new Error();
+                    const jsonData = await this.fetchWithCache('/api/v1/dashboard/schedule', 'cache_schedule');
                     if (jsonData.data || jsonData) {
                         this.plan = jsonData.data || jsonData;
                         // Plan currently not represented as metric gauge; could be added later
@@ -1824,13 +1778,14 @@
                 } catch (e) {
                     console.error('Plan fetch error', e);
                     this.fetchError = true;
+                } finally {
+                    this.loadingSchedule = false;
                 }
             },
             async loadUsage() {
+                this.loadingUsage = true;
                 try {
-                    const response = await fetch('/api/v1/dashboard/usage');
-                    const jsonData = await response.json();
-                    if (!response.ok) throw new Error();
+                    const jsonData = await this.fetchWithCache('/api/v1/dashboard/usage', 'cache_usage');
                     // ✅ Convert to plain array BEFORE assigning to Alpine
                     const rawData = jsonData.data || jsonData || [];
                     this.usage = rawData.map(item => ({
@@ -1844,13 +1799,13 @@
                     // ✅ NO FALLBACK - Show error state instead of fake data
                     this.usage = [];
                     this.renderUsageChart30d();
+                } finally {
+                    this.loadingUsage = false;
                 }
             },
             async loadUsageDaily() {
                 try {
-                    const response = await fetch('/api/v1/dashboard/usage/daily');
-                    const jsonData = await response.json();
-                    if (!response.ok) throw new Error();
+                    const jsonData = await this.fetchWithCache('/api/v1/dashboard/usage/daily', 'cache_usage_daily');
                     // ✅ Convert to plain array BEFORE assigning to Alpine
                     const rawData = jsonData.data || jsonData || [];
                     this.usage24h = rawData.map(item => ({
@@ -1872,7 +1827,49 @@
             // ✅ REMOVED: generateMock30dData() - No more dummy data
             // All 30-day usage data now comes from API: /api/v1/dashboard/usage
             
-            async loadAll(force = false) {
+            // Helper for SWR (Stale-While-Revalidate) Cache
+            async fetchWithCache(url, key, expiryMs = 30000) {
+                const cached = sessionStorage.getItem(key);
+                let parsedCache = null;
+                if (cached) {
+                    try {
+                        const data = JSON.parse(cached);
+                        if (Date.now() - data.ts < expiryMs) {
+                            // Valid cache, return immediately but fetch in background to revalidate
+                            setTimeout(() => this.revalidateCache(url, key), 100);
+                            return data.payload;
+                        }
+                        parsedCache = data.payload; // Return stale data temporarily
+                    } catch (e) {
+                        sessionStorage.removeItem(key);
+                    }
+                }
+                
+                // If we have stale data, return it but revalidate in background
+                if (parsedCache) {
+                    setTimeout(() => this.revalidateCache(url, key), 10);
+                    return parsedCache;
+                }
+
+                // Otherwise fetch fresh
+                const res = await fetch(url);
+                if (!res.ok) throw new Error('API fetch failed');
+                const json = await res.json();
+                sessionStorage.setItem(key, JSON.stringify({ ts: Date.now(), payload: json }));
+                return json;
+            },
+            
+            async revalidateCache(url, key) {
+                try {
+                    const res = await fetch(url);
+                    if (res.ok) {
+                        const json = await res.json();
+                        sessionStorage.setItem(key, JSON.stringify({ ts: Date.now(), payload: json }));
+                    }
+                } catch(e) { }
+            },
+
+            async loadEssential(force = false) {
                 if (this.loadingAll && !force) return;
                 this.loadingAll = true;
                 this.fetchError = false;
@@ -1880,40 +1877,37 @@
                 try {
                     await Promise.all([
                         this.loadDevices(),
-                        this.loadTank(),
-                        this.loadPlan(),
-                        this.loadUsage(),
-                        this.loadUsageDaily(),
-                        this.loadChartData() // New: Load chart data from API
+                        this.loadEnvStats()
                     ]);
 
-                    // After core data loaded, derive light & wind and fetch weather
                     this.computeLightWindFromDevices();
-                    this.loadEnvStats();
                     this.lastUpdated = new Date();
                     this.computeTopMetrics();
-                    this.updateEnvironmentalCharts();
                 } catch (error) {
-                    console.error('Load all error:', error);
+                    console.error('Load essential error:', error);
                     this.fetchError = true;
                 } finally {
                     this.loadingAll = false;
                 }
             },
+            
+            // Backwards compatibility for templates calling loadAll()
+            async loadAll(force = false) {
+                await this.loadEssential(force);
+            },
             async loadChartData() {
+                this.loadingCharts = true;
                 // ✅ Skip if CHART_FIX_ENABLED (avoid conflicts)
                 if (window.CHART_FIX_ENABLED) {
                     console.log('⏭️ Skipping Alpine.js chart data load - Using CHART-FIX instead');
+                    this.loadingCharts = false;
                     return;
                 }
                 
                 try {
                     // Fetch latest chart data (7 days for better overview)
-                    const response = await fetch('/api/v1/dashboard/charts?type=all&days=7');
-                    const jsonData = await response.json();
-                    if (!response.ok) throw new Error('API request failed');
+                    const chartData = await this.fetchWithCache('/api/v1/dashboard/charts?type=all&days=7', 'cache_charts');
 
-                    const chartData = jsonData.data || jsonData;
                     console.log('✅ Chart data loaded successfully:', {
                         light: chartData.light?.length || 0,
                         water: chartData.water?.length || 0,
@@ -2079,6 +2073,8 @@
 
                 } catch (error) {
                     console.error('❌ Chart data fetch error - charts will remain empty', error);
+                } finally {
+                    this.loadingCharts = false;
                 }
             },
             computeLightWindFromDevices() {
@@ -2098,13 +2094,10 @@
             async loadEnvStats() {
                 this.loadingWeather = true;
                 try {
-                    const weatherPromise = fetch('/api/v1/dashboard/weather')
-                        .then(response => response.ok ? response.json() : Promise.reject())
+                    let weatherPromise = this.fetchWithCache('/api/v1/dashboard/weather', 'cache_weather')
                         .then(data => {
                             const weatherData = data.data || data;
                             if (weatherData) {
-                                console.log('Weather data loaded:', weatherData);
-
                                 // Build weather summary
                                 this.weatherSummary = {
                                     temp: weatherData.temp ?? '-',
@@ -2150,9 +2143,8 @@
                 console.log('🌤️ Loading BMKG forecast data...');
                 
                 try {
-                    const response = await fetch('/api/bmkg/forecast');
-                    if (!response.ok) throw new Error('Proxy failed');
-                    const data = await response.json();
+                    const data = await this.fetchWithCache('/api/bmkg/forecast', 'cache_bmkg', 600000); // 10 minutes cache
+
                     
                     console.log('✅ BMKG proxy API response received');
                     let first = null;
@@ -2862,7 +2854,7 @@
             },
             tankFillStyle() {
                 const color = this.tankFillColor();
-                return `background: linear-gradient(180deg, ${col}cc 0%, ${col}ee 60%, ${col} 100%); box-shadow: inset 0 2px 4px rgba(0,0,0,0.25);`;
+                return `background: linear-gradient(180deg, ${color}cc 0%, ${color}ee 60%, ${color} 100%); box-shadow: inset 0 2px 4px rgba(0,0,0,0.25);`;
             },
             tankStatusClass() {
                 const status = (this.tank?.status || '').toLowerCase();
@@ -2921,6 +2913,10 @@
                     setTimeout(() => {
                         console.log('📊 Loading chart data...');
                         this.loadAll();
+                        this.loadTank();
+                        this.loadPlan();
+                        this.loadUsage();
+                        this.loadUsageDaily();
                     }, 800);
                 });
 

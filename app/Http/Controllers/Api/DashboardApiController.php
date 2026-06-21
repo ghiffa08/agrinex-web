@@ -13,6 +13,10 @@ use App\Models\JsonBackup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Schema;
+use App\Services\ChartDataService;
+use App\Http\Resources\ChartDataResource;
 
 class DashboardApiController extends Controller
 {
@@ -86,9 +90,9 @@ class DashboardApiController extends Controller
                     'battery_voltage_v' => $sensorData ? (float) $sensorData->voltage_v : null,
                     'battery_percentage' => $sensorData ? $this->calculateBatteryPercentage($sensorData->voltage_v) : null,
                     
-                    // Signal strength (placeholder - add if available in your schema)
-                    'signal_strength_rssi' => -65,
-                    'signal_strength_pct' => 75,
+                    // Signal strength (real data if available, else null)
+                    'signal_strength_rssi' => null,
+                    'signal_strength_pct' => null,
                     
                     // Device status
                     'connection_state' => $latestSession ? $this->getConnectionStatus($latestSession->waktu_mulai) : 'offline',
@@ -134,11 +138,11 @@ class DashboardApiController extends Controller
     {
         try {
             // Calculate tank data from irrigation sessions
-            // Check if irrigate_logs table exists
-            $tableExists = DB::select("SHOW TABLES LIKE 'irrigate_logs'");
+            // Use cached schema check to avoid DB overhead
+            $tableExists = $this->hasIrrigateLogsTable();
             
             $recentIrrigation = null;
-            if (!empty($tableExists)) {
+            if ($tableExists) {
                 $recentIrrigation = IrrigateLog::with('valveLogs')
                     ->where('status', 'completed')
                     ->orderBy('waktu_mulai', 'desc')
@@ -174,22 +178,22 @@ class DashboardApiController extends Controller
             ]);
             
         } catch (\Exception $e) {
-            // Return mock data if table doesn't exist
+            // Return null data if table doesn't exist
             return response()->json([
                 'success' => true,
                 'data' => [
-                    'id' => 1,
+                    'id' => null,
                     'tank_name' => 'Tangki Air Utama',
                     'name' => 'Tangki Air Utama',
-                    'capacity' => 1000,
-                    'capacity_liters' => 1000,
-                    'current_volume_liters' => 1000,
-                    'water_level_cm' => 150,
-                    'percentage' => 100,
-                    'status' => 'normal',
-                    'updated_at' => now()
+                    'capacity' => 0,
+                    'capacity_liters' => 0,
+                    'current_volume_liters' => 0,
+                    'water_level_cm' => 0,
+                    'percentage' => 0,
+                    'status' => 'no_data',
+                    'updated_at' => null
                 ],
-                'note' => 'Using mock data - irrigate_logs table not available'
+                'note' => 'No data available'
             ]);
         }
     }
@@ -201,10 +205,10 @@ class DashboardApiController extends Controller
     public function getSchedule()
     {
         try {
-            // Check if irrigate_logs table exists
-            $tableExists = DB::select("SHOW TABLES LIKE 'irrigate_logs'");
+            // Use cached schema check to avoid DB overhead
+            $tableExists = $this->hasIrrigateLogsTable();
             
-            if (empty($tableExists)) {
+            if (!$tableExists) {
                 // Return mock schedule if table doesn't exist
                 return response()->json([
                     'success' => true,
@@ -253,7 +257,7 @@ class DashboardApiController extends Controller
                     'total_sessions' => 0,
                     'sessions' => []
                 ],
-                'note' => 'Using mock data: ' . $e->getMessage()
+                'note' => 'No data available: ' . $e->getMessage()
             ]);
         }
     }
@@ -265,10 +269,10 @@ class DashboardApiController extends Controller
     public function getUsage()
     {
         try {
-            // Check if irrigate_logs table exists
-            $tableExists = DB::select("SHOW TABLES LIKE 'irrigate_logs'");
+            // Use cached schema check to avoid DB overhead
+            $tableExists = $this->hasIrrigateLogsTable();
             
-            if (empty($tableExists)) {
+            if (!$tableExists) {
                 // Return mock usage if table doesn't exist
                 return response()->json([
                     'success' => true,
@@ -329,7 +333,7 @@ class DashboardApiController extends Controller
                     'average_usage_l' => 0,
                     'period' => '30 days'
                 ],
-                'note' => 'Using mock data: ' . $e->getMessage()
+                'note' => 'No data available: ' . $e->getMessage()
             ]);
         }
     }
@@ -341,10 +345,10 @@ class DashboardApiController extends Controller
     public function getUsageDaily()
     {
         try {
-            // Check if irrigate_logs table exists
-            $tableExists = DB::select("SHOW TABLES LIKE 'irrigate_logs'");
+            // Use cached schema check to avoid DB overhead
+            $tableExists = $this->hasIrrigateLogsTable();
             
-            if (empty($tableExists)) {
+            if (!$tableExists) {
                 // Return mock usage if table doesn't exist
                 return response()->json([
                     'success' => true,
@@ -407,7 +411,7 @@ class DashboardApiController extends Controller
                     'average_usage_l' => 0,
                     'period' => '24 hours'
                 ],
-                'note' => 'Using mock data: ' . $e->getMessage()
+                'note' => 'No data available: ' . $e->getMessage()
             ]);
         }
     }
@@ -416,154 +420,26 @@ class DashboardApiController extends Controller
      * Get chart data for environmental monitoring
      * GET /api/v1/dashboard/charts
      */
-    public function getChartData(Request $request)
+    public function getChartData(Request $request, ChartDataService $chartService)
     {
         try {
             $type = $request->input('type', 'all');
-            $days = $request->input('days', 7); // Default 7 days
+            $days = $request->input('days', 7);
             $limit = $request->input('limit', null);
             
-            // Priority: days > limit
-            // Get data from last N days
-            if ($days) {
-                $startTime = Carbon::now()->subDays($days);
-                $sessions = GetdataLog::where('waktu_mulai', '>=', $startTime)
-                    ->with(['sensorWeatherData', 'sensorNodeData'])
-                    ->orderBy('waktu_mulai', 'asc')
-                    ->get();
-            } elseif ($limit) {
-                // Fallback: Get latest N sessions
-                $sessions = GetdataLog::with(['sensorWeatherData', 'sensorNodeData'])
-                    ->orderBy('waktu_mulai', 'desc')
-                    ->limit($limit)
-                    ->get()
-                    ->reverse(); // Reverse to get chronological order
-                    
-                $startTime = $sessions->first() ? Carbon::parse($sessions->first()->waktu_mulai) : Carbon::now();
-            } else {
-                // Default: last 7 days
-                $startTime = Carbon::now()->subDays(7);
-                $sessions = GetdataLog::where('waktu_mulai', '>=', $startTime)
-                    ->with(['sensorWeatherData', 'sensorNodeData'])
-                    ->orderBy('waktu_mulai', 'asc')
-                    ->get();
-            }
+            $result = $chartService->getSessions($days, $limit);
             
-            $chartData = [
-                'temperature' => [],
-                'humidity' => [],
-                'light' => [],
-                'soilMoisture' => [],
-                'voltage' => [],
-                'power' => []
-            ];
-            
-            foreach ($sessions as $session) {
-                // Format timestamp based on time range
-                // For weekly data: show date + time, for daily: show only time
-                $sessionTime = Carbon::parse($session->waktu_mulai);
-                
-                // Always use simple HH:mm format for better chart compatibility
-                // If you need date info, it's in the meta
-                $timestamp = $sessionTime->format('H:i'); // "14:30"
-                
-                // Weather data
-                $weather = null; // Initialize to avoid undefined variable error
-                $weatherList = $session->sensorWeatherData;
-                if ($weatherList && $weatherList->count() > 0) {
-                    $weather = $weatherList->first();
-                    
-                    if ($type === 'all' || $type === 'temperature') {
-                        $chartData['temperature'][] = [
-                            'time' => $timestamp,
-                            'value' => (float) $weather->temp_dht,
-                            'temperature' => (float) $weather->temp_dht // for backward compatibility
-                        ];
-                    }
-                    
-                    if ($type === 'all' || $type === 'humidity') {
-                        $chartData['humidity'][] = [
-                            'time' => $timestamp,
-                            'value' => (float) $weather->humidity,
-                            'humidity' => (float) $weather->humidity // for backward compatibility
-                        ];
-                    }
-                    
-                    if ($type === 'all' || $type === 'light') {
-                        $chartData['light'][] = [
-                            'time' => $timestamp,
-                            'value' => (float) $weather->light,
-                            'radiation' => (float) $weather->light // frontend expects 'radiation'
-                        ];
-                    }
-                    
-                    if ($type === 'all' || $type === 'voltage') {
-                        $chartData['voltage'][] = [
-                            'time' => $timestamp,
-                            'value' => (float) $weather->voltage,
-                            'voltage' => (float) $weather->voltage // for backward compatibility
-                        ];
-                    }
-                    
-                    if ($type === 'all' || $type === 'power') {
-                        $chartData['power'][] = [
-                            'time' => $timestamp,
-                            'value' => (float) $weather->power,
-                            'power' => (float) $weather->power // for backward compatibility
-                        ];
-                    }
-                }
-                
-                // Node data (soil moisture)
-                if ($type === 'all' || $type === 'soilMoisture') {
-                    $soilValues = [];
-                    foreach ($session->sensorNodeData as $node) {
-                        $sensorId = "SM{$node->node_id}";
-                        
-                        // Keep sensor-specific data for backward compatibility
-                        if (!isset($chartData['soilMoisture'][$sensorId])) {
-                            $chartData['soilMoisture'][$sensorId] = [];
-                        }
-                        
-                        $chartData['soilMoisture'][$sensorId][] = [
-                            'time' => $timestamp,
-                            'value' => (float) $node->soil_pct
-                        ];
-                        
-                        $soilValues[] = (float) $node->soil_pct;
-                    }
-                    
-                    // Add 'soil' data with average for frontend compatibility
-                    if (!empty($soilValues)) {
-                        if (!isset($chartData['soil'])) {
-                            $chartData['soil'] = [];
-                        }
-                        $chartData['soil'][] = [
-                            'time' => $timestamp,
-                            'average' => array_sum($soilValues) / count($soilValues) // frontend expects 'average'
-                        ];
-                    }
-                }
-                
-                // Water level data from sensor weather data
-                if (($type === 'all' || $type === 'water') && $weather && $weather->level !== null) {
-                    if (!isset($chartData['water'])) {
-                        $chartData['water'] = [];
-                    }
-                    $chartData['water'][] = [
-                        'time' => $timestamp,
-                        'level' => (float) $weather->level // frontend expects 'level'
-                    ];
-                }
-            }
+            $formattedData = (new ChartDataResource($result['sessions']))
+                                ->setType($type)
+                                ->resolve();
             
             return response()->json([
                 'success' => true,
-                'data' => $chartData,
+                'data' => $formattedData,
                 'meta' => [
-                    'total_points' => $sessions->count(),
+                    'total_points' => $result['sessions']->count(),
                     'time_range_days' => $days ?? ($limit ? 'limited' : 7),
-                    'start_time' => $startTime->format('Y-m-d H:i:s'),
+                    'start_time' => $result['start_time']->format('Y-m-d H:i:s'),
                     'end_time' => now()->format('Y-m-d H:i:s')
                 ]
             ]);
@@ -590,7 +466,7 @@ class DashboardApiController extends Controller
                 return response()->json([
                     'success' => false,
                     'message' => 'No weather data available'
-                ], 404);
+                ], 200); // Changed to 200 to prevent browser console 404 error
             }
             
             $weatherData = SensorWeatherData::where('sesi_id_getdata', $latestSession->sesi_id_getdata)
@@ -600,7 +476,7 @@ class DashboardApiController extends Controller
                 return response()->json([
                     'success' => false,
                     'message' => 'No weather data in session'
-                ], 404);
+                ], 200); // Changed to 200 to prevent browser console 404 error
             }
             
             return response()->json([
@@ -707,5 +583,15 @@ class DashboardApiController extends Controller
         if ($minutesAgo < 5) return 'online';
         if ($minutesAgo < 15) return 'idle';
         return 'offline';
+    }
+    
+    /**
+     * Check if irrigate_logs table exists using Cache to improve performance
+     */
+    private function hasIrrigateLogsTable()
+    {
+        return Cache::remember('has_irrigate_logs_table', 60 * 60 * 24, function () {
+            return Schema::hasTable('irrigate_logs');
+        });
     }
 }

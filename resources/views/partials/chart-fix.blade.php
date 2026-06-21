@@ -323,12 +323,7 @@ function loadAllChartData() {
                 totalPoints: jsonData.meta?.total_points
             });
             
-            console.log('🔍 [CHART-FIX] Sample data check:');
-            console.log('  - Light[0]:', chartData.light?.[0]);
-            console.log('  - Temp[0]:', chartData.temperature?.[0]);
-            console.log('  - Humidity[0]:', chartData.humidity?.[0]);
-            console.log('  - Soil[0]:', chartData.soil?.[0]);
-
+            // Sample data logs removed to clean up console
             // Update charts
             updateLightChart(chartData.light);
             updateWaterChart(chartData.water);
@@ -359,16 +354,6 @@ function updateLightChart(data) {
             li1Data.push(rad);
             li2Data.push(rad * 0.9);
         });
-    } else {
-        // Sample data
-        for (let i = 0; i < 7; i++) {
-            const now = new Date();
-            now.setMinutes(now.getMinutes() - (6 - i) * 5);
-            labels.push(now.getHours().toString().padStart(2, '0') + ':' + 
-                       now.getMinutes().toString().padStart(2, '0'));
-            li1Data.push(20 + Math.random() * 60);
-            li2Data.push(15 + Math.random() * 55);
-        }
     }
     
     window.envCharts.light.data.labels = labels;
@@ -396,15 +381,6 @@ function updateWaterChart(data) {
             labels.push(item.time);
             levels.push(parseFloat(item.level) || 0);
         });
-    } else {
-        // Sample data
-        for (let i = 0; i < 7; i++) {
-            const now = new Date();
-            now.setMinutes(now.getMinutes() - (6 - i) * 5);
-            labels.push(now.getHours().toString().padStart(2, '0') + ':' + 
-                       now.getMinutes().toString().padStart(2, '0'));
-            levels.push(50 + Math.random() * 30);
-        }
     }
     
     window.envCharts.water.data.labels = labels;
@@ -429,26 +405,15 @@ function updateSoilChart(data) {
     if (data && data.length > 0) {
         data.forEach(item => {
             labels.push(item.time);
-            const avg = parseFloat(item.average) || 0;
             
-            // Generate variations for 8 sensors
+            // Loop through up to 8 sensor keys: SM1, SM2... or use average if unavailable per-sensor.
+            // For now just taking 'average' if data is simple, or reading actual SMx from original structure if available.
+            const avg = parseFloat(item.average) || 0;
+            // Provide the actual average, don't generate random variation
             for (let i = 0; i < 8; i++) {
-                const variation = (Math.random() - 0.5) * 10;
-                sensorsData[i].push(Math.max(0, avg + variation));
+                sensorsData[i].push(avg);
             }
         });
-    } else {
-        // Sample data
-        for (let i = 0; i < 7; i++) {
-            const now = new Date();
-            now.setMinutes(now.getMinutes() - (6 - i) * 5);
-            labels.push(now.getHours().toString().padStart(2, '0') + ':' + 
-                       now.getMinutes().toString().padStart(2, '0'));
-            
-            for (let j = 0; j < 8; j++) {
-                sensorsData[j].push(30 + Math.random() * 40);
-            }
-        }
     }
     
     window.envCharts.soil.data.labels = labels;
@@ -478,18 +443,8 @@ function updateTempChart(data) {
             labels.push(item.time);
             const temp = parseFloat(item.temperature) || 0;
             t1Data.push(temp);
-            t2Data.push(temp + (Math.random() - 0.5) * 2);
+            t2Data.push(temp); // Removing random fuzzing
         });
-    } else {
-        // Sample data
-        for (let i = 0; i < 7; i++) {
-            const now = new Date();
-            now.setMinutes(now.getMinutes() - (6 - i) * 5);
-            labels.push(now.getHours().toString().padStart(2, '0') + ':' + 
-                       now.getMinutes().toString().padStart(2, '0'));
-            t1Data.push(25 + Math.random() * 5);
-            t2Data.push(24 + Math.random() * 6);
-        }
     }
     
     window.envCharts.temp.data.labels = labels;
@@ -518,18 +473,8 @@ function updateHumidityChart(data) {
             labels.push(item.time);
             const hum = parseFloat(item.humidity) || 0;
             h1Data.push(hum);
-            h2Data.push(Math.max(0, Math.min(100, hum + (Math.random() - 0.5) * 5)));
+            h2Data.push(hum); // Removing random fuzzing
         });
-    } else {
-        // Sample data
-        for (let i = 0; i < 7; i++) {
-            const now = new Date();
-            now.setMinutes(now.getMinutes() - (6 - i) * 5);
-            labels.push(now.getHours().toString().padStart(2, '0') + ':' + 
-                       now.getMinutes().toString().padStart(2, '0'));
-            h1Data.push(60 + Math.random() * 20);
-            h2Data.push(55 + Math.random() * 25);
-        }
     }
     
     window.envCharts.humidity.data.labels = labels;
@@ -552,6 +497,6 @@ function loadSampleChartData() {
     updateSoilChart(null);
     updateTempChart(null);
     updateHumidityChart(null);
-    console.log('✅ [CHART-FIX] Sample data loaded for all charts');
+    console.log('✅ [CHART-FIX] Empty state applied for all charts');
 }
 </script>
