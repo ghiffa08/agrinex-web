@@ -1,17 +1,7 @@
-<section class="space-y-6 h-full flex flex-col">
-    <!-- Header to align with devices-tank -->
-    <div class="flex items-center justify-between h-[42px] xl:h-[46px]">
-        <h2 class="text-xl font-bold text-primary flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
-            </svg>
-            Cuaca
-        </h2>
-    </div>
-
-    <div class="flex-1 flex flex-col">
+<div class="h-full">
+    <!-- Skeleton Load -->
     <template x-if="loadingWeather">
-        <div class="animate-pulse bg-white/60 rounded-[2.5rem] p-6 shadow-sm border border-white h-full flex-1 flex flex-col justify-between">
+        <div class="animate-pulse bg-white/60 rounded-[2.5rem] p-6 shadow-sm border border-white h-full flex flex-col justify-between">
             <div class="flex justify-between items-start">
                 <div class="h-4 bg-gray-300 rounded w-1/2"></div>
                 <div class="h-8 w-8 bg-gray-300 rounded-full"></div>
@@ -39,7 +29,7 @@
                     rounded-[2rem] p-6
                     shadow-lg dark:shadow-black/30
                     text-primary dark:text-slate-100
-                    relative overflow-hidden h-full flex-1 flex flex-col justify-between
+                    relative overflow-hidden h-full flex flex-col justify-between
                     transition-all hover:bg-white/70 dark:hover:bg-slate-800/60">
 
         <!-- Top Section: Location & Icon -->
@@ -116,4 +106,3 @@
 
     </template>
 </div>
-</section>
