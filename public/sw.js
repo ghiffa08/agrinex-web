@@ -1,5 +1,5 @@
 // Basic Service Worker for AgriNex PWA
-const CACHE_NAME = 'agrinex-cache-v1';
+const CACHE_NAME = 'agrinex-cache-v2';
 const urlsToCache = [
   '/',
   '/manifest.json'
@@ -16,14 +16,24 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('fetch', event => {
+  // Only handle GET requests
+  if (event.request.method !== 'GET') return;
+
   event.respondWith(
-    caches.match(event.request)
+    fetch(event.request)
       .then(response => {
-        // Cache hit - return response
-        if (response) {
-          return response;
+        // Cache the latest response if successful
+        if (response && response.status === 200 && response.type === 'basic') {
+            const responseToCache = response.clone();
+            caches.open(CACHE_NAME).then(cache => {
+                cache.put(event.request, responseToCache);
+            });
         }
-        return fetch(event.request);
+        return response;
+      })
+      .catch(() => {
+        // Network failed, fallback to cache
+        return caches.match(event.request);
       })
   );
 });

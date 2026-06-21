@@ -80,6 +80,40 @@
             margin-top: 30px;
             margin-bottom: 30px;
         }
+        .btn-google {
+            background: #ffffff;
+            border: 1px solid #d1d5db;
+            color: #374151;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.2s ease;
+        }
+        .btn-google:hover {
+            background: #f3f4f6;
+            border-color: #9ca3af;
+        }
+        .btn-google img {
+            width: 20px;
+            height: 20px;
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 20px 0;
+            color: #9ca3af;
+            font-size: 13px;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .divider::before { margin-right: 10px; }
+        .divider::after { margin-left: 10px; }
     </style>
 </head>
 <body>
@@ -115,9 +149,17 @@
                     <div class="mb-3">
                         <input type="checkbox" name="remember" id="r"> <label for="r">Remember me</label>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100">Sign In</button>
+                    <button type="submit" class="btn btn-primary w-100 mb-3">Sign In</button>
                 </form>
-                <div class="text-center mt-3"><a href="{{ route('welcome') }}">Back to Home</a></div>
+
+                <div class="divider">or continue with</div>
+
+                <a href="{{ route('google.login') }}" class="btn btn-google w-100">
+                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google Logo">
+                    Sign in with Google
+                </a>
+
+                <div class="text-center mt-4"><a href="{{ route('welcome') }}" class="text-secondary text-decoration-none" style="font-size: 14px;">&larr; Back to Dashboard</a></div>
             </div>
         </div>
     </div>

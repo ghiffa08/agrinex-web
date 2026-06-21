@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\TestConnectionController;
 use App\Http\Controllers\Web\CleanupController;
@@ -27,8 +28,10 @@ use App\Http\Controllers\Web\ReportsController;
 */
 
 // Public Routes
-// Welcome Page (Landing Page)
-Route::get('/', [AgriNexDashboardController::class, 'index'])->name('welcome');
+// Welcome Page (Redirect to dashboard which requires login)
+Route::get('/', function () {
+    return redirect()->route('agrinex.dashboard');
+})->name('welcome');
 
 // Public Utility Pages (Accessible without login)
 Route::get('/system-monitor', [DashboardController::class, 'monitor'])->name('monitor');
@@ -41,11 +44,16 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
+Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])->name('google.login');
+Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback']);
+
 // Protected Routes - Require Authentication
-Route::middleware(['role'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     
     // AgriNex Main Dashboard (with charts and real-time data)
     Route::get('/agrinex-dashboard', [AgriNexDashboardController::class, 'index'])->name('agrinex.dashboard');
+
+    Route::middleware(['role'])->group(function () {
 
     // Simple Dashboard (Statistics only)
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -77,7 +85,8 @@ Route::middleware(['role'])->group(function () {
     // Reports
     Route::get('/reports', [ReportsController::class, 'index'])->name('reports.index');
     Route::get('/reports/node/{nodeId}', [ReportsController::class, 'byNode'])->name('reports.by-node');
-    Route::get('/reports/export', [ReportsController::class, 'export'])->name('reports.export');
+    Route::get('/reports/export/pdf', [ReportsController::class, 'exportPdf'])->name('reports.export.pdf');
+    });
 
     // Settings Routes - Admin only
     Route::prefix('settings')->name('settings.')->middleware(['role:admin'])->group(function () {

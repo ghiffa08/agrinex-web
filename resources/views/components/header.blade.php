@@ -105,14 +105,63 @@
         </button>
 
         {{-- Avatar / Account --}}
-        <button
-            class="w-9 h-9 rounded-xl bg-emerald-600 flex items-center justify-center shadow-sm hover:bg-emerald-700 transition-all"
-            title="Akun"
-        >
-            <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
-                <circle cx="12" cy="7" r="4"/>
-            </svg>
-        </button>
+        <div class="relative" x-data="{ profileOpen: false }" @click.away="profileOpen = false">
+            <button
+                @click="profileOpen = !profileOpen"
+                class="w-9 h-9 rounded-xl bg-emerald-600 flex items-center justify-center shadow-sm hover:bg-emerald-700 transition-all overflow-hidden border border-emerald-500"
+                title="Akun"
+            >
+                @if(auth()->check() && auth()->user()->avatar)
+                    <img src="{{ auth()->user()->avatar }}" alt="Profile" class="w-full h-full object-cover">
+                @else
+                    <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                @endif
+            </button>
+
+            <!-- Dropdown Menu -->
+            <div 
+                x-show="profileOpen" 
+                x-transition:enter="transition ease-out duration-100"
+                x-transition:enter-start="transform opacity-0 scale-95"
+                x-transition:enter-end="transform opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-75"
+                x-transition:leave-start="transform opacity-100 scale-100"
+                x-transition:leave-end="transform opacity-0 scale-95"
+                class="absolute right-0 mt-2 w-56 bg-white dark:bg-slate-800 rounded-xl shadow-lg ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 dark:divide-slate-700 focus:outline-none z-50"
+                style="display: none;"
+            >
+                @if(auth()->check())
+                <div class="px-4 py-3">
+                    <p class="text-sm font-medium text-slate-900 dark:text-white truncate">
+                        {{ auth()->user()->full_name ?? auth()->user()->username }}
+                    </p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 truncate mt-0.5">
+                        {{ auth()->user()->email }}
+                    </p>
+                    <div class="mt-2 text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 inline-block px-2 py-0.5 rounded-full">
+                        Role: {{ auth()->user()->role }}
+                    </div>
+                </div>
+                <div class="py-1">
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                            </svg>
+                            Logout
+                        </button>
+                    </form>
+                </div>
+                @else
+                <div class="px-4 py-3">
+                    <p class="text-sm text-slate-500">Not logged in</p>
+                </div>
+                @endif
+            </div>
+        </div>
     </div>
 </header>
