@@ -43,85 +43,81 @@ class DashboardApiController extends Controller
                 ->first();
             
             // Get weather data from latest session
-            $weatherData = null;
-            if ($latestSession) {
-                $weatherData = WeatherData::where('data_session_id', $latestSession->id)
+
+            $devices = $nodes->map(function ($node) {
+                // Get latest sensor reading for this node
+                $sensorData = DB::table('sensor_node_data')
+                    ->where('node_id', $node->node_id)
+                    ->orderBy('received_at', 'desc')
                     ->first();
-            }
-            
-            // Transform node data into devices format
-            $devices = $nodes->map(function ($node) use ($latestSession, $weatherData) {
-                // Get latest sensor data for this node
-                $sensorData = null;
-                if ($latestSession) {
-                    $sensorData = SensorData::where('data_session_id', $latestSession->id)
-                        ->where('device_id', $node->id)
-                        ->first();
-                }
-                
+
+                // Get latest log (for RSSI / connection status)
+                $latestLog = DB::table('node_logs')
+                    ->where('node_id', $node->node_id)
+                    ->orderBy('waktu', 'desc')
+                    ->first();
+
+                $lastSeen = $sensorData->received_at ?? ($latestLog->waktu ?? null);
+                $connectionStatus = $lastSeen ? $this->getConnectionStatus($lastSeen) : 'offline';
+
                 return [
-                    'id' => $node->id,
-                    'device_id' => $node->id,
-                    'device_name' => "Node {$node->id}",
-                    'plot_number' => $node->id,
-                    'location' => $node->lokasi ?? "Sensor Node {$node->id}",
-                    
-                    // Treatment info from node table
+                    'id'              => $node->node_id,
+                    'device_id'       => $node->node_id,
+                    'device_name'     => "Node {$node->node_id}",
+                    'plot_number'     => $node->node_id,
+                    'location'        => $node->lokasi ?? "Sensor Node {$node->node_id}",
+
+                    // Treatment info
                     'treatment_description' => $node->keterangan ?? 'Monitoring Optimal',
-                    'treatment_type' => $node->group ?? 'standard',
-                    'treatment_code' => $node->kode_perlakuan ?? "T{$node->id}",
-                    'group' => $node->group,
-                    'kode_perlakuan' => $node->kode_perlakuan,
-                    
-                    // Sensor data from node (if available)
-                    // Only show data for nodes that have sensor readings
-                    'soil_moisture_pct' => $sensorData ? (float) $sensorData->soil_pct : null,
-                    'temperature_c' => $sensorData ? (float) $sensorData->temp_c : null,
-                    'soil_temp_c' => $sensorData ? (float) $sensorData->temp_c : null,
-                    
-                    // Weather data - only show for nodes with sensor data
-                    'air_temp_c' => $sensorData && $weatherData ? (float) $weatherData->temp_c : null,
-                    'air_humidity_pct' => $sensorData && $weatherData ? (float) $weatherData->humidity_pct : null,
-                    'light_lux' => $sensorData && $weatherData ? (float) $weatherData->light_lux : null,
-                    'water_height_cm' => null, // Not available in current schema
-                    
-                    // Battery info
-                    'battery_voltage' => $sensorData ? (float) $sensorData->voltage_v : null,
-                    'battery_voltage_v' => $sensorData ? (float) $sensorData->voltage_v : null,
+                    'treatment_type'        => $node->group ?? 'standard',
+                    'treatment_code'        => $node->kode_perlakuan ?? "T{$node->node_id}",
+                    'group'                 => $node->group,
+                    'kode_perlakuan'        => $node->kode_perlakuan,
+
+                    // Sensor readings
+                    'soil_moisture_pct' => $sensorData ? (float) $sensorData->soil_pct  : null,
+                    'temperature_c'     => $sensorData ? (float) $sensorData->temp_c     : null,
+                    'soil_temp_c'       => $sensorData ? (float) $sensorData->temp_c     : null,
+                    'air_temp_c'        => null,
+                    'air_humidity_pct'  => null,
+                    'light_lux'         => null,
+                    'water_height_cm'   => null,
+
+                    // Battery
+                    'battery_voltage'    => $sensorData ? (float) $sensorData->voltage_v : null,
+                    'battery_voltage_v'  => $sensorData ? (float) $sensorData->voltage_v : null,
                     'battery_percentage' => $sensorData ? $this->calculateBatteryPercentage($sensorData->voltage_v) : null,
-                    
-                    // Signal strength (real data if available, else null)
-                    'signal_strength_rssi' => null,
-                    'signal_strength_pct' => null,
-                    
-                    // Device status
-                    'connection_state' => $latestSession ? $this->getConnectionStatus($latestSession->started_at) : 'offline',
-                    'connection_status' => $latestSession ? $this->getConnectionStatus($latestSession->started_at) : 'offline',
-                    'valve_state' => 'closed',
-                    'valve_status' => 'closed',
-                    'is_active' => true,
-                    'status' => $sensorData ? 'normal' : 'no_data',
-                    
-                    // Water usage (placeholder)
+
+                    // Signal
+                    'signal_strength_rssi' => $latestLog ? (float) $latestLog->rssi_dbm : null,
+                    'signal_strength_pct'  => $latestLog && $latestLog->rssi_dbm
+                        ? max(0, min(100, round((($latestLog->rssi_dbm + 120) / 70) * 100)))
+                        : null,
+
+                    // Status
+                    'connection_state'  => $connectionStatus,
+                    'connection_status' => $connectionStatus,
+                    'valve_state'       => 'closed',
+                    'valve_status'      => 'closed',
+                    'is_active'         => true,
+                    'status'            => $sensorData ? 'normal' : 'no_data',
                     'water_usage_today_l' => 0,
-                    
+
                     // Timestamps
-                    'recorded_at' => $latestSession ? $latestSession->started_at : null,
-                    'last_seen' => $latestSession ? $latestSession->started_at : null,
-                    'waktu_update' => $node->updated_at,
+                    'recorded_at'  => $lastSeen,
+                    'last_seen'    => $lastSeen,
+                    'waktu_update' => $node->waktu_update,
                 ];
             });
-            
+
             return response()->json([
                 'success' => true,
-                'data' => $devices,
+                'data'    => $devices,
                 'session_info' => [
-                    'session_id' => $latestSession ? $latestSession->session_id : null,
-                    'timestamp' => $latestSession ? $latestSession->started_at : null,
-                    'total_nodes' => $nodes->count()
+                    'total_nodes' => $nodes->count(),
                 ]
             ]);
-            
+
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
