@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Node ' . $node->node_id)
+@section('title', 'Edit Node ' . $node->id)
 
 @section('content')
 <div class="container-fluid py-4">
     <!-- Back Button -->
     <div class="mb-3">
-        <a href="{{ route('nodes.show', $node->node_id) }}" class="btn btn-outline-secondary">
+        <a href="{{ route('nodes.show', $node->id) }}" class="btn btn-outline-secondary">
             <i class="bi bi-arrow-left"></i> Back to Node Details
         </a>
     </div>
@@ -15,7 +15,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h4 class="mb-1">
-                <i class="bi bi-pencil-square"></i> Edit Node {{ $node->node_id }}
+                <i class="bi bi-pencil-square"></i> Edit Node {{ $node->id }}
             </h4>
             <p class="text-muted mb-0">Update node information and configuration</p>
         </div>
@@ -29,13 +29,13 @@
                     <h5 class="mb-0">Node Information</h5>
                 </div>
                 <div class="card-custom-body">
-                    <form action="{{ route('nodes.update', $node->node_id) }}" method="POST">
+                    <form action="{{ route('nodes.update', $node->id) }}" method="POST">
                         @csrf
                         @method('PUT')
 
                         <div class="mb-3">
                             <label for="node_id" class="form-label">Node ID *</label>
-                            <input type="text" class="form-control" id="node_id" value="{{ $node->node_id }}" disabled>
+                            <input type="text" class="form-control" id="node_id" value="{{ $node->id }}" disabled>
                             <small class="text-muted">Node ID cannot be changed</small>
                         </div>
 
@@ -95,7 +95,7 @@
                         </div>
 
                         <div class="d-flex justify-content-between align-items-center mt-4">
-                            <a href="{{ route('nodes.show', $node->node_id) }}" class="btn btn-secondary">
+                            <a href="{{ route('nodes.show', $node->id) }}" class="btn btn-secondary">
                                 <i class="bi bi-x-circle"></i> Cancel
                             </a>
                             <button type="submit" class="btn btn-primary">

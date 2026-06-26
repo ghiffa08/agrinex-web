@@ -1,503 +1,345 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
-@section('title', 'Dashboard - Smart Drip Irrigation')
-@section('page-title', 'Dashboard Overview')
+@section('title', 'Dashboard Overview')
+@section('header', 'Dashboard Overview')
 
 @section('content')
-<!-- Stats Cards Row -->
-<div class="row g-4 mb-4">
-    <div class="col-md-6 col-lg-3">
-        <div class="stat-card">
-            <div class="d-flex justify-content-between align-items-start">
-                <div>
-                    <div class="stat-card-label">Total Nodes</div>
-                    <div class="stat-card-value text-primary" id="total-nodes">{{ $stats['total_nodes'] }}</div>
-                    <small class="text-success">
-                        <i class="bi bi-arrow-up"></i> {{ $stats['active_nodes'] }} active
-                    </small>
-                </div>
-                <div class="stat-card-icon" style="background-color: #dbeafe; color: #1e40af;">
-                    <i class="bi bi-cpu"></i>
-                </div>
-            </div>
+<!-- Stats Cards Row (Stisla Style) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    
+    <!-- Total Nodes -->
+    <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-100 dark:border-slate-700/50 p-6 flex items-center">
+        <div class="w-16 h-16 rounded-full bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center mr-4">
+            <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+            </svg>
+        </div>
+        <div>
+            <h4 class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Total Nodes</h4>
+            <div class="text-2xl font-bold text-slate-800 dark:text-white" id="total-nodes">{{ $stats['total_nodes'] }}</div>
+            <p class="text-xs text-emerald-600 mt-1"><span class="font-medium">&uarr; {{ $stats['active_nodes'] }}</span> active</p>
         </div>
     </div>
-    
-    <div class="col-md-6 col-lg-3">
-        <div class="stat-card">
-            <div class="d-flex justify-content-between align-items-start">
-                <div>
-                    <div class="stat-card-label">Experimental Plots</div>
-                    <div class="stat-card-value text-success">{{ $stats['total_plots'] }}</div>
-                    <small class="text-muted">All plots</small>
-                </div>
-                <div class="stat-card-icon" style="background-color: #d1fae5; color: #065f46;">
-                    <i class="bi bi-grid-3x3"></i>
-                </div>
-            </div>
+
+    <!-- Experimental Plots -->
+    <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-100 dark:border-slate-700/50 p-6 flex items-center">
+        <div class="w-16 h-16 rounded-full bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mr-4">
+            <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+            </svg>
+        </div>
+        <div>
+            <h4 class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Total Plots</h4>
+            <div class="text-2xl font-bold text-slate-800 dark:text-white">{{ $stats['total_plots'] }}</div>
+            <p class="text-xs text-slate-400 mt-1">Experimental</p>
         </div>
     </div>
-    
-    {{-- <div class="col-md-6 col-lg-3">
-        <div class="stat-card">
-            <div class="d-flex justify-content-between align-items-start">
-                <div>
-                    <div class="stat-card-label">Active Alerts</div>
-                    <div class="stat-card-value text-danger" id="active-alerts">{{ $stats['active_alerts'] }}</div>
-                    <small class="text-danger">
-                        <i class="bi bi-exclamation-circle"></i> Needs attention
-                    </small>
-                </div>
-                <div class="stat-card-icon" style="background-color: #fee2e2; color: #991b1b;">
-                    <i class="bi bi-exclamation-triangle"></i>
-                </div>
-            </div>
+
+    <!-- Active Alerts -->
+    <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-100 dark:border-slate-700/50 p-6 flex items-center">
+        <div class="w-16 h-16 rounded-full bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 flex items-center justify-center mr-4">
+            <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
         </div>
-    </div> --}}
-    
-    <div class="col-md-6 col-lg-3">
-        <div class="stat-card">
-            <div class="d-flex justify-content-between align-items-start">
-                <div>
-                    <div class="stat-card-label">Ongoing Irrigation</div>
-                    <div class="stat-card-value text-info" id="ongoing-irrigation">{{ $stats['ongoing_irrigation'] }}</div>
-                    <small class="text-info">
-                        <i class="bi bi-water"></i> Active now
-                    </small>
-                </div>
-                <div class="stat-card-icon" style="background-color: #dbeafe; color: #0284c7;">
-                    <i class="bi bi-water"></i>
-                </div>
-            </div>
+        <div>
+            <h4 class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Alerts</h4>
+            <div class="text-2xl font-bold text-slate-800 dark:text-white" id="active-alerts">{{ $stats['active_alerts'] }}</div>
+            <p class="text-xs text-red-500 mt-1">Needs attention</p>
+        </div>
+    </div>
+
+    <!-- Ongoing Irrigation -->
+    <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-100 dark:border-slate-700/50 p-6 flex items-center">
+        <div class="w-16 h-16 rounded-full bg-sky-50 dark:bg-sky-500/10 text-sky-600 dark:text-sky-400 flex items-center justify-center mr-4">
+            <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" />
+            </svg>
+        </div>
+        <div>
+            <h4 class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Irrigation</h4>
+            <div class="text-2xl font-bold text-slate-800 dark:text-white" id="ongoing-irrigation">{{ $stats['ongoing_irrigation'] }}</div>
+            <p class="text-xs text-sky-500 mt-1">Active now</p>
         </div>
     </div>
 </div>
 
-<div class="row g-4">
-    <!-- Left Column -->
-    <div class="col-lg-8">
-        <!-- Sensor Nodes Status -->
-        <div class="card-custom">
-            <div class="card-custom-header">
-                <h5 class="mb-0"><i class="bi bi-cpu me-2"></i>Sensor Nodes Status</h5>
-                <button class="btn btn-sm btn-outline-primary" onclick="refreshNodes()">
-                    <i class="bi bi-arrow-clockwise"></i> Refresh
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Left Column (Wider) -->
+    <div class="lg:col-span-2 space-y-6">
+        
+        <!-- Sensor Nodes Status Table -->
+        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-100 dark:border-slate-700/50 overflow-hidden">
+            <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-700/50 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/50">
+                <h5 class="font-bold text-slate-800 dark:text-white text-lg">Sensor Nodes Status</h5>
+                <button onclick="refreshNodes()" class="text-xs font-semibold text-emerald-600 bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-500/10 dark:text-emerald-400 dark:hover:bg-emerald-500/20 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+                    Refresh
                 </button>
             </div>
-            <div class="card-custom-body">
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Node ID</th>
-                                <th>Group</th>
-                                <th>Perlakuan</th>
-                                <th>Status</th>
-                                <th>Soil Moisture</th>
-                                <th>Temperature</th>
-                                <th>Last Reading</th>
-                            </tr>
-                        </thead>
-                        <tbody id="nodes-table-body">
-                            @forelse($nodesWithData as $node)
-                            <tr>
-                                <td>
-                                    <strong>
-                                        @if($node->node_id == 65)
-                                            <span class="badge bg-warning text-dark">Node {{ $node->node_id }}</span>
-                                        @else
-                                            <span class="badge bg-primary">Node {{ $node->node_id }}</span>
-                                        @endif
-                                    </strong>
-                                </td>
-                                <td>{{ $node->group ?? 'N/A' }}</td>
-                                <td>{{ $node->kode_perlakuan ?? 'N/A' }}</td>
-                                <td>
-                                    @if($node->is_active)
-                                        <span class="node-badge online">
-                                            <span class="status-dot online"></span> Online
-                                        </span>
-                                    @else
-                                        <span class="node-badge offline">
-                                            <span class="status-dot offline"></span> Offline
-                                        </span>
-                                    @endif
-                                </td>
-                                <td>
-                                    @if($node->latestReading && $node->latestReading->soil_pct !== null)
-                                        @php
-                                            $moisture = $node->latestReading->soil_pct;
-                                            $color = $moisture < 30 ? 'danger' : ($moisture < 60 ? 'warning' : 'success');
-                                        @endphp
-                                        <span class="fw-bold text-{{ $color }}">{{ number_format($moisture, 1) }}</span> %
-                                    @else
-                                        <span class="text-muted">--</span>
-                                    @endif
-                                </td>
-                                <td>
-                                    @if($node->latestReading && $node->latestReading->temp_c !== null)
-                                        <span class="fw-bold text-danger">{{ number_format($node->latestReading->temp_c, 1) }}</span> °C
-                                    @else
-                                        <span class="text-muted">--</span>
-                                    @endif
-                                </td>
-                                <td>
-                                    <small class="text-muted">
-                                        @if($node->lastCommunication)
-                                            {{ \Carbon\Carbon::parse($node->lastCommunication)->diffForHumans() }}
-                                        @else
-                                            Never
-                                        @endif
-                                    </small>
-                                </td>
-                            </tr>
-                            @empty
-                            <tr>
-                                <td colspan="7" class="text-center py-4">
-                                    <i class="bi bi-inbox fs-1 text-muted"></i>
-                                    <p class="text-muted mt-2">No sensor nodes found</p>
-                                </td>
-                            </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50 dark:bg-slate-800/80 text-xs uppercase text-slate-500 dark:text-slate-400 font-semibold tracking-wider">
+                            <th class="px-6 py-3 border-b border-slate-100 dark:border-slate-700/50">Node ID</th>
+                            <th class="px-6 py-3 border-b border-slate-100 dark:border-slate-700/50">Group</th>
+                            <th class="px-6 py-3 border-b border-slate-100 dark:border-slate-700/50">Status</th>
+                            <th class="px-6 py-3 border-b border-slate-100 dark:border-slate-700/50">Soil Moisture</th>
+                            <th class="px-6 py-3 border-b border-slate-100 dark:border-slate-700/50">Temperature</th>
+                            <th class="px-6 py-3 border-b border-slate-100 dark:border-slate-700/50">Last Update</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm text-slate-700 dark:text-slate-300 divide-y divide-slate-100 dark:divide-slate-700/50" id="nodes-table-body">
+                        @forelse($nodesWithData as $node)
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/20 transition-colors">
+                            <td class="px-6 py-4 font-medium text-slate-900 dark:text-white">
+                                @if($node->id == 65)
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800 dark:bg-amber-500/20 dark:text-amber-400">Node {{ $node->id }}</span>
+                                @else
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-500/20 dark:text-blue-400">Node {{ $node->id }}</span>
+                                @endif
+                            </td>
+                            <td class="px-6 py-4">{{ $node->group ?? '-' }}</td>
+                            <td class="px-6 py-4">
+                                @if($node->is_active)
+                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-400">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Online
+                                    </span>
+                                @else
+                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-600 dark:bg-slate-500/20 dark:text-slate-400">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span> Offline
+                                    </span>
+                                @endif
+                            </td>
+                            <td class="px-6 py-4 font-semibold">
+                                @if($node->latestReading && $node->latestReading->soil_pct !== null)
+                                    @php
+                                        $moisture = $node->latestReading->soil_pct;
+                                        $color = $moisture < 30 ? 'text-red-600 dark:text-red-400' : ($moisture < 60 ? 'text-amber-600 dark:text-amber-400' : 'text-emerald-600 dark:text-emerald-400');
+                                    @endphp
+                                    <span class="{{ $color }}">{{ number_format($moisture, 1) }}%</span>
+                                @else
+                                    <span class="text-slate-400">--</span>
+                                @endif
+                            </td>
+                            <td class="px-6 py-4 font-semibold text-rose-500">
+                                @if($node->latestReading && $node->latestReading->temp_c !== null)
+                                    {{ number_format($node->latestReading->temp_c, 1) }} °C
+                                @else
+                                    <span class="text-slate-400">--</span>
+                                @endif
+                            </td>
+                            <td class="px-6 py-4 text-xs text-slate-500">
+                                {{ $node->lastCommunication ? \Carbon\Carbon::parse($node->lastCommunication)->diffForHumans() : 'Never' }}
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="6" class="px-6 py-8 text-center text-slate-500">
+                                <svg class="w-12 h-12 mx-auto text-slate-300 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" /></svg>
+                                No sensor nodes found in the database.
+                            </td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
         </div>
-        
-        <!-- Soil Moisture Trend Chart -->
-        <div class="card-custom mt-4">
-            <div class="card-custom-header">
-                <h5 class="mb-0"><i class="bi bi-graph-up me-2"></i>Soil Moisture Trend (Last 24h)</h5>
-                <select class="form-select form-select-sm" style="width: 200px;" id="chart-node-select" onchange="updateChart()">
+
+        <!-- Soil Moisture Chart -->
+        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-100 dark:border-slate-700/50 p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h5 class="font-bold text-slate-800 dark:text-white text-lg">Soil Moisture Trend (24h)</h5>
+                <select id="chart-node-select" onchange="updateChart()" class="text-sm border-slate-200 dark:border-slate-600 rounded-lg bg-slate-50 dark:bg-slate-700 text-slate-700 dark:text-slate-200 focus:ring-emerald-500 focus:border-emerald-500 w-40">
                     <option value="">Select Node</option>
                     @foreach($nodes as $node)
-                        <option value="{{ $node->node_id }}">{{ $node->node_code }}</option>
+                        <option value="{{ $node->id }}">Node {{ $node->id }}</option>
                     @endforeach
                 </select>
             </div>
-            <div class="card-custom-body">
-                <canvas id="soilMoistureChart" height="80"></canvas>
+            <div class="relative h-72">
+                <canvas id="soilMoistureChart"></canvas>
             </div>
         </div>
-        
-        <!-- Temperature & Humidity Chart -->
-        <div class="card-custom mt-4">
-            <div class="card-custom-header">
-                <h5 class="mb-0"><i class="bi bi-thermometer-half me-2"></i>Temperature & Humidity</h5>
-            </div>
-            <div class="card-custom-body">
-                <canvas id="tempHumidityChart" height="80"></canvas>
-            </div>
-        </div>
+
     </div>
-    
+
     <!-- Right Column -->
-    <div class="col-lg-4">
+    <div class="space-y-6">
+        
         <!-- Weather Widget -->
         @if($weather)
-        <div class="card-custom">
-            <div class="card-custom-header">
-                <h5 class="mb-0"><i class="bi bi-cloud-sun me-2"></i>Current Weather (Node 65)</h5>
+        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-100 dark:border-slate-700/50 overflow-hidden">
+            <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-700/50 bg-slate-50/50 dark:bg-slate-800/50">
+                <h5 class="font-bold text-slate-800 dark:text-white">Current Weather</h5>
             </div>
-            <div class="card-custom-body text-center">
-                <div class="mb-3">
-                    <i class="bi bi-sun fs-1 text-warning"></i>
+            <div class="p-6 text-center">
+                <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-amber-50 dark:bg-amber-500/10 text-amber-500 mb-4">
+                    <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
                 </div>
-                <h2 class="mb-0">{{ number_format($weather->temp_dht ?? 0, 1) }}°C</h2>
-                <p class="text-muted mb-4">{{ number_format($weather->humidity ?? 0, 0) }}% Humidity</p>
+                <h2 class="text-4xl font-bold text-slate-800 dark:text-white mb-1">{{ number_format($weather->temp_c ?? 0, 1) }}<span class="text-2xl text-slate-400">°C</span></h2>
+                <p class="text-slate-500 dark:text-slate-400 mb-6">{{ number_format($weather->humidity_pct ?? 0, 0) }}% Humidity</p>
                 
-                <div class="row g-3 text-start">
-                    <div class="col-6">
-                        <div class="sensor-reading" style="padding: 12px;">
-                            <div class="sensor-icon" style="background-color: #fef3c7; color: #92400e; width: 35px; height: 35px; font-size: 16px;">
-                                <i class="bi bi-droplet"></i>
-                            </div>
-                            <div>
-                                <div class="sensor-label">Rain ADC</div>
-                                <div class="sensor-value" style="font-size: 18px;">{{ $weather->rain_adc ?? 0 }}</div>
-                            </div>
-                        </div>
+                <div class="grid grid-cols-2 gap-4 text-left">
+                    <div class="bg-slate-50 dark:bg-slate-700/50 p-3 rounded-lg border border-slate-100 dark:border-slate-600">
+                        <span class="text-xs text-slate-500 block mb-1">Light Intensity</span>
+                        <span class="font-semibold text-slate-800 dark:text-white">{{ number_format($weather->light_lux ?? 0, 0) }} lux</span>
                     </div>
-                    <div class="col-6">
-                        <div class="sensor-reading" style="padding: 12px;">
-                            <div class="sensor-icon" style="background-color: #dbeafe; color: #1e40af; width: 35px; height: 35px; font-size: 16px;">
-                                <i class="bi bi-wind"></i>
-                            </div>
-                            <div>
-                                <div class="sensor-label">Wind</div>
-                                <div class="sensor-value" style="font-size: 18px;">{{ number_format($weather->wind ?? 0, 1) }} m/s</div>
-                            </div>
-                        </div>
+                    <div class="bg-slate-50 dark:bg-slate-700/50 p-3 rounded-lg border border-slate-100 dark:border-slate-600">
+                        <span class="text-xs text-slate-500 block mb-1">Wind Speed</span>
+                        <span class="font-semibold text-slate-800 dark:text-white">{{ number_format($weather->wind_speed ?? 0, 1) }} m/s</span>
                     </div>
-                    <div class="col-12">
-                        <div class="sensor-reading" style="padding: 12px;">
-                            <div class="sensor-icon" style="background-color: #fef3c7; color: #92400e; width: 35px; height: 35px; font-size: 16px;">
-                                <i class="bi bi-brightness-high"></i>
-                            </div>
-                            <div>
-                                <div class="sensor-label">Light Intensity</div>
-                                <div class="sensor-value" style="font-size: 18px;">{{ number_format($weather->light ?? 0, 0) }} lux</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="sensor-reading" style="padding: 12px;">
-                            <div class="sensor-icon" style="background-color: #dcfce7; color: #166534; width: 35px; height: 35px; font-size: 16px;">
-                                <i class="bi bi-battery-charging"></i>
-                            </div>
-                            <div>
-                                <div class="sensor-label">Power</div>
-                                <div class="sensor-value" style="font-size: 14px;">
-                                    {{ number_format($weather->voltage ?? 0, 2) }}V / {{ number_format($weather->current ?? 0, 0) }}mA
-                                </div>
-                            </div>
+                    <div class="bg-slate-50 dark:bg-slate-700/50 p-3 rounded-lg border border-slate-100 dark:border-slate-600 col-span-2">
+                        <span class="text-xs text-slate-500 block mb-1">Power Status</span>
+                        <div class="flex items-center justify-between">
+                            <span class="font-semibold text-slate-800 dark:text-white">{{ number_format($weather->voltage_v ?? 0, 2) }}V</span>
+                            <span class="text-sm font-medium text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">{{ number_format($weather->current_ma ?? 0, 0) }}mA</span>
                         </div>
                     </div>
                 </div>
-                
-                <small class="text-muted d-block mt-3">
-                    <i class="bi bi-clock"></i> Updated {{ \Carbon\Carbon::parse($weather->received_at)->diffForHumans() }}
-                </small>
+                <p class="text-xs text-slate-400 mt-4 text-right">Updated {{ \Carbon\Carbon::parse($weather->received_at)->diffForHumans() }}</p>
             </div>
         </div>
         @endif
         
-        <!-- Recent Alerts -->
-        {{-- <div class="card-custom mt-4">
-            <div class="card-custom-header">
-                <h5 class="mb-0"><i class="bi bi-bell me-2"></i>Recent Alerts</h5>
-                <a href="{{ route('alerts.index') }}" class="btn btn-sm btn-link">View All</a>
-            </div>
-            <div class="card-custom-body">
-                @forelse($recentAlerts as $alert)
-                <div class="d-flex align-items-start mb-3 pb-3 border-bottom">
-                    <div class="me-3">
-                        @if($alert->severity == 'critical')
-                            <i class="bi bi-exclamation-circle-fill text-danger fs-4"></i>
-                        @elseif($alert->severity == 'warning')
-                            <i class="bi bi-exclamation-triangle-fill text-warning fs-4"></i>
-                        @else
-                            <i class="bi bi-info-circle-fill text-info fs-4"></i>
-                        @endif
-                    </div>
-                    <div class="flex-grow-1">
-                        <div class="d-flex justify-content-between align-items-start mb-1">
-                            <strong class="d-block">{{ $alert->message }}</strong>
-                            <span class="alert-badge {{ $alert->severity }}">{{ $alert->severity }}</span>
-                        </div>
-                        <small class="text-muted d-block">{{ \Carbon\Carbon::parse($alert->timestamp)->diffForHumans() }}</small>
-                    </div>
-                </div>
-                @empty
-                <div class="text-center py-4">
-                    <i class="bi bi-check-circle fs-1 text-success"></i>
-                    <p class="text-muted mt-2 mb-0">No active alerts</p>
-                </div>
-                @endforelse
-            </div>
-        </div> --}}
-        
         <!-- Today's Irrigation -->
-        <div class="card-custom mt-4">
-            <div class="card-custom-header">
-                <h5 class="mb-0"><i class="bi bi-water me-2"></i>Today's Irrigation</h5>
+        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-100 dark:border-slate-700/50 overflow-hidden">
+            <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-700/50 bg-slate-50/50 dark:bg-slate-800/50">
+                <h5 class="font-bold text-slate-800 dark:text-white">Today's Irrigation</h5>
             </div>
-            <div class="card-custom-body">
-                @forelse($todayIrrigation as $event)
-                <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
-                    <div class="me-3">
-                        <i class="bi bi-droplet-fill text-primary fs-4"></i>
-                    </div>
-                    <div class="flex-grow-1">
-                        <strong class="d-block">Sesi ID: {{ $event->sesi_id_irrigate }}</strong>
-                        <small class="text-muted d-block">
-                            Nodes: 
-                            <span class="badge bg-success">{{ $event->node_sukses }} Success</span>
-                            <span class="badge bg-danger">{{ $event->node_gagal }} Failed</span>
-                        </small>
-                        <small class="text-muted d-block">
-                            Valve ON: <span class="badge bg-info">{{ $event->valve_on_akhir }}</span>
-                        </small>
-                        @if($event->waktu_akhir)
-                            <span class="badge bg-success ms-2">Completed</span>
-                        @else
-                            <span class="badge bg-warning text-dark ms-2">In Progress</span>
-                        @endif
-                        <small class="text-muted d-block mt-1">
-                            {{ \Carbon\Carbon::parse($event->waktu_mulai)->format('H:i') }}
-                            @if($event->waktu_akhir)
-                                - {{ \Carbon\Carbon::parse($event->waktu_akhir)->format('H:i') }}
-                            @endif
-                        </small>
-                    </div>
-                </div>
-                @empty
-                <div class="text-center py-4">
-                    <i class="bi bi-droplet fs-1 text-muted"></i>
-                    <p class="text-muted mt-2 mb-0">No irrigation events today</p>
-                </div>
-                @endforelse
+            <div class="p-0">
+                <ul class="divide-y divide-slate-100 dark:divide-slate-700/50">
+                    @forelse($todayIrrigation as $event)
+                    <li class="p-6 flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-500/10 text-blue-500 flex items-center justify-center flex-shrink-0">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-semibold text-slate-800 dark:text-white truncate">Session: {{ $event->sesi_id_irrigate }}</p>
+                            <div class="flex items-center gap-2 mt-1">
+                                <span class="text-xs font-medium px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400">{{ $event->node_sukses }} Success</span>
+                                @if($event->node_gagal > 0)
+                                <span class="text-xs font-medium px-2 py-0.5 rounded bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400">{{ $event->node_gagal }} Failed</span>
+                                @endif
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2">
+                                {{ \Carbon\Carbon::parse($event->waktu_mulai)->format('H:i') }} 
+                                @if($event->waktu_akhir)
+                                    &rarr; {{ \Carbon\Carbon::parse($event->waktu_akhir)->format('H:i') }}
+                                @else
+                                    (In Progress...)
+                                @endif
+                            </p>
+                        </div>
+                    </li>
+                    @empty
+                    <li class="p-8 text-center text-slate-500">
+                        <svg class="w-10 h-10 mx-auto text-slate-300 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                        No irrigation events today.
+                    </li>
+                    @endforelse
+                </ul>
             </div>
         </div>
+
     </div>
 </div>
 @endsection
 
-@push('scripts')
+@stack('scripts')
 <script>
-    // Initialize Charts
-    let soilMoistureChart, tempHumidityChart;
-    
-    // Soil Moisture Chart
-    const ctxSoilMoisture = document.getElementById('soilMoistureChart');
-    if (ctxSoilMoisture) {
-        soilMoistureChart = new Chart(ctxSoilMoisture, {
-            type: 'line',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: 'Soil Moisture (%)',
-                    data: [],
-                    borderColor: '#3b82f6',
-                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                    tension: 0.4,
-                    fill: true
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: true,
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'top'
-                    }
+    // Initialize Charts inside a DOMContentLoaded event just to be safe
+    document.addEventListener('DOMContentLoaded', function() {
+        let soilMoistureChart;
+        
+        // Soil Moisture Chart
+        const ctxSoilMoisture = document.getElementById('soilMoistureChart');
+        if (ctxSoilMoisture) {
+            soilMoistureChart = new Chart(ctxSoilMoisture, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Soil Moisture (%)',
+                        data: [],
+                        borderColor: '#10b981', // Tailwind emerald-500
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#10b981',
+                        borderWidth: 2
+                    }]
                 },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 100,
-                        ticks: {
-                            callback: function(value) {
-                                return value + '%';
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: {
+                                color: 'rgba(148, 163, 184, 0.1)'
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
                             }
                         }
                     }
                 }
-            }
-        });
-    }
-    
-    // Temperature & Humidity Chart
-    const ctxTempHumidity = document.getElementById('tempHumidityChart');
-    if (ctxTempHumidity) {
-        tempHumidityChart = new Chart(ctxTempHumidity, {
-            type: 'line',
-            data: {
-                labels: [],
-                datasets: [
-                    {
-                        label: 'Temperature (°C)',
-                        data: [],
-                        borderColor: '#ef4444',
-                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
-                        yAxisID: 'y',
-                        tension: 0.4
-                    },
-                    {
-                        label: 'Humidity (%)',
-                        data: [],
-                        borderColor: '#3b82f6',
-                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                        yAxisID: 'y1',
-                        tension: 0.4
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: true,
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'top'
-                    }
-                },
-                scales: {
-                    y: {
-                        type: 'linear',
-                        display: true,
-                        position: 'left',
-                        title: {
-                            display: true,
-                            text: 'Temperature (°C)'
-                        }
-                    },
-                    y1: {
-                        type: 'linear',
-                        display: true,
-                        position: 'right',
-                        title: {
-                            display: true,
-                            text: 'Humidity (%)'
-                        },
-                        grid: {
-                            drawOnChartArea: false
-                        }
-                    }
-                }
-            }
-        });
-    }
-    
-    // Update Chart Data
-    function updateChart() {
-        const nodeId = document.getElementById('chart-node-select').value;
-        if (!nodeId) return;
+            });
+        }
         
-        fetch(`/dashboard/chart-data?node_id=${nodeId}&hours=24`)
-            .then(response => response.json())
-            .then(data => {
-                // Update Soil Moisture Chart
-                soilMoistureChart.data.labels = data.labels;
-                soilMoistureChart.data.datasets[0].data = data.soil_moisture;
-                soilMoistureChart.update();
-                
-                // Update Temperature & Humidity Chart
-                tempHumidityChart.data.labels = data.labels;
-                tempHumidityChart.data.datasets[0].data = data.air_temperature;
-                tempHumidityChart.data.datasets[1].data = data.air_humidity;
-                tempHumidityChart.update();
-            })
-            .catch(error => console.error('Error fetching chart data:', error));
-    }
-    
-    // Refresh Nodes Data
-    function refreshNodes() {
-        fetch('/dashboard/realtime-data')
-            .then(response => response.json())
-            .then(data => {
-                // Update stats
-                document.getElementById('total-nodes').textContent = data.nodes.length;
-                document.getElementById('active-alerts').textContent = data.active_alerts;
-                
-                // Update nodes table (simplified - you can expand this)
-                console.log('Nodes data updated:', data);
-            })
-            .catch(error => console.error('Error refreshing data:', error));
-    }
-    
-    // Auto-refresh every 30 seconds
-    setInterval(refreshNodes, 30000);
-    
-    // Load initial chart data if a node is selected
-    document.addEventListener('DOMContentLoaded', function() {
+        // Make updateChart globally available
+        window.updateChart = function() {
+            const nodeId = document.getElementById('chart-node-select').value;
+            if (!nodeId) return;
+            
+            // IMPORTANT: Updated fetch URL to use /admin/dashboard
+            fetch(`/admin/dashboard/chart-data?node_id=${nodeId}&hours=24`)
+                .then(response => response.json())
+                .then(data => {
+                    soilMoistureChart.data.labels = data.labels;
+                    soilMoistureChart.data.datasets[0].data = data.soil_moisture;
+                    soilMoistureChart.update();
+                })
+                .catch(error => console.error('Error fetching chart data:', error));
+        }
+        
+        // Initial load
         const nodeSelect = document.getElementById('chart-node-select');
         if (nodeSelect && nodeSelect.options.length > 1) {
             nodeSelect.selectedIndex = 1;
             updateChart();
         }
+        
+        // Make refreshNodes globally available
+        window.refreshNodes = function() {
+            // IMPORTANT: Updated fetch URL to use /admin/dashboard
+            fetch('/admin/dashboard/realtime-data')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('total-nodes').textContent = data.nodes.length;
+                    document.getElementById('active-alerts').textContent = data.active_alerts;
+                })
+                .catch(error => console.error('Error refreshing data:', error));
+        }
+        
+        setInterval(refreshNodes, 30000);
     });
 </script>
-@endpush

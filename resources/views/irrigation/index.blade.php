@@ -104,10 +104,10 @@
             <div class="col-md-4">
                 <div class="card border-info">
                     <div class="card-body">
-                        <h6>Node {{ $active->node_id }}</h6>
-                        <p class="mb-1"><strong>Session:</strong> {{ $active->sesi_id_irrigate }}</p>
-                        <p class="mb-1"><strong>Started:</strong> {{ \Carbon\Carbon::parse($active->waktu)->format('d/m/Y H:i') }}</p>
-                        <p class="mb-1"><strong>Duration:</strong> {{ number_format($active->durasi_detik / 60, 1) }} min</p>
+                        <h6>Device {{ $active->device_id }}</h6>
+                        <p class="mb-1"><strong>Session:</strong> {{ $active->session_id }}</p>
+                        <p class="mb-1"><strong>Started:</strong> {{ \Carbon\Carbon::parse($active->logged_at)->format('d/m/Y H:i') }}</p>
+                        <p class="mb-1"><strong>Duration:</strong> N/A</p>
                         @if($active->volume_air)
                         <p class="mb-0"><strong>Volume:</strong> {{ number_format($active->volume_air, 2) }} L</p>
                         @endif
@@ -142,32 +142,32 @@
                     <tbody>
                         @forelse($irrigationLogs as $log)
                         <tr>
-                            <td><strong>{{ $log->sesi_id_irrigate }}</strong></td>
-                            <td>{{ \Carbon\Carbon::parse($log->waktu_mulai)->format('d/m/Y H:i') }}</td>
+                            <td><strong>{{ $log->session_id }}</strong></td>
+                            <td>{{ \Carbon\Carbon::parse($log->started_at)->format('d/m/Y H:i') }}</td>
                             <td>
-                                @if($log->waktu_akhir)
-                                    {{ \Carbon\Carbon::parse($log->waktu_akhir)->format('d/m/Y H:i') }}
+                                @if($log->ended_at)
+                                    {{ \Carbon\Carbon::parse($log->ended_at)->format('d/m/Y H:i') }}
                                 @else
                                     <span class="text-muted">-</span>
                                 @endif
                             </td>
                             <td>
-                                <span class="badge bg-success">{{ $log->node_sukses ?? 0 }}</span>
+                                <span class="badge bg-success">{{ $log->success_count ?? 0 }}</span>
                             </td>
                             <td>
-                                @if($log->node_gagal > 0)
-                                    <span class="badge bg-danger">{{ $log->node_gagal }}</span>
+                                @if($log->failed_count > 0)
+                                    <span class="badge bg-danger">{{ $log->failed_count }}</span>
                                 @else
                                     <span class="badge bg-secondary">0</span>
                                 @endif
                             </td>
                             <td>
-                                <span class="badge bg-info">{{ $log->valve_on_akhir ?? 0 }}</span>
+                                <span class="badge bg-info">{{ $log->valve_on_count ?? 0 }}</span>
                             </td>
                             <td>
-                                @if($log->waktu_mulai && $log->waktu_akhir)
+                                @if($log->started_at && $log->ended_at)
                                     @php
-                                        $duration = \Carbon\Carbon::parse($log->waktu_mulai)->diffInMinutes(\Carbon\Carbon::parse($log->waktu_akhir));
+                                        $duration = \Carbon\Carbon::parse($log->started_at)->diffInMinutes(\Carbon\Carbon::parse($log->ended_at));
                                     @endphp
                                     <span class="badge bg-primary">{{ $duration }} min</span>
                                 @else
@@ -175,7 +175,7 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('irrigation.history', $log->sesi_id_irrigate) }}" 
+                                <a href="{{ route('irrigation.history', $log->session_id) }}" 
                                    class="btn btn-sm btn-outline-primary">
                                     <i class="bi bi-eye"></i> View
                                 </a>
@@ -214,12 +214,12 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="node_id" class="form-label">Select Node</label>
-                        <select name="node_id" id="node_id" class="form-select" required>
+                        <label for="device_id" class="form-label">Select Device</label>
+                        <select name="device_id" id="device_id" class="form-select" required>
                             <option value="">-- Select Node --</option>
                             @foreach($nodes as $node)
-                            <option value="{{ $node->node_id }}">
-                                Node {{ $node->node_id }} - {{ $node->lokasi ?? 'N/A' }}
+                            <option value="{{ $node->id }}">
+                                Device {{ $node->id }} - {{ $node->lokasi ?? 'N/A' }}
                             </option>
                             @endforeach
                         </select>

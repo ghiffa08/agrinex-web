@@ -50,12 +50,13 @@ class TestConnectionController extends Controller
 
         // Test 3: Test Tables
         $tables = [
-            'getdata_logs',
-            'sensor_node_data',
-            'sensor_weather_data',
-            'node_logs',
-            'irrigate_logs',
-            'valve_logs'
+            'devices',
+            'sensor_data',
+            'weather_data',
+            'device_logs',
+            'irrigation_logs',
+            'valve_logs',
+            'data_sessions'
         ];
 
         $tests['tables'] = [];

@@ -108,15 +108,15 @@
                         </tr>
                         <tr>
                             <th>Temperature:</th>
-                            <td>{{ number_format($latestWeather->temp_dht, 1) }}°C</td>
+                            <td>{{ number_format($latestWeather->temp_c, 1) }}°C</td>
                         </tr>
                         <tr>
                             <th>Humidity:</th>
-                            <td>{{ number_format($latestWeather->humidity, 1) }}%</td>
+                            <td>{{ number_format($latestWeather->humidity_pct, 1) }}%</td>
                         </tr>
                         <tr>
                             <th>Light Level:</th>
-                            <td>{{ number_format($latestWeather->light, 0) }}</td>
+                            <td>{{ number_format($latestWeather->light_lux, 0) }}</td>
                         </tr>
                     </table>
                 </div>
@@ -124,13 +124,13 @@
                     <table class="table">
                         <tr>
                             <th>Wind Speed:</th>
-                            <td>{{ number_format($latestWeather->wind, 1) }} km/h</td>
+                            <td>{{ number_format($latestWeather->wind_speed, 1) }} km/h</td>
                         </tr>
                         <tr>
                             <th>Rain Sensor:</th>
                             <td>
-                                @if($latestWeather->rain > 0)
-                                    <span class="badge bg-primary">Raining ({{ $latestWeather->rain }})</span>
+                                @if($latestWeather->rain_pct > 0)
+                                    <span class="badge bg-primary">Raining ({{ $latestWeather->rain_pct }})</span>
                                 @else
                                     <span class="badge bg-success">No Rain</span>
                                 @endif

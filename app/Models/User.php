@@ -54,11 +54,20 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the password for authentication.
+     * Get the password for the user.
+     * Overrides default getAuthPassword to use password_hash column
      */
     public function getAuthPassword()
     {
         return $this->password_hash;
+    }
+
+    /**
+     * Get the devices owned by the user.
+     */
+    public function devices()
+    {
+        return $this->hasMany(Device::class);
     }
 
     /**

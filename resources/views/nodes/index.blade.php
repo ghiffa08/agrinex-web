@@ -105,7 +105,7 @@
                     <tbody>
                         @forelse($nodes as $node)
                         <tr>
-                            <td><strong>{{ $node->node_id }}</strong></td>
+                            <td><strong>{{ $node->id }}</strong></td>
                             <td>{{ $node->group ?? '-' }}</td>
                             <td>{{ $node->kode_perlakuan ?? '-' }}</td>
                             <td>{{ $node->lokasi ?? '-' }}</td>
@@ -170,7 +170,7 @@
                                 </span>
                             </td>
                             <td>
-                                <a href="{{ route('nodes.show', $node->node_id) }}" 
+                                <a href="{{ route('nodes.show', $node->id) }}" 
                                    class="btn btn-sm btn-outline-primary">
                                     <i class="bi bi-eye"></i> View
                                 </a>

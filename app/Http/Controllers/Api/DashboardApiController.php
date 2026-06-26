@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Node;
-use App\Models\GetdataLog;
-use App\Models\SensorNodeData;
-use App\Models\SensorWeatherData;
-use App\Models\IrrigateLog;
+use App\Models\Device;
+use App\Models\DataSession;
+use App\Models\SensorData;
+use App\Models\WeatherData;
+use App\Models\IrrigationLog;
 use App\Models\ValveLog;
 use App\Models\JsonBackup;
 use Illuminate\Http\Request;
@@ -27,8 +27,8 @@ class DashboardApiController extends Controller
     public function getDevices()
     {
         try {
-            // Get all nodes from node table
-            $nodes = Node::orderBy('node_id')->get();
+            // Get all nodes from device table
+            $nodes = Device::orderBy('id')->get();
             
             if ($nodes->isEmpty()) {
                 return response()->json([
@@ -39,13 +39,13 @@ class DashboardApiController extends Controller
             }
             
             // Get latest sensor session
-            $latestSession = GetdataLog::orderBy('waktu_mulai', 'desc')
+            $latestSession = DataSession::orderBy('started_at', 'desc')
                 ->first();
             
             // Get weather data from latest session
             $weatherData = null;
             if ($latestSession) {
-                $weatherData = SensorWeatherData::where('sesi_id_getdata', $latestSession->sesi_id_getdata)
+                $weatherData = WeatherData::where('data_session_id', $latestSession->id)
                     ->first();
             }
             
@@ -54,22 +54,22 @@ class DashboardApiController extends Controller
                 // Get latest sensor data for this node
                 $sensorData = null;
                 if ($latestSession) {
-                    $sensorData = SensorNodeData::where('sesi_id_getdata', $latestSession->sesi_id_getdata)
-                        ->where('node_id', $node->node_id)
+                    $sensorData = SensorData::where('data_session_id', $latestSession->id)
+                        ->where('device_id', $node->id)
                         ->first();
                 }
                 
                 return [
                     'id' => $node->id,
-                    'device_id' => $node->node_id,
-                    'device_name' => "Node {$node->node_id}",
-                    'plot_number' => $node->node_id,
-                    'location' => $node->lokasi ?? "Sensor Node {$node->node_id}",
+                    'device_id' => $node->id,
+                    'device_name' => "Node {$node->id}",
+                    'plot_number' => $node->id,
+                    'location' => $node->lokasi ?? "Sensor Node {$node->id}",
                     
                     // Treatment info from node table
                     'treatment_description' => $node->keterangan ?? 'Monitoring Optimal',
                     'treatment_type' => $node->group ?? 'standard',
-                    'treatment_code' => $node->kode_perlakuan ?? "T{$node->node_id}",
+                    'treatment_code' => $node->kode_perlakuan ?? "T{$node->id}",
                     'group' => $node->group,
                     'kode_perlakuan' => $node->kode_perlakuan,
                     
@@ -80,9 +80,9 @@ class DashboardApiController extends Controller
                     'soil_temp_c' => $sensorData ? (float) $sensorData->temp_c : null,
                     
                     // Weather data - only show for nodes with sensor data
-                    'air_temp_c' => $sensorData && $weatherData ? (float) $weatherData->temp_dht : null,
-                    'air_humidity_pct' => $sensorData && $weatherData ? (float) $weatherData->humidity : null,
-                    'light_lux' => $sensorData && $weatherData ? (float) $weatherData->light : null,
+                    'air_temp_c' => $sensorData && $weatherData ? (float) $weatherData->temp_c : null,
+                    'air_humidity_pct' => $sensorData && $weatherData ? (float) $weatherData->humidity_pct : null,
+                    'light_lux' => $sensorData && $weatherData ? (float) $weatherData->light_lux : null,
                     'water_height_cm' => null, // Not available in current schema
                     
                     // Battery info
@@ -95,8 +95,8 @@ class DashboardApiController extends Controller
                     'signal_strength_pct' => null,
                     
                     // Device status
-                    'connection_state' => $latestSession ? $this->getConnectionStatus($latestSession->waktu_mulai) : 'offline',
-                    'connection_status' => $latestSession ? $this->getConnectionStatus($latestSession->waktu_mulai) : 'offline',
+                    'connection_state' => $latestSession ? $this->getConnectionStatus($latestSession->started_at) : 'offline',
+                    'connection_status' => $latestSession ? $this->getConnectionStatus($latestSession->started_at) : 'offline',
                     'valve_state' => 'closed',
                     'valve_status' => 'closed',
                     'is_active' => true,
@@ -106,9 +106,9 @@ class DashboardApiController extends Controller
                     'water_usage_today_l' => 0,
                     
                     // Timestamps
-                    'recorded_at' => $latestSession ? $latestSession->waktu_mulai : null,
-                    'last_seen' => $latestSession ? $latestSession->waktu_mulai : null,
-                    'waktu_update' => $node->waktu_update,
+                    'recorded_at' => $latestSession ? $latestSession->started_at : null,
+                    'last_seen' => $latestSession ? $latestSession->started_at : null,
+                    'waktu_update' => $node->updated_at,
                 ];
             });
             
@@ -116,8 +116,8 @@ class DashboardApiController extends Controller
                 'success' => true,
                 'data' => $devices,
                 'session_info' => [
-                    'session_id' => $latestSession ? $latestSession->sesi_id_getdata : null,
-                    'timestamp' => $latestSession ? $latestSession->waktu_mulai : null,
+                    'session_id' => $latestSession ? $latestSession->session_id : null,
+                    'timestamp' => $latestSession ? $latestSession->started_at : null,
                     'total_nodes' => $nodes->count()
                 ]
             ]);
@@ -139,13 +139,13 @@ class DashboardApiController extends Controller
         try {
             // Calculate tank data from irrigation sessions
             // Use cached schema check to avoid DB overhead
-            $tableExists = $this->hasIrrigateLogsTable();
+            $tableExists = $this->hasIrrigationLogsTable();
             
             $recentIrrigation = null;
             if ($tableExists) {
-                $recentIrrigation = IrrigateLog::with('valveLogs')
+                $recentIrrigation = IrrigationLog::with('valveLogs')
                     ->where('status', 'completed')
-                    ->orderBy('waktu_mulai', 'desc')
+                    ->orderBy('started_at', 'desc')
                     ->first();
             }
             
@@ -173,7 +173,7 @@ class DashboardApiController extends Controller
                     'water_level_cm' => round($waterLevelCm, 2),
                     'percentage' => round($percentage, 2),
                     'status' => $percentage > 70 ? 'normal' : ($percentage > 30 ? 'warning' : 'critical'),
-                    'updated_at' => $recentIrrigation ? $recentIrrigation->waktu_mulai : now()
+                    'updated_at' => $recentIrrigation ? $recentIrrigation->started_at : now()
                 ]
             ]);
             
@@ -206,7 +206,7 @@ class DashboardApiController extends Controller
     {
         try {
             // Use cached schema check to avoid DB overhead
-            $tableExists = $this->hasIrrigateLogsTable();
+            $tableExists = $this->hasIrrigationLogsTable();
             
             if (!$tableExists) {
                 // Return mock schedule if table doesn't exist
@@ -217,24 +217,24 @@ class DashboardApiController extends Controller
                         'total_sessions' => 0,
                         'sessions' => []
                     ],
-                    'note' => 'irrigate_logs table not available'
+                    'note' => 'irrigation_logs table not available'
                 ]);
             }
             
             // Get today's irrigation sessions
-            $todaySessions = IrrigateLog::whereDate('waktu_mulai', today())
+            $todaySessions = IrrigationLog::whereDate('started_at', today())
                 ->with('valveLogs')
-                ->orderBy('waktu_mulai')
+                ->orderBy('started_at')
                 ->get();
             
             $schedule = $todaySessions->map(function ($session) {
                 return [
                     'id' => $session->id,
-                    'session_id' => $session->sesi_id_irrigate,
-                    'start_time' => $session->waktu_mulai,
-                    'end_time' => $session->waktu_selesai,
-                    'duration_minutes' => $session->duration,
-                    'total_valves' => $session->jumlah_valve,
+                    'session_id' => $session->session_id,
+                    'start_time' => $session->started_at,
+                    'end_time' => $session->ended_at,
+                    'duration_minutes' => Carbon::parse($session->started_at)->diffInMinutes($session->ended_at),
+                    'total_valves' => $session->success_count + $session->failed_count,
                     'status' => $session->status,
                     'total_volume_ml' => $session->valveLogs->sum('volume_ml')
                 ];
@@ -270,7 +270,7 @@ class DashboardApiController extends Controller
     {
         try {
             // Use cached schema check to avoid DB overhead
-            $tableExists = $this->hasIrrigateLogsTable();
+            $tableExists = $this->hasIrrigationLogsTable();
             
             if (!$tableExists) {
                 // Return mock usage if table doesn't exist
@@ -283,19 +283,19 @@ class DashboardApiController extends Controller
                         'average_usage_l' => 0,
                         'period' => '30 days'
                     ],
-                    'note' => 'irrigate_logs table not available'
+                    'note' => 'irrigation_logs table not available'
                 ]);
             }
             
             $startDate = Carbon::now()->subDays(30);
             
             // Get daily irrigation totals for last 30 days
-            $usage = IrrigateLog::where('waktu_mulai', '>=', $startDate)
+            $usage = IrrigationLog::where('started_at', '>=', $startDate)
                 ->where('status', 'completed')
                 ->with('valveLogs')
                 ->get()
                 ->groupBy(function ($item) {
-                    return Carbon::parse($item->waktu_mulai)->format('Y-m-d');
+                    return Carbon::parse($item->started_at)->format('Y-m-d');
                 })
                 ->map(function ($daySessions, $date) {
                     $totalVolume = $daySessions->reduce(function ($carry, $session) {
@@ -346,7 +346,7 @@ class DashboardApiController extends Controller
     {
         try {
             // Use cached schema check to avoid DB overhead
-            $tableExists = $this->hasIrrigateLogsTable();
+            $tableExists = $this->hasIrrigationLogsTable();
             
             if (!$tableExists) {
                 // Return mock usage if table doesn't exist
@@ -359,19 +359,19 @@ class DashboardApiController extends Controller
                         'average_usage_l' => 0,
                         'period' => '24 hours'
                     ],
-                    'note' => 'irrigate_logs table not available'
+                    'note' => 'irrigation_logs table not available'
                 ]);
             }
             
             $startTime = Carbon::now()->subHours(24);
             
             // Get hourly irrigation totals for last 24 hours
-            $usage = IrrigateLog::where('waktu_mulai', '>=', $startTime)
+            $usage = IrrigationLog::where('started_at', '>=', $startTime)
                 ->where('status', 'completed')
                 ->with('valveLogs')
                 ->get()
                 ->groupBy(function ($item) {
-                    return Carbon::parse($item->waktu_mulai)->format('Y-m-d H:00');
+                    return Carbon::parse($item->started_at)->format('Y-m-d H:00');
                 })
                 ->map(function ($hourSessions, $datetime) {
                     $totalVolume = $hourSessions->reduce(function ($carry, $session) {
@@ -459,7 +459,7 @@ class DashboardApiController extends Controller
     public function getWeather()
     {
         try {
-            $latestSession = GetdataLog::orderBy('waktu_mulai', 'desc')
+            $latestSession = DataSession::orderBy('started_at', 'desc')
                 ->first();
             
             if (!$latestSession) {
@@ -469,7 +469,7 @@ class DashboardApiController extends Controller
                 ], 200); // Changed to 200 to prevent browser console 404 error
             }
             
-            $weatherData = SensorWeatherData::where('sesi_id_getdata', $latestSession->sesi_id_getdata)
+            $weatherData = WeatherData::where('data_session_id', $latestSession->id)
                 ->first();
             
             if (!$weatherData) {
@@ -482,20 +482,20 @@ class DashboardApiController extends Controller
             return response()->json([
                 'success' => true,
                 'data' => [
-                    'temperature' => (float) $weatherData->temp_dht,
-                    'temp' => (float) $weatherData->temp_dht,
-                    'humidity' => (float) $weatherData->humidity,
-                    'light' => (float) $weatherData->light,
-                    'light_pct' => min(100, ($weatherData->light / 100000) * 100), // Convert lux to percentage
-                    'rain' => (float) $weatherData->rain,
-                    'wind' => (float) $weatherData->wind,
-                    'wind_speed' => (float) $weatherData->wind,
-                    'pressure' => null, // Not available in schema
-                    'voltage' => (float) $weatherData->voltage,
-                    'current' => (float) $weatherData->current,
-                    'power' => (float) $weatherData->power,
-                    'timestamp' => $latestSession->waktu_mulai,
-                    'session_id' => $latestSession->sesi_id_getdata
+                    'temperature' => (float) $weatherData->temp_c,
+                    'temp' => (float) $weatherData->temp_c,
+                    'humidity' => (float) $weatherData->humidity_pct,
+                    'light' => (float) $weatherData->light_lux,
+                    'light_pct' => min(100, ($weatherData->light_lux / 100000) * 100), // Convert lux to percentage
+                    'rain' => (float) $weatherData->rain_mm,
+                    'wind' => (float) $weatherData->wind_speed_kmh,
+                    'wind_speed' => (float) $weatherData->wind_speed_kmh,
+                    'pressure' => (float) $weatherData->pressure_hpa,
+                    'voltage' => null,
+                    'current' => null,
+                    'power' => null,
+                    'timestamp' => $latestSession->started_at,
+                    'session_id' => $latestSession->session_id
                 ]
             ]);
             
@@ -586,12 +586,12 @@ class DashboardApiController extends Controller
     }
     
     /**
-     * Check if irrigate_logs table exists using Cache to improve performance
+     * Check if irrigation_logs table exists using Cache to improve performance
      */
-    private function hasIrrigateLogsTable()
+    private function hasIrrigationLogsTable()
     {
-        return Cache::remember('has_irrigate_logs_table', 60 * 60 * 24, function () {
-            return Schema::hasTable('irrigate_logs');
+        return Cache::remember('has_irrigation_logs_table', 60 * 60 * 24, function () {
+            return Schema::hasTable('irrigation_logs');
         });
     }
 }

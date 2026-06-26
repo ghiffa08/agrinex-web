@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Node ' . $node->node_id . ' Details')
+@section('title', 'Node ' . $node->id . ' Details')
 
 @section('content')
     <div class="container-fluid py-4">
@@ -15,7 +15,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h4 class="mb-1">
-                <i class="bi bi-cpu"></i> Node {{ $node->node_id }}
+                <i class="bi bi-cpu"></i> Node {{ $node->id }}
                 @php
                     // Fixed: Check if sensorNodeData exists and is not empty before accessing
                     $isOnline =
@@ -36,7 +36,7 @@
         </div>
         <div>
             @can('role', ['admin', 'operator'])
-                <a href="{{ route('nodes.edit', $node->node_id) }}" class="btn btn-primary">
+                <a href="{{ route('nodes.edit', $node->id) }}" class="btn btn-primary">
                     <i class="bi bi-pencil"></i> Edit Node
                 </a>
             @endcan

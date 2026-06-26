@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ValveLog extends Model
+class DeviceLog extends Model
 {
     use HasFactory;
 
@@ -14,10 +14,5 @@ class ValveLog extends Model
     public function device()
     {
         return $this->belongsTo(Device::class);
-    }
-
-    public function irrigationLog()
-    {
-        return $this->belongsTo(IrrigationLog::class);
     }
 }

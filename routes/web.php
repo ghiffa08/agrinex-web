@@ -56,11 +56,11 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['role'])->group(function () {
 
     // Simple Dashboard (Statistics only)
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Dashboard API Routes
-    Route::get('/dashboard/chart-data', [DashboardController::class, 'chartData'])->name('dashboard.chart-data');
-    Route::get('/dashboard/realtime-data', [DashboardController::class, 'realtimeData'])->name('dashboard.realtime-data');
+    Route::get('/admin/dashboard/chart-data', [DashboardController::class, 'chartData'])->name('dashboard.chart-data');
+    Route::get('/admin/dashboard/realtime-data', [DashboardController::class, 'realtimeData'])->name('dashboard.realtime-data');
 
     // Nodes Management
     Route::get('/nodes', [NodesController::class, 'index'])->name('nodes.index');

@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\SensorNodeData;
-use App\Models\IrrigateLog;
+use App\Models\SensorData;
+use App\Models\IrrigationLog;
 use App\Models\ValveLog;
-use App\Models\Node;
-use App\Models\GetdataLog;
+use App\Models\Device;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -21,50 +20,50 @@ class ReportsController extends Controller
         $startDate = $request->input('start_date', now()->subDays(7));
         $endDate = $request->input('end_date', now());
 
-        // Irrigation Statistics - using correct columns
+        // Irrigation Statistics
         $irrigationStats = [
-            'total_events' => IrrigateLog::whereBetween('waktu_mulai', [$startDate, $endDate])->count(),
-            'total_duration' => ValveLog::whereBetween('waktu', [$startDate, $endDate])->sum('durasi_detik') / 60, // Convert to minutes
-            'avg_duration' => ValveLog::whereBetween('waktu', [$startDate, $endDate])->avg('durasi_detik') / 60, // Convert to minutes
+            'total_events' => IrrigationLog::whereBetween('started_at', [$startDate, $endDate])->count(),
+            'total_duration' => 0, // Obsolete metric
+            'avg_duration' => 0, // Obsolete metric
         ];
 
-        // Sensor Data Statistics - using correct columns
+        // Sensor Data Statistics
         $sensorStats = [
-            'total_readings' => SensorNodeData::whereBetween('received_at', [$startDate, $endDate])->count(),
-            'avg_moisture' => SensorNodeData::whereBetween('received_at', [$startDate, $endDate])->avg('soil_pct') ?? 0,
-            'avg_temp' => SensorNodeData::whereBetween('received_at', [$startDate, $endDate])->avg('temp_c') ?? 0,
-            'min_moisture' => SensorNodeData::whereBetween('received_at', [$startDate, $endDate])->min('soil_pct') ?? 0,
-            'max_temp' => SensorNodeData::whereBetween('received_at', [$startDate, $endDate])->max('temp_c') ?? 0,
+            'total_readings' => SensorData::whereBetween('recorded_at', [$startDate, $endDate])->count(),
+            'avg_moisture' => SensorData::whereBetween('recorded_at', [$startDate, $endDate])->avg('soil_pct') ?? 0,
+            'avg_temp' => SensorData::whereBetween('recorded_at', [$startDate, $endDate])->avg('temp_c') ?? 0,
+            'min_moisture' => SensorData::whereBetween('recorded_at', [$startDate, $endDate])->min('soil_pct') ?? 0,
+            'max_temp' => SensorData::whereBetween('recorded_at', [$startDate, $endDate])->max('temp_c') ?? 0,
         ];
 
-        // Node Activity - using correct columns
-        $nodeActivity = SensorNodeData::select(
-                'node_id', 
+        // Node Activity
+        $nodeActivity = SensorData::select(
+                'device_id', 
                 DB::raw('COUNT(*) as reading_count'),
                 DB::raw('AVG(soil_pct) as avg_moisture'),
                 DB::raw('AVG(temp_c) as avg_temp')
             )
-            ->whereBetween('received_at', [$startDate, $endDate])
-            ->groupBy('node_id')
-            ->with('node')
+            ->whereBetween('recorded_at', [$startDate, $endDate])
+            ->groupBy('device_id')
+            ->with('device')
             ->get();
 
-        // Daily summary - using correct columns
-        $dailySummary = SensorNodeData::select(
-                DB::raw('DATE(received_at) as date'),
+        // Daily summary
+        $dailySummary = SensorData::select(
+                DB::raw('DATE(recorded_at) as date'),
                 DB::raw('COUNT(*) as total_readings'),
                 DB::raw('AVG(soil_pct) as avg_moisture'),
                 DB::raw('AVG(temp_c) as avg_temp'),
                 DB::raw('MIN(soil_pct) as min_moisture'),
                 DB::raw('MAX(temp_c) as max_temp')
             )
-            ->whereBetween('received_at', [$startDate, $endDate])
-            ->groupBy(DB::raw('DATE(received_at)'))
+            ->whereBetween('recorded_at', [$startDate, $endDate])
+            ->groupBy(DB::raw('DATE(recorded_at)'))
             ->orderBy('date', 'desc')
             ->get();
 
         // Get all nodes for filters
-        $nodes = Node::orderBy('node_id')->get();
+        $nodes = Device::orderBy('id')->get();
 
         return view('reports.index', compact(
             'irrigationStats',
@@ -85,28 +84,25 @@ class ReportsController extends Controller
         $startDate = $request->input('start_date', now()->subDays(7));
         $endDate = $request->input('end_date', now());
 
-        $node = Node::findOrFail($nodeId);
+        $node = Device::findOrFail($nodeId);
 
         // Sensor data for this node
-        $sensorData = SensorNodeData::where('node_id', $nodeId)
-            ->whereBetween('received_at', [$startDate, $endDate])
-            ->orderBy('received_at', 'desc')
+        $sensorData = SensorData::where('device_id', $nodeId)
+            ->whereBetween('recorded_at', [$startDate, $endDate])
+            ->orderBy('recorded_at', 'desc')
             ->paginate(100);
 
         // Statistics for this node
         $stats = [
-            'total_readings' => SensorNodeData::where('node_id', $nodeId)
-                ->whereBetween('received_at', [$startDate, $endDate])->count(),
-            'avg_moisture' => SensorNodeData::where('node_id', $nodeId)
-                ->whereBetween('received_at', [$startDate, $endDate])->avg('soil_pct'),
-            'avg_temp' => SensorNodeData::where('node_id', $nodeId)
-                ->whereBetween('received_at', [$startDate, $endDate])->avg('temp_c'),
+            'total_readings' => SensorData::where('device_id', $nodeId)
+                ->whereBetween('recorded_at', [$startDate, $endDate])->count(),
+            'avg_moisture' => SensorData::where('device_id', $nodeId)
+                ->whereBetween('recorded_at', [$startDate, $endDate])->avg('soil_pct'),
+            'avg_temp' => SensorData::where('device_id', $nodeId)
+                ->whereBetween('recorded_at', [$startDate, $endDate])->avg('temp_c'),
             // Count irrigate sessions that involved this node by checking valve logs
-            'irrigation_events' => IrrigateLog::with('node')
-                ->whereHas('valveLogs', function($q) use ($nodeId) {
-                    $q->where('node_id', $nodeId);
-                })
-                ->whereBetween('waktu_mulai', [$startDate, $endDate])->count(),
+            'irrigation_events' => ValveLog::where('device_id', $nodeId)
+                ->whereBetween('logged_at', [$startDate, $endDate])->count(),
         ];
 
         return view('reports.by-node', compact('node', 'sensorData', 'stats', 'startDate', 'endDate'));
@@ -138,9 +134,9 @@ class ReportsController extends Controller
      */
     private function exportSensorData($startDate, $endDate, $filename)
     {
-        $data = SensorNodeData::whereBetween('received_at', [$startDate, $endDate])
-            ->with('node')
-            ->orderBy('received_at', 'desc')
+        $data = SensorData::whereBetween('recorded_at', [$startDate, $endDate])
+            ->with('device')
+            ->orderBy('recorded_at', 'desc')
             ->get();
 
         $headers = [
@@ -152,16 +148,16 @@ class ReportsController extends Controller
             $file = fopen('php://output', 'w');
             
             // Header
-            fputcsv($file, ['Node ID', 'Location', 'Date Time', 'Voltage (V)', 'Current (mA)', 'Temperature (°C)', 'Soil Moisture (%)']);
+            fputcsv($file, ['Device ID', 'Location', 'Date Time', 'Voltage (V)', 'Current (mA)', 'Temperature (°C)', 'Soil Moisture (%)']);
             
             // Data
             foreach ($data as $row) {
                 fputcsv($file, [
-                    $row->node_id,
-                    $row->node->lokasi ?? '-',
-                    $row->received_at,
+                    $row->device_id,
+                    $row->device->lokasi ?? '-',
+                    $row->recorded_at,
                     $row->voltage_v,
-                    $row->current,
+                    $row->current_ma,
                     $row->temp_c,
                     $row->soil_pct,
                 ]);
@@ -178,8 +174,9 @@ class ReportsController extends Controller
      */
     private function exportIrrigationData($startDate, $endDate, $filename)
     {
-        $data = IrrigateLog::whereBetween('waktu_mulai', [$startDate, $endDate])
-            ->orderBy('waktu_mulai', 'desc')
+        $data = ValveLog::whereBetween('logged_at', [$startDate, $endDate])
+            ->with(['device', 'irrigationLog'])
+            ->orderBy('logged_at', 'desc')
             ->get();
 
         $headers = [
@@ -191,17 +188,16 @@ class ReportsController extends Controller
             $file = fopen('php://output', 'w');
             
             // Header
-            fputcsv($file, ['Node ID', 'Session', 'Date Time', 'Duration (s)', 'Status']);
+            fputcsv($file, ['Device ID', 'Session ID', 'Date Time', 'Valve Status', 'Reason']);
             
             // Data
             foreach ($data as $row) {
                 fputcsv($file, [
-                    // irrigate_logs uses `id_node` as the foreign key to nodes
-                    $row->id_node ?? $row->node_id ?? '-',
-                    $row->sesi_id_irrigate,
-                    $row->waktu_mulai,
-                    $row->waktu_akhir - $row->waktu_mulai,
-                    $row->node_sukses,
+                    $row->device_id,
+                    $row->irrigationLog->session_id ?? '-',
+                    $row->logged_at,
+                    $row->valve_status,
+                    $row->reason,
                 ]);
             }
             

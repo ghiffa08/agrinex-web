@@ -5,19 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ValveLog extends Model
+class DataSession extends Model
 {
     use HasFactory;
 
     protected $guarded = ['id'];
 
-    public function device()
+    public function sensorData()
     {
-        return $this->belongsTo(Device::class);
+        return $this->hasMany(SensorData::class);
     }
 
-    public function irrigationLog()
+    public function weatherData()
     {
-        return $this->belongsTo(IrrigationLog::class);
+        return $this->hasMany(WeatherData::class);
     }
 }

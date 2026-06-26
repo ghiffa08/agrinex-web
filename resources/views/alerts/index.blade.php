@@ -118,13 +118,13 @@
                 <div class="col-md-4 mb-3">
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="card-title">Node {{ $node->node_id }}</h6>
+                            <h6 class="card-title">Device {{ $node->id }}</h6>
                             <p class="mb-1"><strong>Location:</strong> {{ $node->lokasi ?? 'N/A' }}</p>
                             <p class="mb-1"><strong>Group:</strong> {{ $node->group ?? 'N/A' }}</p>
                             <p class="mb-0 text-danger">
                                 <i class="bi bi-clock"></i> No data received in last 2 hours
                             </p>
-                            <a href="{{ route('nodes.show', $node->node_id) }}" class="btn btn-sm btn-outline-primary mt-2">
+                            <a href="{{ route('nodes.show', $node->id) }}" class="btn btn-sm btn-outline-primary mt-2">
                                 View Details
                             </a>
                         </div>
@@ -160,17 +160,17 @@
                     <tbody>
                         @foreach($lowMoisture as $data)
                         <tr>
-                            <td><strong>{{ $data->node_id }}</strong></td>
-                            <td>{{ $data->node->lokasi ?? 'N/A' }}</td>
+                            <td><strong>Device {{ $data->device_id }}</strong></td>
+                            <td>{{ $data->device->lokasi ?? 'N/A' }}</td>
                             <td>
                                 <span class="badge bg-danger">
                                     {{ number_format($data->soil_pct, 1) }}%
                                 </span>
                             </td>
                             <td>{{ number_format($data->temp_c, 1) }}°C</td>
-                            <td>{{ $data->waktu->diffForHumans() }}</td>
+                            <td>{{ $data->recorded_at->diffForHumans() }}</td>
                             <td>
-                                <a href="{{ route('nodes.show', $data->node_id) }}" class="btn btn-sm btn-outline-primary">
+                                <a href="{{ route('nodes.show', $data->device_id) }}" class="btn btn-sm btn-outline-primary">
                                     View Node
                                 </a>
                             </td>
@@ -207,17 +207,17 @@
                     <tbody>
                         @foreach($highTemp as $data)
                         <tr>
-                            <td><strong>{{ $data->node_id }}</strong></td>
-                            <td>{{ $data->node->lokasi ?? 'N/A' }}</td>
+                            <td><strong>Device {{ $data->device_id }}</strong></td>
+                            <td>{{ $data->device->lokasi ?? 'N/A' }}</td>
                             <td>
                                 <span class="badge bg-warning">
                                     {{ number_format($data->temp_c, 1) }}°C
                                 </span>
                             </td>
                             <td>{{ number_format($data->soil_pct, 1) }}%</td>
-                            <td>{{ $data->waktu->diffForHumans() }}</td>
+                            <td>{{ $data->recorded_at->diffForHumans() }}</td>
                             <td>
-                                <a href="{{ route('nodes.show', $data->node_id) }}" class="btn btn-sm btn-outline-primary">
+                                <a href="{{ route('nodes.show', $data->device_id) }}" class="btn btn-sm btn-outline-primary">
                                     View Node
                                 </a>
                             </td>
@@ -254,17 +254,17 @@
                     <tbody>
                         @foreach($lowVoltage as $data)
                         <tr>
-                            <td><strong>{{ $data->node_id }}</strong></td>
-                            <td>{{ $data->node->lokasi ?? 'N/A' }}</td>
+                            <td><strong>Device {{ $data->device_id }}</strong></td>
+                            <td>{{ $data->device->lokasi ?? 'N/A' }}</td>
                             <td>
                                 <span class="badge bg-warning">
                                     {{ number_format($data->voltage_v, 2) }}V
                                 </span>
                             </td>
                             <td>{{ number_format($data->current_ma, 0) }} mA</td>
-                            <td>{{ $data->waktu->diffForHumans() }}</td>
+                            <td>{{ $data->recorded_at->diffForHumans() }}</td>
                             <td>
-                                <a href="{{ route('nodes.show', $data->node_id) }}" class="btn btn-sm btn-outline-primary">
+                                <a href="{{ route('nodes.show', $data->device_id) }}" class="btn btn-sm btn-outline-primary">
                                     View Node
                                 </a>
                             </td>
@@ -301,15 +301,15 @@
                     <tbody>
                         @foreach($commFailures->take(20) as $log)
                         <tr>
-                            <td><strong>{{ $log->node_id }}</strong></td>
-                            <td>{{ $log->waktu->format('d/m/Y H:i') }}</td>
+                            <td><strong>Device {{ $log->device_id }}</strong></td>
+                            <td>{{ $log->logged_at->format('d/m/Y H:i') }}</td>
                             <td>{{ $log->rssi_dbm }} dBm</td>
                             <td>{{ $log->snr_db }} dB</td>
                             <td>
                                 <span class="badge bg-danger">{{ $log->signal_quality }}</span>
                             </td>
                             <td>
-                                <a href="{{ route('nodes.show', $log->node_id) }}" class="btn btn-sm btn-outline-primary">
+                                <a href="{{ route('nodes.show', $log->device_id) }}" class="btn btn-sm btn-outline-primary">
                                     View Node
                                 </a>
                             </td>

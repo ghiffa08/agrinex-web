@@ -81,7 +81,7 @@
                         </div>
                         <div class="col-12">
                             <div class="text-center">
-                                <h3 class="text-success mb-0">{{ number_format($irrigationStats['avg_duration'], 1) }}</h3>
+                                <h3 class="text-success mb-0">N/A</h3>
                                 <small class="text-muted">Average Duration (min)</small>
                             </div>
                         </div>
@@ -150,9 +150,9 @@
                     <tbody>
                         @forelse($nodeActivity as $activity)
                         <tr>
-                            <td><strong>{{ $activity->node_id }}</strong></td>
-                            <td>{{ $activity->node->group ?? '-' }}</td>
-                            <td>{{ $activity->node->lokasi ?? '-' }}</td>
+                            <td><strong>Device {{ $activity->device_id }}</strong></td>
+                            <td>{{ $activity->device->group ?? '-' }}</td>
+                            <td>{{ $activity->device->lokasi ?? '-' }}</td>
                             <td>{{ number_format($activity->reading_count) }}</td>
                             <td>
                                 <span class="badge {{ $activity->avg_moisture < 30 ? 'bg-danger' : 'bg-success' }}">
@@ -161,11 +161,11 @@
                             </td>
                             <td>{{ number_format($activity->avg_temp, 1) }}°C</td>
                             <td>
-                                <a href="{{ route('reports.by-node', $activity->node_id) }}?start_date={{ request('start_date') }}&end_date={{ request('end_date') }}" 
+                                <a href="{{ route('reports.by-node', $activity->device_id) }}?start_date={{ request('start_date') }}&end_date={{ request('end_date') }}" 
                                    class="btn btn-sm btn-outline-primary">
                                     <i class="bi bi-file-text"></i> Detailed Report
                                 </a>
-                                <a href="{{ route('nodes.show', $activity->node_id) }}" 
+                                <a href="{{ route('nodes.show', $activity->device_id) }}" 
                                    class="btn btn-sm btn-outline-secondary">
                                     <i class="bi bi-eye"></i> View Node
                                 </a>

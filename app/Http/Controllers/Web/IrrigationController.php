@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\IrrigateLog;
+use App\Models\IrrigationLog;
 use App\Models\ValveLog;
-use App\Models\Node;
+use App\Models\Device;
 use Illuminate\Http\Request;
 
 class IrrigationController extends Controller
@@ -16,25 +16,25 @@ class IrrigationController extends Controller
     public function index()
     {
         // Get recent irrigation sessions
-        $irrigationLogs = IrrigateLog::latest('waktu_mulai')
+        $irrigationLogs = IrrigationLog::latest('started_at')
             ->paginate(20);
 
         // Get active irrigation (valve ON status)
-        $activeIrrigation = ValveLog::where('status', 'ON')
-            ->with('node')
-            ->latest('waktu')
+        $activeIrrigation = ValveLog::where('valve_status', 'ON')
+            ->with('device')
+            ->latest('logged_at')
             ->get();
 
         // Calculate statistics
         $stats = [
-            'total_events' => IrrigateLog::count(),
-            'today_events' => IrrigateLog::whereDate('waktu_mulai', today())->count(),
+            'total_events' => IrrigationLog::count(),
+            'today_events' => IrrigationLog::whereDate('started_at', today())->count(),
             'active_valves' => $activeIrrigation->count(),
-            'total_duration' => ValveLog::whereDate('waktu', today())->sum('durasi_detik') / 60, // Convert to minutes
+            'total_duration' => 0, // Obsolete metric
         ];
 
         // Get nodes with irrigation capability (exclude Node 65 - weather station)
-        $nodes = Node::where('node_id', '!=', 65)->orderBy('node_id')->get();
+        $nodes = Device::where('id', '!=', 65)->orderBy('id')->get();
 
         return view('irrigation.index', compact('irrigationLogs', 'activeIrrigation', 'stats', 'nodes'));
     }
@@ -45,32 +45,32 @@ class IrrigationController extends Controller
     public function trigger(Request $request)
     {
         $validated = $request->validate([
-            'node_id' => 'required|exists:node,node_id',
+            'device_id' => 'required|exists:devices,id',
             'duration' => 'required|integer|min:1|max:3600',
         ]);
 
-        $sesiId = 'MANUAL_' . now()->format('YmdHis');
+        $sesiId = intval(now()->format('YmdHi')); // Store as integer now
 
         // Create irrigation session
-        IrrigateLog::create([
-            'sesi_id_irrigate' => $sesiId,
-            'waktu_mulai' => now(),
-            'node_sukses' => $validated['node_id'],
-            'node_gagal' => 0,
-            'valve_on_akhir' => 0,
+        $irrigationLog = IrrigationLog::create([
+            'session_id' => $sesiId,
+            'started_at' => now(),
+            'success_count' => 1,
+            'failed_count' => 0,
+            'valve_on_count' => 1,
         ]);
 
         // Create valve log entry
         ValveLog::create([
-            'node_id' => $validated['node_id'],
-            'sesi_id_irrigate' => $sesiId,
-            'durasi_detik' => $validated['duration'],
-            'status' => 'ON',
-            'waktu' => now(),
+            'device_id' => $validated['device_id'],
+            'irrigation_log_id' => $irrigationLog->id,
+            'valve_status' => 'ON',
+            'reason' => 'MANUAL_TRIGGER',
+            'logged_at' => now(),
         ]);
 
         return redirect()->route('irrigation.index')
-            ->with('success', 'Manual irrigation triggered successfully for Node ' . $validated['node_id']);
+            ->with('success', 'Manual irrigation triggered successfully for Device ' . $validated['device_id']);
     }
 
     /**
@@ -78,12 +78,12 @@ class IrrigationController extends Controller
      */
     public function history($sesiId)
     {
-        $session = IrrigateLog::where('sesi_id_irrigate', $sesiId)->firstOrFail();
+        $session = IrrigationLog::where('session_id', $sesiId)->firstOrFail();
         
         // Get valve logs for this session
-        $valveLogs = ValveLog::where('sesi_id_irrigate', $sesiId)
-            ->with('node')
-            ->orderBy('waktu', 'asc')
+        $valveLogs = ValveLog::where('irrigation_log_id', $session->id)
+            ->with('device')
+            ->orderBy('logged_at', 'asc')
             ->get();
 
         return view('irrigation.history', compact('session', 'valveLogs'));

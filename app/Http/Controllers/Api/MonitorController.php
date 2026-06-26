@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\GetdataLog;
-use App\Models\IrrigateLog;
-use App\Models\SensorNodeData;
-use App\Models\SensorWeatherData;
-use App\Models\NodeLog;
-use DateTime;
+use App\Models\DataSession;
+use App\Models\IrrigationLog;
+use App\Models\SensorData;
+use App\Models\WeatherData;
+use App\Models\DeviceLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -28,22 +27,20 @@ class MonitorController extends Controller
                     'name' => config('database.connections.mysql.database')
                 ],
                 'tables' => [
-                    'getdata_logs' => GetdataLog::count(),
-                    // 'irrigate_logs' => IrrigateLog::count(),
-                    'sensor_node_data' => SensorNodeData::count(),
-                    'sensor_weather_data' => SensorWeatherData::count(),
-                    'node_logs' => NodeLog::count(),
+                    'getdata_logs' => DataSession::count(),
+                    'irrigate_logs' => IrrigationLog::count(),
+                    'sensor_node_data' => SensorData::count(),
+                    'sensor_weather_data' => WeatherData::count(),
+                    'node_logs' => DeviceLog::count(),
                 ],
                 'latest_sessions' => [
-                    'getdata' => GetdataLog::first(),
-                    // 'irrigate' => IrrigateLog::latest()->first(),
+                    'getdata' => DataSession::latest()->first(),
+                    'irrigate' => IrrigationLog::latest()->first(),
                 ],
                 'today' => [
-                    // format date (2025-10-15 12:42:03)
-                    // 'date' => date('Y-m-d H:i:s'),
-                    'getdata_sessions' => GetdataLog::whereDate('waktu_mulai', date('Y-m-d H:i:s'))->count(),
-                    // 'irrigate_sessions' => IrrigateLog::whereDate('created_at', date('Y-m-d H:i:s'))->count(),
-                    'sensor_readings' => SensorNodeData::whereDate('received_at', date('Y-m-d H:i:s'))->count(),
+                    'getdata_sessions' => DataSession::whereDate('started_at', date('Y-m-d'))->count(),
+                    'irrigate_sessions' => IrrigationLog::whereDate('started_at', date('Y-m-d'))->count(),
+                    'sensor_readings' => SensorData::whereDate('recorded_at', date('Y-m-d'))->count(),
                 ],
                 'server' => [
                     'php_version' => PHP_VERSION,
@@ -81,16 +78,36 @@ class MonitorController extends Controller
             $logs = [];
 
             if ($type === 'getdata' || $type === 'all') {
-                $logs['getdata'] = GetdataLog::with(['sensorNodeData', 'nodeLogs'])
+                $logs['getdata'] = DataSession::with(['sensorData'])
+                    ->orderBy('created_at', 'desc')
                     ->limit($limit)
-                    ->get();
+                    ->get()
+                    ->map(function($session) {
+                        return [
+                            'sesi_id_getdata' => $session->session_id,
+                            'status' => $session->status,
+                            'created_at' => $session->created_at,
+                            'node_sukses' => $session->success_count,
+                            'jumlah_node' => $session->success_count + $session->failed_count,
+                        ];
+                    });
             }
 
-            // if ($type === 'irrigate' || $type === 'all') {
-            //     $logs['irrigate'] = IrrigateLog::with(['valveLogs', 'nodeLogs'])
-            //         ->limit($limit)
-            //         ->get();
-            // }
+            if ($type === 'irrigate' || $type === 'all') {
+                $logs['irrigate'] = IrrigationLog::with(['valveLogs'])
+                    ->orderBy('created_at', 'desc')
+                    ->limit($limit)
+                    ->get()
+                    ->map(function($session) {
+                        return [
+                            'sesi_id_irrigate' => $session->session_id,
+                            'status' => $session->status,
+                            'created_at' => $session->created_at,
+                            'valve_sukses' => $session->success_count,
+                            'jumlah_valve' => $session->success_count + $session->failed_count,
+                        ];
+                    });
+            }
 
             return response()->json([
                 'success' => true,
@@ -174,17 +191,22 @@ class MonitorController extends Controller
         try {
             $sesiId = $request->query('sesi_id');
             
-            $query = SensorNodeData::select('node_id')
-                ->selectRaw('MAX(received_at) as last_seen')
+            $query = SensorData::select('device_id as node_id')
+                ->selectRaw('MAX(recorded_at) as last_seen')
                 ->selectRaw('COUNT(*) as total_readings')
                 ->selectRaw('AVG(voltage_v) as avg_voltage')
                 ->selectRaw('AVG(temp_c) as avg_temperature')
                 ->selectRaw('AVG(soil_pct) as avg_soil_moisture')
-                ->groupBy('node_id')
-                ->orderBy('node_id');
+                ->groupBy('device_id')
+                ->orderBy('device_id');
 
             if ($sesiId) {
-                $query->where('sesi_id_getdata', $sesiId);
+                // If filtering by session ID, we need to join with data_sessions to find by session_id 
+                // OR filter by data_session_id directly. The front end might still send the string session_id.
+                // Assuming it sends the string `session_id`, let's do a whereHas:
+                $query->whereHas('dataSession', function($q) use ($sesiId) {
+                    $q->where('session_id', $sesiId);
+                });
             }
 
             $nodes = $query->get();

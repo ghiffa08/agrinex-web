@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\DashboardApiController;
 use App\Http\Controllers\Api\DataIngestionController;
 use App\Http\Controllers\Api\WeatherController;
 use App\Http\Controllers\Api\DeviceController;
+use App\Http\Controllers\Api\TelemetryApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,7 @@ use App\Http\Controllers\Api\DeviceController;
 */
 
 // API v1
+Route::post('/telemetry', [TelemetryApiController::class, 'store']);
 Route::prefix('v1')->group(function () {
     
     // Data Ingestion Endpoints (NEW - for IoT devices)

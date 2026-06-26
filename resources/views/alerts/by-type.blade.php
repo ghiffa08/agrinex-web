@@ -82,13 +82,13 @@
                             @foreach($alerts as $alert)
                                 <tr>
                                     @if($type === 'communication')
-                                        <td>{{ $alert->waktu_log ? $alert->waktu_log->format('Y-m-d H:i:s') : '-' }}</td>
+                                        <td>{{ $alert->logged_at ? $alert->logged_at->format('Y-m-d H:i:s') : '-' }}</td>
                                         <td>
-                                            <a href="{{ route('nodes.show', $alert->node_id) }}" class="text-decoration-none">
-                                                <strong>{{ $alert->node_id }}</strong>
+                                            <a href="{{ route('nodes.show', $alert->device_id) }}" class="text-decoration-none">
+                                                <strong>Device {{ $alert->device_id }}</strong>
                                             </a>
                                         </td>
-                                        <td>{{ $alert->node->lokasi ?? '-' }}</td>
+                                        <td>{{ $alert->device->lokasi ?? '-' }}</td>
                                         <td>{{ $alert->rssi ?? '-' }} dBm</td>
                                         <td>{{ $alert->snr ?? '-' }} dB</td>
                                         <td>
@@ -111,13 +111,13 @@
                                             @endif
                                         </td>
                                     @else
-                                        <td>{{ $alert->received_at ? $alert->received_at->format('Y-m-d H:i:s') : '-' }}</td>
+                                        <td>{{ $alert->recorded_at ? $alert->recorded_at->format('Y-m-d H:i:s') : '-' }}</td>
                                         <td>
-                                            <a href="{{ route('nodes.show', $alert->node_id) }}" class="text-decoration-none">
-                                                <strong>{{ $alert->node_id }}</strong>
+                                            <a href="{{ route('nodes.show', $alert->device_id) }}" class="text-decoration-none">
+                                                <strong>Device {{ $alert->device_id }}</strong>
                                             </a>
                                         </td>
-                                        <td>{{ $alert->node->lokasi ?? '-' }}</td>
+                                        <td>{{ $alert->device->lokasi ?? '-' }}</td>
                                         
                                         @if($type === 'moisture')
                                             <td>
@@ -169,7 +169,7 @@
                                     @endif
                                     
                                     <td>
-                                        <a href="{{ route('nodes.show', $alert->node_id) }}" 
+                                        <a href="{{ route('nodes.show', $alert->device_id) }}" 
                                            class="btn btn-sm btn-outline-primary">
                                             <i class="bi bi-eye"></i> View Node
                                         </a>

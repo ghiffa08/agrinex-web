@@ -14,7 +14,7 @@
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('irrigation.index') }}">Irrigation</a></li>
-                    <li class="breadcrumb-item active">Session {{ $session->sesi_id_irrigate }}</li>
+                    <li class="breadcrumb-item active">Session {{ $session->session_id }}</li>
                 </ol>
             </nav>
         </div>
@@ -34,23 +34,23 @@
                     <div class="row">
                         <div class="col-md-3">
                             <p class="text-muted mb-1">Session ID</p>
-                            <h6>{{ $session->sesi_id_irrigate }}</h6>
+                            <h6>{{ $session->session_id }}</h6>
                         </div>
                         <div class="col-md-3">
                             <p class="text-muted mb-1">Started At</p>
-                            <h6>{{ $session->waktu_mulai ? $session->waktu_mulai->format('Y-m-d H:i:s') : '-' }}</h6>
+                            <h6>{{ $session->started_at ? $session->started_at->format('Y-m-d H:i:s') : '-' }}</h6>
                         </div>
                         <div class="col-md-2">
                             <p class="text-muted mb-1">Successful Nodes</p>
-                            <h6 class="text-success">{{ $session->node_sukses ?? 0 }}</h6>
+                            <h6 class="text-success">{{ $session->success_count ?? 0 }}</h6>
                         </div>
                         <div class="col-md-2">
                             <p class="text-muted mb-1">Failed Nodes</p>
-                            <h6 class="text-danger">{{ $session->node_gagal ?? 0 }}</h6>
+                            <h6 class="text-danger">{{ $session->failed_count ?? 0 }}</h6>
                         </div>
                         <div class="col-md-2">
                             <p class="text-muted mb-1">Valves Still On</p>
-                            <h6 class="text-warning">{{ $session->valve_on_akhir ?? 0 }}</h6>
+                            <h6 class="text-warning">{{ $session->valve_on_count ?? 0 }}</h6>
                         </div>
                     </div>
                 </div>
@@ -88,17 +88,17 @@
                                 <tr>
                                     <td>
                                         <i class="bi bi-clock"></i>
-                                        {{ $log->waktu ? $log->waktu->format('Y-m-d H:i:s') : '-' }}
+                                        {{ $log->logged_at ? $log->logged_at->format('Y-m-d H:i:s') : '-' }}
                                     </td>
                                     <td>
-                                        <a href="{{ route('nodes.show', $log->node_id) }}" class="text-decoration-none">
-                                            <strong>Node {{ $log->node_id }}</strong>
+                                        <a href="{{ route('nodes.show', $log->device_id) }}" class="text-decoration-none">
+                                            <strong>Device {{ $log->device_id }}</strong>
                                         </a>
                                     </td>
                                     <td>{{ $log->node->lokasi ?? '-' }}</td>
                                     <td>
                                         @php
-                                            $duration = $log->durasi_detik ?? 0;
+                                            $duration = 0; // Removed from DB schema
                                             $minutes = floor($duration / 60);
                                             $seconds = $duration % 60;
                                         @endphp
@@ -125,7 +125,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ route('nodes.show', $log->node_id) }}" 
+                                        <a href="{{ route('nodes.show', $log->device_id) }}" 
                                            class="btn btn-sm btn-outline-primary">
                                             <i class="bi bi-eye"></i> View Node
                                         </a>
@@ -138,7 +138,7 @@
                                 <td colspan="3" class="text-end"><strong>Total Duration:</strong></td>
                                 <td colspan="3">
                                     @php
-                                        $totalSeconds = $valveLogs->sum('durasi_detik');
+                                        $totalSeconds = 0;
                                         $totalMinutes = floor($totalSeconds / 60);
                                         $remainingSeconds = $totalSeconds % 60;
                                     @endphp
@@ -169,19 +169,19 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
                                     <h6 class="mb-1">
-                                        Node {{ $log->node_id }} - 
+                                        Device {{ $log->device_id }} - 
                                         <span class="badge bg-{{ $log->status === 'ON' ? 'success' : 'secondary' }}">
                                             {{ $log->status }}
                                         </span>
                                     </h6>
                                     <p class="mb-0 text-muted">
                                         <i class="bi bi-clock"></i> 
-                                        {{ $log->waktu ? $log->waktu->format('H:i:s') : '-' }} 
-                                        | Duration: {{ $log->durasi_detik }} seconds
+                                        {{ $log->logged_at ? $log->logged_at->format('H:i:s') : '-' }} 
+                                        | Duration: N/A
                                     </p>
                                 </div>
                                 <div>
-                                    <a href="{{ route('nodes.show', $log->node_id) }}" 
+                                    <a href="{{ route('nodes.show', $log->device_id) }}" 
                                        class="btn btn-sm btn-outline-primary">
                                         Details
                                     </a>
