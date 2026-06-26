@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Device;
+use App\Models\Node;
 use App\Models\DataSession;
 use App\Models\SensorData;
 use App\Models\WeatherData;
@@ -27,8 +28,8 @@ class DashboardApiController extends Controller
     public function getDevices()
     {
         try {
-            // Get all nodes from device table
-            $nodes = Device::orderBy('id')->get();
+            // Get all nodes from the 'node' table (auto-registered by TelemetryApiController)
+            $nodes = Node::orderBy('node_id')->get();
             
             if ($nodes->isEmpty()) {
                 return response()->json([
