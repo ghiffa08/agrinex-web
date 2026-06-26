@@ -3,112 +3,122 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Device;
-use App\Models\DataSession;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class TelemetryApiController extends Controller
 {
     /**
-     * Handle incoming telemetry data from ESP32
+     * Handle incoming telemetry data from ESP32 LoRa Gateway.
+     *
+     * Real DB schema (u802160697_agrinew):
+     *   - node             : device registry  (node_id = integer)
+     *   - sensor_node_data : sensor readings
+     *   - node_logs        : signal / session logs
      */
     public function store(Request $request)
     {
-        // ESP32 usually sends JSON payload
         try {
-            // Validate basic payload
+            // ── 1. Validate incoming ESP32 payload ──────────────────────────
             $validated = $request->validate([
-                'device_id' => 'required',
-                'session_id' => 'nullable|integer', 
-                'battery_pct' => 'nullable|numeric',
-                'temperature' => 'nullable|numeric',
-                'soil_moisture' => 'nullable|numeric',
-                'flow_rate' => 'nullable|numeric',
-                'rssi' => 'nullable|numeric',
-                'voltage_v' => 'nullable|numeric',
-                'current_ma' => 'nullable|numeric',
-                'power_mw' => 'nullable|numeric',
-                'soil_adc' => 'nullable|integer',
-                'light_lux' => 'nullable|numeric',
-                'rain_pct' => 'nullable|numeric',
-                'rain_adc' => 'nullable|integer',
-                'wind_speed' => 'nullable|numeric',
-                'humidity_pct' => 'nullable|numeric',
-                'is_weather_node' => 'nullable|boolean',
-                'ai_valve_decision' => 'nullable|string',
+                'node_id'                 => 'nullable|string|max:32',   // e.g. "SENDER_01"
+                'device_id'               => 'required|integer',          // integer node ID
+                'session_id'              => 'required|integer',
+                'timestamp'               => 'nullable|integer',
+                'battery_pct'             => 'nullable|numeric',
+                'voltage'                 => 'nullable|numeric',
+                'current_ma'              => 'nullable|numeric',
+                'power_mw'                => 'nullable|numeric',
+                'temperature'             => 'nullable|numeric',
+                'soil_moisture'           => 'nullable|numeric',
+                'flow_rate'               => 'nullable|numeric',
+                'total_volume'            => 'nullable|numeric',
+                'rssi'                    => 'nullable|numeric',
+                'ai_valve_decision'       => 'nullable|string|max:16',
                 'adaptive_sleep_duration' => 'nullable|integer',
-                'total_volume_l' => 'nullable|numeric'
             ]);
 
-            // 1. Verify Device exists
-            $device = Device::find($validated['device_id']);
-            
-            if (!$device) {
-                Log::warning("Unauthorized ESP32 telemetry attempt. Device ID: {$validated['device_id']}");
-                // Return 401 Unauthorized for security
-                return response()->json(['status' => 'error', 'message' => 'Unauthorized device'], 401);
-            }
+            $nodeId    = (int) $validated['device_id'];
+            $sessionId = (int) $validated['session_id'];
 
-            // 2. Find or Create Data Session
-            $session = DataSession::firstOrCreate(
-                ['session_id' => $validated['session_id']],
-                ['started_at' => now()]
-            );
-
-            // 3. Store Telemetry Data
-            if (!empty($validated['is_weather_node']) && $validated['is_weather_node']) {
-                // Save to weather_data
-                $record = $device->weatherData()->create([
-                    'data_session_id' => $session->id,
-                    'voltage_v' => $validated['voltage_v'] ?? null,
-                    'current_ma' => $validated['current_ma'] ?? null,
-                    'power_mw' => $validated['power_mw'] ?? null,
-                    'light_lux' => $validated['light_lux'] ?? null,
-                    'rain_pct' => $validated['rain_pct'] ?? null,
-                    'rain_adc' => $validated['rain_adc'] ?? null,
-                    'wind_speed' => $validated['wind_speed'] ?? null,
-                    'humidity_pct' => $validated['humidity_pct'] ?? null,
-                    'temp_c' => $validated['temp_c'] ?? null,
-                ]);
-            } else {
-                // Save to sensor_data (Soil node)
-                $record = $device->sensorData()->create([
-                    'data_session_id' => $session->id,
-                    'voltage_v' => $validated['voltage_v'] ?? null,
-                    'battery_pct' => $validated['battery_pct'] ?? null,
-                    'current_ma' => $validated['current_ma'] ?? null,
-                    'power_mw' => $validated['power_mw'] ?? null,
-                    'temperature' => $validated['temperature'] ?? ($validated['temp_c'] ?? null),
-                    'soil_moisture' => $validated['soil_moisture'] ?? ($validated['soil_pct'] ?? null),
-                    'flow_rate' => $validated['flow_rate'] ?? null,
-                    'total_volume_l' => $validated['total_volume_l'] ?? null,
-                    'soil_adc' => $validated['soil_adc'] ?? null,
-                    'ai_valve_decision' => $validated['ai_valve_decision'] ?? null,
-                    'adaptive_sleep_duration' => $validated['adaptive_sleep_duration'] ?? null,
-                    'rssi' => $validated['rssi'] ?? null,
+            // ── 2. Auto-register node if not yet known ──────────────────────
+            $nodeExists = DB::table('node')->where('node_id', $nodeId)->exists();
+            if (!$nodeExists) {
+                Log::info("[Telemetry] Auto-registering new node_id={$nodeId}");
+                DB::table('node')->insert([
+                    'node_id'        => $nodeId,
+                    'group'          => null,
+                    'kode_perlakuan' => null,
+                    'lokasi'         => 'Otomatis dari API',
+                    'keterangan'     => "Node {$nodeId} didaftarkan otomatis oleh ESP32",
+                    'waktu_dibuat'   => now(),
+                    'waktu_update'   => now(),
                 ]);
             }
 
-            // Log the communication
-            $device->logs()->create([
-                'is_active' => true,
-                'session_type' => 'telemetry',
-                'signal_quality' => 'Good', // Optional: accept from request if ESP32 sends RSSI
-                'remarks' => 'Data received via HTTP API'
+            // ── 3. Insert into sensor_node_data ─────────────────────────────
+            $recordId = DB::table('sensor_node_data')->insertGetId([
+                'sesi_id_getdata' => $sessionId,
+                'node_id'         => $nodeId,
+                'voltage_v'       => $validated['voltage']       ?? null,
+                'current_ma'      => $validated['current_ma']    ?? null,
+                'power_mw'        => $validated['power_mw']      ?? null,
+                'temp_c'          => $validated['temperature']   ?? null,
+                'soil_pct'        => $validated['soil_moisture'] ?? null,
+                'soil_adc'        => null,
+                'ts_counter'      => $validated['timestamp']     ?? null,
+                'received_at'     => now(),
             ]);
 
-            // 4. Return extremely lightweight JSON for ESP32 memory efficiency
+            // ── 4. Log into node_logs ────────────────────────────────────────
+            DB::table('node_logs')->insert([
+                'node_id'        => $nodeId,
+                'rssi_dbm'       => $validated['rssi'] ?? null,
+                'snr_db'         => null,
+                'signal_quality' => $this->rssiToQuality($validated['rssi'] ?? null),
+                'status'         => 'Aktif',
+                'waktu'          => now(),
+                'type_sesi'      => 'telemetry',
+                'sesi_id'        => (string) $sessionId,
+                'keterangan'     => sprintf(
+                    'LoRa node=%s valve=%s sleep=%ss',
+                    $validated['node_id'] ?? 'unknown',
+                    $validated['ai_valve_decision'] ?? '-',
+                    $validated['adaptive_sleep_duration'] ?? '-'
+                ),
+            ]);
+
+            // ── 5. Lightweight ACK for ESP32 ─────────────────────────────────
             return response()->json([
-                'status' => 'success',
-                'message' => 'Data & Edge Metrics saved'
+                'status' => 'ok',
+                'id'     => $recordId,
             ], 201);
 
         } catch (\Illuminate\Validation\ValidationException $e) {
-            return response()->json(['status' => 'error', 'message' => 'Invalid data format'], 422);
+            Log::warning('[Telemetry] Validation failed: ' . json_encode($e->errors()));
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Invalid data format',
+                'errors'  => $e->errors(),
+            ], 422);
+
         } catch (\Exception $e) {
-            Log::error("ESP32 Telemetry Error: " . $e->getMessage());
+            Log::error('[Telemetry] Exception: ' . $e->getMessage()
+                . ' at ' . $e->getFile() . ':' . $e->getLine());
             return response()->json(['status' => 'error', 'message' => 'Server error'], 500);
         }
+    }
+
+    /**
+     * Convert RSSI dBm to a human-readable quality label.
+     */
+    private function rssiToQuality(?float $rssi): string
+    {
+        if ($rssi === null)  return 'Unknown';
+        if ($rssi >= -70)   return 'Excellent';
+        if ($rssi >= -85)   return 'Good';
+        if ($rssi >= -100)  return 'Fair';
+        return 'Poor';
     }
 }
