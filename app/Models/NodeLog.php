@@ -40,7 +40,7 @@ class NodeLog extends Model
 
     public function node()
     {
-        return $this->belongsTo(Node::class, 'node_id', 'id');
+        return $this->belongsTo(Node::class, 'node_id', 'node_id');
     }
 
     /**
@@ -100,5 +100,20 @@ class NodeLog extends Model
     public function hasGoodSignal()
     {
         return $this->rssi_dbm >= -80 && $this->snr_db >= 7;
+    }
+
+    public function getWaktuLogAttribute()
+    {
+        return $this->waktu;
+    }
+
+    public function getRssiAttribute()
+    {
+        return $this->rssi_dbm;
+    }
+
+    public function getSnrAttribute()
+    {
+        return $this->snr_db;
     }
 }

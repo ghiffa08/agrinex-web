@@ -11,19 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('valve_logs', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('device_id')->constrained('devices')->cascadeOnDelete();
-            $table->foreignId('irrigation_log_id')->constrained('irrigation_logs')->cascadeOnDelete();
-            
-            $table->string('valve_status', 20)->nullable();
-            $table->string('reason', 100)->nullable();
-            
-            $table->timestamp('logged_at')->useCurrent();
-            
-            $table->index('logged_at');
-            $table->index(['device_id', 'logged_at']);
-        });
+        if (!Schema::hasTable('valve_logs')) {
+            Schema::create('valve_logs', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('device_id')->constrained('devices')->cascadeOnDelete();
+                $table->foreignId('irrigation_log_id')->constrained('irrigation_logs')->cascadeOnDelete();
+                
+                $table->string('valve_status', 20)->nullable();
+                $table->string('reason', 100)->nullable();
+                
+                $table->timestamp('logged_at')->useCurrent();
+                
+                $table->index('logged_at');
+                $table->index(['device_id', 'logged_at']);
+            });
+        }
     }
 
     /**

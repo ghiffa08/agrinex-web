@@ -1,6 +1,6 @@
 <div class="mt-6 grid md:grid-cols-2 gap-6" x-show="weekViewDays.length">
     <!-- Current Tasks -->
-    <div class="card !p-6 flex flex-col gap-4">
+    <div class="bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col gap-4">
         
         <div class="flex flex-col space-y-4">
             <!-- Header Prakiraan -->
@@ -45,12 +45,12 @@
     </div>
     
     <!-- Upcoming Week -->
-    <div class="card !p-6 flex flex-col gap-4">
+    <div class="bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col gap-4">
         <div class="flex items-center justify-between">
             <h3 class="font-semibold text-primary" x-text="t('activities')">Aktivitas / Peringatan</h3>
             <button class="text-secondary opacity-80 hover:text-secondary transition" @click="refreshTasks()">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
                 </svg>
             </button>
         </div>

@@ -54,7 +54,7 @@ class SensorWeatherData extends Model
 
     public function node()
     {
-        return $this->belongsTo(Node::class, 'node_id', 'id');
+        return $this->belongsTo(Node::class, 'node_id', 'node_id');
     }
 
     /**

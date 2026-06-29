@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\DataIngestionController;
 use App\Http\Controllers\Api\WeatherController;
 use App\Http\Controllers\Api\DeviceController;
 use App\Http\Controllers\Api\TelemetryApiController;
+use App\Http\Controllers\Api\TelemetryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,14 @@ use App\Http\Controllers\Api\TelemetryApiController;
 // API v1
 Route::post('/telemetry', [TelemetryApiController::class, 'store']);
 Route::prefix('v1')->group(function () {
+    
+    // Sanctum Authenticated Routes (Mobile App)
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::apiResource('devices', DeviceController::class)->except(['show']);
+    });
+    
+    // Public / Hardware Telemetry endpoints
+    Route::post('devices/telemetry', [TelemetryController::class, 'ingest']);
     
     // Data Ingestion Endpoints (NEW - for IoT devices)
     Route::prefix('ingest')->middleware(['throttle:60,1', 'iot.api'])->group(function () {

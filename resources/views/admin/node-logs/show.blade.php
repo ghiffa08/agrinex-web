@@ -1,133 +1,148 @@
-@extends('layouts.app')
+@extends('layouts.admin')
+
 @section('title', 'Node Log Details')
 
 @section('content')
-<div class="container-fluid py-3">
-    <div class="row mb-2">
-        <div class="col-md-8">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('admin.node-logs.index') }}">Node Logs</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Detail #{{ $log->id }}</li>
+{{-- Page Breadcrumb --}}
+<div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+    <div class="flex items-center gap-3">
+        <a href="{{ route('admin.node-logs.index') }}"
+            class="flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 bg-white text-gray-500 hover:bg-gray-50 hover:text-gray-700 dark:border-gray-800 dark:bg-white/[0.03] dark:text-gray-400 dark:hover:bg-white/[0.05] dark:hover:text-gray-200 transition-colors">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+        </a>
+        <div>
+            <h2 class="text-xl font-semibold text-gray-800 dark:text-white/90">Node Log Details #{{ $log->id }}</h2>
+            <nav>
+                <ol class="flex items-center gap-1.5">
+                    <li>
+                        <a class="text-xs text-gray-500 dark:text-gray-400" href="{{ route('dashboard') }}">Dashboard</a>
+                    </li>
+                    <li class="text-xs text-gray-400">/</li>
+                    <li>
+                        <a class="text-xs text-gray-500 dark:text-gray-400" href="{{ route('admin.node-logs.index') }}">Node Logs</a>
+                    </li>
+                    <li class="text-xs text-gray-400">/</li>
+                    <li class="text-xs text-gray-800 dark:text-white/90">Details</li>
                 </ol>
             </nav>
         </div>
-        <div class="col-md-4 text-end">
-            @if(auth()->user()->role === 'admin' || auth()->user()->role === 'operator')
-            <a href="{{ route('admin.node-logs.edit', $log->id) }}" class="btn btn-warning me-2">
-                <i class="bi bi-pencil"></i> Edit
-            </a>
-            @endif
-            <a href="{{ route('admin.node-logs.index') }}" class="btn btn-secondary">
-                <i class="bi bi-arrow-left"></i> Kembali
-            </a>
-        </div>
     </div>
-
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-
-    <div class="row g-3">
-        <div class="col-md-6">
-            <div class="card mb-3">
-                <div class="card-header bg-primary text-white">
-                    <i class="bi bi-info-circle"></i> Informasi Dasar
-                </div>
-                <div class="card-body">
-                    <table class="table table-sm">
-                        <tr>
-                            <th>ID</th>
-                            <td><span class="badge bg-dark">{{ $log->id }}</span></td>
-                        </tr>
-                        <tr>
-                            <th>Node</th>
-                            <td>
-                                <span class="badge bg-info">{{ $log->node_id }}</span>
-                                @if($log->node && $log->node->location)
-                                    <span class="text-muted">({{ $log->node->location }})</span>
-                                @endif
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Status</th>
-                            <td>
-                                <span class="badge {{ $log->status === 'Aktif' ? 'bg-success' : 'bg-danger' }}">
-                                    {{ $log->status }}
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Waktu</th>
-                            <td>{{ $log->waktu ? $log->waktu->format('d-m-Y H:i:s') : '-' }}</td>
-                        </tr>
-                        <tr>
-                            <th>Type Sesi</th>
-                            <td>{{ $log->type_sesi ?? '-' }}</td>
-                        </tr>
-                        <tr>
-                            <th>Sesi ID</th>
-                            <td>{{ $log->sesi_id ?? '-' }}</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card mb-3">
-                <div class="card-header bg-secondary text-white">
-                    <i class="bi bi-broadcast"></i> Komunikasi & Sinyal
-                </div>
-                <div class="card-body">
-                    <table class="table table-sm">
-                        <tr>
-                            <th>RSSI (dBm)</th>
-                            <td>
-                                <span class="badge bg-{{ $log->rssi_dbm > -80 ? 'success' : ($log->rssi_dbm > -100 ? 'warning' : 'danger') }}">
-                                    {{ $log->rssi_dbm ?? '-' }}
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>SNR (dB)</th>
-                            <td>
-                                <span class="badge bg-{{ $log->snr_db > 5 ? 'success' : ($log->snr_db > 0 ? 'warning' : 'danger') }}">
-                                    {{ $log->snr_db ?? '-' }}
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Signal Quality</th>
-                            <td>
-                                <span class="badge bg-info">{{ $log->signal_quality ?? '-' }}</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Keterangan</th>
-                            <td>{{ $log->keterangan ?? '-' }}</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
+    <div class="flex items-center gap-3">
+        @if(auth()->user()->role === 'admin' || auth()->user()->role === 'operator')
+        <a href="{{ route('admin.node-logs.edit', $log->id) }}"
+            class="inline-flex items-center gap-2 rounded-lg bg-warning-500 px-4 py-2.5 text-theme-sm font-medium text-white shadow-theme-xs hover:bg-warning-600 transition-colors">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+            </svg>
+            Edit
+        </a>
+        @endif
+        <a href="{{ route('admin.node-logs.index') }}"
+            class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-theme-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] transition-colors">
+            Back
+        </a>
     </div>
-
-    @if(auth()->user()->role === 'admin')
-    <div class="card border-danger mt-4">
-        <div class="card-header bg-danger text-white">
-            <i class="bi bi-exclamation-triangle"></i> Danger Zone
-        </div>
-        <div class="card-body">
-            <form action="{{ route('admin.node-logs.destroy', $log->id) }}" method="POST" onsubmit="return confirm('Hapus log node ini?');">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger">
-                    <i class="bi bi-trash"></i> Hapus Log Node
-                </button>
-            </form>
-        </div>
-    </div>
-    @endif
 </div>
+
+@if(session('success'))
+<div class="mb-6 rounded-lg bg-success-50 p-4 text-theme-sm text-success-800 dark:bg-success-500/10 dark:text-success-400 flex items-center gap-3">
+    <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+    {{ session('success') }}
+</div>
+@endif
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+    {{-- Basic Information --}}
+    <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
+        <div class="px-6 py-5 border-b border-gray-100 dark:border-gray-800">
+            <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">Informasi Dasar</h3>
+        </div>
+        <div class="p-6">
+            <div class="space-y-4">
+                <div class="flex justify-between items-center">
+                    <span class="text-theme-sm text-gray-500 dark:text-gray-400 font-medium">ID</span>
+                    <span class="rounded-full bg-gray-100 px-2.5 py-0.5 text-theme-xs font-semibold text-gray-600 dark:bg-gray-800 dark:text-gray-400">{{ $log->id }}</span>
+                </div>
+                <div class="flex justify-between items-start pt-4 border-t border-gray-100 dark:border-gray-800">
+                    <span class="text-theme-sm text-gray-500 dark:text-gray-400 font-medium">Node</span>
+                    <div class="text-right">
+                        <span class="rounded-full bg-brand-50 px-2.5 py-0.5 text-theme-xs font-semibold text-brand-600 dark:bg-brand-500/15 dark:text-brand-400">Node {{ $log->node_id }}</span>
+                        @if($log->node && $log->node->lokasi)
+                            <div class="text-xs text-gray-500 mt-1">({{ $log->node->lokasi }})</div>
+                        @endif
+                    </div>
+                </div>
+                <div class="flex justify-between items-center pt-4 border-t border-gray-100 dark:border-gray-800">
+                    <span class="text-theme-sm text-gray-500 dark:text-gray-400 font-medium">Status</span>
+                    <span class="rounded-full px-2.5 py-0.5 text-theme-xs font-semibold {{ $log->status === 'Aktif' ? 'bg-success-50 text-success-600 dark:bg-success-500/15' : 'bg-error-50 text-error-600 dark:bg-error-500/15' }}">
+                        {{ $log->status }}
+                    </span>
+                </div>
+                <div class="flex justify-between items-center pt-4 border-t border-gray-100 dark:border-gray-800">
+                    <span class="text-theme-sm text-gray-500 dark:text-gray-400 font-medium">Waktu</span>
+                    <span class="text-theme-sm font-medium text-gray-800 dark:text-white/90">{{ $log->waktu ? $log->waktu->format('d-m-Y H:i:s') : '-' }}</span>
+                </div>
+                <div class="flex justify-between items-center pt-4 border-t border-gray-100 dark:border-gray-800">
+                    <span class="text-theme-sm text-gray-500 dark:text-gray-400 font-medium">Type Sesi</span>
+                    <span class="text-theme-sm font-semibold uppercase text-brand-600 dark:text-brand-400">{{ $log->type_sesi ?? '-' }}</span>
+                </div>
+                <div class="flex justify-between items-center pt-4 border-t border-gray-100 dark:border-gray-800">
+                    <span class="text-theme-sm text-gray-500 dark:text-gray-400 font-medium">Sesi ID</span>
+                    <span class="text-theme-sm font-semibold text-gray-800 dark:text-white/90">{{ $log->sesi_id ?? '-' }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Communication & Signals --}}
+    <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
+        <div class="px-6 py-5 border-b border-gray-100 dark:border-gray-800">
+            <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">Komunikasi & Sinyal</h3>
+        </div>
+        <div class="p-6">
+            <div class="space-y-4">
+                <div class="flex justify-between items-center">
+                    <span class="text-theme-sm text-gray-500 dark:text-gray-400 font-medium">RSSI (dBm)</span>
+                    <span class="rounded-full px-2.5 py-0.5 text-theme-xs font-semibold {{ $log->rssi_dbm > -80 ? 'bg-success-50 text-success-600' : ($log->rssi_dbm > -100 ? 'bg-warning-50 text-warning-600' : 'bg-error-50 text-error-600') }}">
+                        {{ $log->rssi_dbm ?? '-' }} dBm
+                    </span>
+                </div>
+                <div class="flex justify-between items-center pt-4 border-t border-gray-100 dark:border-gray-800">
+                    <span class="text-theme-sm text-gray-500 dark:text-gray-400 font-medium">SNR (dB)</span>
+                    <span class="rounded-full px-2.5 py-0.5 text-theme-xs font-semibold {{ $log->snr_db > 5 ? 'bg-success-50 text-success-600' : ($log->snr_db > 0 ? 'bg-warning-50 text-warning-600' : 'bg-error-50 text-error-600') }}">
+                        {{ $log->snr_db ?? '-' }} dB
+                    </span>
+                </div>
+                <div class="flex justify-between items-center pt-4 border-t border-gray-100 dark:border-gray-800">
+                    <span class="text-theme-sm text-gray-500 dark:text-gray-400 font-medium">Signal Quality</span>
+                    <span class="rounded-full bg-brand-50 px-2.5 py-0.5 text-theme-xs font-semibold text-brand-600 dark:bg-brand-500/15">{{ $log->signal_quality ?? '-' }}</span>
+                </div>
+                <div class="flex justify-between items-start pt-4 border-t border-gray-100 dark:border-gray-800">
+                    <span class="text-theme-sm text-gray-500 dark:text-gray-400 font-medium">Keterangan</span>
+                    <span class="text-theme-sm text-gray-800 dark:text-white/90 text-right max-w-xs">{{ $log->keterangan ?? '-' }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- Delete section --}}
+@if(auth()->user()->role === 'admin')
+<div class="rounded-2xl border border-error-200 bg-error-50/50 p-6 dark:border-error-500/20 dark:bg-error-500/5">
+    <h3 class="text-lg font-semibold text-error-800 dark:text-error-400 mb-2">Danger Zone</h3>
+    <p class="text-theme-sm text-error-700 dark:text-error-300/80 mb-5">Once you delete this node communication log, there is no going back. Please be certain.</p>
+    <form action="{{ route('admin.node-logs.destroy', $log->id) }}" method="POST" 
+          onsubmit="return confirm('Hapus log node ini?');">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="rounded-lg bg-error-600 px-5 py-2.5 text-theme-sm font-medium text-white shadow-theme-xs hover:bg-error-700 transition-colors">
+            Hapus Log Node
+        </button>
+    </form>
+</div>
+@endif
 @endsection

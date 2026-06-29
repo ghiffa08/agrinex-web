@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\Device;
-use App\Models\SensorData;
-use App\Models\DeviceLog;
+use App\Models\Node;
+use App\Models\SensorNodeData;
+use App\Models\NodeLog;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -13,38 +13,38 @@ class NodesController extends Controller
 {
   public function index()
   {
-    // Get all devices
-    $nodes = Device::with(['sensorData' => function($query) {
-        $query->latest('recorded_at')->limit(1);
+    // Get all nodes
+    $nodes = Node::with(['sensorData' => function($query) {
+        $query->latest('received_at')->limit(1);
     }])->orderBy('id')->get();
 
-    // Get latest log for each device
-    $latestLogs = DeviceLog::select('device_logs.*')
-      ->from('device_logs')
+    // Get latest log for each node
+    $latestLogs = NodeLog::select('node_logs.*')
+      ->from('node_logs')
       ->join(
-        \DB::raw('(SELECT device_id, MAX(logged_at) as max_logged_at FROM device_logs GROUP BY device_id) as latest'),
+        \DB::raw('(SELECT node_id, MAX(waktu) as max_waktu FROM node_logs GROUP BY node_id) as latest'),
         function ($join) {
-          $join->on('device_logs.device_id', '=', 'latest.device_id')
-            ->on('device_logs.logged_at', '=', 'latest.max_logged_at');
+          $join->on('node_logs.node_id', '=', 'latest.node_id')
+            ->on('node_logs.waktu', '=', 'latest.max_waktu');
         }
       )
       ->get();
 
     // Attach latest log to each node
     foreach ($nodes as $node) {
-      $node->latestLog = $latestLogs->firstWhere('device_id', $node->id);
+      $node->latestLog = $latestLogs->firstWhere('node_id', $node->node_id);
       $node->is_online = $node->latestLog && 
-                         $node->latestLog->is_active &&
-                         now()->diffInHours($node->latestLog->logged_at) < 24;
+                         $node->latestLog->status === 'Aktif' &&
+                         now()->diffInHours($node->latestLog->waktu) < 24;
       $node->latestSensorData = $node->sensorData->first();
     }
 
     // Calculate statistics based on latest logs only
     $stats = [
       'total' => $nodes->count(),
-      'active' => $latestLogs->where('is_active', true)->count(),
-      'online' => $latestLogs->where('is_active', true)->count(),
-      'offline' => $latestLogs->where('is_active', false)->count(),
+      'active' => $latestLogs->where('status', 'Aktif')->count(),
+      'online' => $latestLogs->where('status', 'Aktif')->count(),
+      'offline' => $latestLogs->where('status', 'Non Aktif')->count(),
       'alerts' => $latestLogs->whereNotIn('signal_quality', ['Good', 'Excellent'])->count(),
     ];
 
@@ -53,28 +53,28 @@ class NodesController extends Controller
 
   public function show($id)
   {
-    $node = Device::findOrFail($id);
+    $node = Node::findOrFail($id);
 
     // Get sensor data for the last 24 hours
-    $sensorData = SensorData::where('device_id', $id)
-      ->where('recorded_at', '>=', now()->subDay())
-      ->orderBy('recorded_at', 'asc')
+    $sensorData = SensorNodeData::where('node_id', $node->node_id)
+      ->where('received_at', '>=', now()->subDay())
+      ->orderBy('received_at', 'asc')
       ->get();
 
     // Get communication logs for the last 7 days
-    $logs = DeviceLog::where('device_id', $id)
-      ->where('logged_at', '>=', now()->subDays(7))
-      ->orderBy('logged_at', 'desc')
+    $logs = NodeLog::where('node_id', $node->node_id)
+      ->where('waktu', '>=', now()->subDays(7))
+      ->orderBy('waktu', 'desc')
       ->limit(50)
       ->get();
 
-    $latestSensorData = SensorData::where('device_id', $id)
-      ->latest('recorded_at')
+    $latestSensorData = SensorNodeData::where('node_id', $node->node_id)
+      ->latest('received_at')
       ->first();
 
     // Prepare chart data
     $chartData = [
-      'labels' => $sensorData->pluck('recorded_at')->map(function ($date) {
+      'labels' => $sensorData->pluck('received_at')->map(function ($date) {
         return Carbon::parse($date)->format('H:i');
       }),
       'temperature' => $sensorData->pluck('temp_c'),
@@ -101,7 +101,7 @@ class NodesController extends Controller
    */
   public function edit($id)
   {
-    $node = Device::findOrFail($id);
+    $node = Node::findOrFail($id);
     return view('nodes.edit', compact('node'));
   }
 
@@ -110,7 +110,7 @@ class NodesController extends Controller
    */
   public function update(Request $request, $id)
   {
-    $node = Device::findOrFail($id);
+    $node = Node::findOrFail($id);
 
     $validated = $request->validate([
       'group' => 'nullable|string|max:50',

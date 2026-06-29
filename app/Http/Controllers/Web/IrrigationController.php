@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\IrrigationLog;
+use App\Models\IrrigateLog;
 use App\Models\ValveLog;
-use App\Models\Device;
+use App\Models\Node;
 use Illuminate\Http\Request;
 
 class IrrigationController extends Controller
@@ -16,25 +16,25 @@ class IrrigationController extends Controller
     public function index()
     {
         // Get recent irrigation sessions
-        $irrigationLogs = IrrigationLog::latest('started_at')
+        $irrigationLogs = IrrigateLog::latest('waktu_mulai')
             ->paginate(20);
 
         // Get active irrigation (valve ON status)
-        $activeIrrigation = ValveLog::where('valve_status', 'ON')
-            ->with('device')
-            ->latest('logged_at')
+        $activeIrrigation = ValveLog::where('status', 'ON')
+            ->with('node')
+            ->latest('waktu')
             ->get();
 
         // Calculate statistics
         $stats = [
-            'total_events' => IrrigationLog::count(),
-            'today_events' => IrrigationLog::whereDate('started_at', today())->count(),
+            'total_events' => IrrigateLog::count(),
+            'today_events' => IrrigateLog::whereDate('waktu_mulai', today())->count(),
             'active_valves' => $activeIrrigation->count(),
             'total_duration' => 0, // Obsolete metric
         ];
 
         // Get nodes with irrigation capability (exclude Node 65 - weather station)
-        $nodes = Device::where('id', '!=', 65)->orderBy('id')->get();
+        $nodes = Node::where('node_id', '!=', 65)->orderBy('node_id')->get();
 
         return view('irrigation.index', compact('irrigationLogs', 'activeIrrigation', 'stats', 'nodes'));
     }
@@ -45,28 +45,28 @@ class IrrigationController extends Controller
     public function trigger(Request $request)
     {
         $validated = $request->validate([
-            'device_id' => 'required|exists:devices,id',
+            'device_id' => 'required|exists:node,node_id',
             'duration' => 'required|integer|min:1|max:3600',
         ]);
 
-        $sesiId = intval(now()->format('YmdHi')); // Store as integer now
+        $sesiId = intval(now()->format('YmdHi')); // Store as integer session ID
 
         // Create irrigation session
-        $irrigationLog = IrrigationLog::create([
-            'session_id' => $sesiId,
-            'started_at' => now(),
-            'success_count' => 1,
-            'failed_count' => 0,
-            'valve_on_count' => 1,
+        $irrigationLog = IrrigateLog::create([
+            'sesi_id_irrigate' => $sesiId,
+            'waktu_mulai'      => now(),
+            'node_sukses'      => 1,
+            'node_gagal'       => 0,
+            'valve_on_akhir'   => 1,
         ]);
 
         // Create valve log entry
         ValveLog::create([
-            'device_id' => $validated['device_id'],
-            'irrigation_log_id' => $irrigationLog->id,
-            'valve_status' => 'ON',
-            'reason' => 'MANUAL_TRIGGER',
-            'logged_at' => now(),
+            'node_id'          => $validated['device_id'],
+            'sesi_id_irrigate' => $sesiId,
+            'status'           => 'ON',
+            'durasi_detik'     => $validated['duration'],
+            'waktu'            => now(),
         ]);
 
         return redirect()->route('irrigation.index')
@@ -78,12 +78,12 @@ class IrrigationController extends Controller
      */
     public function history($sesiId)
     {
-        $session = IrrigationLog::where('session_id', $sesiId)->firstOrFail();
+        $session = IrrigateLog::where('sesi_id_irrigate', $sesiId)->firstOrFail();
         
         // Get valve logs for this session
-        $valveLogs = ValveLog::where('irrigation_log_id', $session->id)
-            ->with('device')
-            ->orderBy('logged_at', 'asc')
+        $valveLogs = ValveLog::where('sesi_id_irrigate', $session->sesi_id_irrigate)
+            ->with('node')
+            ->orderBy('waktu', 'asc')
             ->get();
 
         return view('irrigation.history', compact('session', 'valveLogs'));

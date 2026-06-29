@@ -1,6 +1,6 @@
 <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
     <!-- Light Intensity Chart -->
-    <div class="card !p-6 flex flex-col group">
+    <div class="bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col group">
         <div class="mb-4">
             <div class="flex items-center justify-between mb-3">
                 <h3 class="text-primary text-xl font-bold" x-text="t('lightIntensity')">Light Intensity</h3>
@@ -37,7 +37,7 @@
     </div>
 
     <!-- Water Level Chart -->
-    <div class="card !p-6 flex flex-col group">
+    <div class="bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col group">
         <div class="mb-4">
             <div class="flex items-center justify-between mb-3">
                 <h3 class="text-primary text-xl font-bold" x-text="t('waterLevel')">Water Level</h3>
@@ -73,7 +73,7 @@
 <!-- Additional Environmental Charts -->
 <section class="grid grid-cols-1 gap-6">
     <!-- Soil Moisture Chart -->
-    <div class="card !p-6 flex flex-col group">
+    <div class="bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col group">
         <div class="mb-4">
             <div class="flex items-center justify-between">
                 <h3 class="text-primary text-xl font-bold" x-text="t('soilMoisture')">Soil Moisture</h3>
@@ -110,7 +110,7 @@
     <!-- Temperature and Humidity Charts (Side by Side) -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <!-- Temperature Chart -->
-        <div class="card !p-6 flex flex-col group">
+        <div class="bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col group">
             <div class="mb-4">
                 <div class="flex items-center justify-between mb-3">
                     <h3 class="text-primary text-xl font-bold" x-text="t('temperature')">Temperature</h3>
@@ -147,7 +147,7 @@
         </div>
 
         <!-- Humidity Chart -->
-        <div class="card !p-6 flex flex-col group">
+        <div class="bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col group">
             <div class="mb-4">
                 <div class="flex items-center justify-between mb-3">
                     <h3 class="text-primary text-xl font-bold" x-text="t('humidity')">Humidity</h3>

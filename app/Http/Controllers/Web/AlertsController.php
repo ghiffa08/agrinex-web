@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\DeviceLog;
-use App\Models\SensorData;
-use App\Models\Device;
+use App\Models\NodeLog;
+use App\Models\SensorNodeData;
+use App\Models\Node;
 use Illuminate\Http\Request;
 
 class AlertsController extends Controller
@@ -16,40 +16,40 @@ class AlertsController extends Controller
     public function index()
     {
         // Get communication failures (bad signal quality)
-        $commFailures = DeviceLog::whereNotIn('signal_quality', ['Good', 'Excellent'])
+        $commFailures = NodeLog::whereNotIn('signal_quality', ['Good', 'Excellent'])
             ->orWhere('rssi_dbm', '<', -120)
-            ->with('device')
-            ->latest('logged_at')
+            ->with('node')
+            ->latest('waktu')
             ->limit(50)
             ->get();
 
         // Get low soil moisture alerts (< 30%)
-        $lowMoisture = SensorData::where('soil_pct', '<', 30)
-            ->where('recorded_at', '>=', now()->subDay())
-            ->with('device')
-            ->latest('recorded_at')
+        $lowMoisture = SensorNodeData::where('soil_pct', '<', 30)
+            ->where('received_at', '>=', now()->subDay())
+            ->with('node')
+            ->latest('received_at')
             ->limit(50)
             ->get();
 
         // Get high temperature alerts (> 35°C)
-        $highTemp = SensorData::where('temp_c', '>', 35)
-            ->where('recorded_at', '>=', now()->subDay())
-            ->with('device')
-            ->latest('recorded_at')
+        $highTemp = SensorNodeData::where('temp_c', '>', 35)
+            ->where('received_at', '>=', now()->subDay())
+            ->with('node')
+            ->latest('received_at')
             ->limit(50)
             ->get();
 
         // Get low voltage alerts (< 3.0V)
-        $lowVoltage = SensorData::where('voltage_v', '<', 3.0)
-            ->where('recorded_at', '>=', now()->subDay())
-            ->with('device')
-            ->latest('recorded_at')
+        $lowVoltage = SensorNodeData::where('voltage_v', '<', 3.0)
+            ->where('received_at', '>=', now()->subDay())
+            ->with('node')
+            ->latest('received_at')
             ->limit(50)
             ->get();
 
         // Get offline nodes (no data in last 2 hours)
-        $offlineNodes = Device::whereDoesntHave('sensorData', function($query) {
-            $query->where('recorded_at', '>=', now()->subHours(2));
+        $offlineNodes = Node::whereDoesntHave('sensorData', function($query) {
+            $query->where('received_at', '>=', now()->subHours(2));
         })->get();
 
         // Statistics
@@ -80,37 +80,37 @@ class AlertsController extends Controller
 
         switch($type) {
             case 'communication':
-                $alerts = DeviceLog::whereNotIn('signal_quality', ['Good', 'Excellent'])
+                $alerts = NodeLog::whereNotIn('signal_quality', ['Good', 'Excellent'])
                     ->orWhere('rssi_dbm', '<', -120)
-                    ->with('device')
-                    ->latest('logged_at')
+                    ->with('node')
+                    ->latest('waktu')
                     ->paginate(50);
                 $title = 'Communication Issues';
                 break;
             
             case 'moisture':
-                $alerts = SensorData::where('soil_pct', '<', 30)
-                    ->where('recorded_at', '>=', now()->subDay())
-                    ->with('device')
-                    ->latest('recorded_at')
+                $alerts = SensorNodeData::where('soil_pct', '<', 30)
+                    ->where('received_at', '>=', now()->subDay())
+                    ->with('node')
+                    ->latest('received_at')
                     ->paginate(50);
                 $title = 'Low Soil Moisture Alerts';
                 break;
             
             case 'temperature':
-                $alerts = SensorData::where('temp_c', '>', 35)
-                    ->where('recorded_at', '>=', now()->subDay())
-                    ->with('device')
-                    ->latest('recorded_at')
+                $alerts = SensorNodeData::where('temp_c', '>', 35)
+                    ->where('received_at', '>=', now()->subDay())
+                    ->with('node')
+                    ->latest('received_at')
                     ->paginate(50);
                 $title = 'High Temperature Alerts';
                 break;
             
             case 'voltage':
-                $alerts = SensorData::where('voltage_v', '<', 3.0)
-                    ->where('recorded_at', '>=', now()->subDay())
-                    ->with('device')
-                    ->latest('recorded_at')
+                $alerts = SensorNodeData::where('voltage_v', '<', 3.0)
+                    ->where('received_at', '>=', now()->subDay())
+                    ->with('node')
+                    ->latest('received_at')
                     ->paginate(50);
                 $title = 'Low Voltage Alerts';
                 break;

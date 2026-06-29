@@ -9,7 +9,7 @@
     <!-- Skeleton Loading -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6" x-show="loadingUsage">
         <!-- Skeleton Card Kiri -->
-        <div class="card !rounded-3xl !p-6 flex flex-col animate-pulse">
+        <div class="bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col">
             <div class="mb-4 space-y-2">
                 <div class="h-5 bg-gray-200 rounded w-1/2"></div>
                 <div class="h-3 bg-gray-200 rounded w-3/4"></div>
@@ -23,7 +23,7 @@
             </div>
         </div>
         <!-- Skeleton Card Kanan -->
-        <div class="card !rounded-3xl !p-6 flex flex-col animate-pulse">
+        <div class="bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col">
             <div class="mb-4 space-y-2">
                 <div class="h-5 bg-gray-200 rounded w-1/2"></div>
                 <div class="h-3 bg-gray-200 rounded w-3/4"></div>
@@ -40,7 +40,7 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6" x-show="!loadingUsage" style="display: none;">
         <!-- Card Kiri: 30 Hari -->
-        <div class="card !rounded-3xl !p-6 flex flex-col">
+        <div class="bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col">
             <div class="mb-4">
                 <h3 class="text-base font-semibold text-primary mb-1" x-text="t('last30Days')">Penggunaan 30 Hari Terakhir</h3>
                 <p class="text-xs text-secondary" x-text="t('dailyData30')">Data harian dalam 30 hari terakhir</p>
@@ -63,7 +63,7 @@
         </div>
 
         <!-- Card Kanan: 24 Jam -->
-        <div class="card !rounded-3xl !p-6 flex flex-col">
+        <div class="bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col">
             <div class="mb-4">
                 <h3 class="text-base font-semibold text-primary mb-1" x-text="t('last24Hours')">Penggunaan 24 Jam Terakhir</h3>
                 <p class="text-xs text-secondary" x-text="t('hourlyData24')">Data per jam dalam 24 jam terakhir</p>

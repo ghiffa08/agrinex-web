@@ -1,7 +1,7 @@
 <div class="h-full">
     <!-- Skeleton Load -->
     <template x-if="loadingWeather">
-        <div class="animate-pulse bg-white/60 rounded-[2.5rem] p-6 shadow-sm border border-white h-full flex flex-col justify-between">
+        <div class="animate-pulse bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-2xl p-6 shadow-sm h-full flex flex-col justify-between">
             <div class="flex justify-between items-start">
                 <div class="h-4 bg-gray-300 rounded w-1/2"></div>
                 <div class="h-8 w-8 bg-gray-300 rounded-full"></div>
@@ -22,26 +22,19 @@
     </template>
 
     <!-- Actual Content -->
-    <template x-if="!loadingWeather">
-        <div class="bg-white/60 dark:bg-slate-800/50
-                    backdrop-blur-xl
-                    border border-white/60 dark:border-white/8
-                    rounded-[2rem] p-6
-                    shadow-lg dark:shadow-black/30
-                    text-primary dark:text-slate-100
-                    relative overflow-hidden h-full flex flex-col justify-between
-                    transition-all hover:bg-white/70 dark:hover:bg-slate-800/60">
+    <div x-show="!loadingWeather" x-cloak class="h-full">
+        <div class="bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-2xl p-6 shadow-sm h-full flex flex-col justify-between transition-all duration-300">
 
         <!-- Top Section: Location & Icon -->
-        <div class="flex justify-between items-start relative z-10">
-            <div class="flex items-center gap-2 bg-white/90 dark:bg-slate-700/80 px-3 py-1.5 rounded-full shadow-sm border border-white/80 dark:border-white/10">
+        <div class="flex justify-between items-start">
+            <div class="flex items-center gap-1.5 p-1.5 bg-gray-50 dark:bg-slate-800 rounded-full border border-gray-100 dark:border-slate-700">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z" />
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
                 <span class="text-xs font-semibold text-gray-700 dark:text-slate-200 tracking-wide">Kecamatan Kuningan, ID</span>
             </div>
-            <div class="bg-white/90 dark:bg-slate-700/80 p-2 rounded-full shadow-sm border border-white/80 dark:border-white/10">
+            <div class="p-2 bg-gray-50 dark:bg-slate-800 rounded-full border border-gray-100 dark:border-slate-700">
                 <img x-show="weatherSummary && weatherSummary.icon" x-cloak :src="weatherSummary?.icon" alt="Weather" width="24" height="24" class="h-6 w-6 object-contain" />
                 <svg x-show="!(weatherSummary && weatherSummary.icon)" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-secondary opacity-80 dark:text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
@@ -50,7 +43,7 @@
         </div>
 
         <!-- Middle Section: Temp & Date -->
-        <div class="flex justify-between items-end mt-8 relative z-10">
+        <div class="flex justify-between items-end mt-8">
             <div class="flex items-start flex-shrink-0">
                 <span class="text-5xl sm:text-6xl font-extrabold tracking-tighter text-gray-900 dark:text-slate-50" x-text="weatherSummary ? weatherSummary.temp : '-'"></span>
                 <span class="text-xl sm:text-2xl font-bold text-secondary opacity-80 dark:text-slate-500 mt-1 sm:mt-2 ml-1">°C</span>
@@ -62,9 +55,9 @@
         </div>
 
         <!-- Bottom Section: Stats -->
-        <div class="grid grid-cols-3 gap-2 mt-8 border-t border-gray-200/60 dark:border-white/8 pt-5 relative z-10">
+        <div class="grid grid-cols-3 gap-3 border-t border-gray-100 dark:border-slate-800 pt-5 mt-5">
             <!-- Kelembapan -->
-            <div class="flex flex-col items-start bg-white/50 dark:bg-white/5 p-2 rounded-2xl">
+            <div class="flex flex-col items-start bg-gray-50 dark:bg-slate-800 p-2 rounded-2xl">
                 <div class="flex items-center gap-1.5 mb-1">
                     <div class="p-1 bg-blue-50 dark:bg-blue-900/30 rounded-full">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-blue-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -103,6 +96,7 @@
                 <div class="text-sm font-bold text-primary dark:text-slate-200 ml-1" x-text="weatherSummary ? (weatherSummary.wind_speed+' km/h') : '-'"></div>
             </div>
         </div>
-
-    </template>
-</div>
+        
+        </div> <!-- Close Inner Card -->
+    </div> <!-- Close Wrapper -->
+</div> <!-- Close h-full -->

@@ -1,7 +1,7 @@
 {{-- Location Maps Section --}}
 <section class="grid lg:grid-cols-2 gap-6">
     <!-- Street View Kiri -->
-    <div class="card !p-6 flex flex-col group relative overflow-hidden">
+    <div class="bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col group relative overflow-hidden">
         <div class="flex items-center justify-between mb-3">
             <h2 class="font-semibold text-primary">Citra Satelit Lahan</h2>
             <span
@@ -32,7 +32,7 @@
     </div>
     
     <!-- Denah Desa Kanan -->
-    <div class="card !p-6 flex flex-col relative group">
+    <div class="bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col relative group">
         <div class="flex items-center justify-between mb-3">
             <h2 class="font-semibold text-primary">Denah Desa (Interaktif)</h2>
             <div class="flex gap-2">
