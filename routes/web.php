@@ -28,9 +28,9 @@ use App\Http\Controllers\Web\ReportsController;
 */
 
 // Public Routes
-// Welcome Page (Landing Page)
+// Welcome Page (Redirect to dashboard which requires login)
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('agrinex.dashboard');
 })->name('welcome');
 
 // Public Utility Pages (Accessible without login)
@@ -50,27 +50,18 @@ Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback']);
 // Protected Routes - Require Authentication
 Route::middleware(['auth'])->group(function () {
     
-    // Redirect old AgriNex Main Dashboard to new Dashboard Overview
-    Route::get('/agrinex-dashboard', function () {
-        return redirect()->route('dashboard');
-    })->name('agrinex.dashboard');
+    // AgriNex Main Dashboard (with charts and real-time data)
+    Route::get('/agrinex-dashboard', [AgriNexDashboardController::class, 'index'])->name('agrinex.dashboard');
 
     Route::middleware(['role'])->group(function () {
 
-    // Simple Dashboard (Statistics only) - Commented out for Filament
-    // Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    // Route::get('/admin/flasher', [DashboardController::class, 'flasher'])->name('admin.flasher');
-    Route::get('/admin/flasher/ports', [DashboardController::class, 'getPorts'])->name('admin.flasher.ports');
-    Route::post('/admin/flasher/flash', [DashboardController::class, 'executeFlash'])->name('admin.flasher.flash');
-    Route::get('/admin/flasher/sensor', [DashboardController::class, 'proxySensor'])->name('admin.flasher.sensor');
-    Route::post('/admin/flasher/relay', [DashboardController::class, 'proxyRelay'])->name('admin.flasher.relay');
-    Route::get('/admin/flasher/serial-stream', [DashboardController::class, 'streamSerial'])->name('admin.flasher.serial-stream');
+    // Simple Dashboard (Statistics only)
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Dashboard API Routes
     Route::get('/admin/dashboard/chart-data', [DashboardController::class, 'chartData'])->name('dashboard.chart-data');
     Route::get('/admin/dashboard/realtime-data', [DashboardController::class, 'realtimeData'])->name('dashboard.realtime-data');
 
-    /*
     // Nodes Management
     Route::get('/nodes', [NodesController::class, 'index'])->name('nodes.index');
     Route::get('/nodes/{id}', [NodesController::class, 'show'])->name('nodes.show');
@@ -95,10 +86,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/reports', [ReportsController::class, 'index'])->name('reports.index');
     Route::get('/reports/node/{nodeId}', [ReportsController::class, 'byNode'])->name('reports.by-node');
     Route::get('/reports/export/pdf', [ReportsController::class, 'exportPdf'])->name('reports.export.pdf');
-    */
     });
 
-    /*
     // Settings Routes - Admin only
     Route::prefix('settings')->name('settings.')->middleware(['role:admin'])->group(function () {
         Route::get('/', [SettingsController::class, 'index'])->name('index');
@@ -159,7 +148,6 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/json-backup/{id}', [JsonBackupController::class, 'update'])->name('json-backup.update');
         Route::delete('/json-backup/{id}', [JsonBackupController::class, 'destroy'])->name('json-backup.destroy')->middleware(['role:admin']);
     });
-    */
 });
 
 

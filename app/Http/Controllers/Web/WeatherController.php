@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\SensorWeatherData;
+use App\Models\WeatherData;
 use Illuminate\Http\Request;
 
 class WeatherController extends Controller
@@ -14,34 +14,34 @@ class WeatherController extends Controller
     public function index()
     {
         // Get latest weather data (Device 65)
-        $latestWeather = SensorWeatherData::where('node_id', 65)
-            ->latest('received_at')
+        $latestWeather = WeatherData::where('device_id', 65)
+            ->latest('recorded_at')
             ->first();
 
         // Get weather data for last 24 hours
-        $weatherData24h = SensorWeatherData::where('node_id', 65)
-            ->where('received_at', '>=', now()->subDay())
-            ->orderBy('received_at', 'asc')
+        $weatherData24h = WeatherData::where('device_id', 65)
+            ->where('recorded_at', '>=', now()->subDay())
+            ->orderBy('recorded_at', 'asc')
             ->get();
 
         // Get weather data for last 7 days
-        $weatherData7d = SensorWeatherData::where('node_id', 65)
-            ->where('received_at', '>=', now()->subDays(7))
-            ->orderBy('received_at', 'asc')
+        $weatherData7d = WeatherData::where('device_id', 65)
+            ->where('recorded_at', '>=', now()->subDays(7))
+            ->orderBy('recorded_at', 'asc')
             ->get();
 
         // Calculate statistics
         $stats = [
-            'current_temp' => $latestWeather->temp_dht ?? 0,
-            'current_humidity' => $latestWeather->humidity ?? 0,
-            'avg_temp_24h' => $weatherData24h->avg('temp_dht'),
-            'avg_humidity_24h' => $weatherData24h->avg('humidity'),
-            'max_light_24h' => $weatherData24h->max('light'),
-            'total_readings' => SensorWeatherData::where('node_id', 65)->count(),
+            'current_temp' => $latestWeather->temp_c ?? 0,
+            'current_humidity' => $latestWeather->humidity_pct ?? 0,
+            'avg_temp_24h' => $weatherData24h->avg('temp_c'),
+            'avg_humidity_24h' => $weatherData24h->avg('humidity_pct'),
+            'max_light_24h' => $weatherData24h->max('light_lux'),
+            'total_readings' => WeatherData::where('device_id', 65)->count(),
         ];
 
         // Check rain status
-        $stats['rain_status'] = $latestWeather && $latestWeather->rain > 0 ? 'Raining' : 'No Rain';
+        $stats['rain_status'] = $latestWeather && $latestWeather->rain_pct > 0 ? 'Raining' : 'No Rain';
 
         return view('weather.index', compact('latestWeather', 'weatherData24h', 'weatherData7d', 'stats'));
     }
@@ -54,9 +54,9 @@ class WeatherController extends Controller
         $startDate = $request->input('start_date', now()->subDays(7));
         $endDate = $request->input('end_date', now());
 
-        $weatherHistory = SensorWeatherData::where('node_id', 65)
-            ->whereBetween('received_at', [$startDate, $endDate])
-            ->orderBy('received_at', 'desc')
+        $weatherHistory = WeatherData::where('device_id', 65)
+            ->whereBetween('recorded_at', [$startDate, $endDate])
+            ->orderBy('recorded_at', 'desc')
             ->paginate(100);
 
         return view('weather.history', compact('weatherHistory', 'startDate', 'endDate'));
@@ -69,20 +69,20 @@ class WeatherController extends Controller
     {
         $hours = $request->input('hours', 24);
 
-        $data = SensorWeatherData::where('node_id', 65)
-            ->where('received_at', '>=', now()->subHours($hours))
-            ->orderBy('received_at', 'asc')
+        $data = WeatherData::where('device_id', 65)
+            ->where('recorded_at', '>=', now()->subHours($hours))
+            ->orderBy('recorded_at', 'asc')
             ->get();
 
         return response()->json([
-            'labels' => $data->pluck('received_at')->map(function($date) {
+            'labels' => $data->pluck('recorded_at')->map(function($date) {
                 return $date->format('H:i');
             }),
-            'temperature' => $data->pluck('temp_dht'),
-            'humidity' => $data->pluck('humidity'),
-            'light' => $data->pluck('light'),
-            'wind' => $data->pluck('wind'),
-            'rain' => $data->pluck('rain'),
+            'temperature' => $data->pluck('temp_c'),
+            'humidity' => $data->pluck('humidity_pct'),
+            'light' => $data->pluck('light_lux'),
+            'wind' => $data->pluck('wind_speed'),
+            'rain' => $data->pluck('rain_pct'),
         ]);
     }
 }

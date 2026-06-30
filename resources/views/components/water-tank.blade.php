@@ -1,7 +1,8 @@
 <!-- Water Tank Skeleton -->
 <div>
     <template x-if="loadingTank">
-            <div class="bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-slate-800 p-6 xl:p-8 shadow-sm w-full relative overflow-hidden animate-pulse">
+        <section class="mt-6">
+            <div class="bg-white/60 backdrop-blur-xl rounded-[2.5rem] border border-white/60 p-6 xl:p-8 shadow-lg w-full relative overflow-hidden animate-pulse">
                 <div class="flex items-center gap-3 mb-6">
                     <div class="w-10 h-10 bg-gray-200 rounded-lg"></div>
                     <div class="space-y-2 flex-1">
@@ -24,7 +25,8 @@
 
     <!-- Water Tank Section (Separate) -->
     <section class="mt-6" x-show="!loadingTank" x-cloak>
-        <div x-show="tank" class="bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 shadow-sm rounded-2xl p-6 transition-all flex flex-col gap-6">
+        <!-- Actual Tank Data -->
+        <div x-show="tank" class="bg-white/60 backdrop-blur-xl border border-white/60 shadow-lg rounded-3xl p-6 hover:bg-white/70 dark:bg-slate-900/60 dark:border-slate-800/80 dark:hover:bg-slate-900/70 transition-all flex flex-col gap-6">
             <div class="flex items-center gap-3 mb-4">
                 <div class="p-2 bg-emerald-100 dark:bg-emerald-900/30 rounded-lg shadow-sm border border-emerald-200 dark:border-emerald-800">
                     <svg class="w-6 h-6 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -78,25 +80,25 @@
 
                 <!-- Tank Info -->
                 <div class="lg:col-span-2 grid grid-cols-2 gap-4">
-                    <div class="bg-gray-50 dark:bg-slate-800 rounded-xl p-4 border border-gray-100 dark:border-slate-700">
+                    <div class="bg-white/60 dark:bg-slate-800/60 rounded-xl p-4 border border-white/60 dark:border-white/5 shadow-sm">
                         <div class="text-sm text-secondary font-medium mb-1">Kapasitas Total</div>
                         <div class="text-3xl font-bold text-primary" x-text="tank ? (tank.capacity || '-') : '-'">-</div>
                         <div class="text-xs text-secondary mt-1">cm (tinggi)</div>
                     </div>
 
-                    <div class="bg-gray-50 dark:bg-slate-800 rounded-xl p-4 border border-gray-100 dark:border-slate-700">
+                    <div class="bg-white/60 dark:bg-slate-800/60 rounded-xl p-4 border border-white/60 dark:border-white/5 shadow-sm">
                         <div class="text-sm text-secondary font-medium mb-1">Level Saat Ini</div>
                         <div class="text-3xl font-bold text-primary" x-text="tank && tank.water_level_cm ? tank.water_level_cm.toFixed(1) : '-'">-</div>
                         <div class="text-xs text-secondary mt-1">cm</div>
                     </div>
 
-                    <div class="bg-gray-50 dark:bg-slate-800 rounded-xl p-4 border border-gray-100 dark:border-slate-700">
+                    <div class="bg-white/60 dark:bg-slate-800/60 rounded-xl p-4 border border-white/60 dark:border-white/5 shadow-sm">
                         <div class="text-sm text-secondary font-medium mb-1">Persentase</div>
                         <div class="text-3xl font-bold text-primary" x-text="tank && tank.percentage ? tank.percentage.toFixed(1) + '%' : '-'">-</div>
                         <div class="text-xs text-secondary mt-1">dari kapasitas</div>
                     </div>
 
-                    <div class="bg-gray-50 dark:bg-slate-800 rounded-xl p-4 border border-gray-100 dark:border-slate-700">
+                    <div class="bg-white/60 dark:bg-slate-800/60 rounded-xl p-4 border border-white/60 dark:border-white/5 shadow-sm">
                         <div class="text-sm text-secondary font-medium mb-1">Status</div>
                         <div class="text-3xl font-bold" 
                             :class="tank && tank.percentage < 20 ? 'text-red-500' : 'text-emerald-500'"
@@ -108,7 +110,7 @@
         </div>
 
         <!-- Empty State -->
-        <div x-show="!tank" x-cloak class="w-full bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-2xl p-8 text-center shadow-sm">
+        <div x-show="!tank" x-cloak class="w-full bg-white/70 backdrop-blur-xl border border-white/60 rounded-3xl p-8 text-center shadow-sm">
             <div class="inline-block p-4 bg-gray-100 rounded-full mb-4">
                 <svg class="w-12 h-12 text-secondary opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />

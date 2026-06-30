@@ -40,9 +40,6 @@ class TelemetryApiController extends Controller
             ]);
 
             $nodeId    = (int) $validated['device_id'];
-            if (!empty($validated['node_id']) && preg_match('/\d+/', $validated['node_id'], $matches)) {
-                $nodeId = (int) $matches[0];
-            }
             $sessionId = (int) $validated['session_id'];
 
             // ── 2. Auto-register node if not yet known ──────────────────────
@@ -60,24 +57,36 @@ class TelemetryApiController extends Controller
                 ]);
             }
 
-            // ── 3. Insert into sensor_node_data (trigger will auto-log to node_logs) ──
+            // ── 3. Insert into sensor_node_data ─────────────────────────────
             $recordId = DB::table('sensor_node_data')->insertGetId([
-                'sesi_id_getdata'         => $sessionId,
-                'node_id'                 => $nodeId,
-                'voltage_v'               => $validated['voltage'] ?? null,
-                'battery_pct'             => $validated['battery_pct'] ?? null,
-                'current_ma'              => $validated['current_ma'] ?? null,
-                'power_mw'                => $validated['power_mw'] ?? null,
-                'flow_rate'               => $validated['flow_rate'] ?? null,
-                'total_volume_l'          => $validated['total_volume'] ?? null,
-                'temp_c'                  => $validated['temperature'] ?? null,
-                'soil_pct'                => $validated['soil_moisture'] ?? null,
-                'soil_adc'                => null,
-                'ai_valve_decision'       => $validated['ai_valve_decision'] ?? null,
-                'adaptive_sleep_duration' => $validated['adaptive_sleep_duration'] ?? null,
-                'rssi'                    => $validated['rssi'] ?? null,
-                'ts_counter'              => $validated['timestamp'] ?? null,
-                'received_at'             => now(),
+                'sesi_id_getdata' => $sessionId,
+                'node_id'         => $nodeId,
+                'voltage_v'       => $validated['voltage']       ?? null,
+                'current_ma'      => $validated['current_ma']    ?? null,
+                'power_mw'        => $validated['power_mw']      ?? null,
+                'temp_c'          => $validated['temperature']   ?? null,
+                'soil_pct'        => $validated['soil_moisture'] ?? null,
+                'soil_adc'        => null,
+                'ts_counter'      => $validated['timestamp']     ?? null,
+                'received_at'     => now(),
+            ]);
+
+            // ── 4. Log into node_logs ────────────────────────────────────────
+            DB::table('node_logs')->insert([
+                'node_id'        => $nodeId,
+                'rssi_dbm'       => $validated['rssi'] ?? null,
+                'snr_db'         => null,
+                'signal_quality' => $this->rssiToQuality($validated['rssi'] ?? null),
+                'status'         => 'Aktif',
+                'waktu'          => now(),
+                'type_sesi'      => 'telemetry',
+                'sesi_id'        => (string) $sessionId,
+                'keterangan'     => sprintf(
+                    'LoRa node=%s valve=%s sleep=%ss',
+                    $validated['node_id'] ?? 'unknown',
+                    $validated['ai_valve_decision'] ?? '-',
+                    $validated['adaptive_sleep_duration'] ?? '-'
+                ),
             ]);
 
             // ── 5. Lightweight ACK for ESP32 ─────────────────────────────────

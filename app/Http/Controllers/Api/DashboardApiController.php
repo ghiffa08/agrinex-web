@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Device;
 use App\Models\Node;
-use App\Models\GetdataLog;
-use App\Models\SensorNodeData;
-use App\Models\SensorWeatherData;
-use App\Models\IrrigateLog;
+use App\Models\DataSession;
+use App\Models\SensorData;
+use App\Models\WeatherData;
+use App\Models\IrrigationLog;
 use App\Models\ValveLog;
 use App\Models\JsonBackup;
 use Illuminate\Http\Request;
@@ -39,7 +40,7 @@ class DashboardApiController extends Controller
             }
             
             // Get latest sensor session
-            $latestSession = GetdataLog::orderBy('waktu_mulai', 'desc')
+            $latestSession = DataSession::orderBy('started_at', 'desc')
                 ->first();
             
             // Get weather data from latest session
@@ -139,45 +140,23 @@ class DashboardApiController extends Controller
             
             $recentIrrigation = null;
             if ($tableExists) {
-                $recentIrrigation = IrrigateLog::with('valveLogs')
-                    ->whereNotNull('waktu_akhir')
-                    ->orderBy('waktu_mulai', 'desc')
+                $recentIrrigation = IrrigationLog::with('valveLogs')
+                    ->where('status', 'completed')
+                    ->orderBy('started_at', 'desc')
                     ->first();
             }
             
-            // Check if there are any devices configured or any irrigation logs
-            $nodesCount = Node::count();
-            
-            if ($nodesCount === 0 || !$recentIrrigation) {
-                // Return explicitly empty tank data, NO DUMMY DATA
-                return response()->json([
-                    'success' => true,
-                    'data' => [
-                        'id' => null,
-                        'tank_name' => 'Tangki Air Utama',
-                        'name' => 'Tangki Air Utama',
-                        'capacity' => 0,
-                        'capacity_liters' => 0,
-                        'current_volume_liters' => 0,
-                        'water_level_cm' => 0,
-                        'percentage' => 0,
-                        'status' => 'no_data',
-                        'updated_at' => null
-                    ]
-                ]);
-            }
-            
-            // Assuming tank is 1000L for now until hardware is added
+            // Mock tank data (customize based on your actual tank monitoring)
             $tankCapacity = 1000; // liters
             $usedToday = 0;
             
             if ($recentIrrigation && $recentIrrigation->valveLogs) {
-                $usedToday = $recentIrrigation->valveLogs->sum('volume_air');
+                $usedToday = $recentIrrigation->valveLogs->sum('volume_ml') / 1000; // Convert ml to liters
             }
             
             $currentVolume = max(0, $tankCapacity - $usedToday);
             $percentage = ($currentVolume / $tankCapacity) * 100;
-            $waterLevelCm = ($percentage / 100) * 150;
+            $waterLevelCm = ($percentage / 100) * 150; // Assuming 150cm max height
             
             return response()->json([
                 'success' => true,
@@ -191,7 +170,7 @@ class DashboardApiController extends Controller
                     'water_level_cm' => round($waterLevelCm, 2),
                     'percentage' => round($percentage, 2),
                     'status' => $percentage > 70 ? 'normal' : ($percentage > 30 ? 'warning' : 'critical'),
-                    'updated_at' => $recentIrrigation ? $recentIrrigation->waktu_mulai : now()
+                    'updated_at' => $recentIrrigation ? $recentIrrigation->started_at : now()
                 ]
             ]);
             
@@ -235,26 +214,26 @@ class DashboardApiController extends Controller
                         'total_sessions' => 0,
                         'sessions' => []
                     ],
-                    'note' => 'irrigate_logs table not available'
+                    'note' => 'irrigation_logs table not available'
                 ]);
             }
             
             // Get today's irrigation sessions
-            $todaySessions = IrrigateLog::whereDate('waktu_mulai', today())
+            $todaySessions = IrrigationLog::whereDate('started_at', today())
                 ->with('valveLogs')
-                ->orderBy('waktu_mulai')
+                ->orderBy('started_at')
                 ->get();
             
             $schedule = $todaySessions->map(function ($session) {
                 return [
                     'id' => $session->id,
-                    'session_id' => $session->sesi_id_irrigate,
-                    'start_time' => $session->waktu_mulai,
-                    'end_time' => $session->waktu_akhir,
-                    'duration_minutes' => $session->waktu_akhir ? Carbon::parse($session->waktu_mulai)->diffInMinutes($session->waktu_akhir) : 0,
-                    'total_valves' => $session->node_sukses + $session->node_gagal,
-                    'status' => $session->waktu_akhir ? 'completed' : 'ongoing',
-                    'total_volume_ml' => $session->valveLogs->sum('volume_air') * 1000
+                    'session_id' => $session->session_id,
+                    'start_time' => $session->started_at,
+                    'end_time' => $session->ended_at,
+                    'duration_minutes' => Carbon::parse($session->started_at)->diffInMinutes($session->ended_at),
+                    'total_valves' => $session->success_count + $session->failed_count,
+                    'status' => $session->status,
+                    'total_volume_ml' => $session->valveLogs->sum('volume_ml')
                 ];
             });
             
@@ -301,30 +280,30 @@ class DashboardApiController extends Controller
                         'average_usage_l' => 0,
                         'period' => '30 days'
                     ],
-                    'note' => 'irrigate_logs table not available'
+                    'note' => 'irrigation_logs table not available'
                 ]);
             }
             
             $startDate = Carbon::now()->subDays(30);
             
             // Get daily irrigation totals for last 30 days
-            $usage = IrrigateLog::where('waktu_mulai', '>=', $startDate)
-                ->whereNotNull('waktu_akhir')
+            $usage = IrrigationLog::where('started_at', '>=', $startDate)
+                ->where('status', 'completed')
                 ->with('valveLogs')
                 ->get()
                 ->groupBy(function ($item) {
-                    return Carbon::parse($item->waktu_mulai)->format('Y-m-d');
+                    return Carbon::parse($item->started_at)->format('Y-m-d');
                 })
                 ->map(function ($daySessions, $date) {
                     $totalVolume = $daySessions->reduce(function ($carry, $session) {
-                        return $carry + $session->valveLogs->sum('volume_air');
+                        return $carry + $session->valveLogs->sum('volume_ml');
                     }, 0);
                     
                     return [
                         'date' => $date,
                         'usage_date' => $date,
-                        'total_l' => round($totalVolume, 2),
-                        'liters' => round($totalVolume, 2),
+                        'total_l' => round($totalVolume / 1000, 2), // Convert ml to liters
+                        'liters' => round($totalVolume / 1000, 2),
                         'sessions' => $daySessions->count()
                     ];
                 })
@@ -377,23 +356,23 @@ class DashboardApiController extends Controller
                         'average_usage_l' => 0,
                         'period' => '24 hours'
                     ],
-                    'note' => 'irrigate_logs table not available'
+                    'note' => 'irrigation_logs table not available'
                 ]);
             }
             
             $startTime = Carbon::now()->subHours(24);
             
             // Get hourly irrigation totals for last 24 hours
-            $usage = IrrigateLog::where('waktu_mulai', '>=', $startTime)
-                ->whereNotNull('waktu_akhir')
+            $usage = IrrigationLog::where('started_at', '>=', $startTime)
+                ->where('status', 'completed')
                 ->with('valveLogs')
                 ->get()
                 ->groupBy(function ($item) {
-                    return Carbon::parse($item->waktu_mulai)->format('Y-m-d H:00');
+                    return Carbon::parse($item->started_at)->format('Y-m-d H:00');
                 })
                 ->map(function ($hourSessions, $datetime) {
                     $totalVolume = $hourSessions->reduce(function ($carry, $session) {
-                        return $carry + $session->valveLogs->sum('volume_air');
+                        return $carry + $session->valveLogs->sum('volume_ml');
                     }, 0);
                     
                     $hour = Carbon::parse($datetime)->format('H:00');
@@ -401,8 +380,8 @@ class DashboardApiController extends Controller
                     return [
                         'hour' => $hour,
                         'datetime' => $datetime,
-                        'total_l' => round($totalVolume, 2),
-                        'liters' => round($totalVolume, 2),
+                        'total_l' => round($totalVolume / 1000, 2), // Convert ml to liters
+                        'liters' => round($totalVolume / 1000, 2),
                         'sessions' => $hourSessions->count()
                     ];
                 })
@@ -477,7 +456,7 @@ class DashboardApiController extends Controller
     public function getWeather()
     {
         try {
-            $latestSession = GetdataLog::orderBy('waktu_mulai', 'desc')
+            $latestSession = DataSession::orderBy('started_at', 'desc')
                 ->first();
             
             if (!$latestSession) {
@@ -487,7 +466,7 @@ class DashboardApiController extends Controller
                 ], 200); // Changed to 200 to prevent browser console 404 error
             }
             
-            $weatherData = SensorWeatherData::where('sesi_id_getdata', $latestSession->sesi_id_getdata)
+            $weatherData = WeatherData::where('data_session_id', $latestSession->id)
                 ->first();
             
             if (!$weatherData) {
@@ -500,20 +479,20 @@ class DashboardApiController extends Controller
             return response()->json([
                 'success' => true,
                 'data' => [
-                    'temperature' => (float) $weatherData->temp_dht,
-                    'temp' => (float) $weatherData->temp_dht,
-                    'humidity' => (float) $weatherData->humidity,
-                    'light' => (float) $weatherData->light,
-                    'light_pct' => min(100, ($weatherData->light / 1000) * 100),
-                    'rain' => (float) $weatherData->rain,
-                    'wind' => (float) $weatherData->wind,
-                    'wind_speed' => (float) $weatherData->wind,
-                    'pressure' => 0.0,
+                    'temperature' => (float) $weatherData->temp_c,
+                    'temp' => (float) $weatherData->temp_c,
+                    'humidity' => (float) $weatherData->humidity_pct,
+                    'light' => (float) $weatherData->light_lux,
+                    'light_pct' => min(100, ($weatherData->light_lux / 100000) * 100), // Convert lux to percentage
+                    'rain' => (float) $weatherData->rain_mm,
+                    'wind' => (float) $weatherData->wind_speed_kmh,
+                    'wind_speed' => (float) $weatherData->wind_speed_kmh,
+                    'pressure' => (float) $weatherData->pressure_hpa,
                     'voltage' => null,
                     'current' => null,
                     'power' => null,
-                    'timestamp' => $latestSession->waktu_mulai,
-                    'session_id' => $latestSession->sesi_id_getdata
+                    'timestamp' => $latestSession->started_at,
+                    'session_id' => $latestSession->session_id
                 ]
             ]);
             
@@ -609,7 +588,7 @@ class DashboardApiController extends Controller
     private function hasIrrigationLogsTable()
     {
         return Cache::remember('has_irrigation_logs_table', 60 * 60 * 24, function () {
-            return Schema::hasTable('irrigate_logs');
+            return Schema::hasTable('irrigation_logs');
         });
     }
 }

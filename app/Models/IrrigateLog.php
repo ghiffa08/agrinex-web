@@ -111,37 +111,4 @@ class IrrigateLog extends Model
     {
         return $this->node_gagal > 0;
     }
-
-    /**
-     * Accessor aliases for schema compatibility
-     */
-    public function getSessionIdAttribute()
-    {
-        return $this->sesi_id_irrigate;
-    }
-
-    public function getStartedAtAttribute()
-    {
-        return $this->waktu_mulai;
-    }
-
-    public function getEndedAtAttribute()
-    {
-        return $this->waktu_akhir;
-    }
-
-    public function getSuccessCountAttribute()
-    {
-        return $this->node_sukses;
-    }
-
-    public function getFailedCountAttribute()
-    {
-        return $this->node_gagal;
-    }
-
-    public function getValveOnCountAttribute()
-    {
-        return $this->valve_on_akhir;
-    }
 }

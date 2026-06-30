@@ -39,21 +39,13 @@ class Node extends Model
      */
     public function sensorData()
     {
-        return $this->hasMany(SensorNodeData::class, 'node_id', 'node_id');
+        return $this->hasMany(SensorNodeData::class, 'node_id');
     }
     
 
     public function sensorWeatherData()
     {
         return $this->hasMany(SensorWeatherData::class, 'node_id');
-    }
-
-    /**
-     * Get valve logs for this node
-     */
-    public function valveLogs()
-    {
-        return $this->hasMany(ValveLog::class, 'node_id', 'node_id');
     }
     
     /**

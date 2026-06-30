@@ -5,10 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Filament\Models\Contracts\HasName;
-use Filament\Models\Contracts\HasAvatar;
 
-class User extends Authenticatable implements HasName, HasAvatar
+class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -127,21 +125,5 @@ class User extends Authenticatable implements HasName, HasAvatar
     {
         $this->last_login_at = now();
         $this->save();
-    }
-
-    /**
-     * Get the name of the user for Filament.
-     */
-    public function getFilamentName(): string
-    {
-        return $this->full_name ?? $this->username ?? $this->email;
-    }
-
-    /**
-     * Get the avatar URL of the user for Filament.
-     */
-    public function getFilamentAvatarUrl(): ?string
-    {
-        return $this->avatar;
     }
 }

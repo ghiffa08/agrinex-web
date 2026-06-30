@@ -10,7 +10,7 @@
     <template x-if="loadingAll">
         <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
             <template x-for="i in 6" :key="'skeleton-'+i">
-                <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-slate-700/50 flex flex-col animate-pulse h-32">
+                <div class="card !rounded-3xl !p-4 flex flex-col animate-pulse h-32">
                     <div class="flex items-center gap-2 mb-2 opacity-70">
                         <div class="h-6 w-6 rounded-full bg-gray-200 dark:bg-slate-700"></div>
                         <div class="h-3 w-16 bg-gray-200 dark:bg-slate-700 rounded"></div>
@@ -27,7 +27,7 @@
     <!-- Actual Cards -->
     <div x-show="!loadingAll" x-cloak class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
         <template x-for="m in topMetricCards" :key="m.key">
-            <div class="bg-white dark:bg-slate-800 relative rounded-2xl p-4 shadow-sm hover:shadow-md border border-gray-100 dark:border-slate-700/50 transition-all flex flex-col overflow-hidden group"
+            <div class="card relative !rounded-3xl !p-4 flex flex-col overflow-hidden group"
                  @click="$dispatch('open-metric', { metric: m.key })"
                 :class="getCardTheme(m.key)">
                 <!-- Background gradient overlay -->
@@ -40,7 +40,7 @@
                         <div class="p-2 rounded-xl" :style="getIconBackground(m.key)">
                             <div class="metric-icon text-white" x-html="metricIcon(m.key)"></div>
                         </div>
-                        <div class="text-xs font-semibold text-gray-700 dark:text-gray-300" x-text="m.label"></div>
+                        <div class="text-xs font-semibold text-gray-700" x-text="m.label"></div>
                     </div>
                     <div class="text-[9px] text-secondary opacity-80" x-text="m.desc"></div>
                 </div>
@@ -53,7 +53,6 @@
                             <svg class="w-20 h-20 transform -rotate-90" viewBox="0 0 80 80">
                                 <!-- Background circle -->
                                 <circle cx="40" cy="40" r="32" stroke="#e5e7eb"
-                                    class="stroke-gray-100 dark:stroke-slate-700"
                                     stroke-width="6" fill="none" />
                                 <!-- Progress circle -->
                                 <circle cx="40" cy="40" r="32" :stroke="getGaugeColor(m.key)"
@@ -89,7 +88,7 @@
                         </div>
 
                         <!-- Horizontal progress bar -->
-                        <div class="w-full h-6 bg-gray-100 dark:bg-slate-700 rounded-full relative overflow-hidden mb-2">
+                        <div class="w-full h-6 bg-gray-100 rounded-full relative overflow-hidden mb-2">
                             <!-- Background gradient -->
                             <div class="absolute inset-0 opacity-20" :style="getLinearGradient(m.key)"></div>
 

@@ -2,7 +2,7 @@
     /* ─── Design Tokens ─────────────────────────────── */
     :root {
         color-scheme: light dark;
-        --font-display: 'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;
+        --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
         --font-mono:    'DM Mono', 'Cascadia Code', monospace;
 
         /* Glass surfaces */
