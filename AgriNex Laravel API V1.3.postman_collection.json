@@ -1,0 +1,659 @@
+{
+	"info": {
+		"_postman_id": "6396dd7d-608c-4604-80a5-025f698c5414",
+		"name": "AgriNex Laravel API V1.3",
+		"description": "Complete API Collection for AgriNex Smart Agriculture IoT System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18014079",
+		"_collection_link": "https://esportkng.postman.co/workspace/My-Workspace~84844b34-0163-463f-8cf4-073c11983cd9/collection/18014079-6396dd7d-608c-4604-80a5-025f698c5414?action=share&source=collection_link&creator=18014079"
+	},
+	"item": [
+		{
+			"name": "Health & Info",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/health",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "API Documentation",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/docs",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"docs"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sensor Data API",
+			"item": [
+				{
+					"name": "Submit Sensor Data",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Sesi-ID",
+								"value": "{{sesi_id}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"sesi_id_getdata\": {{sesi_id}},\n    \"timestamp\": \"{{$timestamp}}\",\n    \"source\": \"Postman Test\",\n    \"version\": \"2.0\",\n    \"device_id\": \"RPI-001\"\n  },\n  \"data\": {\n    \"getdata_logs\": [\n      {\n        \"sesi_id_getdata\": {{sesi_id}},\n        \"waktu_mulai\": \"2025-10-15 10:00:00\",\n        \"waktu_selesai\": \"2025-10-15 10:30:00\",\n        \"jumlah_node\": 12,\n        \"node_sukses\": 12,\n        \"node_gagal\": 0,\n        \"status\": \"completed\",\n        \"keterangan\": \"Test from Postman\"\n      }\n    ],\n    \"sensor_weather_data\": [\n      {\n        \"sesi_id_getdata\": {{sesi_id}},\n        \"node_id\": 0,\n        \"voltage\": 3.35,\n        \"current\": 125,\n        \"power\": 418,\n        \"light\": 850,\n        \"rain\": 0,\n        \"rain_adc\": 1023,\n        \"wind\": 5.2,\n        \"wind_pulse\": 52,\n        \"humidity\": 65.5,\n        \"temp_dht\": 28.5,\n        \"ts_counter\": 12345,\n        \"received_at\": \"2025-10-15 10:30:00\"\n      }\n    ],\n    \"sensor_node_data\": [\n      {\n        \"sesi_id_getdata\": {{sesi_id}},\n        \"node_id\": 1,\n        \"voltage_v\": 3.3,\n        \"current_ma\": 120,\n        \"power_mw\": 396,\n        \"temp_c\": 28.5,\n        \"soil_pct\": 45.2,\n        \"soil_adc\": 512,\n        \"ts_counter\": 12345,\n        \"received_at\": \"2025-10-15 10:30:00\"\n      },\n      {\n        \"sesi_id_getdata\": {{sesi_id}},\n        \"node_id\": 2,\n        \"voltage_v\": 3.28,\n        \"current_ma\": 118,\n        \"power_mw\": 387,\n        \"temp_c\": 29.1,\n        \"soil_pct\": 52.8,\n        \"soil_adc\": 478,\n        \"ts_counter\": 12346,\n        \"received_at\": \"2025-10-15 10:30:00\"\n      }\n    ],\n    \"node_logs\": [\n      {\n        \"sesi_id\": {{sesi_id}},\n        \"node_id\": 0,\n        \"rssi_dbm\": -72,\n        \"snr_db\": 9.5,\n        \"signal_quality\": \"Excellent\",\n        \"status\": \"Aktif\",\n        \"waktu\": \"2025-10-15 10:30:00\",\n        \"type_sesi\": \"getdata\",\n        \"keterangan\": \"Weather station OK\"\n      },\n      {\n        \"sesi_id\": {{sesi_id}},\n        \"node_id\": 1,\n        \"rssi_dbm\": -75,\n        \"snr_db\": 8.5,\n        \"signal_quality\": \"Good\",\n        \"status\": \"Aktif\",\n        \"waktu\": \"2025-10-15 10:30:00\",\n        \"type_sesi\": \"getdata\",\n        \"keterangan\": \"Node 1 OK\"\n      },\n      {\n        \"sesi_id\": {{sesi_id}},\n        \"node_id\": 2,\n        \"rssi_dbm\": -78,\n        \"snr_db\": 7.8,\n        \"signal_quality\": \"Good\",\n        \"status\": \"Aktif\",\n        \"waktu\": \"2025-10-15 10:30:00\",\n        \"type_sesi\": \"getdata\",\n        \"keterangan\": \"Node 2 OK\"\n      }\n    ]\n  },\n  \"statistics\": {\n    \"total_records\": 7,\n    \"records_by_table\": {\n      \"getdata_logs\": 1,\n      \"sensor_weather_data\": 1,\n      \"sensor_node_data\": 2,\n      \"node_logs\": 3\n    },\n    \"node_status\": {\n      \"expected_nodes\": 12,\n      \"received_nodes\": 3,\n      \"completeness_percentage\": \"25.00%\"\n    }\n  }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/v1/sensor-data",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"sensor-data"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Sensor Data",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/v1/sensor-data?limit=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"sensor-data"
+							],
+							"query": [
+								{
+									"key": "sesi_id",
+									"value": "{{sesi_id}}",
+									"disabled": true
+								},
+								{
+									"key": "node_id",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "order_by",
+									"value": "received_at",
+									"disabled": true
+								},
+								{
+									"key": "order_dir",
+									"value": "desc",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Statistics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/v1/sensor-data/statistics",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"sensor-data",
+								"statistics"
+							],
+							"query": [
+								{
+									"key": "sesi_id",
+									"value": "{{sesi_id}}",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Latest Readings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/v1/sensor-data/latest",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"sensor-data",
+								"latest"
+							],
+							"query": [
+								{
+									"key": "node_id",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Irrigation API",
+			"item": [
+				{
+					"name": "Submit Irrigation Data",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"sesi_id_irrigate\": 456,\n    \"timestamp\": \"{{$timestamp}}\",\n    \"source\": \"Raspberry Pi\"\n  },\n  \"data\": {\n    \"irrigate_logs\": [\n      {\n        \"sesi_id_irrigate\": 456,\n        \"waktu_mulai\": \"2025-10-15 11:00:00\",\n        \"waktu_selesai\": \"2025-10-15 11:15:00\",\n        \"jumlah_valve\": 6,\n        \"valve_sukses\": 6,\n        \"valve_gagal\": 0,\n        \"status\": \"Aktif\", // status: Aktif/Non Aktif\n        \"keterangan\": \"Irrigation test\"\n      }\n    ],\n    \"valve_logs\": [\n      {\n        \"sesi_id_irrigate\": 456,\n        \"node_id\": 1,\n        \"status\": \"ON\", // status: On/OFF\n        \"durasi_detik\": 300,\n        \"volume_air\": 5000,\n        \"waktu\": \"2025-10-15 11:00:00\",\n        \"rata_rata\": 0,\n        \"pulse\": 0\n      }\n    ],\n    \"node_logs\": [\n      {\n        \"sesi_id\": 456,\n        \"node_id\": 1,\n        \"rssi_dbm\": -73,\n        \"snr_db\": 8.2,\n        \"signal_quality\": \"Good\",\n        \"status\": \"Aktif\", // status: Aktif/Non Aktif\n        \"waktu\": \"2025-10-15 11:00:00\",\n        \"type_sesi\": \"irrigate\",\n        \"keterangan\": \"Irrigation OK\"\n      }\n    ]\n  }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/v1/irrigation",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"irrigation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Irrigation Logs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/v1/irrigation?limit=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"irrigation"
+							],
+							"query": [
+								{
+									"key": "sesi_id",
+									"value": "456",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Irrigation Statistics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/v1/irrigation/statistics",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"irrigation",
+								"statistics"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Export API",
+			"item": [
+				{
+					"name": "Export JSON (All Tables)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/v1/export?format=json&table=all&limit=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"export"
+							],
+							"query": [
+								{
+									"key": "format",
+									"value": "json"
+								},
+								{
+									"key": "table",
+									"value": "all"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Export CSV (Sensor Data)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/v1/export?format=csv&table=sensor_node_data&limit=100",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"export"
+							],
+							"query": [
+								{
+									"key": "format",
+									"value": "csv"
+								},
+								{
+									"key": "table",
+									"value": "sensor_node_data"
+								},
+								{
+									"key": "limit",
+									"value": "100"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Export SQL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/v1/export?format=sql&table=node_logs&limit=50",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"export"
+							],
+							"query": [
+								{
+									"key": "format",
+									"value": "sql"
+								},
+								{
+									"key": "table",
+									"value": "node_logs"
+								},
+								{
+									"key": "limit",
+									"value": "50"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Export with Date Range",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/v1/export?format=json&table=sensor_node_data&start=2025-10-01&end=2025-10-15",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"export"
+							],
+							"query": [
+								{
+									"key": "format",
+									"value": "json"
+								},
+								{
+									"key": "table",
+									"value": "sensor_node_data"
+								},
+								{
+									"key": "start",
+									"value": "2025-10-01"
+								},
+								{
+									"key": "end",
+									"value": "2025-10-15"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Export Files",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/v1/export/list",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"export",
+								"list"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Monitor API",
+			"item": [
+				{
+					"name": "Get System Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/v1/monitor/stats",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"monitor",
+								"stats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Logs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/v1/monitor/logs?type=all&limit=50",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"monitor",
+								"logs"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "all"
+								},
+								{
+									"key": "limit",
+									"value": "50"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/v1/monitor/health",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"monitor",
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Node Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/v1/monitor/nodes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"monitor",
+								"nodes"
+							],
+							"query": [
+								{
+									"key": "sesi_id",
+									"value": "{{sesi_id}}",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Legacy Endpoints",
+			"item": [
+				{
+					"name": "Legacy - index.php",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"sesi_id_getdata\": 888,\n    \"timestamp\": \"{{$timestamp}}\",\n    \"source\": \"Legacy Test\"\n  },\n  \"data\": {\n    \"getdata_logs\": [],\n    \"sensor_weather_data\": [],\n    \"sensor_node_data\": [],\n    \"node_logs\": []\n  },\n  \"statistics\": {\n    \"total_records\": 0\n  }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/index.php",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"index.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Legacy - api_getdata.php",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"metadata\": {\n    \"sesi_id_getdata\": 888,\n    \"timestamp\": \"{{$timestamp}}\",\n    \"source\": \"Legacy Test\"\n  },\n  \"data\": {\n    \"getdata_logs\": [],\n    \"sensor_weather_data\": [],\n    \"sensor_node_data\": [],\n    \"node_logs\": []\n  },\n  \"statistics\": {\n    \"total_records\": 0\n  }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api_getdata.php",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api_getdata.php"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Data Ingestion (IoT Devices)",
+			"item": [],
+			"description": "Endpoints untuk Raspberry Pi mengirim data sensor, valve, dan irigasi"
+		},
+		{
+			"name": "Dashboard API",
+			"item": [],
+			"description": "Endpoints untuk frontend dashboard monitoring"
+		},
+		{
+			"name": "Dashboard",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/v1/dashboard/charts?type=all&limit=50",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v1",
+						"dashboard",
+						"charts"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "all"
+						},
+						{
+							"key": "limit",
+							"value": "50"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000/api"
+		},
+		{
+			"key": "sesi_id",
+			"value": "999"
+		},
+		{
+			"key": "sesi_node_sensor",
+			"value": ""
+		},
+		{
+			"key": "sesi_valve_on",
+			"value": ""
+		},
+		{
+			"key": "sesi_valve_off",
+			"value": ""
+		}
+	]
+}

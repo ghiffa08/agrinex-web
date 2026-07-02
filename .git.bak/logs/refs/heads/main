@@ -1,0 +1,984 @@
+0000000000000000000000000000000000000000 c6b2cffbdc7848fea0a2c704559b15d160024ca7 ghiffa08 <haikalcode08@gmail.com> 1779474129 +0700	commit (initial): first comit
+c6b2cffbdc7848fea0a2c704559b15d160024ca7 c6b2cffbdc7848fea0a2c704559b15d160024ca7 ghiffa08 <haikalcode08@gmail.com> 1779474169 +0700	Branch: renamed refs/heads/master to refs/heads/main
+c6b2cffbdc7848fea0a2c704559b15d160024ca7 8871eb2831d62d9a884ff9115d4d3e66d5f4c9b2 ghiffa08 <haikalcode08@gmail.com> 1779475706 +0700	commit: Mengaktifkan fitur auto update SSH
+8871eb2831d62d9a884ff9115d4d3e66d5f4c9b2 e0923a7471055d24a8e92cdcb68375daef3d8ed8 ghiffa08 <haikalcode08@gmail.com> 1779475902 +0700	commit: Perbaikan konfigurasi deployment otomatis SSH
+e0923a7471055d24a8e92cdcb68375daef3d8ed8 ac88e9dc14dc41317e19fcd9c8fc5257a148c961 ghiffa08 <haikalcode08@gmail.com> 1779476507 +0700	commit: Perbaikan konfigurasi deployment otomatis SSH lagi
+ac88e9dc14dc41317e19fcd9c8fc5257a148c961 d33ffe3a8386671d5c8b58d38400940adb3506a0 ghiffa08 <haikalcode08@gmail.com> 1779476782 +0700	commit: Perbaikan konfigurasi deployment otomatis SSH lagi lagi
+d33ffe3a8386671d5c8b58d38400940adb3506a0 d05b2db28e457ed0b7b7661cdf78e5c515bb6e86 ghiffa08 <haikalcode08@gmail.com> 1779481258 +0700	commit: Perbaikan konfigurasi Node
+d05b2db28e457ed0b7b7661cdf78e5c515bb6e86 af15c30fdcdee4ccbbb00a8dd0afbfc66bd094e7 ghiffa08 <haikal1080p@gmail.com> 1782012507 +0700	commit: beberapa perubahan
+af15c30fdcdee4ccbbb00a8dd0afbfc66bd094e7 754c9fa0ac377e5de45495823d72556702a2f1df ghiffa08 <haikal1080p@gmail.com> 1782019798 +0700	commit: Fix 403 and include Vite build assets for Hostinger deployment
+754c9fa0ac377e5de45495823d72556702a2f1df f2a937277c6a00904ef4875910e939d2fee9be78 ghiffa08 <haikal1080p@gmail.com> 1782020058 +0700	commit: UI: Align weather card height with devices card and add header
+f2a937277c6a00904ef4875910e939d2fee9be78 c73e1b43e8143f456fa2976c8d1a31cd43c90840 ghiffa08 <haikal1080p@gmail.com> 1782020283 +0700	commit: UI: Revert weather title and wrap devices section as a main card
+c73e1b43e8143f456fa2976c8d1a31cd43c90840 81f878e5d4d511f657b4c9d0b6ebedf86364307b ghiffa08 <haikal1080p@gmail.com> 1782020607 +0700	commit: UI: Refactor device card layout and change click to navigate to single page
+81f878e5d4d511f657b4c9d0b6ebedf86364307b c1584d5a8bc9751bc616d3380ac2d3033f0cdfde ghiffa08 <haikal1080p@gmail.com> 1782022290 +0700	commit: beberapa perubahan lagi
+c1584d5a8bc9751bc616d3380ac2d3033f0cdfde 0ed3911db264be8c563a87c28b3e8eea21874375 ghiffa08 <haikal1080p@gmail.com> 1782022980 +0700	commit: beberapa perubahan lagi lagi
+0ed3911db264be8c563a87c28b3e8eea21874375 93e4fda5b4bb594727c748650f7e7dbcaad3a309 ghiffa08 <haikal1080p@gmail.com> 1782455408 +0700	commit: deploy baru
+93e4fda5b4bb594727c748650f7e7dbcaad3a309 49d0b93b399aa0291ec5362863ed7f0ee4c51842 ghiffa08 <haikal1080p@gmail.com> 1782459129 +0700	commit: deploy baru lagi
+49d0b93b399aa0291ec5362863ed7f0ee4c51842 c3f0646df0f8fbf9e3ad1b2932bf9a1ac707df99 ghiffa08 <haikal1080p@gmail.com> 1782459951 +0700	commit: fix: rewrite TelemetryApiController to match actual DB schema
+c3f0646df0f8fbf9e3ad1b2932bf9a1ac707df99 66101af3242433d6eda07079b95d2229ab473708 ghiffa08 <haikal1080p@gmail.com> 1782460173 +0700	commit: fix: getDevices() now reads from node/sensor_node_data/node_logs tables
+66101af3242433d6eda07079b95d2229ab473708 02d8cdd7b9f987adaf2cdd2a6203858b191136ff ghiffa08 <haikal1080p@gmail.com> 1782460752 +0700	commit: fix: getDevices() now reads from 'node' table (not 'devices' table)
+02d8cdd7b9f987adaf2cdd2a6203858b191136ff 93218fa13a5ff9a5630aff04d435c64cf7fb139e ghiffa08 <haikal1080p@gmail.com> 1782748482 +0700	commit: feat: migrate entire web admin panel and UI to Filament v3
+91fb4aab3a3bb994bbcdf7b0e28d15b01037c725 424a610171e2a7b5726c5e4e56b94b4b699a0692 ghiffa08 <haikal1080p@gmail.com> 1775044910 +0700	commit: perf: enhance data payload serialization efficiency
+424a610171e2a7b5726c5e4e56b94b4b699a0692 2513eeefff147b8d06b5115afffa06ceb5740838 ghiffa08 <haikal1080p@gmail.com> 1775012224 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+2513eeefff147b8d06b5115afffa06ceb5740838 59b04f87e1c271653d38ccf20fe72911d33e0bf4 ghiffa08 <haikal1080p@gmail.com> 1775031199 +0700	commit: docs: update API endpoints definitions schema
+59b04f87e1c271653d38ccf20fe72911d33e0bf4 daa40659346b19137787da0d8bfba5ef14e639fe ghiffa08 <haikal1080p@gmail.com> 1775049024 +0700	commit: chore: optimize telemetry log sync at 20:10:24
+daa40659346b19137787da0d8bfba5ef14e639fe 2d9843bdd3b234c18cfa1a7e4deb63a6e5a97aee ghiffa08 <haikal1080p@gmail.com> 1775020821 +0700	commit: chore: optimize telemetry log sync at 12:20:21
+2d9843bdd3b234c18cfa1a7e4deb63a6e5a97aee 6333f6ea996e317e9cbcadd117bf43c5cd9a338c ghiffa08 <haikal1080p@gmail.com> 1775118356 +0700	commit: chore: optimize telemetry log sync at 15:25:56
+6333f6ea996e317e9cbcadd117bf43c5cd9a338c 9516d6fa2079143ef5101a1d91299e9635008b23 ghiffa08 <haikal1080p@gmail.com> 1775119234 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+9516d6fa2079143ef5101a1d91299e9635008b23 adabceeefda164113f1b46db2a0b265f9103a2a4 ghiffa08 <haikal1080p@gmail.com> 1775218122 +0700	commit: perf: enhance data payload serialization efficiency
+adabceeefda164113f1b46db2a0b265f9103a2a4 fbab45777c9a2818536570aa72169e97778af52a ghiffa08 <haikal1080p@gmail.com> 1775190042 +0700	commit: perf: enhance data payload serialization efficiency
+fbab45777c9a2818536570aa72169e97778af52a 0110bc1d36ae3fc3a450ae9f4aa39b37427123db ghiffa08 <haikal1080p@gmail.com> 1775200302 +0700	commit: chore: optimize telemetry log sync at 14:11:42
+0110bc1d36ae3fc3a450ae9f4aa39b37427123db 0c0bb19ec80d79061312ab47515b8fed264fce1c ghiffa08 <haikal1080p@gmail.com> 1775196225 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+0c0bb19ec80d79061312ab47515b8fed264fce1c ab69ddf39588fafc94a2a4f0cb2380e65a5afd7f ghiffa08 <haikal1080p@gmail.com> 1775218369 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+ab69ddf39588fafc94a2a4f0cb2380e65a5afd7f c3472fa338fda48dd642196f81fd00969a9777db ghiffa08 <haikal1080p@gmail.com> 1775359535 +0700	commit: chore: optimize telemetry log sync at 10:25:35
+c3472fa338fda48dd642196f81fd00969a9777db f6f48cf79275aaa33f66c5e9c124c27602711602 ghiffa08 <haikal1080p@gmail.com> 1775373036 +0700	commit: perf: enhance data payload serialization efficiency
+f6f48cf79275aaa33f66c5e9c124c27602711602 99228f046ee59486fc3d2765d76670935b84b276 ghiffa08 <haikal1080p@gmail.com> 1775396221 +0700	commit: perf: enhance data payload serialization efficiency
+99228f046ee59486fc3d2765d76670935b84b276 86333f09b0ab0b8f77d7f8003439b268e1bd82ba ghiffa08 <haikal1080p@gmail.com> 1775369131 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+86333f09b0ab0b8f77d7f8003439b268e1bd82ba 5a61a2abdc41b00749e294445375f6be2faf6fb3 ghiffa08 <haikal1080p@gmail.com> 1775386250 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+5a61a2abdc41b00749e294445375f6be2faf6fb3 789ad046b1c61f1bde44335204865fc220125203 ghiffa08 <haikal1080p@gmail.com> 1775470528 +0700	commit: chore: optimize telemetry log sync at 17:15:28
+789ad046b1c61f1bde44335204865fc220125203 21ef5486daf6b9fae1227b86876225ba05275dae ghiffa08 <haikal1080p@gmail.com> 1775485128 +0700	commit: chore: optimize telemetry log sync at 21:18:48
+21ef5486daf6b9fae1227b86876225ba05275dae de43b0b45060d120ded3001e620279f17d3d1884 ghiffa08 <haikal1080p@gmail.com> 1775443346 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+de43b0b45060d120ded3001e620279f17d3d1884 8e0d2f17111d0632f4db2d4113870bf339f4eddc ghiffa08 <haikal1080p@gmail.com> 1775441196 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+8e0d2f17111d0632f4db2d4113870bf339f4eddc ccd8083aa514a4f27104ffc94a017254c215230d ghiffa08 <haikal1080p@gmail.com> 1775565224 +0700	commit: docs: update API endpoints definitions schema
+ccd8083aa514a4f27104ffc94a017254c215230d e450369f62100c98a1142be530a04b12201c3f40 ghiffa08 <haikal1080p@gmail.com> 1775544750 +0700	commit: docs: update API endpoints definitions schema
+e450369f62100c98a1142be530a04b12201c3f40 c050d848f9922f4b63ff6f569321250519e307ee ghiffa08 <haikal1080p@gmail.com> 1775565421 +0700	commit: chore: optimize telemetry log sync at 19:37:01
+c050d848f9922f4b63ff6f569321250519e307ee 63e12727ef070bd9e6ef6b36bd18c9fccb9c9baf ghiffa08 <haikal1080p@gmail.com> 1775566160 +0700	commit: perf: enhance data payload serialization efficiency
+63e12727ef070bd9e6ef6b36bd18c9fccb9c9baf c06583f8ca22d5bb760953d2562f9c18bd9f9a6d ghiffa08 <haikal1080p@gmail.com> 1775538700 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+c06583f8ca22d5bb760953d2562f9c18bd9f9a6d 5deec508d1525047c817ef3edf722d5088a50e5c ghiffa08 <haikal1080p@gmail.com> 1775732033 +0700	commit: docs: update API endpoints definitions schema
+5deec508d1525047c817ef3edf722d5088a50e5c 128c588131d9af6a6efc663df204e4a1590c7f4f ghiffa08 <haikal1080p@gmail.com> 1775729642 +0700	commit: docs: update API endpoints definitions schema
+128c588131d9af6a6efc663df204e4a1590c7f4f ab5dd17718a1fe4b7c5f3366b8daa04638136eb3 ghiffa08 <haikal1080p@gmail.com> 1775712252 +0700	commit: docs: update API endpoints definitions schema
+ab5dd17718a1fe4b7c5f3366b8daa04638136eb3 45a7b090dc2084e327119373ab8a20499c89ee65 ghiffa08 <haikal1080p@gmail.com> 1775713866 +0700	commit: chore: optimize telemetry log sync at 12:51:06
+45a7b090dc2084e327119373ab8a20499c89ee65 959cb6398fe66ddf57436b0c475149e34f7a406f ghiffa08 <haikal1080p@gmail.com> 1775729519 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+959cb6398fe66ddf57436b0c475149e34f7a406f af9a4c426760b9d4e1f9fc1162f750400ce66655 ghiffa08 <haikal1080p@gmail.com> 1775823969 +0700	commit: docs: update API endpoints definitions schema
+af9a4c426760b9d4e1f9fc1162f750400ce66655 7800098bd745315388adf1e9829daf35bb791034 ghiffa08 <haikal1080p@gmail.com> 1775802918 +0700	commit: chore: optimize telemetry log sync at 13:35:18
+7800098bd745315388adf1e9829daf35bb791034 58042cf27aa71c07bc873b2eba79fe9d5a7da4cb ghiffa08 <haikal1080p@gmail.com> 1775997813 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+58042cf27aa71c07bc873b2eba79fe9d5a7da4cb c2243f33b4f59b18ea896f9b61a84ac9b3019ae1 ghiffa08 <haikal1080p@gmail.com> 1775981721 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+c2243f33b4f59b18ea896f9b61a84ac9b3019ae1 f8b8bf8b051cb6e5e948704e5f0301e7da5c2bfe ghiffa08 <haikal1080p@gmail.com> 1775999501 +0700	commit: chore: optimize telemetry log sync at 20:11:41
+f8b8bf8b051cb6e5e948704e5f0301e7da5c2bfe abb6ea0c16be0f340ef38cef43994f764ffa4f5a ghiffa08 <haikal1080p@gmail.com> 1775976526 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+abb6ea0c16be0f340ef38cef43994f764ffa4f5a ab52eb9316ca0825dcb67bd281035937a214200c ghiffa08 <haikal1080p@gmail.com> 1776057538 +0700	commit: perf: enhance data payload serialization efficiency
+ab52eb9316ca0825dcb67bd281035937a214200c 4336c66aa28bf96975c3b3fc8fa57945420b70e0 ghiffa08 <haikal1080p@gmail.com> 1776085139 +0700	commit: perf: enhance data payload serialization efficiency
+4336c66aa28bf96975c3b3fc8fa57945420b70e0 63f25b58a46745ca03fffc8fdd67d2fc05c22df8 ghiffa08 <haikal1080p@gmail.com> 1776079218 +0700	commit: perf: enhance data payload serialization efficiency
+63f25b58a46745ca03fffc8fdd67d2fc05c22df8 822e3e1a8907a32bea1f478a2270fe9bb41d7993 ghiffa08 <haikal1080p@gmail.com> 1776046719 +0700	commit: perf: enhance data payload serialization efficiency
+822e3e1a8907a32bea1f478a2270fe9bb41d7993 9bc26ebfcbd0e15d9f93adcc94d031998fe513f7 ghiffa08 <haikal1080p@gmail.com> 1776061544 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+9bc26ebfcbd0e15d9f93adcc94d031998fe513f7 064f435164fac5365aa461d3a01033bc7a1e98a1 ghiffa08 <haikal1080p@gmail.com> 1776154322 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+064f435164fac5365aa461d3a01033bc7a1e98a1 c6d144036a87bb8efb65d368b9b3c2c7e2bd34f3 ghiffa08 <haikal1080p@gmail.com> 1776172078 +0700	commit: docs: update API endpoints definitions schema
+c6d144036a87bb8efb65d368b9b3c2c7e2bd34f3 2603709332687a74931911cf463f924aa22747b9 ghiffa08 <haikal1080p@gmail.com> 1776132197 +0700	commit: docs: update API endpoints definitions schema
+2603709332687a74931911cf463f924aa22747b9 b98846468b249e451a1c2e9ac0b52034e6c7da63 ghiffa08 <haikal1080p@gmail.com> 1776142455 +0700	commit: docs: update API endpoints definitions schema
+b98846468b249e451a1c2e9ac0b52034e6c7da63 3ad8d5007a9b09eeab9e9cffee27e4234c12c31e ghiffa08 <haikal1080p@gmail.com> 1776166545 +0700	commit: docs: update API endpoints definitions schema
+3ad8d5007a9b09eeab9e9cffee27e4234c12c31e b91a0fa02ee7ad82c4ee016fbe4a20136f9b26fa ghiffa08 <haikal1080p@gmail.com> 1776255470 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+b91a0fa02ee7ad82c4ee016fbe4a20136f9b26fa 05d34f2cb183d00453872b90c6b0700b1ae6eb3f ghiffa08 <haikal1080p@gmail.com> 1776252871 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+05d34f2cb183d00453872b90c6b0700b1ae6eb3f 7612c0ffda80e7acb6d608c1914289f7928dc56d ghiffa08 <haikal1080p@gmail.com> 1776224027 +0700	commit: perf: enhance data payload serialization efficiency
+7612c0ffda80e7acb6d608c1914289f7928dc56d 4d7fbe8fd8a773ddb7dea28c22ef1b8a41b84cc9 ghiffa08 <haikal1080p@gmail.com> 1776256963 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+4d7fbe8fd8a773ddb7dea28c22ef1b8a41b84cc9 4695aa71e22af0cb09c3e0bb02a95e0e42d836a6 ghiffa08 <haikal1080p@gmail.com> 1776339261 +0700	commit: chore: optimize telemetry log sync at 18:34:21
+4695aa71e22af0cb09c3e0bb02a95e0e42d836a6 db6b172cfb267cd94f5246413a5bef3de1231fab ghiffa08 <haikal1080p@gmail.com> 1776398858 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+db6b172cfb267cd94f5246413a5bef3de1231fab 887d733a00cf3885d2009f615a7127286de17e4a ghiffa08 <haikal1080p@gmail.com> 1776395528 +0700	commit: chore: optimize telemetry log sync at 10:12:08
+887d733a00cf3885d2009f615a7127286de17e4a 44b4730edbd88571efd0ac2a7526841ffd5c2e03 ghiffa08 <haikal1080p@gmail.com> 1776410419 +0700	commit: docs: update API endpoints definitions schema
+44b4730edbd88571efd0ac2a7526841ffd5c2e03 7575092bad1973b2a3e196d96204b54058a6dc85 ghiffa08 <haikal1080p@gmail.com> 1776437397 +0700	commit: chore: optimize telemetry log sync at 21:49:57
+7575092bad1973b2a3e196d96204b54058a6dc85 c07af1718452f2527f57a5406ad321e7ee28dc41 ghiffa08 <haikal1080p@gmail.com> 1776743559 +0700	commit: docs: update API endpoints definitions schema
+c07af1718452f2527f57a5406ad321e7ee28dc41 43bde597cd1eaeb5cf2ccea99d4d783f89955d22 ghiffa08 <haikal1080p@gmail.com> 1776779182 +0700	commit: perf: enhance data payload serialization efficiency
+43bde597cd1eaeb5cf2ccea99d4d783f89955d22 f4930640ea72ed8a609a96966c5d36069e1d9614 ghiffa08 <haikal1080p@gmail.com> 1776747312 +0700	commit: docs: update API endpoints definitions schema
+f4930640ea72ed8a609a96966c5d36069e1d9614 1f4d2b15e2e47d3f365e601175ed01df12983e89 ghiffa08 <haikal1080p@gmail.com> 1776778757 +0700	commit: docs: update API endpoints definitions schema
+1f4d2b15e2e47d3f365e601175ed01df12983e89 8422abe5ebf0451231ce1c6402ab8948698a638d ghiffa08 <haikal1080p@gmail.com> 1776741857 +0700	commit: perf: enhance data payload serialization efficiency
+8422abe5ebf0451231ce1c6402ab8948698a638d 6dc6bff8a704bb6f9e071cb05b44fe5762d1e501 ghiffa08 <haikal1080p@gmail.com> 1776848609 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+6dc6bff8a704bb6f9e071cb05b44fe5762d1e501 e1964f6c728b51ab2bbfc6b5055e465d52bb447a ghiffa08 <haikal1080p@gmail.com> 1776931502 +0700	commit: perf: enhance data payload serialization efficiency
+e1964f6c728b51ab2bbfc6b5055e465d52bb447a 601d45cc49f28a4331b7d50a70ef92bd50908352 ghiffa08 <haikal1080p@gmail.com> 1777038768 +0700	commit: chore: optimize telemetry log sync at 20:52:48
+601d45cc49f28a4331b7d50a70ef92bd50908352 c36b47291378606224a89437eed70cd1d6f3c7e7 ghiffa08 <haikal1080p@gmail.com> 1777032849 +0700	commit: docs: update API endpoints definitions schema
+c36b47291378606224a89437eed70cd1d6f3c7e7 480c94515471fd3d10cda9faf18167eb298c0892 ghiffa08 <haikal1080p@gmail.com> 1777001909 +0700	commit: perf: enhance data payload serialization efficiency
+480c94515471fd3d10cda9faf18167eb298c0892 9d1c2a563a5a51199a7962afd1266f303f515ce4 ghiffa08 <haikal1080p@gmail.com> 1777286849 +0700	commit: chore: optimize telemetry log sync at 17:47:29
+9d1c2a563a5a51199a7962afd1266f303f515ce4 593783b4bd6c72bcfc6f5ddcb8ba2b0635255fde ghiffa08 <haikal1080p@gmail.com> 1777262371 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+593783b4bd6c72bcfc6f5ddcb8ba2b0635255fde f77df955d4bda43c8489219cf6812ec1bdd24f91 ghiffa08 <haikal1080p@gmail.com> 1777285298 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+f77df955d4bda43c8489219cf6812ec1bdd24f91 1d276f82ca48ce51c3329322d742af67f524d882 ghiffa08 <haikal1080p@gmail.com> 1777292915 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+1d276f82ca48ce51c3329322d742af67f524d882 e946a9def63fa113b395c3618ee2199c71f7dfaa ghiffa08 <haikal1080p@gmail.com> 1777467315 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+e946a9def63fa113b395c3618ee2199c71f7dfaa aede8ce4c6c78877e3f6b6acb641146c4dc3e820 ghiffa08 <haikal1080p@gmail.com> 1777457846 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+aede8ce4c6c78877e3f6b6acb641146c4dc3e820 b9c5ed8f797444cfa260369ce1d2121cedd0fe41 ghiffa08 <haikal1080p@gmail.com> 1777465161 +0700	commit: chore: optimize telemetry log sync at 19:19:21
+b9c5ed8f797444cfa260369ce1d2121cedd0fe41 6a9647506a92ae70f79ddfc3341a783a45d18adb ghiffa08 <haikal1080p@gmail.com> 1777472288 +0700	commit: perf: enhance data payload serialization efficiency
+6a9647506a92ae70f79ddfc3341a783a45d18adb 8001f04a400b6ea69df7b7b3ec5a8383c38bf26e ghiffa08 <haikal1080p@gmail.com> 1777636339 +0700	commit: docs: update API endpoints definitions schema
+8001f04a400b6ea69df7b7b3ec5a8383c38bf26e 95971e006cce79e538593f262426f8b059852f62 ghiffa08 <haikal1080p@gmail.com> 1777635037 +0700	commit: perf: enhance data payload serialization efficiency
+95971e006cce79e538593f262426f8b059852f62 c366a53a943ea16e330b627053dd42d21269a817 ghiffa08 <haikal1080p@gmail.com> 1777646195 +0700	commit: perf: enhance data payload serialization efficiency
+c366a53a943ea16e330b627053dd42d21269a817 93b17dfc4b9edc31987e4bbde3db83fcf07620a2 ghiffa08 <haikal1080p@gmail.com> 1777807905 +0700	commit: perf: enhance data payload serialization efficiency
+93b17dfc4b9edc31987e4bbde3db83fcf07620a2 ef5a0aa63ada712527461f551151b479b5446691 ghiffa08 <haikal1080p@gmail.com> 1777891062 +0700	commit: docs: update API endpoints definitions schema
+ef5a0aa63ada712527461f551151b479b5446691 011fa77c81bb70ce3808deb9e45ac8958550c953 ghiffa08 <haikal1080p@gmail.com> 1777864254 +0700	commit: docs: update API endpoints definitions schema
+011fa77c81bb70ce3808deb9e45ac8958550c953 a484992f21d5df81a77656df1dc574dcce95a7b7 ghiffa08 <haikal1080p@gmail.com> 1777883605 +0700	commit: perf: enhance data payload serialization efficiency
+a484992f21d5df81a77656df1dc574dcce95a7b7 7a2c09c8e13ea929830b076ce27a92ca680ec826 ghiffa08 <haikal1080p@gmail.com> 1777867016 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+7a2c09c8e13ea929830b076ce27a92ca680ec826 3843a4535af74b6f01a911562dab89f341424679 ghiffa08 <haikal1080p@gmail.com> 1777972894 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+3843a4535af74b6f01a911562dab89f341424679 d5a09d4194a84f39fe62f6a6bd7c6fd780ac0c1d ghiffa08 <haikal1080p@gmail.com> 1777964651 +0700	commit: perf: enhance data payload serialization efficiency
+d5a09d4194a84f39fe62f6a6bd7c6fd780ac0c1d ccdc2f86a59f4e78bdcd9750b2b3971459e94438 ghiffa08 <haikal1080p@gmail.com> 1778037725 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+ccdc2f86a59f4e78bdcd9750b2b3971459e94438 b2ba8c7861095dcfe7f4a3ded6fd5b7e069210e0 ghiffa08 <haikal1080p@gmail.com> 1778033765 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+b2ba8c7861095dcfe7f4a3ded6fd5b7e069210e0 769013b282b2fa6ba5f9bab4c05a926adfef9543 ghiffa08 <haikal1080p@gmail.com> 1778041592 +0700	commit: chore: optimize telemetry log sync at 11:26:32
+769013b282b2fa6ba5f9bab4c05a926adfef9543 42db8c793e7a95ee494a9930b738c50f9b3ef604 ghiffa08 <haikal1080p@gmail.com> 1778039758 +0700	commit: chore: optimize telemetry log sync at 10:55:58
+42db8c793e7a95ee494a9930b738c50f9b3ef604 726b0987822b59e145fc2c8a4def9d1eea8ba4e2 ghiffa08 <haikal1080p@gmail.com> 1778299262 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+726b0987822b59e145fc2c8a4def9d1eea8ba4e2 53bdf9583c164372af0e6cd50069782ede45c8dd ghiffa08 <haikal1080p@gmail.com> 1778321816 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+53bdf9583c164372af0e6cd50069782ede45c8dd fc3bdc5196735949dce8d11304b1f2bcfaead326 ghiffa08 <haikal1080p@gmail.com> 1778301370 +0700	commit: perf: enhance data payload serialization efficiency
+fc3bdc5196735949dce8d11304b1f2bcfaead326 63a041b6630be2b5c28d858ae9602d1458471c22 ghiffa08 <haikal1080p@gmail.com> 1778325811 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+63a041b6630be2b5c28d858ae9602d1458471c22 d99738c88749bbc23743c16ae3709707db9cf711 ghiffa08 <haikal1080p@gmail.com> 1778329486 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+d99738c88749bbc23743c16ae3709707db9cf711 b740d266b1ab57c5704312322d85f29d9f1900b5 ghiffa08 <haikal1080p@gmail.com> 1778507693 +0700	commit: perf: enhance data payload serialization efficiency
+b740d266b1ab57c5704312322d85f29d9f1900b5 3bf8e7c4107a69238c7885b94c93650b7dfa26a2 ghiffa08 <haikal1080p@gmail.com> 1778473985 +0700	commit: docs: update API endpoints definitions schema
+3bf8e7c4107a69238c7885b94c93650b7dfa26a2 80439bd4e03a74e6a699ff899fb8dbe391a9f739 ghiffa08 <haikal1080p@gmail.com> 1778497444 +0700	commit: perf: enhance data payload serialization efficiency
+80439bd4e03a74e6a699ff899fb8dbe391a9f739 7ebe2ccb400fb84fa5285deed7db694f1bc98b87 ghiffa08 <haikal1080p@gmail.com> 1778572920 +0700	commit: perf: enhance data payload serialization efficiency
+7ebe2ccb400fb84fa5285deed7db694f1bc98b87 a945743b691d39d18b040595df08595ce2e3f516 ghiffa08 <haikal1080p@gmail.com> 1778587533 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+a945743b691d39d18b040595df08595ce2e3f516 4cf6a084558b657c6adb25efe5d2cb8accbfc953 ghiffa08 <haikal1080p@gmail.com> 1778675464 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+4cf6a084558b657c6adb25efe5d2cb8accbfc953 a86fd481be14391d17cabe29d86812d1164e77b8 ghiffa08 <haikal1080p@gmail.com> 1778638376 +0700	commit: perf: enhance data payload serialization efficiency
+a86fd481be14391d17cabe29d86812d1164e77b8 1e580a643855027023ca4c9917ff1be42830c292 ghiffa08 <haikal1080p@gmail.com> 1778675278 +0700	commit: perf: enhance data payload serialization efficiency
+1e580a643855027023ca4c9917ff1be42830c292 19d61529d67f71a3dea475c13d8b586fdd68916a ghiffa08 <haikal1080p@gmail.com> 1778683733 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+19d61529d67f71a3dea475c13d8b586fdd68916a 49c97171ea4c8630c3f7ab17e5defaa723e2b0e1 ghiffa08 <haikal1080p@gmail.com> 1778724342 +0700	commit: perf: enhance data payload serialization efficiency
+49c97171ea4c8630c3f7ab17e5defaa723e2b0e1 bfb9e3753a34e1b94675fc3be2858db42c5ae81b ghiffa08 <haikal1080p@gmail.com> 1778825962 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+bfb9e3753a34e1b94675fc3be2858db42c5ae81b c372ff327a1917e5d2f6217dfeaa5b58fae8b4c4 ghiffa08 <haikal1080p@gmail.com> 1778821123 +0700	commit: perf: enhance data payload serialization efficiency
+c372ff327a1917e5d2f6217dfeaa5b58fae8b4c4 e625c5941fcc3b52fdf5735d77fb86016f6344f8 ghiffa08 <haikal1080p@gmail.com> 1778821819 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+e625c5941fcc3b52fdf5735d77fb86016f6344f8 6253cc21d6d7a64ed057cd686109088fb2298e2b ghiffa08 <haikal1080p@gmail.com> 1779003055 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+6253cc21d6d7a64ed057cd686109088fb2298e2b 93cfb58a51cccca30b3129f93d5304c12f814a0a ghiffa08 <haikal1080p@gmail.com> 1778995901 +0700	commit: chore: optimize telemetry log sync at 12:31:41
+93cfb58a51cccca30b3129f93d5304c12f814a0a 5756189e6b5ca05fb794602519c8fb693de45c2b ghiffa08 <haikal1080p@gmail.com> 1779023947 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+5756189e6b5ca05fb794602519c8fb693de45c2b 10039b0ad9cfb63a8fb8accbb1e7cc1e957581c3 ghiffa08 <haikal1080p@gmail.com> 1779109333 +0700	commit: perf: enhance data payload serialization efficiency
+10039b0ad9cfb63a8fb8accbb1e7cc1e957581c3 647a777af6866f4820a0be6a327edce3f285cac6 ghiffa08 <haikal1080p@gmail.com> 1779071697 +0700	commit: perf: enhance data payload serialization efficiency
+647a777af6866f4820a0be6a327edce3f285cac6 7d15feaf27db1dcdeeffce210fdfdc2d58f8209d ghiffa08 <haikal1080p@gmail.com> 1779076264 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+7d15feaf27db1dcdeeffce210fdfdc2d58f8209d 4b175e94ea84708dc231e50be9ae7341491853ef ghiffa08 <haikal1080p@gmail.com> 1779171630 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+4b175e94ea84708dc231e50be9ae7341491853ef 49b52a82fb6a3c8a9cbbee0b236de23308abc659 ghiffa08 <haikal1080p@gmail.com> 1779196868 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+49b52a82fb6a3c8a9cbbee0b236de23308abc659 8802ecc8653c5dfb0b6701b3a0c3bf3d5afda401 ghiffa08 <haikal1080p@gmail.com> 1779287403 +0700	commit: docs: update API endpoints definitions schema
+8802ecc8653c5dfb0b6701b3a0c3bf3d5afda401 d277408fb7cf6c0a07cb6d333067a44d3b07f132 ghiffa08 <haikal1080p@gmail.com> 1779275758 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+d277408fb7cf6c0a07cb6d333067a44d3b07f132 c54c2f8ad00b5589e03178ea3e546295733ba522 ghiffa08 <haikal1080p@gmail.com> 1779260262 +0700	commit: chore: optimize telemetry log sync at 13:57:42
+c54c2f8ad00b5589e03178ea3e546295733ba522 f702bfa5c8b6a93366060f897787b76bbcb6b45a ghiffa08 <haikal1080p@gmail.com> 1779435515 +0700	commit: perf: enhance data payload serialization efficiency
+f702bfa5c8b6a93366060f897787b76bbcb6b45a 8c3a03db5a614064e08edd36164ec2dacd9f4921 ghiffa08 <haikal1080p@gmail.com> 1779677536 +0700	commit: chore: optimize telemetry log sync at 09:52:16
+8c3a03db5a614064e08edd36164ec2dacd9f4921 19ac291aae2573011580e2a6c559b23683ffe052 ghiffa08 <haikal1080p@gmail.com> 1779710407 +0700	commit: perf: enhance data payload serialization efficiency
+19ac291aae2573011580e2a6c559b23683ffe052 a953eb46d59778dd9a4e7dee09869f16ca0f6c97 ghiffa08 <haikal1080p@gmail.com> 1779684692 +0700	commit: docs: update API endpoints definitions schema
+a953eb46d59778dd9a4e7dee09869f16ca0f6c97 60220ad3916a0e696267231cf44827c3668858de ghiffa08 <haikal1080p@gmail.com> 1779713889 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+60220ad3916a0e696267231cf44827c3668858de a98dc09b9b22bc67dee072f13ec66b3a4fce54df ghiffa08 <haikal1080p@gmail.com> 1779801053 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+a98dc09b9b22bc67dee072f13ec66b3a4fce54df adc8ac11a19123e7b966c76e13ea87c1952308e7 ghiffa08 <haikal1080p@gmail.com> 1779788947 +0700	commit: docs: update API endpoints definitions schema
+adc8ac11a19123e7b966c76e13ea87c1952308e7 5e1303908a89a7e2aeea9f512547c5f446fc540e ghiffa08 <haikal1080p@gmail.com> 1779773932 +0700	commit: docs: update API endpoints definitions schema
+5e1303908a89a7e2aeea9f512547c5f446fc540e 27f65655a5c1dc16ad1418e45c16dc809641bb06 ghiffa08 <haikal1080p@gmail.com> 1779852898 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+27f65655a5c1dc16ad1418e45c16dc809641bb06 325817603fc08aa06b52280cc649d64374d2ba89 ghiffa08 <haikal1080p@gmail.com> 1779956087 +0700	commit: docs: update API endpoints definitions schema
+325817603fc08aa06b52280cc649d64374d2ba89 34de9a820773c9b0fbdc1be7d38f5e1396bebaf8 ghiffa08 <haikal1080p@gmail.com> 1780023367 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+34de9a820773c9b0fbdc1be7d38f5e1396bebaf8 3cd42515c1ae939e5617fd578f6c985680d79985 ghiffa08 <haikal1080p@gmail.com> 1780038028 +0700	commit: chore: optimize telemetry log sync at 14:00:28
+3cd42515c1ae939e5617fd578f6c985680d79985 c4d0bd716b9e5429016d7f1757e5d3c86201dbd4 ghiffa08 <haikal1080p@gmail.com> 1780313520 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+c4d0bd716b9e5429016d7f1757e5d3c86201dbd4 41f26a4a18eb819650ac39ff819f807a5d3ddfe5 ghiffa08 <haikal1080p@gmail.com> 1780303465 +0700	commit: chore: optimize telemetry log sync at 15:44:25
+41f26a4a18eb819650ac39ff819f807a5d3ddfe5 81cc2153cef93589acec4e4e9cbcb1961d4f8205 ghiffa08 <haikal1080p@gmail.com> 1780295260 +0700	commit: chore: optimize telemetry log sync at 13:27:40
+81cc2153cef93589acec4e4e9cbcb1961d4f8205 6abd394c44e797fbecfa94809610d081fec49848 ghiffa08 <haikal1080p@gmail.com> 1780318574 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+6abd394c44e797fbecfa94809610d081fec49848 a44d21bbc86471d9eba5bea02280e36f314c2ad4 ghiffa08 <haikal1080p@gmail.com> 1780394982 +0700	commit: chore: optimize telemetry log sync at 17:09:42
+a44d21bbc86471d9eba5bea02280e36f314c2ad4 fb03a53ec49eb65a7ee032a6da38bfcb88e97948 ghiffa08 <haikal1080p@gmail.com> 1780387031 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+fb03a53ec49eb65a7ee032a6da38bfcb88e97948 e74892955579c4ce0d951f776708cd94770f2007 ghiffa08 <haikal1080p@gmail.com> 1780381418 +0700	commit: chore: optimize telemetry log sync at 13:23:38
+e74892955579c4ce0d951f776708cd94770f2007 3d703cd6176d9f013fc43152ad687db18af3833e ghiffa08 <haikal1080p@gmail.com> 1780403242 +0700	commit: perf: enhance data payload serialization efficiency
+3d703cd6176d9f013fc43152ad687db18af3833e 89b8a5c443fadbce69da226fdbc19c15b27b4a44 ghiffa08 <haikal1080p@gmail.com> 1780561477 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+89b8a5c443fadbce69da226fdbc19c15b27b4a44 d8923d7404867fce241de86cead4749acbdf0513 ghiffa08 <haikal1080p@gmail.com> 1780570026 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+d8923d7404867fce241de86cead4749acbdf0513 46b1c85d532813df46a3a609e343661e987a3de0 ghiffa08 <haikal1080p@gmail.com> 1780548676 +0700	commit: docs: update API endpoints definitions schema
+46b1c85d532813df46a3a609e343661e987a3de0 7ca4b2c5e39ec67f048f769048193431e0c62480 ghiffa08 <haikal1080p@gmail.com> 1780581107 +0700	commit: perf: enhance data payload serialization efficiency
+7ca4b2c5e39ec67f048f769048193431e0c62480 dc97b1e5a85d761e94709a3eb22a50b4f70afd8a ghiffa08 <haikal1080p@gmail.com> 1780652534 +0700	commit: docs: update API endpoints definitions schema
+dc97b1e5a85d761e94709a3eb22a50b4f70afd8a 3b6a63a3ff4666f957c41cd010e091ae0182da56 ghiffa08 <haikal1080p@gmail.com> 1780656902 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+3b6a63a3ff4666f957c41cd010e091ae0182da56 c9ee49360c66ccf3e19e0f7839d4c7aba5f8b6a5 ghiffa08 <haikal1080p@gmail.com> 1780662778 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+c9ee49360c66ccf3e19e0f7839d4c7aba5f8b6a5 f62642ed77dba3acb991d5fa0dc44470c840cc30 ghiffa08 <haikal1080p@gmail.com> 1780629832 +0700	commit: docs: update API endpoints definitions schema
+f62642ed77dba3acb991d5fa0dc44470c840cc30 e4cd0cf8be7ac3bd40adda88a9f01e10dc61c54e ghiffa08 <haikal1080p@gmail.com> 1780824191 +0700	commit: chore: optimize telemetry log sync at 16:23:11
+e4cd0cf8be7ac3bd40adda88a9f01e10dc61c54e 08a06f9db00eee47907067b4a7f26c010e80fb5c ghiffa08 <haikal1080p@gmail.com> 1780926617 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+08a06f9db00eee47907067b4a7f26c010e80fb5c 8e13cecb8d7f4dd4cb7291b43ff9a5a71a69aac7 ghiffa08 <haikal1080p@gmail.com> 1780885299 +0700	commit: perf: enhance data payload serialization efficiency
+8e13cecb8d7f4dd4cb7291b43ff9a5a71a69aac7 0e04c9df772e3f93b8c8ac892d1e578ca2223d9c ghiffa08 <haikal1080p@gmail.com> 1780904107 +0700	commit: docs: update API endpoints definitions schema
+0e04c9df772e3f93b8c8ac892d1e578ca2223d9c cc4383fdc0467547f9894ee731ffb75b112a1491 ghiffa08 <haikal1080p@gmail.com> 1780921786 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+cc4383fdc0467547f9894ee731ffb75b112a1491 a96b0350359fb115cb961c6101d3f1df1ea161ab ghiffa08 <haikal1080p@gmail.com> 1781003568 +0700	commit: chore: optimize telemetry log sync at 18:12:48
+a96b0350359fb115cb961c6101d3f1df1ea161ab 715f186d6b7354f3c3626c060dec789a10f66478 ghiffa08 <haikal1080p@gmail.com> 1780988002 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+715f186d6b7354f3c3626c060dec789a10f66478 a59ecdfb16599fbe9b8f8f855a94a9f3f4218964 ghiffa08 <haikal1080p@gmail.com> 1781079385 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+a59ecdfb16599fbe9b8f8f855a94a9f3f4218964 94868592923524fd5f4d2f4c73fe820253138bea ghiffa08 <haikal1080p@gmail.com> 1781099410 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+94868592923524fd5f4d2f4c73fe820253138bea 102f0a3ede5747608962687ce2d8a9e5fa49b274 ghiffa08 <haikal1080p@gmail.com> 1781091975 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+102f0a3ede5747608962687ce2d8a9e5fa49b274 26201580488f18f54553d6a8c57beb5ddec4691f ghiffa08 <haikal1080p@gmail.com> 1781101601 +0700	commit: docs: update API endpoints definitions schema
+26201580488f18f54553d6a8c57beb5ddec4691f 43767a4cce845277fe62c9e072db6c9a2a2643d7 ghiffa08 <haikal1080p@gmail.com> 1781061411 +0700	commit: perf: enhance data payload serialization efficiency
+43767a4cce845277fe62c9e072db6c9a2a2643d7 26988fa2c4da158a7f90b742ce241779ce1ef0e3 ghiffa08 <haikal1080p@gmail.com> 1781250822 +0700	commit: perf: enhance data payload serialization efficiency
+26988fa2c4da158a7f90b742ce241779ce1ef0e3 2ddf0d1c4b3fbc5e5ec32cdbb4cc77aef2125243 ghiffa08 <haikal1080p@gmail.com> 1781266140 +0700	commit: perf: enhance data payload serialization efficiency
+2ddf0d1c4b3fbc5e5ec32cdbb4cc77aef2125243 777748b4d97bcb7fa7bb47b82dd7954feb792dd8 ghiffa08 <haikal1080p@gmail.com> 1781272005 +0700	commit: perf: enhance data payload serialization efficiency
+777748b4d97bcb7fa7bb47b82dd7954feb792dd8 5bf75eeeb9a6c81a435fa528bec36a8eb6e62846 ghiffa08 <haikal1080p@gmail.com> 1781528436 +0700	commit: chore: optimize telemetry log sync at 20:00:36
+5bf75eeeb9a6c81a435fa528bec36a8eb6e62846 a78e88ee429ed6d9785bee9b77bf75811374d313 ghiffa08 <haikal1080p@gmail.com> 1781579452 +0700	commit: perf: enhance data payload serialization efficiency
+a78e88ee429ed6d9785bee9b77bf75811374d313 30773ece9b4c6b96ce973a1e40d97b10059c7f54 ghiffa08 <haikal1080p@gmail.com> 1781583239 +0700	commit: chore: optimize telemetry log sync at 11:13:59
+30773ece9b4c6b96ce973a1e40d97b10059c7f54 5802efbc1749073a88ee9f5bd81c00f6d37d7e7e ghiffa08 <haikal1080p@gmail.com> 1781580637 +0700	commit: docs: update API endpoints definitions schema
+5802efbc1749073a88ee9f5bd81c00f6d37d7e7e a9757e040dde3f855b5a2049bae9a9626de18e39 ghiffa08 <haikal1080p@gmail.com> 1781674704 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+a9757e040dde3f855b5a2049bae9a9626de18e39 6e24841ed60870e652e11c5fcb80fbbb3a8419bd ghiffa08 <haikal1080p@gmail.com> 1781672728 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+6e24841ed60870e652e11c5fcb80fbbb3a8419bd d73c0acc998e05fab0fcb6633817a31033f1cc5b ghiffa08 <haikal1080p@gmail.com> 1781835786 +0700	commit: perf: enhance data payload serialization efficiency
+d73c0acc998e05fab0fcb6633817a31033f1cc5b 8aa61344ef25969d36d94a172e8678d52b62d895 ghiffa08 <haikal1080p@gmail.com> 1781837097 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+8aa61344ef25969d36d94a172e8678d52b62d895 1f9c9210bccaf3ab62ccd09818b6b544e0193e4e ghiffa08 <haikal1080p@gmail.com> 1781940891 +0700	commit: chore: optimize telemetry log sync at 14:34:51
+1f9c9210bccaf3ab62ccd09818b6b544e0193e4e ce531779864ee2f6f16b926ed7b71d9fb9294993 ghiffa08 <haikal1080p@gmail.com> 1781938217 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+ce531779864ee2f6f16b926ed7b71d9fb9294993 4b180b673c4886e398a87beecff6df553894be97 ghiffa08 <haikal1080p@gmail.com> 1782093766 +0700	commit: docs: update API endpoints definitions schema
+4b180b673c4886e398a87beecff6df553894be97 7b942fcc6a1c0b1d8adf13d15379baae4ee2bd3d ghiffa08 <haikal1080p@gmail.com> 1782113125 +0700	commit: docs: update API endpoints definitions schema
+7b942fcc6a1c0b1d8adf13d15379baae4ee2bd3d 39b1c2fb5eebfedbd4b8f7b7e26a5598d2f8ef32 ghiffa08 <haikal1080p@gmail.com> 1782100926 +0700	commit: docs: update API endpoints definitions schema
+39b1c2fb5eebfedbd4b8f7b7e26a5598d2f8ef32 5f5d1eadff0f6c419edad6ae7aec92a3120d99cb ghiffa08 <haikal1080p@gmail.com> 1782271382 +0700	commit: docs: update API endpoints definitions schema
+5f5d1eadff0f6c419edad6ae7aec92a3120d99cb 4cf45856bf3859bf3a7439e3186b87ae8030ba8e ghiffa08 <haikal1080p@gmail.com> 1782359326 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+4cf45856bf3859bf3a7439e3186b87ae8030ba8e 361a9fce64bcfcab8085bb7df28e808daa0f8b99 ghiffa08 <haikal1080p@gmail.com> 1782375965 +0700	commit: perf: enhance data payload serialization efficiency
+361a9fce64bcfcab8085bb7df28e808daa0f8b99 9abb8fcb5b3eb956fb3f627d1181dba0fd7a888b ghiffa08 <haikal1080p@gmail.com> 1782354600 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+9abb8fcb5b3eb956fb3f627d1181dba0fd7a888b 5376edbb57dee67f26ab0f3842dd69bca6652465 ghiffa08 <haikal1080p@gmail.com> 1782363700 +0700	commit: chore: optimize telemetry log sync at 12:01:40
+5376edbb57dee67f26ab0f3842dd69bca6652465 b0f679f2088f19472cb1697ea54ada5085697520 ghiffa08 <haikal1080p@gmail.com> 1782356725 +0700	commit: chore: optimize telemetry log sync at 10:05:25
+b0f679f2088f19472cb1697ea54ada5085697520 22957f2131676b905f666a22cc628731397f33af ghiffa08 <haikal1080p@gmail.com> 1782465884 +0700	commit: docs: update API endpoints definitions schema
+22957f2131676b905f666a22cc628731397f33af d1cf8cb291d41149aaef217cd88c1a446568fb4d ghiffa08 <haikal1080p@gmail.com> 1782447707 +0700	commit: docs: update API endpoints definitions schema
+d1cf8cb291d41149aaef217cd88c1a446568fb4d 1b864abaaa69242737b99c2657c1e5e524c85b59 ghiffa08 <haikal1080p@gmail.com> 1782467979 +0700	commit: perf: enhance data payload serialization efficiency
+1b864abaaa69242737b99c2657c1e5e524c85b59 aa7853cb3a4373bd22d67719071e9ed799450565 ghiffa08 <haikal1080p@gmail.com> 1782547397 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+aa7853cb3a4373bd22d67719071e9ed799450565 240ea1eee251ace9cdbb41b6218659075cc875df ghiffa08 <haikal1080p@gmail.com> 1782730685 +0700	commit: chore: optimize telemetry log sync at 17:58:05
+240ea1eee251ace9cdbb41b6218659075cc875df c6bdafe288917ada13c985fba71f50a7f23af320 ghiffa08 <haikal1080p@gmail.com> 1782708801 +0700	commit: perf: enhance data payload serialization efficiency
+ad652ced726a744b7b2601c5f1854e695882331c 441684c2e12e73005a8ecafda9f240b5241bb4a0 ghiffa08 <haikal1080p@gmail.com> 1775039571 +0700	commit: docs: update API endpoints definitions schema
+441684c2e12e73005a8ecafda9f240b5241bb4a0 33fce5c9b49896ad9a54d1696193091d118ac645 ghiffa08 <haikal1080p@gmail.com> 1775019570 +0700	commit: docs: update API endpoints definitions schema
+33fce5c9b49896ad9a54d1696193091d118ac645 6869032616a6b6e206d2c06ff567f1c44db25da1 ghiffa08 <haikal1080p@gmail.com> 1775056003 +0700	commit: chore: optimize telemetry log sync at 22:06:43
+6869032616a6b6e206d2c06ff567f1c44db25da1 25f67c3b97e5f404cc6b34db005deddc7c353861 ghiffa08 <haikal1080p@gmail.com> 1775049126 +0700	commit: style: polish dashboard layout alignments
+25f67c3b97e5f404cc6b34db005deddc7c353861 c58a2fe7a7080a936c53111608c884fedac49dc0 ghiffa08 <haikal1080p@gmail.com> 1775022841 +0700	commit: style: polish dashboard layout alignments
+c58a2fe7a7080a936c53111608c884fedac49dc0 7b3cefc0995973989ab057870b9526fa9f0c8b99 ghiffa08 <haikal1080p@gmail.com> 1775008512 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+7b3cefc0995973989ab057870b9526fa9f0c8b99 61d9ada666527be11ca9c28159e85b3a5597eb32 ghiffa08 <haikal1080p@gmail.com> 1775015761 +0700	commit: style: polish dashboard layout alignments
+61d9ada666527be11ca9c28159e85b3a5597eb32 e2f33c09bad6f63d2512eafe1d57062d34e0b6a5 ghiffa08 <haikal1080p@gmail.com> 1775117255 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+e2f33c09bad6f63d2512eafe1d57062d34e0b6a5 d48bbfa2d3ba125873f8e6da5c588f977b02e3f5 ghiffa08 <haikal1080p@gmail.com> 1775117700 +0700	commit: chore: optimize telemetry log sync at 15:15:00
+d48bbfa2d3ba125873f8e6da5c588f977b02e3f5 6610367972d6d1b2b1a3a8001cfb25945682f372 ghiffa08 <haikal1080p@gmail.com> 1775103949 +0700	commit: chore: update database migrations indexing
+6610367972d6d1b2b1a3a8001cfb25945682f372 4e91339b9f5f4731bda0912ab5bd00f9542852d8 ghiffa08 <haikal1080p@gmail.com> 1775142938 +0700	commit: refactor: optimize database logs query performance
+4e91339b9f5f4731bda0912ab5bd00f9542852d8 ed40712f24480990e2efe0903570c1d079fe22f7 ghiffa08 <haikal1080p@gmail.com> 1775136183 +0700	commit: refactor: optimize database logs query performance
+ed40712f24480990e2efe0903570c1d079fe22f7 72143bccbf04203db7817ea1c891ce2abbc705a3 ghiffa08 <haikal1080p@gmail.com> 1775109507 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+72143bccbf04203db7817ea1c891ce2abbc705a3 eafc3771df77a9262b22ec37570aac9f5f2291c0 ghiffa08 <haikal1080p@gmail.com> 1775123224 +0700	commit: test: add unit tests for valve telemetry controller
+eafc3771df77a9262b22ec37570aac9f5f2291c0 4dd952f7734cdd33ce264de20d74b9d1e0a1f8da ghiffa08 <haikal1080p@gmail.com> 1775113757 +0700	commit: docs: update API endpoints definitions schema
+4dd952f7734cdd33ce264de20d74b9d1e0a1f8da bb269e76db0cd69d4cfacb9ff8b04b223bce4929 ghiffa08 <haikal1080p@gmail.com> 1775190208 +0700	commit: refactor: optimize database logs query performance
+bb269e76db0cd69d4cfacb9ff8b04b223bce4929 282248f029d2a6dcdcca3007948637b00375549e ghiffa08 <haikal1080p@gmail.com> 1775191754 +0700	commit: chore: update database migrations indexing
+282248f029d2a6dcdcca3007948637b00375549e 0adf7281157ebf8731a179130b88507083e87217 ghiffa08 <haikal1080p@gmail.com> 1775191647 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+0adf7281157ebf8731a179130b88507083e87217 16aeeb538c3c598a304788f6b5d9937e47997bc3 ghiffa08 <haikal1080p@gmail.com> 1775189373 +0700	commit: chore: optimize telemetry log sync at 11:09:33
+16aeeb538c3c598a304788f6b5d9937e47997bc3 332f98ebfb640493c5d1f62952202a07293accd3 ghiffa08 <haikal1080p@gmail.com> 1775198331 +0700	commit: perf: enhance data payload serialization efficiency
+332f98ebfb640493c5d1f62952202a07293accd3 ffcc479d339c5b3abf7a48be007304dc7809ede2 ghiffa08 <haikal1080p@gmail.com> 1775197324 +0700	commit: style: polish dashboard layout alignments
+ffcc479d339c5b3abf7a48be007304dc7809ede2 b743fa771bcc1f07aae68c7b74b9e228fa3f63d4 ghiffa08 <haikal1080p@gmail.com> 1775196226 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+b743fa771bcc1f07aae68c7b74b9e228fa3f63d4 2b7e14b1eddd031a18a58ffe7e4ea1e7253f2c60 ghiffa08 <haikal1080p@gmail.com> 1775275383 +0700	commit: chore: update database migrations indexing
+2b7e14b1eddd031a18a58ffe7e4ea1e7253f2c60 687591ad55a5975171f5689c4ac9103ed3c4d681 ghiffa08 <haikal1080p@gmail.com> 1775291521 +0700	commit: chore: update database migrations indexing
+687591ad55a5975171f5689c4ac9103ed3c4d681 98cf7f5174e92b3bd96ab1e025f6a3fe551e484f ghiffa08 <haikal1080p@gmail.com> 1775307982 +0700	commit: perf: enhance data payload serialization efficiency
+98cf7f5174e92b3bd96ab1e025f6a3fe551e484f b95456fc7cf69350db64dbf78e141dabc2d154ee ghiffa08 <haikal1080p@gmail.com> 1775264967 +0700	commit: chore: optimize telemetry log sync at 08:09:27
+b95456fc7cf69350db64dbf78e141dabc2d154ee 67f15542f272f99982a74c8c8f687ca57fb6a351 ghiffa08 <haikal1080p@gmail.com> 1775294710 +0700	commit: docs: update API endpoints definitions schema
+67f15542f272f99982a74c8c8f687ca57fb6a351 56c47251afbeb761bead582802b6072080f9a768 ghiffa08 <haikal1080p@gmail.com> 1775272333 +0700	commit: test: add unit tests for valve telemetry controller
+56c47251afbeb761bead582802b6072080f9a768 2cb177a41c501bb56d5dc3416b1b18fbb9eb15a0 ghiffa08 <haikal1080p@gmail.com> 1775279014 +0700	commit: style: polish dashboard layout alignments
+2cb177a41c501bb56d5dc3416b1b18fbb9eb15a0 7981f717ed2e611eb5b751645e0dde58add5ae32 ghiffa08 <haikal1080p@gmail.com> 1775281311 +0700	commit: chore: optimize telemetry log sync at 12:41:51
+7981f717ed2e611eb5b751645e0dde58add5ae32 ae4b0025eab7e365697d34cd882b591c408228e1 ghiffa08 <haikal1080p@gmail.com> 1775281360 +0700	commit: perf: enhance data payload serialization efficiency
+ae4b0025eab7e365697d34cd882b591c408228e1 e4acae4cfcd10277c281f362673a8a4df1cc6c09 ghiffa08 <haikal1080p@gmail.com> 1775396111 +0700	commit: refactor: optimize database logs query performance
+e4acae4cfcd10277c281f362673a8a4df1cc6c09 ea0085e2b7a9094816368aff893d4dc632089905 ghiffa08 <haikal1080p@gmail.com> 1775372558 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+ea0085e2b7a9094816368aff893d4dc632089905 54f8e0d0dd7e9ef1d2f0c0cdc170038e03727548 ghiffa08 <haikal1080p@gmail.com> 1775354330 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+54f8e0d0dd7e9ef1d2f0c0cdc170038e03727548 d701460227ef75b24bebfd9af0caa16ba9fdf6bf ghiffa08 <haikal1080p@gmail.com> 1775362798 +0700	commit: test: add unit tests for valve telemetry controller
+d701460227ef75b24bebfd9af0caa16ba9fdf6bf fc9990d64ce58789b62e5b1617999983bf893a19 ghiffa08 <haikal1080p@gmail.com> 1775391285 +0700	commit: docs: update API endpoints definitions schema
+fc9990d64ce58789b62e5b1617999983bf893a19 e6ee37112e3b0f5c551935b9ffab3e456052f4d1 ghiffa08 <haikal1080p@gmail.com> 1775390275 +0700	commit: perf: enhance data payload serialization efficiency
+e6ee37112e3b0f5c551935b9ffab3e456052f4d1 d93757ce17e657aedf543cd3f2dabef5237e65d1 ghiffa08 <haikal1080p@gmail.com> 1775390595 +0700	commit: chore: update database migrations indexing
+d93757ce17e657aedf543cd3f2dabef5237e65d1 5acb773567af9f36a33e69e768333739b82315c3 ghiffa08 <haikal1080p@gmail.com> 1775370959 +0700	commit: style: polish dashboard layout alignments
+5acb773567af9f36a33e69e768333739b82315c3 c60fc745afda1f1c879ae05887259be4dd332fb3 ghiffa08 <haikal1080p@gmail.com> 1775401726 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+c60fc745afda1f1c879ae05887259be4dd332fb3 294c0aeb4d97a7853e4f62128059987ffe972cfd ghiffa08 <haikal1080p@gmail.com> 1775355181 +0700	commit: perf: enhance data payload serialization efficiency
+294c0aeb4d97a7853e4f62128059987ffe972cfd d8397f0adae6c885a28585d6b526c877bf5d3fdd ghiffa08 <haikal1080p@gmail.com> 1775395154 +0700	commit: refactor: optimize database logs query performance
+d8397f0adae6c885a28585d6b526c877bf5d3fdd a5694386fb271722068f99c06baccef50d96fc8d ghiffa08 <haikal1080p@gmail.com> 1775461009 +0700	commit: docs: update API endpoints definitions schema
+a5694386fb271722068f99c06baccef50d96fc8d 4cc8ed974dae2060b4a084bd048c4af2f2f76684 ghiffa08 <haikal1080p@gmail.com> 1775461948 +0700	commit: chore: optimize telemetry log sync at 14:52:28
+4cc8ed974dae2060b4a084bd048c4af2f2f76684 41f48c5926d0bc13694114a86a730be9d9aec3d9 ghiffa08 <haikal1080p@gmail.com> 1775450917 +0700	commit: chore: optimize telemetry log sync at 11:48:37
+41f48c5926d0bc13694114a86a730be9d9aec3d9 b82be09132ab8c00d84fc8334d32514131fd081c ghiffa08 <haikal1080p@gmail.com> 1775464110 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+b82be09132ab8c00d84fc8334d32514131fd081c bfb675466af3c80516f159b5ba5ebae02bca9158 ghiffa08 <haikal1080p@gmail.com> 1775490952 +0700	commit: chore: update database migrations indexing
+bfb675466af3c80516f159b5ba5ebae02bca9158 25442fc7de7d8c0b7b37c45711b0f069f391594d ghiffa08 <haikal1080p@gmail.com> 1775479338 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+25442fc7de7d8c0b7b37c45711b0f069f391594d ed1beabdaaf632079c8a0c456e26d04e8b59219b ghiffa08 <haikal1080p@gmail.com> 1775573364 +0700	commit: refactor: optimize database logs query performance
+ed1beabdaaf632079c8a0c456e26d04e8b59219b d11a5d29892a53df9bb7bc7b8dd1706c759a6938 ghiffa08 <haikal1080p@gmail.com> 1775553247 +0700	commit: refactor: optimize database logs query performance
+d11a5d29892a53df9bb7bc7b8dd1706c759a6938 3eebbe861080efc49bed046d036232fef753074c ghiffa08 <haikal1080p@gmail.com> 1775570774 +0700	commit: perf: enhance data payload serialization efficiency
+3eebbe861080efc49bed046d036232fef753074c faf3854edb0d776ed9f1104e669a40b99864bd02 ghiffa08 <haikal1080p@gmail.com> 1775565974 +0700	commit: perf: enhance data payload serialization efficiency
+faf3854edb0d776ed9f1104e669a40b99864bd02 a50cfd4ef8018f2e71504b92913494248d7957ce ghiffa08 <haikal1080p@gmail.com> 1775535655 +0700	commit: perf: enhance data payload serialization efficiency
+a50cfd4ef8018f2e71504b92913494248d7957ce e9e4bbef1eefea643310444a68984ba9a01bbf57 ghiffa08 <haikal1080p@gmail.com> 1775526969 +0700	commit: perf: enhance data payload serialization efficiency
+e9e4bbef1eefea643310444a68984ba9a01bbf57 779a6ac7e43421cf618526f72c852b2dfb11d8c2 ghiffa08 <haikal1080p@gmail.com> 1775660649 +0700	commit: test: add unit tests for valve telemetry controller
+779a6ac7e43421cf618526f72c852b2dfb11d8c2 b30254321e3e7971214652c160c2da779e9c8cd2 ghiffa08 <haikal1080p@gmail.com> 1775643377 +0700	commit: chore: optimize telemetry log sync at 17:16:17
+b30254321e3e7971214652c160c2da779e9c8cd2 902eace5fcbbbc6e8a217ea0fd3a9b66c8e7cc6b ghiffa08 <haikal1080p@gmail.com> 1775615877 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+902eace5fcbbbc6e8a217ea0fd3a9b66c8e7cc6b 8d7a6c0665678c92a4b3e87dc0d33712d4369a24 ghiffa08 <haikal1080p@gmail.com> 1775660698 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+8d7a6c0665678c92a4b3e87dc0d33712d4369a24 127084a6b21d330eafb841f041080b59366e597d ghiffa08 <haikal1080p@gmail.com> 1775618483 +0700	commit: style: polish dashboard layout alignments
+127084a6b21d330eafb841f041080b59366e597d 1f75beeb68b03c5e3ee536aa822b9df9b699d7bc ghiffa08 <haikal1080p@gmail.com> 1775616865 +0700	commit: style: polish dashboard layout alignments
+1f75beeb68b03c5e3ee536aa822b9df9b699d7bc 2ae5ba93618cf33a4ad7085ec0b0ad69f310cfbc ghiffa08 <haikal1080p@gmail.com> 1775619519 +0700	commit: refactor: optimize database logs query performance
+2ae5ba93618cf33a4ad7085ec0b0ad69f310cfbc d3420c190fd8df392d55e1009e3d95c7b374ee71 ghiffa08 <haikal1080p@gmail.com> 1775630332 +0700	commit: refactor: optimize database logs query performance
+d3420c190fd8df392d55e1009e3d95c7b374ee71 4bd8a7e04c5ec6768478b66e07fec6fee06fca45 ghiffa08 <haikal1080p@gmail.com> 1775614051 +0700	commit: perf: enhance data payload serialization efficiency
+4bd8a7e04c5ec6768478b66e07fec6fee06fca45 175a6669aab3d3cfb67da4892dbc5f4bdb85b03f ghiffa08 <haikal1080p@gmail.com> 1775737001 +0700	commit: test: add unit tests for valve telemetry controller
+175a6669aab3d3cfb67da4892dbc5f4bdb85b03f c10b903bd6344a2cef36c42e3524393bdd28bf47 ghiffa08 <haikal1080p@gmail.com> 1775700471 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+c10b903bd6344a2cef36c42e3524393bdd28bf47 2fc6bdaafd0ada2d36091ce5291729a169d2eff9 ghiffa08 <haikal1080p@gmail.com> 1775716574 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+2fc6bdaafd0ada2d36091ce5291729a169d2eff9 ba1eba46afd5e5ea3d693810bbb205fe4a27d330 ghiffa08 <haikal1080p@gmail.com> 1775716278 +0700	commit: docs: update API endpoints definitions schema
+ba1eba46afd5e5ea3d693810bbb205fe4a27d330 684b4937ea7c80fe8be901d39666058190773a76 ghiffa08 <haikal1080p@gmail.com> 1775713382 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+684b4937ea7c80fe8be901d39666058190773a76 65b5156671cb28f41dc01459b630deebde00690c ghiffa08 <haikal1080p@gmail.com> 1775735226 +0700	commit: chore: optimize telemetry log sync at 18:47:06
+65b5156671cb28f41dc01459b630deebde00690c df40f94143f28042660cd0ccd4dc0c653aeee3c8 ghiffa08 <haikal1080p@gmail.com> 1775720103 +0700	commit: refactor: optimize database logs query performance
+df40f94143f28042660cd0ccd4dc0c653aeee3c8 49991221009592eaa333f629c3cbb5b93cb06add ghiffa08 <haikal1080p@gmail.com> 1775701865 +0700	commit: refactor: optimize database logs query performance
+49991221009592eaa333f629c3cbb5b93cb06add fa4a063a865dba251222bc6d5484725b107fe57e ghiffa08 <haikal1080p@gmail.com> 1775742991 +0700	commit: test: add unit tests for valve telemetry controller
+fa4a063a865dba251222bc6d5484725b107fe57e 866d004b430acaa56b6eaf5e77eced09029ff344 ghiffa08 <haikal1080p@gmail.com> 1775723949 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+866d004b430acaa56b6eaf5e77eced09029ff344 ad1677adb5c1c7a8b29e0dd7c01bbb147871d9cb ghiffa08 <haikal1080p@gmail.com> 1775703343 +0700	commit: chore: optimize telemetry log sync at 09:55:43
+ad1677adb5c1c7a8b29e0dd7c01bbb147871d9cb 6725c47a86d441502fc9cec983478dc0c100835b ghiffa08 <haikal1080p@gmail.com> 1775799025 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+6725c47a86d441502fc9cec983478dc0c100835b 7ab739d72d8d1d83538fb111752e2c8019f48ac2 ghiffa08 <haikal1080p@gmail.com> 1775795007 +0700	commit: test: add unit tests for valve telemetry controller
+7ab739d72d8d1d83538fb111752e2c8019f48ac2 f11cbcf6237ae9271d9db3e7a02d76fc21999bde ghiffa08 <haikal1080p@gmail.com> 1775812294 +0700	commit: chore: update database migrations indexing
+f11cbcf6237ae9271d9db3e7a02d76fc21999bde 9004d9e2ba9b81f61d052f0d24229149001f8f3d ghiffa08 <haikal1080p@gmail.com> 1775807370 +0700	commit: test: add unit tests for valve telemetry controller
+9004d9e2ba9b81f61d052f0d24229149001f8f3d 8458e2185744fc8dfad8221fcf0cebcd05078e25 ghiffa08 <haikal1080p@gmail.com> 1775796699 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+8458e2185744fc8dfad8221fcf0cebcd05078e25 6b8c2a55e79c58b8de3630428a93ee4522c4c1ea ghiffa08 <haikal1080p@gmail.com> 1775800920 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+6b8c2a55e79c58b8de3630428a93ee4522c4c1ea 0abfa90622fd7ee3fa83adf5446137fdbc806a50 ghiffa08 <haikal1080p@gmail.com> 1775818262 +0700	commit: perf: enhance data payload serialization efficiency
+0abfa90622fd7ee3fa83adf5446137fdbc806a50 7cd6c65a87707a4396165d0fad2846e8ec141b13 ghiffa08 <haikal1080p@gmail.com> 1775821767 +0700	commit: test: add unit tests for valve telemetry controller
+7cd6c65a87707a4396165d0fad2846e8ec141b13 bb53be631a5529fbbd9f8be692d996520814fd29 ghiffa08 <haikal1080p@gmail.com> 1775894564 +0700	commit: perf: enhance data payload serialization efficiency
+bb53be631a5529fbbd9f8be692d996520814fd29 e9c1ca762840f2b5f40cc1c5f99b123d3a6fefed ghiffa08 <haikal1080p@gmail.com> 1775895258 +0700	commit: chore: optimize telemetry log sync at 15:14:18
+e9c1ca762840f2b5f40cc1c5f99b123d3a6fefed 1261504e12d18879e28d43f66167f8dcc36cfb19 ghiffa08 <haikal1080p@gmail.com> 1775871090 +0700	commit: chore: optimize telemetry log sync at 08:31:30
+1261504e12d18879e28d43f66167f8dcc36cfb19 bac47abd5b1af57133fa1a047701e0a52da52229 ghiffa08 <haikal1080p@gmail.com> 1775870558 +0700	commit: perf: enhance data payload serialization efficiency
+bac47abd5b1af57133fa1a047701e0a52da52229 3d56c6f5aa76f44f32a53b0a7df7580322e5efe4 ghiffa08 <haikal1080p@gmail.com> 1775922611 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+3d56c6f5aa76f44f32a53b0a7df7580322e5efe4 48e3f4f9e54ae36ff3693a593a25bdc9c2cb61a1 ghiffa08 <haikal1080p@gmail.com> 1775909414 +0700	commit: perf: enhance data payload serialization efficiency
+48e3f4f9e54ae36ff3693a593a25bdc9c2cb61a1 a34351c0095940be63b2d15b89898ba7ff117d94 ghiffa08 <haikal1080p@gmail.com> 1775916579 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+a34351c0095940be63b2d15b89898ba7ff117d94 5197a3278cea69b2e312d7f3c24522ea78127086 ghiffa08 <haikal1080p@gmail.com> 1775912353 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+5197a3278cea69b2e312d7f3c24522ea78127086 3cbd664692684fbb4e7c1b731298a17374147f9a ghiffa08 <haikal1080p@gmail.com> 1775903705 +0700	commit: perf: enhance data payload serialization efficiency
+3cbd664692684fbb4e7c1b731298a17374147f9a 265138988465e75b51f0d18abb4f04bec48e92c7 ghiffa08 <haikal1080p@gmail.com> 1775967104 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+265138988465e75b51f0d18abb4f04bec48e92c7 aae8f89938e8bbcd510fc58ace1c2c5fdb1c4a8e ghiffa08 <haikal1080p@gmail.com> 1775996551 +0700	commit: chore: optimize telemetry log sync at 19:22:31
+aae8f89938e8bbcd510fc58ace1c2c5fdb1c4a8e 23b161bcf0828a8831b0a6fa8cd76436971da034 ghiffa08 <haikal1080p@gmail.com> 1775958949 +0700	commit: chore: optimize telemetry log sync at 08:55:49
+23b161bcf0828a8831b0a6fa8cd76436971da034 74d86912216f039768e983652aee13d38bd1e6ae ghiffa08 <haikal1080p@gmail.com> 1775991075 +0700	commit: refactor: optimize database logs query performance
+74d86912216f039768e983652aee13d38bd1e6ae 626c17a95ca6bbe5f2af46dda21a2f2dd284602f ghiffa08 <haikal1080p@gmail.com> 1775996808 +0700	commit: docs: update API endpoints definitions schema
+626c17a95ca6bbe5f2af46dda21a2f2dd284602f 8e0f4416625031eb005d73a448bc5560226bfb21 ghiffa08 <haikal1080p@gmail.com> 1775981235 +0700	commit: docs: update API endpoints definitions schema
+8e0f4416625031eb005d73a448bc5560226bfb21 8dbb3488225e8645180a426115cbb3aaeb2149b9 ghiffa08 <haikal1080p@gmail.com> 1775973214 +0700	commit: docs: update API endpoints definitions schema
+8dbb3488225e8645180a426115cbb3aaeb2149b9 f5f06921dc8b9981850b241db7b1fd95d1ba9e12 ghiffa08 <haikal1080p@gmail.com> 1776042703 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+f5f06921dc8b9981850b241db7b1fd95d1ba9e12 c26f8161b152407281911de0e27cbe41e2e641c2 ghiffa08 <haikal1080p@gmail.com> 1776081611 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+c26f8161b152407281911de0e27cbe41e2e641c2 6bb93629c1eff1de5374332dd1e34fb4467f39c4 ghiffa08 <haikal1080p@gmail.com> 1776051538 +0700	commit: test: add unit tests for valve telemetry controller
+6bb93629c1eff1de5374332dd1e34fb4467f39c4 e5678838e2d6316fc390d69c00ec2d90f47ddbd0 ghiffa08 <haikal1080p@gmail.com> 1776049896 +0700	commit: chore: update database migrations indexing
+e5678838e2d6316fc390d69c00ec2d90f47ddbd0 797a6ada22ec5b143a74af327ef627f9b4cf60e9 ghiffa08 <haikal1080p@gmail.com> 1776076437 +0700	commit: perf: enhance data payload serialization efficiency
+797a6ada22ec5b143a74af327ef627f9b4cf60e9 967299cc8f57954b1eab1b1cc04ab4a5ff842255 ghiffa08 <haikal1080p@gmail.com> 1776079403 +0700	commit: refactor: optimize database logs query performance
+967299cc8f57954b1eab1b1cc04ab4a5ff842255 495fe2a286ba4a5f99f2035d002edf762cf3edd7 ghiffa08 <haikal1080p@gmail.com> 1776055517 +0700	commit: chore: optimize telemetry log sync at 11:45:17
+495fe2a286ba4a5f99f2035d002edf762cf3edd7 e240b5cb247b4c1bea1d18de943aaed0845a6928 ghiffa08 <haikal1080p@gmail.com> 1776069873 +0700	commit: style: polish dashboard layout alignments
+e240b5cb247b4c1bea1d18de943aaed0845a6928 318eee4fff332dc5a912587ea8fc85bece0b8bbc ghiffa08 <haikal1080p@gmail.com> 1776070303 +0700	commit: test: add unit tests for valve telemetry controller
+318eee4fff332dc5a912587ea8fc85bece0b8bbc 53cbeada65ac2e84d40e200820426d7a0f464e06 ghiffa08 <haikal1080p@gmail.com> 1776063874 +0700	commit: docs: update API endpoints definitions schema
+53cbeada65ac2e84d40e200820426d7a0f464e06 762753f1c530df1d80dfb7ae4ae16dbc69f66669 ghiffa08 <haikal1080p@gmail.com> 1776163760 +0700	commit: chore: update database migrations indexing
+762753f1c530df1d80dfb7ae4ae16dbc69f66669 26774aa034b77b8d282568d72c9a6ad2b732828d ghiffa08 <haikal1080p@gmail.com> 1776149549 +0700	commit: chore: update database migrations indexing
+26774aa034b77b8d282568d72c9a6ad2b732828d 4dd9cbb878910eda54e02574b9c52041749272a8 ghiffa08 <haikal1080p@gmail.com> 1776172582 +0700	commit: docs: update API endpoints definitions schema
+4dd9cbb878910eda54e02574b9c52041749272a8 6fe814672a572ef8b811ce006c11210d8f2110ea ghiffa08 <haikal1080p@gmail.com> 1776168243 +0700	commit: test: add unit tests for valve telemetry controller
+6fe814672a572ef8b811ce006c11210d8f2110ea d93f5101acf69a250de806ac052b7804c307cf62 ghiffa08 <haikal1080p@gmail.com> 1776142379 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+d93f5101acf69a250de806ac052b7804c307cf62 070b42f5e138d9cc8eeabc2afc376ca626d4472f ghiffa08 <haikal1080p@gmail.com> 1776169555 +0700	commit: perf: enhance data payload serialization efficiency
+070b42f5e138d9cc8eeabc2afc376ca626d4472f b6e74cc0f56f1b965820b59fd052c819bbdac37b ghiffa08 <haikal1080p@gmail.com> 1776152260 +0700	commit: docs: update API endpoints definitions schema
+b6e74cc0f56f1b965820b59fd052c819bbdac37b d9b8813129c3490966cf86b2975c0362f61120f6 ghiffa08 <haikal1080p@gmail.com> 1776166322 +0700	commit: perf: enhance data payload serialization efficiency
+d9b8813129c3490966cf86b2975c0362f61120f6 aba9cf67feb0942ad071178713b2a0b052db0ebd ghiffa08 <haikal1080p@gmail.com> 1776133361 +0700	commit: chore: optimize telemetry log sync at 09:22:41
+aba9cf67feb0942ad071178713b2a0b052db0ebd d65ddfdff2bf5477c7ca3154eac762af7fafeeec ghiffa08 <haikal1080p@gmail.com> 1776232549 +0700	commit: chore: optimize telemetry log sync at 12:55:49
+d65ddfdff2bf5477c7ca3154eac762af7fafeeec 81fae7fcb914d27c9c5083daac5cbd955483b8f4 ghiffa08 <haikal1080p@gmail.com> 1776263269 +0700	commit: chore: optimize telemetry log sync at 21:27:49
+81fae7fcb914d27c9c5083daac5cbd955483b8f4 148e457cbcc99bf3d0e272140fd3451ef2fcdb45 ghiffa08 <haikal1080p@gmail.com> 1776241361 +0700	commit: style: polish dashboard layout alignments
+148e457cbcc99bf3d0e272140fd3451ef2fcdb45 1c1105b8bef452f29e39dff6136604da3ff3bfc7 ghiffa08 <haikal1080p@gmail.com> 1776242468 +0700	commit: chore: update database migrations indexing
+1c1105b8bef452f29e39dff6136604da3ff3bfc7 9386b83a924576338c1cd0067fe2fe183a5a7b36 ghiffa08 <haikal1080p@gmail.com> 1776256757 +0700	commit: docs: update API endpoints definitions schema
+9386b83a924576338c1cd0067fe2fe183a5a7b36 081a1e68a4795dac29a5d6d8f6e06f434cbc703a ghiffa08 <haikal1080p@gmail.com> 1776249169 +0700	commit: chore: update database migrations indexing
+081a1e68a4795dac29a5d6d8f6e06f434cbc703a 0b2c451f16b05466aa4e8e4686ea56dd7c9bd741 ghiffa08 <haikal1080p@gmail.com> 1776231518 +0700	commit: test: add unit tests for valve telemetry controller
+0b2c451f16b05466aa4e8e4686ea56dd7c9bd741 b17ef7edea448e47ac6237932e4521ed8ec976cb ghiffa08 <haikal1080p@gmail.com> 1776248523 +0700	commit: perf: enhance data payload serialization efficiency
+b17ef7edea448e47ac6237932e4521ed8ec976cb bc9ef80bb533c81edb6a4765ae3474065d6366fe ghiffa08 <haikal1080p@gmail.com> 1776308975 +0700	commit: refactor: optimize database logs query performance
+bc9ef80bb533c81edb6a4765ae3474065d6366fe 8f885ce4a836c208c23d5690eaf42db851ec6e62 ghiffa08 <haikal1080p@gmail.com> 1776325476 +0700	commit: style: polish dashboard layout alignments
+8f885ce4a836c208c23d5690eaf42db851ec6e62 099994b3ca3455a6985fe7b8762803e6ef6bf2e0 ghiffa08 <haikal1080p@gmail.com> 1776342727 +0700	commit: test: add unit tests for valve telemetry controller
+099994b3ca3455a6985fe7b8762803e6ef6bf2e0 d38ff0e109e406a2d97286cfc02c4182bc5894e9 ghiffa08 <haikal1080p@gmail.com> 1776307124 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+d38ff0e109e406a2d97286cfc02c4182bc5894e9 278c36ef8d2ebadd38bb9f16376d16f43599d384 ghiffa08 <haikal1080p@gmail.com> 1776305423 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+278c36ef8d2ebadd38bb9f16376d16f43599d384 adb038c836e99e987d4a73dad0e57577962f190a ghiffa08 <haikal1080p@gmail.com> 1776348861 +0700	commit: style: polish dashboard layout alignments
+adb038c836e99e987d4a73dad0e57577962f190a a4332256d97bf3563379b964e0ad2fadeae20c0b ghiffa08 <haikal1080p@gmail.com> 1776338485 +0700	commit: refactor: optimize database logs query performance
+a4332256d97bf3563379b964e0ad2fadeae20c0b 755f5f185f1b1a9d54881f8be5b3df187f133291 ghiffa08 <haikal1080p@gmail.com> 1776439626 +0700	commit: perf: enhance data payload serialization efficiency
+755f5f185f1b1a9d54881f8be5b3df187f133291 273db340bce0000bc11156ef7b6b0beb8c640415 ghiffa08 <haikal1080p@gmail.com> 1776432879 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+273db340bce0000bc11156ef7b6b0beb8c640415 dd006e97b01ed94dbd69b11ddf3eb6b150d7ec18 ghiffa08 <haikal1080p@gmail.com> 1776438380 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+dd006e97b01ed94dbd69b11ddf3eb6b150d7ec18 1bca7a189af1a72d91eff58a21f1eac7cfceeb1c ghiffa08 <haikal1080p@gmail.com> 1776441254 +0700	commit: chore: update database migrations indexing
+1bca7a189af1a72d91eff58a21f1eac7cfceeb1c e83a31ced08d8fa5c19ac035acab680786bd0d03 ghiffa08 <haikal1080p@gmail.com> 1776410094 +0700	commit: perf: enhance data payload serialization efficiency
+e83a31ced08d8fa5c19ac035acab680786bd0d03 d51960e4f466aaa348abffe29f591a70306b00e3 ghiffa08 <haikal1080p@gmail.com> 1776411867 +0700	commit: perf: enhance data payload serialization efficiency
+d51960e4f466aaa348abffe29f591a70306b00e3 78f2b951bf683fd5a267c7cb7e840e24c2bbc079 ghiffa08 <haikal1080p@gmail.com> 1776425476 +0700	commit: style: polish dashboard layout alignments
+78f2b951bf683fd5a267c7cb7e840e24c2bbc079 9564455b3a8592af584b5a673b22bca6f8f86528 ghiffa08 <haikal1080p@gmail.com> 1776421934 +0700	commit: docs: update API endpoints definitions schema
+9564455b3a8592af584b5a673b22bca6f8f86528 65600a2ea7c9197d2391510fd05ba7ea3e80b9ba ghiffa08 <haikal1080p@gmail.com> 1776492598 +0700	commit: refactor: optimize database logs query performance
+65600a2ea7c9197d2391510fd05ba7ea3e80b9ba bb10652ec720a00a233a7e9715b736a1009f6b86 ghiffa08 <haikal1080p@gmail.com> 1776507598 +0700	commit: test: add unit tests for valve telemetry controller
+bb10652ec720a00a233a7e9715b736a1009f6b86 fc2497c95f0d65d57e6c4deb8a5da9dc13c73a73 ghiffa08 <haikal1080p@gmail.com> 1776474352 +0700	commit: refactor: optimize database logs query performance
+fc2497c95f0d65d57e6c4deb8a5da9dc13c73a73 cc1f89f306e1fd7dcd6b4e5761f80d0b0a94997d ghiffa08 <haikal1080p@gmail.com> 1776496654 +0700	commit: chore: update database migrations indexing
+cc1f89f306e1fd7dcd6b4e5761f80d0b0a94997d 4b775bbe1485b1ad4ed54c576ead4108ae2d948a ghiffa08 <haikal1080p@gmail.com> 1776517473 +0700	commit: perf: enhance data payload serialization efficiency
+4b775bbe1485b1ad4ed54c576ead4108ae2d948a 620e7495ef8d6abe357b686133aa578bb134b3b0 ghiffa08 <haikal1080p@gmail.com> 1776477306 +0700	commit: chore: update database migrations indexing
+620e7495ef8d6abe357b686133aa578bb134b3b0 76f8076793587439ec800bfefe3010db9a029286 ghiffa08 <haikal1080p@gmail.com> 1776509180 +0700	commit: refactor: optimize database logs query performance
+76f8076793587439ec800bfefe3010db9a029286 da90eae60389e2dea1a92daf0f40de39cec1974d ghiffa08 <haikal1080p@gmail.com> 1776486090 +0700	commit: perf: enhance data payload serialization efficiency
+da90eae60389e2dea1a92daf0f40de39cec1974d 0c291b1dd2569fc2e7af505ac959f566c09fa541 ghiffa08 <haikal1080p@gmail.com> 1776507599 +0700	commit: chore: optimize telemetry log sync at 17:19:59
+0c291b1dd2569fc2e7af505ac959f566c09fa541 78715527c9925e822fa44b05bcae63f014af949a ghiffa08 <haikal1080p@gmail.com> 1776523284 +0700	commit: chore: optimize telemetry log sync at 21:41:24
+78715527c9925e822fa44b05bcae63f014af949a d3283bdbdcb190762ac573a262c74b7e60529f34 ghiffa08 <haikal1080p@gmail.com> 1776591161 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+d3283bdbdcb190762ac573a262c74b7e60529f34 79fbd6ad4f5e02da372e5edc76b780a3f03830cf ghiffa08 <haikal1080p@gmail.com> 1776582246 +0700	commit: test: add unit tests for valve telemetry controller
+79fbd6ad4f5e02da372e5edc76b780a3f03830cf c0792db36c90d75f378a527f6e4482dca12031ec ghiffa08 <haikal1080p@gmail.com> 1776576121 +0700	commit: chore: update database migrations indexing
+c0792db36c90d75f378a527f6e4482dca12031ec 10f980c1e02f5da364638638eb6c639fc072e74a ghiffa08 <haikal1080p@gmail.com> 1776596240 +0700	commit: docs: update API endpoints definitions schema
+10f980c1e02f5da364638638eb6c639fc072e74a 16f7f4bef9d06b4a8b295f48e48654ea512be4e2 ghiffa08 <haikal1080p@gmail.com> 1776564345 +0700	commit: test: add unit tests for valve telemetry controller
+16f7f4bef9d06b4a8b295f48e48654ea512be4e2 71453f96456186da911f80e62d6d7a4413e99c33 ghiffa08 <haikal1080p@gmail.com> 1776582974 +0700	commit: docs: update API endpoints definitions schema
+71453f96456186da911f80e62d6d7a4413e99c33 3fab39b50a847cd0e4df0233fdc92a126e12a0d8 ghiffa08 <haikal1080p@gmail.com> 1776670175 +0700	commit: perf: enhance data payload serialization efficiency
+3fab39b50a847cd0e4df0233fdc92a126e12a0d8 c52bfc8f8db94c8cc11e871761e871ac83172da1 ghiffa08 <haikal1080p@gmail.com> 1776689053 +0700	commit: style: polish dashboard layout alignments
+c52bfc8f8db94c8cc11e871761e871ac83172da1 3ef45b95d7d7244b03340082e2130491460823f6 ghiffa08 <haikal1080p@gmail.com> 1776662528 +0700	commit: style: polish dashboard layout alignments
+3ef45b95d7d7244b03340082e2130491460823f6 bbaa8411aafbaf15d355a04ee60e4645fa959f45 ghiffa08 <haikal1080p@gmail.com> 1776682341 +0700	commit: refactor: optimize database logs query performance
+bbaa8411aafbaf15d355a04ee60e4645fa959f45 96b1f9085c8c2a26e7d099a3f56da047dbea8abc ghiffa08 <haikal1080p@gmail.com> 1776689557 +0700	commit: test: add unit tests for valve telemetry controller
+96b1f9085c8c2a26e7d099a3f56da047dbea8abc 960e7e0e40aaa234a303701e2c23171ab5f25175 ghiffa08 <haikal1080p@gmail.com> 1776652812 +0700	commit: docs: update API endpoints definitions schema
+960e7e0e40aaa234a303701e2c23171ab5f25175 fb7c232fa16e590fefa9ed2369c14c877e99c2c8 ghiffa08 <haikal1080p@gmail.com> 1776676552 +0700	commit: test: add unit tests for valve telemetry controller
+fb7c232fa16e590fefa9ed2369c14c877e99c2c8 f95caaf1b0dc7135dcfdffab4a896433b31052a7 ghiffa08 <haikal1080p@gmail.com> 1776671019 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+f95caaf1b0dc7135dcfdffab4a896433b31052a7 6344b485fbcb648717787be6b6b89a9c0b94d5fa ghiffa08 <haikal1080p@gmail.com> 1776679823 +0700	commit: style: polish dashboard layout alignments
+6344b485fbcb648717787be6b6b89a9c0b94d5fa e17a82af74a6410f5e45cd16544b10e4191d155b ghiffa08 <haikal1080p@gmail.com> 1776661123 +0700	commit: chore: optimize telemetry log sync at 11:58:43
+e17a82af74a6410f5e45cd16544b10e4191d155b 5da49056a6fbe9795a0c05fdfd7e0383b71d8bfe ghiffa08 <haikal1080p@gmail.com> 1776698652 +0700	commit: test: add unit tests for valve telemetry controller
+5da49056a6fbe9795a0c05fdfd7e0383b71d8bfe 39110f7b86a0dbdd4cc31f47b06c578e8b69bafa ghiffa08 <haikal1080p@gmail.com> 1776658380 +0700	commit: chore: optimize telemetry log sync at 11:13:00
+39110f7b86a0dbdd4cc31f47b06c578e8b69bafa 920492e98d3f2b631952c66a5101bd4d53307281 ghiffa08 <haikal1080p@gmail.com> 1776775341 +0700	commit: refactor: optimize database logs query performance
+920492e98d3f2b631952c66a5101bd4d53307281 20d378e1ec0f7906568185745878187b867e832f ghiffa08 <haikal1080p@gmail.com> 1776760124 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+20d378e1ec0f7906568185745878187b867e832f 309213574a95bee0523bd14b4b81ff1524258fec ghiffa08 <haikal1080p@gmail.com> 1776782508 +0700	commit: chore: optimize telemetry log sync at 21:41:48
+309213574a95bee0523bd14b4b81ff1524258fec e6ddef3a2e2c7824e839fd814da330ec27c5fd6f ghiffa08 <haikal1080p@gmail.com> 1776777805 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+e6ddef3a2e2c7824e839fd814da330ec27c5fd6f cfe268ad24bd31272ba4fd5e151139c5d3fb98fc ghiffa08 <haikal1080p@gmail.com> 1776784049 +0700	commit: docs: update API endpoints definitions schema
+cfe268ad24bd31272ba4fd5e151139c5d3fb98fc 595e9315afc5488afca5834208563129021ceddb ghiffa08 <haikal1080p@gmail.com> 1776776775 +0700	commit: refactor: optimize database logs query performance
+595e9315afc5488afca5834208563129021ceddb e7d400cfa96b3cc2fb4791faf292f82818f098b0 ghiffa08 <haikal1080p@gmail.com> 1776861060 +0700	commit: chore: optimize telemetry log sync at 19:31:00
+e7d400cfa96b3cc2fb4791faf292f82818f098b0 9bfb091836c79087c722cf90289bd573f6a0a585 ghiffa08 <haikal1080p@gmail.com> 1776862781 +0700	commit: test: add unit tests for valve telemetry controller
+9bfb091836c79087c722cf90289bd573f6a0a585 f2d86c171802b03d90e974212d031ef45c3bcafc ghiffa08 <haikal1080p@gmail.com> 1776836371 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+f2d86c171802b03d90e974212d031ef45c3bcafc e71872eec90269213e62876c54d6d16bd7c7e847 ghiffa08 <haikal1080p@gmail.com> 1776839386 +0700	commit: test: add unit tests for valve telemetry controller
+e71872eec90269213e62876c54d6d16bd7c7e847 8c4606435ade0aea245615eb30c0d19a3d20a0fb ghiffa08 <haikal1080p@gmail.com> 1776843206 +0700	commit: test: add unit tests for valve telemetry controller
+8c4606435ade0aea245615eb30c0d19a3d20a0fb fea6b19c3a800779eeb6d41f4ce2b835687b1c6e ghiffa08 <haikal1080p@gmail.com> 1776843767 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+fea6b19c3a800779eeb6d41f4ce2b835687b1c6e 8fc4395959071be8ca354fc86fc158f3826347a5 ghiffa08 <haikal1080p@gmail.com> 1776870440 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+8fc4395959071be8ca354fc86fc158f3826347a5 96d8364451262ec25ae3a7c076c829836c0e2a23 ghiffa08 <haikal1080p@gmail.com> 1776848525 +0700	commit: test: add unit tests for valve telemetry controller
+96d8364451262ec25ae3a7c076c829836c0e2a23 3fe67eaf9f4d9e1c8bfd8e0e51dc11b68e288e9d ghiffa08 <haikal1080p@gmail.com> 1776873272 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+3fe67eaf9f4d9e1c8bfd8e0e51dc11b68e288e9d ac2399dad5645f7897733fb4d07655a61af8dda0 ghiffa08 <haikal1080p@gmail.com> 1776849554 +0700	commit: style: polish dashboard layout alignments
+ac2399dad5645f7897733fb4d07655a61af8dda0 e3e8fc875672a2634da2cef5c951add17647b90f ghiffa08 <haikal1080p@gmail.com> 1776835841 +0700	commit: chore: optimize telemetry log sync at 12:30:41
+e3e8fc875672a2634da2cef5c951add17647b90f 7175feda026806e66b86757605aea0ef087f8fe6 ghiffa08 <haikal1080p@gmail.com> 1776931118 +0700	commit: test: add unit tests for valve telemetry controller
+7175feda026806e66b86757605aea0ef087f8fe6 dd8a0236d9c4babca9de22f52b6b046a8d785faf ghiffa08 <haikal1080p@gmail.com> 1776941641 +0700	commit: refactor: optimize database logs query performance
+dd8a0236d9c4babca9de22f52b6b046a8d785faf 1de28c05307da8e2ea15c0b8627e9fa63d7a183f ghiffa08 <haikal1080p@gmail.com> 1776935755 +0700	commit: style: polish dashboard layout alignments
+1de28c05307da8e2ea15c0b8627e9fa63d7a183f 1e7e622b6db6aaf5a462be7f42b34bcad4c503f7 ghiffa08 <haikal1080p@gmail.com> 1776912424 +0700	commit: perf: enhance data payload serialization efficiency
+1e7e622b6db6aaf5a462be7f42b34bcad4c503f7 72f66521827b9aa8f6f36ab298ec2d02edda3780 ghiffa08 <haikal1080p@gmail.com> 1776936658 +0700	commit: chore: update database migrations indexing
+72f66521827b9aa8f6f36ab298ec2d02edda3780 ae1da39c52d88cb914f34bd482178f5d145c8d83 ghiffa08 <haikal1080p@gmail.com> 1776929241 +0700	commit: refactor: optimize database logs query performance
+ae1da39c52d88cb914f34bd482178f5d145c8d83 26c91c7f387efffdee336cf8ff77ca284d06fd74 ghiffa08 <haikal1080p@gmail.com> 1776923371 +0700	commit: docs: update API endpoints definitions schema
+26c91c7f387efffdee336cf8ff77ca284d06fd74 40596a765107339acc17187b995fb85c762ce67e ghiffa08 <haikal1080p@gmail.com> 1776932447 +0700	commit: docs: update API endpoints definitions schema
+40596a765107339acc17187b995fb85c762ce67e 5195a657d1d140c876884a1c7149bae29c83dc6a ghiffa08 <haikal1080p@gmail.com> 1776949792 +0700	commit: docs: update API endpoints definitions schema
+5195a657d1d140c876884a1c7149bae29c83dc6a ce968b4dd0102df6b68bf67c4cdba8271d3d4394 ghiffa08 <haikal1080p@gmail.com> 1777026495 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+ce968b4dd0102df6b68bf67c4cdba8271d3d4394 7a327520cdc31300fb6c822b7ead4739e9f213f5 ghiffa08 <haikal1080p@gmail.com> 1777042439 +0700	commit: style: polish dashboard layout alignments
+7a327520cdc31300fb6c822b7ead4739e9f213f5 d22f5e10c0b47cd78ff0172321e14892f1bd2a57 ghiffa08 <haikal1080p@gmail.com> 1777031269 +0700	commit: perf: enhance data payload serialization efficiency
+d22f5e10c0b47cd78ff0172321e14892f1bd2a57 d510cf465ad5f5ff2ce6a46c148dc99e9ffa993a ghiffa08 <haikal1080p@gmail.com> 1777003981 +0700	commit: chore: update database migrations indexing
+d510cf465ad5f5ff2ce6a46c148dc99e9ffa993a da9d78130f4f32b07dea037285bcf0801e79e9a9 ghiffa08 <haikal1080p@gmail.com> 1777000658 +0700	commit: test: add unit tests for valve telemetry controller
+da9d78130f4f32b07dea037285bcf0801e79e9a9 abe2f4abaf1aadbf3eec799297a97896372ca50e ghiffa08 <haikal1080p@gmail.com> 1777028046 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+abe2f4abaf1aadbf3eec799297a97896372ca50e 10263a9121d968675ab8592e09008e88d619d033 ghiffa08 <haikal1080p@gmail.com> 1777019811 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+10263a9121d968675ab8592e09008e88d619d033 c31c7291070f4c715c34de0a5e0e63379645ce85 ghiffa08 <haikal1080p@gmail.com> 1777023905 +0700	commit: chore: optimize telemetry log sync at 16:45:05
+c31c7291070f4c715c34de0a5e0e63379645ce85 1b34e01273bf807483d72458a7aaa3c7e022d732 ghiffa08 <haikal1080p@gmail.com> 1777001165 +0700	commit: chore: optimize telemetry log sync at 10:26:05
+1b34e01273bf807483d72458a7aaa3c7e022d732 35787f23f32bcceb7e65b8a80f88f73b36698617 ghiffa08 <haikal1080p@gmail.com> 1777107818 +0700	commit: perf: enhance data payload serialization efficiency
+35787f23f32bcceb7e65b8a80f88f73b36698617 be9ae34685ce515025e91801be06ad7a904ca82b ghiffa08 <haikal1080p@gmail.com> 1777083510 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+be9ae34685ce515025e91801be06ad7a904ca82b b12a9b8aac7b7dc2411023dd5ff1c9fb7ff34b0e ghiffa08 <haikal1080p@gmail.com> 1777116385 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+b12a9b8aac7b7dc2411023dd5ff1c9fb7ff34b0e 7a7633a6dbb0aaf6fe4f799aa0c680fb2283ca65 ghiffa08 <haikal1080p@gmail.com> 1777128130 +0700	commit: style: polish dashboard layout alignments
+7a7633a6dbb0aaf6fe4f799aa0c680fb2283ca65 78b6f40c50d883613a845b0fc2e1fdc21338e4bc ghiffa08 <haikal1080p@gmail.com> 1777097535 +0700	commit: chore: update database migrations indexing
+78b6f40c50d883613a845b0fc2e1fdc21338e4bc b64d43c2a10c1aad12873a5301bf7fe7ce099e89 ghiffa08 <haikal1080p@gmail.com> 1777110125 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+b64d43c2a10c1aad12873a5301bf7fe7ce099e89 a275c5ff81f70587bef418a4badb79b4cd2f0c15 ghiffa08 <haikal1080p@gmail.com> 1777129971 +0700	commit: chore: optimize telemetry log sync at 22:12:51
+a275c5ff81f70587bef418a4badb79b4cd2f0c15 aaf6f67c1f35c9a77f44500c063b0e25706ba9d7 ghiffa08 <haikal1080p@gmail.com> 1777116529 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+aaf6f67c1f35c9a77f44500c063b0e25706ba9d7 d5985319e7ee8d079e9b8c89de4ed63c4953cf6d ghiffa08 <haikal1080p@gmail.com> 1777216892 +0700	commit: refactor: optimize database logs query performance
+d5985319e7ee8d079e9b8c89de4ed63c4953cf6d 595c6be2c969872c757c30f992f0d3a83c4aab34 ghiffa08 <haikal1080p@gmail.com> 1777215580 +0700	commit: refactor: optimize database logs query performance
+595c6be2c969872c757c30f992f0d3a83c4aab34 52b580a6698fb804ab31da8e537c8bd034532493 ghiffa08 <haikal1080p@gmail.com> 1777182567 +0700	commit: refactor: optimize database logs query performance
+52b580a6698fb804ab31da8e537c8bd034532493 f0bfec90c05a7567142353c14ce40f3d909e499c ghiffa08 <haikal1080p@gmail.com> 1777211577 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+f0bfec90c05a7567142353c14ce40f3d909e499c 2a5594fa78bb07eb02fd65ae75d69bb9e5dead9a ghiffa08 <haikal1080p@gmail.com> 1777208418 +0700	commit: chore: update database migrations indexing
+2a5594fa78bb07eb02fd65ae75d69bb9e5dead9a 5ae175b0e2afef54db1f01d11d467e719ee4b533 ghiffa08 <haikal1080p@gmail.com> 1777170678 +0700	commit: test: add unit tests for valve telemetry controller
+5ae175b0e2afef54db1f01d11d467e719ee4b533 6414ceb2557dab801525783e81ea48b2d5e316fb ghiffa08 <haikal1080p@gmail.com> 1777185299 +0700	commit: docs: update API endpoints definitions schema
+6414ceb2557dab801525783e81ea48b2d5e316fb ea853adb92c998768ea83985827817b500154ba4 ghiffa08 <haikal1080p@gmail.com> 1777200240 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+ea853adb92c998768ea83985827817b500154ba4 50e300958dd3a0e176109f624cf1751ee523652e ghiffa08 <haikal1080p@gmail.com> 1777219016 +0700	commit: chore: update database migrations indexing
+50e300958dd3a0e176109f624cf1751ee523652e 6144f6f954418d0d9d7dbcb81ed8183dc6edf581 ghiffa08 <haikal1080p@gmail.com> 1777294832 +0700	commit: perf: enhance data payload serialization efficiency
+6144f6f954418d0d9d7dbcb81ed8183dc6edf581 5dbc1ba7b6c7e13d80028d0aa529bd5c405a340b ghiffa08 <haikal1080p@gmail.com> 1777286874 +0700	commit: perf: enhance data payload serialization efficiency
+5dbc1ba7b6c7e13d80028d0aa529bd5c405a340b 3d284a670d81687d8765caee2bd8902669f21b2a ghiffa08 <haikal1080p@gmail.com> 1777261579 +0700	commit: style: polish dashboard layout alignments
+3d284a670d81687d8765caee2bd8902669f21b2a cd96db8ec0056d81ca3f4edb94f5a07645ac0e87 ghiffa08 <haikal1080p@gmail.com> 1777274685 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+cd96db8ec0056d81ca3f4edb94f5a07645ac0e87 c1c9917f748c6b3e5f176276f3e0becce727f0e0 ghiffa08 <haikal1080p@gmail.com> 1777269829 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+c1c9917f748c6b3e5f176276f3e0becce727f0e0 d001cbc90918a0788727105399482be00ff5ca69 ghiffa08 <haikal1080p@gmail.com> 1777286345 +0700	commit: chore: optimize telemetry log sync at 17:39:05
+d001cbc90918a0788727105399482be00ff5ca69 f2b0b5222253bc4493272c2c94895107430dd206 ghiffa08 <haikal1080p@gmail.com> 1777268637 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+f2b0b5222253bc4493272c2c94895107430dd206 a2addabdb36b97d090a78359e2a8b3e0a32e03eb ghiffa08 <haikal1080p@gmail.com> 1777286433 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+a2addabdb36b97d090a78359e2a8b3e0a32e03eb 2f3bc1db6c538ccbae26fbf07e2384c260dfb390 ghiffa08 <haikal1080p@gmail.com> 1777269508 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+2f3bc1db6c538ccbae26fbf07e2384c260dfb390 d6ef7f9360c4c2c7eb877e58499fb2e1a147715e ghiffa08 <haikal1080p@gmail.com> 1777295466 +0700	commit: docs: update API endpoints definitions schema
+d6ef7f9360c4c2c7eb877e58499fb2e1a147715e ee00905f5e56265dc15fb4405cef392a1b64e5b3 ghiffa08 <haikal1080p@gmail.com> 1777298120 +0700	commit: refactor: optimize database logs query performance
+ee00905f5e56265dc15fb4405cef392a1b64e5b3 7365dfc4f658e5a38b534ef779399e107b981b45 ghiffa08 <haikal1080p@gmail.com> 1777341076 +0700	commit: docs: update API endpoints definitions schema
+7365dfc4f658e5a38b534ef779399e107b981b45 b4eabdd623b5a9fac358354a6114a087a280b6e1 ghiffa08 <haikal1080p@gmail.com> 1777386829 +0700	commit: test: add unit tests for valve telemetry controller
+b4eabdd623b5a9fac358354a6114a087a280b6e1 288b6416ef50982a9b41dfc85295e978fb0cefe8 ghiffa08 <haikal1080p@gmail.com> 1777358967 +0700	commit: perf: enhance data payload serialization efficiency
+288b6416ef50982a9b41dfc85295e978fb0cefe8 cbd013df136277e21729413f79ff5070425893f1 ghiffa08 <haikal1080p@gmail.com> 1777338540 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+cbd013df136277e21729413f79ff5070425893f1 afd4203c5d28b11ebfaa4f2c18533dca19a2f7c4 ghiffa08 <haikal1080p@gmail.com> 1777380476 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+afd4203c5d28b11ebfaa4f2c18533dca19a2f7c4 ad070ff83b861de3ae512efeea23a3a35a5550ef ghiffa08 <haikal1080p@gmail.com> 1777359664 +0700	commit: docs: update API endpoints definitions schema
+ad070ff83b861de3ae512efeea23a3a35a5550ef fb977f4b421160c6c8f1c7c2d5bd73399c68121a ghiffa08 <haikal1080p@gmail.com> 1777344558 +0700	commit: perf: enhance data payload serialization efficiency
+fb977f4b421160c6c8f1c7c2d5bd73399c68121a bf1a90d44bc3988141b8f7e8b48e5a0c5367bb97 ghiffa08 <haikal1080p@gmail.com> 1777344762 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+bf1a90d44bc3988141b8f7e8b48e5a0c5367bb97 850f46152fac5876200cabd61dfbb8f8d70c1fe9 ghiffa08 <haikal1080p@gmail.com> 1777378772 +0700	commit: perf: enhance data payload serialization efficiency
+850f46152fac5876200cabd61dfbb8f8d70c1fe9 c195d329952ce0bcf1827ddad5fafbf455f5a9cd ghiffa08 <haikal1080p@gmail.com> 1777475103 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+c195d329952ce0bcf1827ddad5fafbf455f5a9cd 25c98fdd00b7d379540984720f8ae1796c374d4d ghiffa08 <haikal1080p@gmail.com> 1777436137 +0700	commit: chore: optimize telemetry log sync at 11:15:37
+25c98fdd00b7d379540984720f8ae1796c374d4d 2b0cb4e1131e8c3a197aee3fa81d36d9c11372ab ghiffa08 <haikal1080p@gmail.com> 1777463994 +0700	commit: chore: optimize telemetry log sync at 18:59:54
+2b0cb4e1131e8c3a197aee3fa81d36d9c11372ab 433432b45e2e9ea72013e4c9f034addff5f07c01 ghiffa08 <haikal1080p@gmail.com> 1777454224 +0700	commit: chore: update database migrations indexing
+433432b45e2e9ea72013e4c9f034addff5f07c01 1b0dcd7f4fb0d021301dab1245b6c5187af8a998 ghiffa08 <haikal1080p@gmail.com> 1777439316 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+1b0dcd7f4fb0d021301dab1245b6c5187af8a998 910798e2391784246d5957b889735dc2bafdc487 ghiffa08 <haikal1080p@gmail.com> 1777440058 +0700	commit: perf: enhance data payload serialization efficiency
+910798e2391784246d5957b889735dc2bafdc487 90a31206de5430af47f9eefeb1ca4c9b147189e2 ghiffa08 <haikal1080p@gmail.com> 1777520021 +0700	commit: style: polish dashboard layout alignments
+90a31206de5430af47f9eefeb1ca4c9b147189e2 ed222400f5cdb03cba018a93b201b98b369a0fc5 ghiffa08 <haikal1080p@gmail.com> 1777510879 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+ed222400f5cdb03cba018a93b201b98b369a0fc5 2c3b318c0b03d01fa739eaa230b95a75e15f3fad ghiffa08 <haikal1080p@gmail.com> 1777513686 +0700	commit: chore: optimize telemetry log sync at 08:48:06
+2c3b318c0b03d01fa739eaa230b95a75e15f3fad 2e66c1de0f7fd4b9f22e8e2ee4db8c1b39016d1e ghiffa08 <haikal1080p@gmail.com> 1777512608 +0700	commit: perf: enhance data payload serialization efficiency
+2e66c1de0f7fd4b9f22e8e2ee4db8c1b39016d1e 5d405d90348d99e55d3f9c39d9da66694fc21fb2 ghiffa08 <haikal1080p@gmail.com> 1777541986 +0700	commit: chore: update database migrations indexing
+5d405d90348d99e55d3f9c39d9da66694fc21fb2 93b5d142c73ec40d1e832019298192562a0b33b3 ghiffa08 <haikal1080p@gmail.com> 1777549341 +0700	commit: test: add unit tests for valve telemetry controller
+93b5d142c73ec40d1e832019298192562a0b33b3 ad105a99f7a7b17092bcea88a90ae1463973866c ghiffa08 <haikal1080p@gmail.com> 1777559184 +0700	commit: docs: update API endpoints definitions schema
+ad105a99f7a7b17092bcea88a90ae1463973866c 6f8758fcffa5aa5e2edbe5030980410cc6804398 ghiffa08 <haikal1080p@gmail.com> 1777547222 +0700	commit: refactor: optimize database logs query performance
+6f8758fcffa5aa5e2edbe5030980410cc6804398 22b7ea5072a2d9316894b3d81277077fb23db851 ghiffa08 <haikal1080p@gmail.com> 1777526588 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+22b7ea5072a2d9316894b3d81277077fb23db851 17b7ae7aca669187b34a066b6fffd7e463ec89bd ghiffa08 <haikal1080p@gmail.com> 1777548036 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+17b7ae7aca669187b34a066b6fffd7e463ec89bd f12f89e07dec210cd1132046be3ff64e06bc4cb4 ghiffa08 <haikal1080p@gmail.com> 1777542334 +0700	commit: perf: enhance data payload serialization efficiency
+f12f89e07dec210cd1132046be3ff64e06bc4cb4 570c652686e28d1fd1fa4bdd1f30c11bc055a0dc ghiffa08 <haikal1080p@gmail.com> 1777563202 +0700	commit: perf: enhance data payload serialization efficiency
+570c652686e28d1fd1fa4bdd1f30c11bc055a0dc 24b9ffc3dba365bfe4ff5be40c3dd4d3aa52eabc ghiffa08 <haikal1080p@gmail.com> 1777647356 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+24b9ffc3dba365bfe4ff5be40c3dd4d3aa52eabc 44c2edc04dc4f1cb0f1ebc5ee165d34d7b07046b ghiffa08 <haikal1080p@gmail.com> 1777618983 +0700	commit: docs: update API endpoints definitions schema
+44c2edc04dc4f1cb0f1ebc5ee165d34d7b07046b 6d4a680b9b651dd1d657f5d9cde286bee00b2dc8 ghiffa08 <haikal1080p@gmail.com> 1777629795 +0700	commit: chore: optimize telemetry log sync at 17:03:15
+6d4a680b9b651dd1d657f5d9cde286bee00b2dc8 0d115644d6bbeb77c51fe504dcecc7625d6c7893 ghiffa08 <haikal1080p@gmail.com> 1777650445 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+0d115644d6bbeb77c51fe504dcecc7625d6c7893 fa7bf679aaf61ee7b26727dbb213343259a77bad ghiffa08 <haikal1080p@gmail.com> 1777637072 +0700	commit: test: add unit tests for valve telemetry controller
+fa7bf679aaf61ee7b26727dbb213343259a77bad 373da7a36d1681d9ef19a8eea9d48917d1b13611 ghiffa08 <haikal1080p@gmail.com> 1777650722 +0700	commit: chore: optimize telemetry log sync at 22:52:02
+373da7a36d1681d9ef19a8eea9d48917d1b13611 14fd1ae6440faf06929dc729ae7831e369a111e9 ghiffa08 <haikal1080p@gmail.com> 1777647420 +0700	commit: style: polish dashboard layout alignments
+14fd1ae6440faf06929dc729ae7831e369a111e9 d01e4d13ce44e4d6c8a63817856e56bfbba5d690 ghiffa08 <haikal1080p@gmail.com> 1777612296 +0700	commit: chore: optimize telemetry log sync at 12:11:36
+d01e4d13ce44e4d6c8a63817856e56bfbba5d690 ed6429472a9916b22c4dc49ba010bb7746e6b656 ghiffa08 <haikal1080p@gmail.com> 1777621431 +0700	commit: docs: update API endpoints definitions schema
+ed6429472a9916b22c4dc49ba010bb7746e6b656 2c152ac968600d88da3f1dde2f59e53794865ce6 ghiffa08 <haikal1080p@gmail.com> 1777696017 +0700	commit: chore: update database migrations indexing
+2c152ac968600d88da3f1dde2f59e53794865ce6 c27aec6e126959e60294ca7a3b9595490f1be39c ghiffa08 <haikal1080p@gmail.com> 1777694496 +0700	commit: perf: enhance data payload serialization efficiency
+c27aec6e126959e60294ca7a3b9595490f1be39c a54d8e2ca98b2cc9004a83a08a1360aab2bc36ef ghiffa08 <haikal1080p@gmail.com> 1777706970 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+a54d8e2ca98b2cc9004a83a08a1360aab2bc36ef b3ebc2a11643de808cec6c774a0d92b7590712b9 ghiffa08 <haikal1080p@gmail.com> 1777706902 +0700	commit: test: add unit tests for valve telemetry controller
+b3ebc2a11643de808cec6c774a0d92b7590712b9 abf62526b85a29b35cc611dcb290c09ed6771420 ghiffa08 <haikal1080p@gmail.com> 1777684492 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+abf62526b85a29b35cc611dcb290c09ed6771420 518ca68c552c42c370ecb5f2f43c336b20cd0f3f ghiffa08 <haikal1080p@gmail.com> 1777693704 +0700	commit: refactor: optimize database logs query performance
+518ca68c552c42c370ecb5f2f43c336b20cd0f3f 74c380b6f27dec89c10c4cda11d923df8738344b ghiffa08 <haikal1080p@gmail.com> 1777724790 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+74c380b6f27dec89c10c4cda11d923df8738344b de4d4c38d779e384679b7f72617909de929b5a91 ghiffa08 <haikal1080p@gmail.com> 1777729630 +0700	commit: chore: optimize telemetry log sync at 20:47:10
+de4d4c38d779e384679b7f72617909de929b5a91 3272951064e2aba08a814a933220d85fa617ed39 ghiffa08 <haikal1080p@gmail.com> 1777696320 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+3272951064e2aba08a814a933220d85fa617ed39 17263f3ac787b6d9670cc915045286beea231dc7 ghiffa08 <haikal1080p@gmail.com> 1777724664 +0700	commit: test: add unit tests for valve telemetry controller
+17263f3ac787b6d9670cc915045286beea231dc7 99391d3024cd9f909bb57b1d30dfc8cb8716c1e4 ghiffa08 <haikal1080p@gmail.com> 1777804206 +0700	commit: perf: enhance data payload serialization efficiency
+99391d3024cd9f909bb57b1d30dfc8cb8716c1e4 2a452f140fd4f813ff7e345a3828ee5471a10e2e ghiffa08 <haikal1080p@gmail.com> 1777811768 +0700	commit: chore: update database migrations indexing
+2a452f140fd4f813ff7e345a3828ee5471a10e2e 3f12764c0c90729aa9efae447fbe349932d86708 ghiffa08 <haikal1080p@gmail.com> 1777803648 +0700	commit: refactor: optimize database logs query performance
+3f12764c0c90729aa9efae447fbe349932d86708 f2e05f754a621bfd391979b8365f3b011f704a62 ghiffa08 <haikal1080p@gmail.com> 1777786390 +0700	commit: test: add unit tests for valve telemetry controller
+f2e05f754a621bfd391979b8365f3b011f704a62 44aeef925207a38fdfa6c0ee957d7e9c9c2c7dcc ghiffa08 <haikal1080p@gmail.com> 1777773485 +0700	commit: style: polish dashboard layout alignments
+44aeef925207a38fdfa6c0ee957d7e9c9c2c7dcc b074b33c21a97df743201990ce58e72f6c5a34b5 ghiffa08 <haikal1080p@gmail.com> 1777808822 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+b074b33c21a97df743201990ce58e72f6c5a34b5 dbf390966de96ef8380173ed63543a010dab9c8f ghiffa08 <haikal1080p@gmail.com> 1777819789 +0700	commit: chore: optimize telemetry log sync at 21:49:49
+dbf390966de96ef8380173ed63543a010dab9c8f e44e24a1101449aa1d56cd61b91376598248b6b6 ghiffa08 <haikal1080p@gmail.com> 1777774973 +0700	commit: chore: optimize telemetry log sync at 09:22:53
+e44e24a1101449aa1d56cd61b91376598248b6b6 f2be3d7fa68955d102f3f92e1f00d8e720606921 ghiffa08 <haikal1080p@gmail.com> 1777801474 +0700	commit: chore: update database migrations indexing
+f2be3d7fa68955d102f3f92e1f00d8e720606921 c1de6997b565ab09bd1ddbefc37a61d2514bc212 ghiffa08 <haikal1080p@gmail.com> 1777908424 +0700	commit: chore: update database migrations indexing
+c1de6997b565ab09bd1ddbefc37a61d2514bc212 f1d13f53173f4c428e320f22dc94de985e000410 ghiffa08 <haikal1080p@gmail.com> 1777887497 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+f1d13f53173f4c428e320f22dc94de985e000410 79c8d51fedd7126988ab8575a37d398116e2f7b7 ghiffa08 <haikal1080p@gmail.com> 1777897096 +0700	commit: style: polish dashboard layout alignments
+79c8d51fedd7126988ab8575a37d398116e2f7b7 9d22a853fc739a8ffb6a696590ef96108e80acf2 ghiffa08 <haikal1080p@gmail.com> 1777874873 +0700	commit: test: add unit tests for valve telemetry controller
+9d22a853fc739a8ffb6a696590ef96108e80acf2 5bd534f0b8884bd856c7409d9ab47c4dd2cfba5e ghiffa08 <haikal1080p@gmail.com> 1777908915 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+5bd534f0b8884bd856c7409d9ab47c4dd2cfba5e 113070b257a5df12a032e68e8fa5dcf2ee200bb7 ghiffa08 <haikal1080p@gmail.com> 1777857082 +0700	commit: chore: update database migrations indexing
+113070b257a5df12a032e68e8fa5dcf2ee200bb7 9040d29b306b9fd396143e4c6457d8c04d62176a ghiffa08 <haikal1080p@gmail.com> 1777995273 +0700	commit: test: add unit tests for valve telemetry controller
+9040d29b306b9fd396143e4c6457d8c04d62176a 86dbb3b41e6709a22ff81de76e6aa92439d36419 ghiffa08 <haikal1080p@gmail.com> 1777946177 +0700	commit: refactor: optimize database logs query performance
+86dbb3b41e6709a22ff81de76e6aa92439d36419 516c17684b4eb2b2cc0388e6af68b288c53624d8 ghiffa08 <haikal1080p@gmail.com> 1777972685 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+516c17684b4eb2b2cc0388e6af68b288c53624d8 2ed1f831903db2151c45251c59ac31d205c12248 ghiffa08 <haikal1080p@gmail.com> 1777995393 +0700	commit: chore: update database migrations indexing
+2ed1f831903db2151c45251c59ac31d205c12248 e33d58df130023844819f089201ed803cfe56324 ghiffa08 <haikal1080p@gmail.com> 1777990119 +0700	commit: test: add unit tests for valve telemetry controller
+e33d58df130023844819f089201ed803cfe56324 c219fc27ac0b85906ba4189c3e21c369cbcace28 ghiffa08 <haikal1080p@gmail.com> 1777962412 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+c219fc27ac0b85906ba4189c3e21c369cbcace28 cfd7038e30f3d418920f32248974e96162028da4 ghiffa08 <haikal1080p@gmail.com> 1777967433 +0700	commit: perf: enhance data payload serialization efficiency
+cfd7038e30f3d418920f32248974e96162028da4 ed05501c612ec0d9c27f9fc28b21ea0b64d48c2c ghiffa08 <haikal1080p@gmail.com> 1777960556 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+ed05501c612ec0d9c27f9fc28b21ea0b64d48c2c c867400122fd462a18adc5548b4a352b2709c1f2 ghiffa08 <haikal1080p@gmail.com> 1778056545 +0700	commit: refactor: optimize database logs query performance
+c867400122fd462a18adc5548b4a352b2709c1f2 d5b526397e4aaff527ffecac45d224717a43301e ghiffa08 <haikal1080p@gmail.com> 1778036678 +0700	commit: refactor: optimize database logs query performance
+d5b526397e4aaff527ffecac45d224717a43301e 678f36006edc38a7831255d95da7dc41462f88cc ghiffa08 <haikal1080p@gmail.com> 1778054387 +0700	commit: perf: enhance data payload serialization efficiency
+678f36006edc38a7831255d95da7dc41462f88cc 23610d98ba4b3e32518ef1fda7c2249abf8443e6 ghiffa08 <haikal1080p@gmail.com> 1778044171 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+23610d98ba4b3e32518ef1fda7c2249abf8443e6 05b3abe0432323f7910d2f3705b9c736b853ffb5 ghiffa08 <haikal1080p@gmail.com> 1778042836 +0700	commit: chore: optimize telemetry log sync at 11:47:16
+05b3abe0432323f7910d2f3705b9c736b853ffb5 4a7df5e0c78e6a7b60ff0e6fde5c12bb171a0390 ghiffa08 <haikal1080p@gmail.com> 1778060184 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+4a7df5e0c78e6a7b60ff0e6fde5c12bb171a0390 d9e2de80d572c8ebcec295c28e970ca25701a01d ghiffa08 <haikal1080p@gmail.com> 1778065552 +0700	commit: chore: update database migrations indexing
+d9e2de80d572c8ebcec295c28e970ca25701a01d b66c3a1cb89086ccb230186957e3253632b7658c ghiffa08 <haikal1080p@gmail.com> 1778039712 +0700	commit: perf: enhance data payload serialization efficiency
+b66c3a1cb89086ccb230186957e3253632b7658c ea59b62edc37567570018697db6caf24c1d09a06 ghiffa08 <haikal1080p@gmail.com> 1778076937 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+ea59b62edc37567570018697db6caf24c1d09a06 a600c6b3d641e705fe603164fd6ff4b5e3cf31a2 ghiffa08 <haikal1080p@gmail.com> 1778075759 +0700	commit: chore: update database migrations indexing
+a600c6b3d641e705fe603164fd6ff4b5e3cf31a2 8a43c245608438c33ebbfd159ea10d50a0530675 ghiffa08 <haikal1080p@gmail.com> 1778081531 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+8a43c245608438c33ebbfd159ea10d50a0530675 eabdf497b445680d745a315d723d290e2dbcea43 ghiffa08 <haikal1080p@gmail.com> 1778145777 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+eabdf497b445680d745a315d723d290e2dbcea43 f0ac27790ff2d233edfafe3c9ab67cf767365867 ghiffa08 <haikal1080p@gmail.com> 1778117062 +0700	commit: chore: update database migrations indexing
+f0ac27790ff2d233edfafe3c9ab67cf767365867 05f7ffe52e8f97a725bf2d269537c5c733c5d9a8 ghiffa08 <haikal1080p@gmail.com> 1778151853 +0700	commit: test: add unit tests for valve telemetry controller
+05f7ffe52e8f97a725bf2d269537c5c733c5d9a8 8d63e24d957ce961b5547f6759f6a6088ec8e432 ghiffa08 <haikal1080p@gmail.com> 1778161395 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+8d63e24d957ce961b5547f6759f6a6088ec8e432 47714e82467b799376c313d604e9ac859cb610e4 ghiffa08 <haikal1080p@gmail.com> 1778143197 +0700	commit: docs: update API endpoints definitions schema
+47714e82467b799376c313d604e9ac859cb610e4 536941449d39d454b68255200a8d10c16ae522f1 ghiffa08 <haikal1080p@gmail.com> 1778140325 +0700	commit: refactor: optimize database logs query performance
+536941449d39d454b68255200a8d10c16ae522f1 850089c43b6f52c75026ba28ea5f2b5ca1b1f0fc ghiffa08 <haikal1080p@gmail.com> 1778159180 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+850089c43b6f52c75026ba28ea5f2b5ca1b1f0fc 41632fa376dc4004d86037f3bf0cb02038cc86ac ghiffa08 <haikal1080p@gmail.com> 1778131600 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+41632fa376dc4004d86037f3bf0cb02038cc86ac 8e94739f94130820586d1f2714a4edc68e1f547b ghiffa08 <haikal1080p@gmail.com> 1778136596 +0700	commit: chore: optimize telemetry log sync at 13:49:56
+8e94739f94130820586d1f2714a4edc68e1f547b 629dfe26ed174f32ac2513c024ea400829e85c7b ghiffa08 <haikal1080p@gmail.com> 1778139004 +0700	commit: docs: update API endpoints definitions schema
+629dfe26ed174f32ac2513c024ea400829e85c7b d14fc406bf0e878f259642a46808e1c84fb0e3aa ghiffa08 <haikal1080p@gmail.com> 1778164527 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+d14fc406bf0e878f259642a46808e1c84fb0e3aa de779ad7f4c61faf244e2d86c150f20d82e4e2e4 ghiffa08 <haikal1080p@gmail.com> 1778249963 +0700	commit: docs: update API endpoints definitions schema
+de779ad7f4c61faf244e2d86c150f20d82e4e2e4 acd75e2e65dff1d40ca1d748ffbc9c1a5c474af9 ghiffa08 <haikal1080p@gmail.com> 1778207705 +0700	commit: test: add unit tests for valve telemetry controller
+acd75e2e65dff1d40ca1d748ffbc9c1a5c474af9 2c2ca05e9fa96d3499d64b4c79254e276d793fa4 ghiffa08 <haikal1080p@gmail.com> 1778244842 +0700	commit: docs: update API endpoints definitions schema
+2c2ca05e9fa96d3499d64b4c79254e276d793fa4 d3ea7bb3a3ee5a432068299154b3273f87d18d26 ghiffa08 <haikal1080p@gmail.com> 1778205995 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+d3ea7bb3a3ee5a432068299154b3273f87d18d26 47f12cdad05881e5dac8a35a59c858067ae1f28f ghiffa08 <haikal1080p@gmail.com> 1778214630 +0700	commit: refactor: optimize database logs query performance
+47f12cdad05881e5dac8a35a59c858067ae1f28f 86f772584990596aea44882113b5571691bfa3dd ghiffa08 <haikal1080p@gmail.com> 1778203698 +0700	commit: chore: optimize telemetry log sync at 08:28:18
+86f772584990596aea44882113b5571691bfa3dd 45bcf9050b46b9f067d25eb2d9e1a0197da2fed7 ghiffa08 <haikal1080p@gmail.com> 1778250229 +0700	commit: docs: update API endpoints definitions schema
+45bcf9050b46b9f067d25eb2d9e1a0197da2fed7 a98168af54cb9fa66f915c0cd65088820115b3d3 ghiffa08 <haikal1080p@gmail.com> 1778246445 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+a98168af54cb9fa66f915c0cd65088820115b3d3 dfa6b11b2ea5f23ba7c5b1abeb4de8710eeba602 ghiffa08 <haikal1080p@gmail.com> 1778235581 +0700	commit: docs: update API endpoints definitions schema
+dfa6b11b2ea5f23ba7c5b1abeb4de8710eeba602 f96de59e40ed7bb98c68b43034bd14eeb0fd67e5 ghiffa08 <haikal1080p@gmail.com> 1778214372 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+f96de59e40ed7bb98c68b43034bd14eeb0fd67e5 e46c2f095a2a637d63ef07b70197fbd2cd501e97 ghiffa08 <haikal1080p@gmail.com> 1778254054 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+e46c2f095a2a637d63ef07b70197fbd2cd501e97 9b81f63b0b38cbaa30e8a0f39759fbb9f7834e9e ghiffa08 <haikal1080p@gmail.com> 1778314979 +0700	commit: perf: enhance data payload serialization efficiency
+9b81f63b0b38cbaa30e8a0f39759fbb9f7834e9e 8a6dfbb12df9d24e50e2370ba1004cc74dc64046 ghiffa08 <haikal1080p@gmail.com> 1778312634 +0700	commit: docs: update API endpoints definitions schema
+8a6dfbb12df9d24e50e2370ba1004cc74dc64046 1d7fbb649760dd2e42eecdb1522fb82fec28370b ghiffa08 <haikal1080p@gmail.com> 1778298726 +0700	commit: test: add unit tests for valve telemetry controller
+1d7fbb649760dd2e42eecdb1522fb82fec28370b cf81977443fd0d6cfff2fc7df1bc2e454292a737 ghiffa08 <haikal1080p@gmail.com> 1778339766 +0700	commit: refactor: optimize database logs query performance
+cf81977443fd0d6cfff2fc7df1bc2e454292a737 293d3c3b71c6697b24d353c7cad626c8a7692ba1 ghiffa08 <haikal1080p@gmail.com> 1778332899 +0700	commit: refactor: optimize database logs query performance
+293d3c3b71c6697b24d353c7cad626c8a7692ba1 a3b88b896c3dee6554b730826ed5f4f71f8391b1 ghiffa08 <haikal1080p@gmail.com> 1778295554 +0700	commit: docs: update API endpoints definitions schema
+a3b88b896c3dee6554b730826ed5f4f71f8391b1 1d3d7893ffa1a3e43c82c3642f906f3e3cbc3f8a ghiffa08 <haikal1080p@gmail.com> 1778408424 +0700	commit: style: polish dashboard layout alignments
+1d3d7893ffa1a3e43c82c3642f906f3e3cbc3f8a d6eaee1bfee9e4b3f82c87d189fc1c39aedb4cdf ghiffa08 <haikal1080p@gmail.com> 1778422015 +0700	commit: perf: enhance data payload serialization efficiency
+d6eaee1bfee9e4b3f82c87d189fc1c39aedb4cdf cb7d7c576dea2f61f9c16480114071321a57d18b ghiffa08 <haikal1080p@gmail.com> 1778374803 +0700	commit: perf: enhance data payload serialization efficiency
+cb7d7c576dea2f61f9c16480114071321a57d18b 2494d760a9992e52f1d9203cf8c2654919024951 ghiffa08 <haikal1080p@gmail.com> 1778393657 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+2494d760a9992e52f1d9203cf8c2654919024951 a6ef775cf50f11c0e7eba254c0a63183eddd79a7 ghiffa08 <haikal1080p@gmail.com> 1778413525 +0700	commit: perf: enhance data payload serialization efficiency
+a6ef775cf50f11c0e7eba254c0a63183eddd79a7 714c9af585955bf3c6a9054ebb66dcf8de432260 ghiffa08 <haikal1080p@gmail.com> 1778417266 +0700	commit: chore: update database migrations indexing
+714c9af585955bf3c6a9054ebb66dcf8de432260 f9e4198473033be437f19a14a4acf41855d15a46 ghiffa08 <haikal1080p@gmail.com> 1778386983 +0700	commit: perf: enhance data payload serialization efficiency
+f9e4198473033be437f19a14a4acf41855d15a46 80a627bcc5fdf206b1664338cf00fb8a75ce6597 ghiffa08 <haikal1080p@gmail.com> 1778405887 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+80a627bcc5fdf206b1664338cf00fb8a75ce6597 dc0b348511e7fb48e493febf06b3eb2e3801580c ghiffa08 <haikal1080p@gmail.com> 1778383887 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+dc0b348511e7fb48e493febf06b3eb2e3801580c b18ccb33b95ba66bf22c88b2f7f49da15cff3c14 ghiffa08 <haikal1080p@gmail.com> 1778377866 +0700	commit: chore: update database migrations indexing
+b18ccb33b95ba66bf22c88b2f7f49da15cff3c14 e96875be10211bb824869cabe94d191d04594378 ghiffa08 <haikal1080p@gmail.com> 1778397898 +0700	commit: refactor: optimize database logs query performance
+e96875be10211bb824869cabe94d191d04594378 60f44dcab9fdd47d7fc62c757454b44741ffcf56 ghiffa08 <haikal1080p@gmail.com> 1778461743 +0700	commit: refactor: optimize database logs query performance
+60f44dcab9fdd47d7fc62c757454b44741ffcf56 a783b0b14e0a5e0f4f5df1b3aee63dc5ecbc220f ghiffa08 <haikal1080p@gmail.com> 1778497336 +0700	commit: test: add unit tests for valve telemetry controller
+a783b0b14e0a5e0f4f5df1b3aee63dc5ecbc220f 08e53679ffb1eca97b09ebc1fe09a4533baeff80 ghiffa08 <haikal1080p@gmail.com> 1778465912 +0700	commit: refactor: optimize database logs query performance
+08e53679ffb1eca97b09ebc1fe09a4533baeff80 5a60d2cf1ce9be5f2da0454a06b7acf038cef70a ghiffa08 <haikal1080p@gmail.com> 1778507395 +0700	commit: perf: enhance data payload serialization efficiency
+5a60d2cf1ce9be5f2da0454a06b7acf038cef70a b5e3f23c1f6b55ad2f548a2186c00e47a6fb1f2a ghiffa08 <haikal1080p@gmail.com> 1778487079 +0700	commit: chore: optimize telemetry log sync at 15:11:19
+b5e3f23c1f6b55ad2f548a2186c00e47a6fb1f2a 9264b3b0dbce23adbcf3d999445789108d5c624a ghiffa08 <haikal1080p@gmail.com> 1778461691 +0700	commit: style: polish dashboard layout alignments
+9264b3b0dbce23adbcf3d999445789108d5c624a 38a3c2e738474bb5cc79b684a382860f1d7bbc6f ghiffa08 <haikal1080p@gmail.com> 1778514578 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+38a3c2e738474bb5cc79b684a382860f1d7bbc6f 435ee41a50c7b0625f67825e02ff57e5a578c095 ghiffa08 <haikal1080p@gmail.com> 1778487613 +0700	commit: docs: update API endpoints definitions schema
+435ee41a50c7b0625f67825e02ff57e5a578c095 e96a6f2a3d03290012ba5818660e34aa2907fd96 ghiffa08 <haikal1080p@gmail.com> 1778514971 +0700	commit: style: polish dashboard layout alignments
+e96a6f2a3d03290012ba5818660e34aa2907fd96 39aefca934865e853d6356442b306182d7b83207 ghiffa08 <haikal1080p@gmail.com> 1778594228 +0700	commit: docs: update API endpoints definitions schema
+39aefca934865e853d6356442b306182d7b83207 fa9e876fca34dea0cdded86244324ebe9e665e99 ghiffa08 <haikal1080p@gmail.com> 1778569022 +0700	commit: perf: enhance data payload serialization efficiency
+fa9e876fca34dea0cdded86244324ebe9e665e99 f55ca5306d025a77bb5c40351d2e149ec8498a64 ghiffa08 <haikal1080p@gmail.com> 1778548168 +0700	commit: style: polish dashboard layout alignments
+f55ca5306d025a77bb5c40351d2e149ec8498a64 52ce93b8cd4a3811e5559b59a5272256e09f329a ghiffa08 <haikal1080p@gmail.com> 1778549126 +0700	commit: chore: optimize telemetry log sync at 08:25:26
+52ce93b8cd4a3811e5559b59a5272256e09f329a 2bfc5b1b42eaaa50223b09688ae765225cdbd11e ghiffa08 <haikal1080p@gmail.com> 1778591144 +0700	commit: style: polish dashboard layout alignments
+2bfc5b1b42eaaa50223b09688ae765225cdbd11e 09be679ed82188f8c87b90fc535291ede6059415 ghiffa08 <haikal1080p@gmail.com> 1778579970 +0700	commit: refactor: optimize database logs query performance
+09be679ed82188f8c87b90fc535291ede6059415 bba1fe95691a8b0546098307133aae1a8c355704 ghiffa08 <haikal1080p@gmail.com> 1778597479 +0700	commit: chore: update database migrations indexing
+bba1fe95691a8b0546098307133aae1a8c355704 122a960525323da4cb491b2ca0ac8f40304fc598 ghiffa08 <haikal1080p@gmail.com> 1778667364 +0700	commit: chore: optimize telemetry log sync at 17:16:04
+122a960525323da4cb491b2ca0ac8f40304fc598 1a35a24e9f68b55bab03dbbcc2c9de878fd0001f ghiffa08 <haikal1080p@gmail.com> 1778681847 +0700	commit: chore: update database migrations indexing
+1a35a24e9f68b55bab03dbbcc2c9de878fd0001f 03e41bc5a572c7b54cb71242cfdf9b722329c65b ghiffa08 <haikal1080p@gmail.com> 1778653043 +0700	commit: test: add unit tests for valve telemetry controller
+03e41bc5a572c7b54cb71242cfdf9b722329c65b 03fbb7201df3dd42b2ae917f3006e9c5f13b07a8 ghiffa08 <haikal1080p@gmail.com> 1778643626 +0700	commit: chore: update database migrations indexing
+03fbb7201df3dd42b2ae917f3006e9c5f13b07a8 ff56603e8789a5c371816412386e891b70f4f369 ghiffa08 <haikal1080p@gmail.com> 1778635090 +0700	commit: chore: optimize telemetry log sync at 08:18:10
+ff56603e8789a5c371816412386e891b70f4f369 1bd1717a79a019d898cfc48a8cb2edec09524962 ghiffa08 <haikal1080p@gmail.com> 1778680254 +0700	commit: refactor: optimize database logs query performance
+1bd1717a79a019d898cfc48a8cb2edec09524962 35fee0ef198568216f2068d99c2217f85cbf9c79 ghiffa08 <haikal1080p@gmail.com> 1778759560 +0700	commit: chore: update database migrations indexing
+35fee0ef198568216f2068d99c2217f85cbf9c79 23c5e6bc72372c8cdba597fe2e46d6a0aeae9bcf ghiffa08 <haikal1080p@gmail.com> 1778733696 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+23c5e6bc72372c8cdba597fe2e46d6a0aeae9bcf d190910d9e045501111f6038be7b33f7e7e67f10 ghiffa08 <haikal1080p@gmail.com> 1778764846 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+d190910d9e045501111f6038be7b33f7e7e67f10 324e6df7c6a96773f0f38ec78567147926b2e9ff ghiffa08 <haikal1080p@gmail.com> 1778766613 +0700	commit: docs: update API endpoints definitions schema
+324e6df7c6a96773f0f38ec78567147926b2e9ff 6dcf803f4e461e4ba88ba4efbe4c292531cf43a4 ghiffa08 <haikal1080p@gmail.com> 1778741059 +0700	commit: chore: update database migrations indexing
+6dcf803f4e461e4ba88ba4efbe4c292531cf43a4 94c4d4930c24f2564c613eb53ff764722f07c704 ghiffa08 <haikal1080p@gmail.com> 1778753459 +0700	commit: chore: optimize telemetry log sync at 17:10:59
+94c4d4930c24f2564c613eb53ff764722f07c704 a56f2bf566df41e373f83ab076f55a634d178c99 ghiffa08 <haikal1080p@gmail.com> 1778726876 +0700	commit: refactor: optimize database logs query performance
+a56f2bf566df41e373f83ab076f55a634d178c99 39e9b14a50e7e1093f57721c345497704d7ed768 ghiffa08 <haikal1080p@gmail.com> 1778740183 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+39e9b14a50e7e1093f57721c345497704d7ed768 90b14333d1c2fa52a19a2b5036b1f4ac3f6d28c8 ghiffa08 <haikal1080p@gmail.com> 1778759883 +0700	commit: chore: update database migrations indexing
+90b14333d1c2fa52a19a2b5036b1f4ac3f6d28c8 7d8f8df25a7c132ff8436165b7132e09e15b657d ghiffa08 <haikal1080p@gmail.com> 1778726939 +0700	commit: perf: enhance data payload serialization efficiency
+7d8f8df25a7c132ff8436165b7132e09e15b657d 1da0d39659700fbc6ea3a49800028703669eb66b ghiffa08 <haikal1080p@gmail.com> 1778744733 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+1da0d39659700fbc6ea3a49800028703669eb66b 1e54e961a3e1223bf790ce83850606767aad5a8e ghiffa08 <haikal1080p@gmail.com> 1778757071 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+1e54e961a3e1223bf790ce83850606767aad5a8e ab6e7dc4bc84799344eec3b2402fe1f343794c4d ghiffa08 <haikal1080p@gmail.com> 1778813775 +0700	commit: style: polish dashboard layout alignments
+ab6e7dc4bc84799344eec3b2402fe1f343794c4d 56e6def1f056ba2113e3eafc8486f4324c3e9149 ghiffa08 <haikal1080p@gmail.com> 1778847622 +0700	commit: chore: update database migrations indexing
+56e6def1f056ba2113e3eafc8486f4324c3e9149 23419ba72625ddbb6409912b20e87363642a1b4d ghiffa08 <haikal1080p@gmail.com> 1778852299 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+23419ba72625ddbb6409912b20e87363642a1b4d 44d5f99141448b1fc53223265f47ce5e8e34cf33 ghiffa08 <haikal1080p@gmail.com> 1778834189 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+44d5f99141448b1fc53223265f47ce5e8e34cf33 fbb93e4c8a543b9dfe884507cc976229b5b92fb5 ghiffa08 <haikal1080p@gmail.com> 1778834561 +0700	commit: test: add unit tests for valve telemetry controller
+fbb93e4c8a543b9dfe884507cc976229b5b92fb5 cfc1b1ccf987cff95fca6f7933e5c53583b9cdfb ghiffa08 <haikal1080p@gmail.com> 1778830722 +0700	commit: style: polish dashboard layout alignments
+cfc1b1ccf987cff95fca6f7933e5c53583b9cdfb 68524a73a26398e5d3afa53098281a76f3d59664 ghiffa08 <haikal1080p@gmail.com> 1778837792 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+68524a73a26398e5d3afa53098281a76f3d59664 5be5fbe5491377e51e413ba0f6fcd0ddf8458ad0 ghiffa08 <haikal1080p@gmail.com> 1778859037 +0700	commit: refactor: optimize database logs query performance
+5be5fbe5491377e51e413ba0f6fcd0ddf8458ad0 101e3a5abfcc9703f1b978ce467535c4dc2046bd ghiffa08 <haikal1080p@gmail.com> 1778824623 +0700	commit: style: polish dashboard layout alignments
+101e3a5abfcc9703f1b978ce467535c4dc2046bd b72fccf2e7870ee27b24c5b78a2b651f2e6c620d ghiffa08 <haikal1080p@gmail.com> 1778828563 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+b72fccf2e7870ee27b24c5b78a2b651f2e6c620d 6a60abb05d61f11db7e91d6395b44ee283a4f7ff ghiffa08 <haikal1080p@gmail.com> 1778809350 +0700	commit: chore: optimize telemetry log sync at 08:42:30
+6a60abb05d61f11db7e91d6395b44ee283a4f7ff c0b1098a349db50ae7e8aacf1b24da7fd1c82a9e ghiffa08 <haikal1080p@gmail.com> 1778926631 +0700	commit: test: add unit tests for valve telemetry controller
+c0b1098a349db50ae7e8aacf1b24da7fd1c82a9e d7d738689a56d03c3a67822df20e08cd203ae253 ghiffa08 <haikal1080p@gmail.com> 1778923371 +0700	commit: style: polish dashboard layout alignments
+d7d738689a56d03c3a67822df20e08cd203ae253 c85f02c49aea4c60b0776fede7d0fec91e09611c ghiffa08 <haikal1080p@gmail.com> 1778908908 +0700	commit: refactor: optimize database logs query performance
+c85f02c49aea4c60b0776fede7d0fec91e09611c 043aa6d0d7ee2c5856cd0310697ab1d8eb9dfe4c ghiffa08 <haikal1080p@gmail.com> 1778925045 +0700	commit: test: add unit tests for valve telemetry controller
+043aa6d0d7ee2c5856cd0310697ab1d8eb9dfe4c deef09d7811378534512693de28b6893bee768f3 ghiffa08 <haikal1080p@gmail.com> 1778920718 +0700	commit: style: polish dashboard layout alignments
+deef09d7811378534512693de28b6893bee768f3 d01529a42f77f63a806e1daf1771ad84aad39962 ghiffa08 <haikal1080p@gmail.com> 1778919440 +0700	commit: style: polish dashboard layout alignments
+d01529a42f77f63a806e1daf1771ad84aad39962 5b140152b86af4d46c2ce90cb8b29edd453acfc9 ghiffa08 <haikal1080p@gmail.com> 1778936376 +0700	commit: chore: update database migrations indexing
+5b140152b86af4d46c2ce90cb8b29edd453acfc9 86a55c63d8c3fe8b6374fa9cb4507a35cf72f1fe ghiffa08 <haikal1080p@gmail.com> 1778902156 +0700	commit: docs: update API endpoints definitions schema
+86a55c63d8c3fe8b6374fa9cb4507a35cf72f1fe e6238f58c2bdd1da88dc0881000e125eacce8a17 ghiffa08 <haikal1080p@gmail.com> 1779010813 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+e6238f58c2bdd1da88dc0881000e125eacce8a17 f401297023a10aebc470cdbd4a0d905ae0ce3fb5 ghiffa08 <haikal1080p@gmail.com> 1778992225 +0700	commit: refactor: optimize database logs query performance
+f401297023a10aebc470cdbd4a0d905ae0ce3fb5 e6292715a60df4bd26aa8bf516f57af9de1c0ef8 ghiffa08 <haikal1080p@gmail.com> 1779025745 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+e6292715a60df4bd26aa8bf516f57af9de1c0ef8 08d9217d401dacd2da5fb786a63fe3bd3482b04c ghiffa08 <haikal1080p@gmail.com> 1779001039 +0700	commit: chore: optimize telemetry log sync at 13:57:19
+08d9217d401dacd2da5fb786a63fe3bd3482b04c 2b66f4ae21e4ab967cb4f6d3cdeb2d0ed35d5880 ghiffa08 <haikal1080p@gmail.com> 1779014999 +0700	commit: test: add unit tests for valve telemetry controller
+2b66f4ae21e4ab967cb4f6d3cdeb2d0ed35d5880 d63d4342cf08ae6be6a28f11b4ce063451b3d87b ghiffa08 <haikal1080p@gmail.com> 1779031672 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+d63d4342cf08ae6be6a28f11b4ce063451b3d87b 18ababccaaddadf3bce8dfce0fd8f4b17210c7f3 ghiffa08 <haikal1080p@gmail.com> 1778980129 +0700	commit: test: add unit tests for valve telemetry controller
+18ababccaaddadf3bce8dfce0fd8f4b17210c7f3 72aee1e0a3151f36487dcefcd4357946b1f1c0a6 ghiffa08 <haikal1080p@gmail.com> 1779028787 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+72aee1e0a3151f36487dcefcd4357946b1f1c0a6 434fd35bab72b6630990d369ef333b730ec0bd64 ghiffa08 <haikal1080p@gmail.com> 1779006336 +0700	commit: chore: optimize telemetry log sync at 15:25:36
+434fd35bab72b6630990d369ef333b730ec0bd64 3ef5eb84a301af9c402d5b24927039b8c53cb073 ghiffa08 <haikal1080p@gmail.com> 1779082804 +0700	commit: style: polish dashboard layout alignments
+3ef5eb84a301af9c402d5b24927039b8c53cb073 3e4478e0888b6ea1dacb9c01eb9abd1871c61009 ghiffa08 <haikal1080p@gmail.com> 1779071630 +0700	commit: chore: optimize telemetry log sync at 09:33:50
+3e4478e0888b6ea1dacb9c01eb9abd1871c61009 230e32e64b775c254a657ecf029c66b9976d9418 ghiffa08 <haikal1080p@gmail.com> 1779074242 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+230e32e64b775c254a657ecf029c66b9976d9418 3817fbeca63b27e221a13ed3087fc5859751710a ghiffa08 <haikal1080p@gmail.com> 1779113862 +0700	commit: perf: enhance data payload serialization efficiency
+3817fbeca63b27e221a13ed3087fc5859751710a d003d0f3c0a45d61ac78746b5c47709941796c70 ghiffa08 <haikal1080p@gmail.com> 1779110540 +0700	commit: perf: enhance data payload serialization efficiency
+d003d0f3c0a45d61ac78746b5c47709941796c70 7e8c960d7749e4fc4aa058e4ce2f4c88bb8c59b7 ghiffa08 <haikal1080p@gmail.com> 1779115715 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+7e8c960d7749e4fc4aa058e4ce2f4c88bb8c59b7 2f1a629ad9d2da228c32bc47081495f5206fcf07 ghiffa08 <haikal1080p@gmail.com> 1779079299 +0700	commit: perf: enhance data payload serialization efficiency
+2f1a629ad9d2da228c32bc47081495f5206fcf07 2d65176ec21a025dff2744a8ba741cf35c4dcc08 ghiffa08 <haikal1080p@gmail.com> 1779114415 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+2d65176ec21a025dff2744a8ba741cf35c4dcc08 e8fb61b4466e6307add16d5014979163c260ebf3 ghiffa08 <haikal1080p@gmail.com> 1779101533 +0700	commit: style: polish dashboard layout alignments
+e8fb61b4466e6307add16d5014979163c260ebf3 b13f3c3001f878db0ec9026586e99cbc8a458d43 ghiffa08 <haikal1080p@gmail.com> 1779092847 +0700	commit: chore: update database migrations indexing
+b13f3c3001f878db0ec9026586e99cbc8a458d43 335e778ccaefeb27361240afc16bac8e9036bd49 ghiffa08 <haikal1080p@gmail.com> 1779190641 +0700	commit: perf: enhance data payload serialization efficiency
+335e778ccaefeb27361240afc16bac8e9036bd49 f3325f7c6df5fc99631c701d31f6ab6d06d782bf ghiffa08 <haikal1080p@gmail.com> 1779191749 +0700	commit: docs: update API endpoints definitions schema
+f3325f7c6df5fc99631c701d31f6ab6d06d782bf 8ea89ff04df65bbdc1572570ab5bb365674eea08 ghiffa08 <haikal1080p@gmail.com> 1779189869 +0700	commit: chore: optimize telemetry log sync at 18:24:29
+8ea89ff04df65bbdc1572570ab5bb365674eea08 8a541f872c73e8e1cef284dbdad8688c2a277bcb ghiffa08 <haikal1080p@gmail.com> 1779193089 +0700	commit: chore: update database migrations indexing
+8a541f872c73e8e1cef284dbdad8688c2a277bcb bd628482da36be694df5910f7ab9ba888b9a2a72 ghiffa08 <haikal1080p@gmail.com> 1779199440 +0700	commit: style: polish dashboard layout alignments
+bd628482da36be694df5910f7ab9ba888b9a2a72 56483dabfcba6acd0bef3dcd5b134d0e0c6cabfd ghiffa08 <haikal1080p@gmail.com> 1779203453 +0700	commit: docs: update API endpoints definitions schema
+56483dabfcba6acd0bef3dcd5b134d0e0c6cabfd 8240954e09d35bf625081e8a15108e868574c55f ghiffa08 <haikal1080p@gmail.com> 1779280590 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+8240954e09d35bf625081e8a15108e868574c55f 424a3bec8e43c712fc06ac0fe370cb6c5f94db89 ghiffa08 <haikal1080p@gmail.com> 1779252227 +0700	commit: test: add unit tests for valve telemetry controller
+424a3bec8e43c712fc06ac0fe370cb6c5f94db89 be830d5736a0ff669213a2efe67723cd7069c3ff ghiffa08 <haikal1080p@gmail.com> 1779271954 +0700	commit: style: polish dashboard layout alignments
+be830d5736a0ff669213a2efe67723cd7069c3ff 40ad3d6b2960589f3c87d204b9a9afe6d08d1d0f ghiffa08 <haikal1080p@gmail.com> 1779284324 +0700	commit: chore: update database migrations indexing
+40ad3d6b2960589f3c87d204b9a9afe6d08d1d0f 9234b2b72d6d1f43fcefba01f9a9571e50c82074 ghiffa08 <haikal1080p@gmail.com> 1779257694 +0700	commit: test: add unit tests for valve telemetry controller
+9234b2b72d6d1f43fcefba01f9a9571e50c82074 c3847b972bc3e3205c3c0152062f49d53ff377bd ghiffa08 <haikal1080p@gmail.com> 1779261366 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+c3847b972bc3e3205c3c0152062f49d53ff377bd 35f2e4135c9b5aa334cfc471a1ad05a844e807bb ghiffa08 <haikal1080p@gmail.com> 1779280067 +0700	commit: refactor: optimize database logs query performance
+35f2e4135c9b5aa334cfc471a1ad05a844e807bb de07121b8096a7d183e50bda7a82f0cad3dc0f8f ghiffa08 <haikal1080p@gmail.com> 1779354990 +0700	commit: perf: enhance data payload serialization efficiency
+de07121b8096a7d183e50bda7a82f0cad3dc0f8f 8a73e27caf348a7aa64897d94e40f9efe3ea5a3c ghiffa08 <haikal1080p@gmail.com> 1779354210 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+8a73e27caf348a7aa64897d94e40f9efe3ea5a3c dbd2ef41362e0962860b0c4e38f50a59981dcd21 ghiffa08 <haikal1080p@gmail.com> 1779378164 +0700	commit: docs: update API endpoints definitions schema
+dbd2ef41362e0962860b0c4e38f50a59981dcd21 0f6f8224a05396f558810f807c6bb523a5c42de5 ghiffa08 <haikal1080p@gmail.com> 1779341768 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+0f6f8224a05396f558810f807c6bb523a5c42de5 22721846545e1f0a14bee6d00bdc4518c6cc0bc7 ghiffa08 <haikal1080p@gmail.com> 1779336361 +0700	commit: style: polish dashboard layout alignments
+22721846545e1f0a14bee6d00bdc4518c6cc0bc7 d9928e613b1b864b042aeb4016e8fefa5cb03a6b ghiffa08 <haikal1080p@gmail.com> 1779373528 +0700	commit: perf: enhance data payload serialization efficiency
+d9928e613b1b864b042aeb4016e8fefa5cb03a6b 6c3409cd43e3fbcdf2709fa5955943cf05688188 ghiffa08 <haikal1080p@gmail.com> 1779379188 +0700	commit: docs: update API endpoints definitions schema
+6c3409cd43e3fbcdf2709fa5955943cf05688188 249f1df53c5ba5ee964e2e3ce911f5c668c33630 ghiffa08 <haikal1080p@gmail.com> 1779345348 +0700	commit: style: polish dashboard layout alignments
+249f1df53c5ba5ee964e2e3ce911f5c668c33630 cee1541a084431e0b06904969bfaae2793a3c9ee ghiffa08 <haikal1080p@gmail.com> 1779367655 +0700	commit: chore: optimize telemetry log sync at 19:47:35
+cee1541a084431e0b06904969bfaae2793a3c9ee 7bc38401544198698ac2db27a416d50984427f95 ghiffa08 <haikal1080p@gmail.com> 1779378330 +0700	commit: perf: enhance data payload serialization efficiency
+7bc38401544198698ac2db27a416d50984427f95 4b5f82b2b817bfe981154f5b39aea63d4b587cf1 ghiffa08 <haikal1080p@gmail.com> 1779415466 +0700	commit: test: add unit tests for valve telemetry controller
+4b5f82b2b817bfe981154f5b39aea63d4b587cf1 902f40694a0269fc072b5088a5c53e5936782632 ghiffa08 <haikal1080p@gmail.com> 1779426026 +0700	commit: test: add unit tests for valve telemetry controller
+902f40694a0269fc072b5088a5c53e5936782632 076f0c45341d68679984348464707e8f1751f269 ghiffa08 <haikal1080p@gmail.com> 1779429129 +0700	commit: chore: update database migrations indexing
+076f0c45341d68679984348464707e8f1751f269 86fa306f9a6464b7736e91b2889747ef270e4885 ghiffa08 <haikal1080p@gmail.com> 1779427611 +0700	commit: style: polish dashboard layout alignments
+86fa306f9a6464b7736e91b2889747ef270e4885 42be59fef70268831ee575721e53047e8b7c74d6 ghiffa08 <haikal1080p@gmail.com> 1779430484 +0700	commit: docs: update API endpoints definitions schema
+42be59fef70268831ee575721e53047e8b7c74d6 8ae1b96db6f9fa12438a0a88244bf9b629af6e68 ghiffa08 <haikal1080p@gmail.com> 1779426100 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+8ae1b96db6f9fa12438a0a88244bf9b629af6e68 47948809e702fa25a0fa925b03494bc2a9d72b6a ghiffa08 <haikal1080p@gmail.com> 1779465552 +0700	commit: test: add unit tests for valve telemetry controller
+47948809e702fa25a0fa925b03494bc2a9d72b6a 7d46b6d322395072f23273036f2e3560d1166b0a ghiffa08 <haikal1080p@gmail.com> 1779464352 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+7d46b6d322395072f23273036f2e3560d1166b0a de4c4f636a967c0c0972dc74b8d6395eeebe0b07 ghiffa08 <haikal1080p@gmail.com> 1779501144 +0700	commit: style: polish dashboard layout alignments
+de4c4f636a967c0c0972dc74b8d6395eeebe0b07 a8fae409f6db8e010fc41ef0f67cc7e6f413a60b ghiffa08 <haikal1080p@gmail.com> 1779507978 +0700	commit: test: add unit tests for valve telemetry controller
+a8fae409f6db8e010fc41ef0f67cc7e6f413a60b 1e3e670f4c620593e5e7c001f478be78e69d7e2c ghiffa08 <haikal1080p@gmail.com> 1779503053 +0700	commit: refactor: optimize database logs query performance
+1e3e670f4c620593e5e7c001f478be78e69d7e2c cb90883e6b53351f01be7e31d9d5baa22d95da07 ghiffa08 <haikal1080p@gmail.com> 1779523492 +0700	commit: chore: update database migrations indexing
+cb90883e6b53351f01be7e31d9d5baa22d95da07 a528d2154f7283b4026e2edaf1978608af0a1520 ghiffa08 <haikal1080p@gmail.com> 1779530790 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+a528d2154f7283b4026e2edaf1978608af0a1520 e3f54a14cacb1243c2851f03bfeb4f7a8537b527 ghiffa08 <haikal1080p@gmail.com> 1779551113 +0700	commit: style: polish dashboard layout alignments
+e3f54a14cacb1243c2851f03bfeb4f7a8537b527 8cdfd7d58cc42cad553ccd513ef162417471ba8f ghiffa08 <haikal1080p@gmail.com> 1779585102 +0700	commit: style: polish dashboard layout alignments
+8cdfd7d58cc42cad553ccd513ef162417471ba8f 8cf76e91ceeddb9040842db1c0b46d1356cccc45 ghiffa08 <haikal1080p@gmail.com> 1779620693 +0700	commit: chore: optimize telemetry log sync at 18:04:53
+8cf76e91ceeddb9040842db1c0b46d1356cccc45 38a715be9f37fba8cc5f52614a48d5c22ddf9602 ghiffa08 <haikal1080p@gmail.com> 1779622141 +0700	commit: perf: enhance data payload serialization efficiency
+38a715be9f37fba8cc5f52614a48d5c22ddf9602 ccf5bf01e58f1be5d74e82cba9f12f9ed23ba64f ghiffa08 <haikal1080p@gmail.com> 1779594259 +0700	commit: test: add unit tests for valve telemetry controller
+ccf5bf01e58f1be5d74e82cba9f12f9ed23ba64f f32ca9b5100b8255a2fba4559f281721c4b57e0e ghiffa08 <haikal1080p@gmail.com> 1779632591 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+f32ca9b5100b8255a2fba4559f281721c4b57e0e 556e495554f3845ef324f5d9a7704dc8f531ff63 ghiffa08 <haikal1080p@gmail.com> 1779630169 +0700	commit: docs: update API endpoints definitions schema
+556e495554f3845ef324f5d9a7704dc8f531ff63 5a7aedff29bb772b2101ab30282b1b8733d72058 ghiffa08 <haikal1080p@gmail.com> 1779601979 +0700	commit: perf: enhance data payload serialization efficiency
+5a7aedff29bb772b2101ab30282b1b8733d72058 e096844e92e84cb9c501fd085082a4669b638e61 ghiffa08 <haikal1080p@gmail.com> 1779698767 +0700	commit: chore: optimize telemetry log sync at 15:46:07
+e096844e92e84cb9c501fd085082a4669b638e61 65961f86a49abca7ab2d140893c2963a5ac66fef ghiffa08 <haikal1080p@gmail.com> 1779717790 +0700	commit: test: add unit tests for valve telemetry controller
+65961f86a49abca7ab2d140893c2963a5ac66fef a4f35d851d1964ea05d6d59b8c8c4d1ede64d8b9 ghiffa08 <haikal1080p@gmail.com> 1779696488 +0700	commit: chore: optimize telemetry log sync at 15:08:08
+a4f35d851d1964ea05d6d59b8c8c4d1ede64d8b9 9ff84e98889a3914dd6b28176818ac875c3e5373 ghiffa08 <haikal1080p@gmail.com> 1779671771 +0700	commit: refactor: optimize database logs query performance
+9ff84e98889a3914dd6b28176818ac875c3e5373 c107f463e7e943af43916a8ce889af4c4d0bd140 ghiffa08 <haikal1080p@gmail.com> 1779696703 +0700	commit: chore: optimize telemetry log sync at 15:11:43
+c107f463e7e943af43916a8ce889af4c4d0bd140 e8a2735524a095ab972eccb8b28a3e32e9668938 ghiffa08 <haikal1080p@gmail.com> 1779690369 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+e8a2735524a095ab972eccb8b28a3e32e9668938 885897c4fac379294c0cc95bdebc0a592c54e3a8 ghiffa08 <haikal1080p@gmail.com> 1779762587 +0700	commit: chore: optimize telemetry log sync at 09:29:47
+885897c4fac379294c0cc95bdebc0a592c54e3a8 e86f77c9a283975ca7967e49cd6b73b8897990e0 ghiffa08 <haikal1080p@gmail.com> 1779807652 +0700	commit: chore: optimize telemetry log sync at 22:00:52
+e86f77c9a283975ca7967e49cd6b73b8897990e0 611f262d8867f1cb1104315e5f98595d7ea5c9c1 ghiffa08 <haikal1080p@gmail.com> 1779794045 +0700	commit: chore: optimize telemetry log sync at 18:14:05
+611f262d8867f1cb1104315e5f98595d7ea5c9c1 d8447d9228a6363c10d21f7af61729c09ee5ef88 ghiffa08 <haikal1080p@gmail.com> 1779793828 +0700	commit: refactor: optimize database logs query performance
+d8447d9228a6363c10d21f7af61729c09ee5ef88 aa5d8bead7bae85ce3640116c9178e854d3067ef ghiffa08 <haikal1080p@gmail.com> 1779793653 +0700	commit: docs: update API endpoints definitions schema
+aa5d8bead7bae85ce3640116c9178e854d3067ef 0f56fee51092b36be58213f669fc95c37a4a8db2 ghiffa08 <haikal1080p@gmail.com> 1779784456 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+0f56fee51092b36be58213f669fc95c37a4a8db2 0e3d3bfccbcd8b40b7787a5cf665de18e9508a5a ghiffa08 <haikal1080p@gmail.com> 1779780443 +0700	commit: perf: enhance data payload serialization efficiency
+0e3d3bfccbcd8b40b7787a5cf665de18e9508a5a 744ac49c7407ba2018e90ad5f99671c3302ee1a7 ghiffa08 <haikal1080p@gmail.com> 1779865731 +0700	commit: style: polish dashboard layout alignments
+744ac49c7407ba2018e90ad5f99671c3302ee1a7 3eea42483f1d8f77d35e90763318010f18148f8f ghiffa08 <haikal1080p@gmail.com> 1779850872 +0700	commit: perf: enhance data payload serialization efficiency
+3eea42483f1d8f77d35e90763318010f18148f8f 01566533ab1ebf8c86388499c8369f5241be1dcf ghiffa08 <haikal1080p@gmail.com> 1779891992 +0700	commit: chore: update database migrations indexing
+01566533ab1ebf8c86388499c8369f5241be1dcf 47232c3b5e7d6a3e15beaef7511283f7f2207e8b ghiffa08 <haikal1080p@gmail.com> 1779865631 +0700	commit: chore: update database migrations indexing
+47232c3b5e7d6a3e15beaef7511283f7f2207e8b ed73ecfdc5c1105198bf6e10f79fa0eea6234f9e ghiffa08 <haikal1080p@gmail.com> 1779876644 +0700	commit: docs: update API endpoints definitions schema
+ed73ecfdc5c1105198bf6e10f79fa0eea6234f9e 5ffe50a80453f0fe5c206900b26e648055361525 ghiffa08 <haikal1080p@gmail.com> 1779882362 +0700	commit: style: polish dashboard layout alignments
+5ffe50a80453f0fe5c206900b26e648055361525 307389c17539350e5a461670b0e009705952553c ghiffa08 <haikal1080p@gmail.com> 1779883223 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+307389c17539350e5a461670b0e009705952553c 46d74b934e527ff97d4a31d98ba6306e08dcb0be ghiffa08 <haikal1080p@gmail.com> 1779938040 +0700	commit: chore: update database migrations indexing
+46d74b934e527ff97d4a31d98ba6306e08dcb0be 11490779676f084b9f81aac8c5e2467236427838 ghiffa08 <haikal1080p@gmail.com> 1779930102 +0700	commit: docs: update API endpoints definitions schema
+11490779676f084b9f81aac8c5e2467236427838 c4f8a4560aed86f9938ab69427f498fa9c8c9467 ghiffa08 <haikal1080p@gmail.com> 1779937281 +0700	commit: perf: enhance data payload serialization efficiency
+c4f8a4560aed86f9938ab69427f498fa9c8c9467 8631a87f1423c359da3b7cf2b2c5689f6d18b589 ghiffa08 <haikal1080p@gmail.com> 1779935296 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+8631a87f1423c359da3b7cf2b2c5689f6d18b589 e3fd03f9ca53d08d46139d49399b1d5419a65c1a ghiffa08 <haikal1080p@gmail.com> 1779948302 +0700	commit: test: add unit tests for valve telemetry controller
+e3fd03f9ca53d08d46139d49399b1d5419a65c1a bb807ba660b34790fda2cdd0ffa4447b6e91adec ghiffa08 <haikal1080p@gmail.com> 1779946443 +0700	commit: docs: update API endpoints definitions schema
+bb807ba660b34790fda2cdd0ffa4447b6e91adec f2e55469b907aa27575c02365738e24990c930fe ghiffa08 <haikal1080p@gmail.com> 1779952056 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+f2e55469b907aa27575c02365738e24990c930fe f9f7fa347c2668537bf86e00cdb660f7fa388199 ghiffa08 <haikal1080p@gmail.com> 1779968359 +0700	commit: chore: update database migrations indexing
+f9f7fa347c2668537bf86e00cdb660f7fa388199 470b35a3b3702d36200aca048be87b9cb88ddc28 ghiffa08 <haikal1080p@gmail.com> 1779933999 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+470b35a3b3702d36200aca048be87b9cb88ddc28 47ee10a22c6f2f948cf10a3560e2f4af6996f967 ghiffa08 <haikal1080p@gmail.com> 1779943070 +0700	commit: perf: enhance data payload serialization efficiency
+47ee10a22c6f2f948cf10a3560e2f4af6996f967 2a96c96b23793f485215b786af0909944f79b092 ghiffa08 <haikal1080p@gmail.com> 1780042262 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+2a96c96b23793f485215b786af0909944f79b092 ff8e32c4da2e4fe1d39f26101ea56f159da6559e ghiffa08 <haikal1080p@gmail.com> 1780062534 +0700	commit: refactor: optimize database logs query performance
+ff8e32c4da2e4fe1d39f26101ea56f159da6559e 7d047e20532c674488ead763c3e8e9a082659058 ghiffa08 <haikal1080p@gmail.com> 1780021885 +0700	commit: test: add unit tests for valve telemetry controller
+7d047e20532c674488ead763c3e8e9a082659058 b9c7d6d853e2592fc48bc0899f716a03a4f1b0f5 ghiffa08 <haikal1080p@gmail.com> 1780042967 +0700	commit: style: polish dashboard layout alignments
+b9c7d6d853e2592fc48bc0899f716a03a4f1b0f5 1381869f8cd9e102b31ad757f16c98ee56954b41 ghiffa08 <haikal1080p@gmail.com> 1780037813 +0700	commit: style: polish dashboard layout alignments
+1381869f8cd9e102b31ad757f16c98ee56954b41 95f3f7f5102a0a7bd2db7c3c09d4ac370783ef90 ghiffa08 <haikal1080p@gmail.com> 1780035286 +0700	commit: docs: update API endpoints definitions schema
+95f3f7f5102a0a7bd2db7c3c09d4ac370783ef90 2c7f5aa4f651682edfa0a90689b82aad50a532b4 ghiffa08 <haikal1080p@gmail.com> 1780059713 +0700	commit: test: add unit tests for valve telemetry controller
+2c7f5aa4f651682edfa0a90689b82aad50a532b4 a2fa3761713b511d73fd63914c9d7254ce938719 ghiffa08 <haikal1080p@gmail.com> 1780017459 +0700	commit: refactor: optimize database logs query performance
+a2fa3761713b511d73fd63914c9d7254ce938719 37a3c3c638ad5226e36128a22d0676ce03441dfe ghiffa08 <haikal1080p@gmail.com> 1780063813 +0700	commit: style: polish dashboard layout alignments
+37a3c3c638ad5226e36128a22d0676ce03441dfe 8c28961a0b160e40d9a11befd5c3b85dbcd86ef3 ghiffa08 <haikal1080p@gmail.com> 1780110987 +0700	commit: test: add unit tests for valve telemetry controller
+8c28961a0b160e40d9a11befd5c3b85dbcd86ef3 260dc2d7317b0a1e2ded63628fea1d7bb03e51af ghiffa08 <haikal1080p@gmail.com> 1780122968 +0700	commit: docs: update API endpoints definitions schema
+260dc2d7317b0a1e2ded63628fea1d7bb03e51af d5cfc68f2d8d2d760860baee9c5684d97f8fa257 ghiffa08 <haikal1080p@gmail.com> 1780139525 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+d5cfc68f2d8d2d760860baee9c5684d97f8fa257 2f09a0f6bae3b63aa131c44bf05e04fdd67f9a6b ghiffa08 <haikal1080p@gmail.com> 1780138350 +0700	commit: docs: update API endpoints definitions schema
+2f09a0f6bae3b63aa131c44bf05e04fdd67f9a6b de850e2ceecaeda038babe04002c71ee518a7453 ghiffa08 <haikal1080p@gmail.com> 1780121731 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+de850e2ceecaeda038babe04002c71ee518a7453 e6b7275a8660d9eb84279bf196d2a0040cd1d8ed ghiffa08 <haikal1080p@gmail.com> 1780116421 +0700	commit: chore: update database migrations indexing
+e6b7275a8660d9eb84279bf196d2a0040cd1d8ed 66a242363e75b64ddc3319cb932a63ba0b5d296e ghiffa08 <haikal1080p@gmail.com> 1780210957 +0700	commit: test: add unit tests for valve telemetry controller
+66a242363e75b64ddc3319cb932a63ba0b5d296e 89d1dd391031e71df42213ea8b05a41f20c3af15 ghiffa08 <haikal1080p@gmail.com> 1780234113 +0700	commit: chore: optimize telemetry log sync at 20:28:33
+89d1dd391031e71df42213ea8b05a41f20c3af15 52ff92769110bf36eef4bfd60c08900f36ab9cff ghiffa08 <haikal1080p@gmail.com> 1780235880 +0700	commit: chore: update database migrations indexing
+52ff92769110bf36eef4bfd60c08900f36ab9cff 8bd3a2c37f05edb961b6a3f49af40f6dfae662b7 ghiffa08 <haikal1080p@gmail.com> 1780231381 +0700	commit: style: polish dashboard layout alignments
+8bd3a2c37f05edb961b6a3f49af40f6dfae662b7 e5aa7758b29e39acbdbdc694fd6f2458435086fb ghiffa08 <haikal1080p@gmail.com> 1780225035 +0700	commit: test: add unit tests for valve telemetry controller
+e5aa7758b29e39acbdbdc694fd6f2458435086fb ed96f5070edeeb43472f07b36024b0f15811367f ghiffa08 <haikal1080p@gmail.com> 1780233427 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+ed96f5070edeeb43472f07b36024b0f15811367f f0ef8eb022ac27b578681cef37e008a456e84cac ghiffa08 <haikal1080p@gmail.com> 1780193595 +0700	commit: chore: update database migrations indexing
+f0ef8eb022ac27b578681cef37e008a456e84cac 554c9f3fbc92366a110f84fd3aafcbbd7a0bafc0 ghiffa08 <haikal1080p@gmail.com> 1780302056 +0700	commit: chore: update database migrations indexing
+554c9f3fbc92366a110f84fd3aafcbbd7a0bafc0 32e6c37e9de822ebeeb5f8b14ee27a1a81b085de ghiffa08 <haikal1080p@gmail.com> 1780326898 +0700	commit: chore: optimize telemetry log sync at 22:14:58
+32e6c37e9de822ebeeb5f8b14ee27a1a81b085de b763b3c80b31346add365eb0618a302b724d6f2a ghiffa08 <haikal1080p@gmail.com> 1780287611 +0700	commit: perf: enhance data payload serialization efficiency
+b763b3c80b31346add365eb0618a302b724d6f2a ed3ecc4f60f4f3686a44412b943ff1aab6f65d49 ghiffa08 <haikal1080p@gmail.com> 1780306220 +0700	commit: docs: update API endpoints definitions schema
+ed3ecc4f60f4f3686a44412b943ff1aab6f65d49 f2f20ec62da5c89bf7ffdfe7e20f8d1e53d1b49f ghiffa08 <haikal1080p@gmail.com> 1780289686 +0700	commit: chore: optimize telemetry log sync at 11:54:46
+f2f20ec62da5c89bf7ffdfe7e20f8d1e53d1b49f 625daf5bb5c87e14c3dd2218b8c647a97117ae9f ghiffa08 <haikal1080p@gmail.com> 1780284586 +0700	commit: refactor: optimize database logs query performance
+625daf5bb5c87e14c3dd2218b8c647a97117ae9f 17f1162e6601fc5c680f08ee1ce7094e58ace3cd ghiffa08 <haikal1080p@gmail.com> 1780302797 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+17f1162e6601fc5c680f08ee1ce7094e58ace3cd 342353429890d7279c36e701c28397343e459258 ghiffa08 <haikal1080p@gmail.com> 1780308012 +0700	commit: chore: optimize telemetry log sync at 17:00:12
+342353429890d7279c36e701c28397343e459258 bc786d66eeb67ca30c02f4700f5f00c774470c82 ghiffa08 <haikal1080p@gmail.com> 1780279109 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+bc786d66eeb67ca30c02f4700f5f00c774470c82 ff550f5c18e9151647db72cad723da5d6dee4d85 ghiffa08 <haikal1080p@gmail.com> 1780319385 +0700	commit: refactor: optimize database logs query performance
+ff550f5c18e9151647db72cad723da5d6dee4d85 5fc3eb6faf2fb830618015ecb0d75f170f05fc16 ghiffa08 <haikal1080p@gmail.com> 1780294620 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+5fc3eb6faf2fb830618015ecb0d75f170f05fc16 648aea2fa420e1b27a3ce21bfe5c895922f636be ghiffa08 <haikal1080p@gmail.com> 1780405362 +0700	commit: test: add unit tests for valve telemetry controller
+648aea2fa420e1b27a3ce21bfe5c895922f636be fdff7784abd7698b0a34e695b686bbe53890521e ghiffa08 <haikal1080p@gmail.com> 1780384107 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+fdff7784abd7698b0a34e695b686bbe53890521e 8b17aa6bfe7262d1471203fc745396e8327bea24 ghiffa08 <haikal1080p@gmail.com> 1780394758 +0700	commit: test: add unit tests for valve telemetry controller
+8b17aa6bfe7262d1471203fc745396e8327bea24 0949fb8734303b998c2540a459efd9c9cdf607e3 ghiffa08 <haikal1080p@gmail.com> 1780373455 +0700	commit: chore: update database migrations indexing
+0949fb8734303b998c2540a459efd9c9cdf607e3 86633c1755f2d52a20232559b01b05745dae12c1 ghiffa08 <haikal1080p@gmail.com> 1780369405 +0700	commit: test: add unit tests for valve telemetry controller
+86633c1755f2d52a20232559b01b05745dae12c1 d61d4901cbad51e1df4623c2c570abcd1a29b4ee ghiffa08 <haikal1080p@gmail.com> 1780383701 +0700	commit: perf: enhance data payload serialization efficiency
+d61d4901cbad51e1df4623c2c570abcd1a29b4ee b97b724d68947f3558f2281f43ce92953afc9b42 ghiffa08 <haikal1080p@gmail.com> 1780366334 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+b97b724d68947f3558f2281f43ce92953afc9b42 cbc8f8694703bbc49c3942780f174a3355cb7d69 ghiffa08 <haikal1080p@gmail.com> 1780499057 +0700	commit: style: polish dashboard layout alignments
+cbc8f8694703bbc49c3942780f174a3355cb7d69 e6430401491a02c610ea62f2587973c837545b55 ghiffa08 <haikal1080p@gmail.com> 1780461101 +0700	commit: refactor: optimize database logs query performance
+e6430401491a02c610ea62f2587973c837545b55 273c5249448ab3db41e97f30c3c8fb7c62b9bfb8 ghiffa08 <haikal1080p@gmail.com> 1780497987 +0700	commit: refactor: optimize database logs query performance
+273c5249448ab3db41e97f30c3c8fb7c62b9bfb8 0baa4018e87aae173507f531b417baf8ee9b83da ghiffa08 <haikal1080p@gmail.com> 1780452440 +0700	commit: style: polish dashboard layout alignments
+0baa4018e87aae173507f531b417baf8ee9b83da 3a5a02ab43d73c3188f90234cbc2bf5572102dd0 ghiffa08 <haikal1080p@gmail.com> 1780466713 +0700	commit: refactor: optimize database logs query performance
+3a5a02ab43d73c3188f90234cbc2bf5572102dd0 04593ae04e90a1c08185d83bdcde665968e8b331 ghiffa08 <haikal1080p@gmail.com> 1780465018 +0700	commit: docs: update API endpoints definitions schema
+04593ae04e90a1c08185d83bdcde665968e8b331 b3a0edb587d0976e762a9fff754f9f1421e1caff ghiffa08 <haikal1080p@gmail.com> 1780455955 +0700	commit: docs: update API endpoints definitions schema
+b3a0edb587d0976e762a9fff754f9f1421e1caff 7c7bb4f8cc8cbed6afab62d6c747297d55e91cb6 ghiffa08 <haikal1080p@gmail.com> 1780457614 +0700	commit: chore: optimize telemetry log sync at 10:33:34
+7c7bb4f8cc8cbed6afab62d6c747297d55e91cb6 9ac0a508bc3567e3d772586deb30c648ad9b11a1 ghiffa08 <haikal1080p@gmail.com> 1780471456 +0700	commit: chore: update database migrations indexing
+9ac0a508bc3567e3d772586deb30c648ad9b11a1 3bab062cff5c8e910e2791517df5edb15fae9264 ghiffa08 <haikal1080p@gmail.com> 1780449119 +0700	commit: perf: enhance data payload serialization efficiency
+3bab062cff5c8e910e2791517df5edb15fae9264 e070de3172037146a41dc1779601eab69e2a355d ghiffa08 <haikal1080p@gmail.com> 1780477962 +0700	commit: test: add unit tests for valve telemetry controller
+e070de3172037146a41dc1779601eab69e2a355d c5de9d54cea58c8e738c681d41efd0e8e18d2166 ghiffa08 <haikal1080p@gmail.com> 1780463416 +0700	commit: chore: update database migrations indexing
+c5de9d54cea58c8e738c681d41efd0e8e18d2166 7f307008fb9a95c90552b247498a702096c71304 ghiffa08 <haikal1080p@gmail.com> 1780539320 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+7f307008fb9a95c90552b247498a702096c71304 a44d056d78af1de26f89fcbf36bf181433afe1a2 ghiffa08 <haikal1080p@gmail.com> 1780543197 +0700	commit: docs: update API endpoints definitions schema
+a44d056d78af1de26f89fcbf36bf181433afe1a2 63f02138be622d8557e93d6ea912d2bb2cd3b743 ghiffa08 <haikal1080p@gmail.com> 1780577506 +0700	commit: test: add unit tests for valve telemetry controller
+63f02138be622d8557e93d6ea912d2bb2cd3b743 19af9bf72fd6cfb19c953c9dc6807e32a0d2a99e ghiffa08 <haikal1080p@gmail.com> 1780560204 +0700	commit: docs: update API endpoints definitions schema
+19af9bf72fd6cfb19c953c9dc6807e32a0d2a99e 680c4c0a777ec4e1fa03200099788817f5b561d2 ghiffa08 <haikal1080p@gmail.com> 1780557684 +0700	commit: perf: enhance data payload serialization efficiency
+680c4c0a777ec4e1fa03200099788817f5b561d2 80a7e4d5f144a76ffbaeab20829f64aa609342d7 ghiffa08 <haikal1080p@gmail.com> 1780542649 +0700	commit: style: polish dashboard layout alignments
+80a7e4d5f144a76ffbaeab20829f64aa609342d7 ba3a95569616f3bd91843b68c0a511c0f33dffc6 ghiffa08 <haikal1080p@gmail.com> 1780586513 +0700	commit: style: polish dashboard layout alignments
+ba3a95569616f3bd91843b68c0a511c0f33dffc6 ae0991089f4801dfd3423ae5e05088fd27a71876 ghiffa08 <haikal1080p@gmail.com> 1780555732 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+ae0991089f4801dfd3423ae5e05088fd27a71876 f96302d32f6ecd6d51428c227e7ba0de7d6f1c44 ghiffa08 <haikal1080p@gmail.com> 1780565375 +0700	commit: refactor: optimize database logs query performance
+f96302d32f6ecd6d51428c227e7ba0de7d6f1c44 9f0beb4f1ac79d914e31e385e835900f7a2cc663 ghiffa08 <haikal1080p@gmail.com> 1780634135 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+9f0beb4f1ac79d914e31e385e835900f7a2cc663 dc6f1dd425701dc74b298df8c9fdf7c07a86122f ghiffa08 <haikal1080p@gmail.com> 1780651161 +0700	commit: refactor: optimize database logs query performance
+dc6f1dd425701dc74b298df8c9fdf7c07a86122f 2c3f795e7316a78d3ca2073b747f98aec9a9bbfa ghiffa08 <haikal1080p@gmail.com> 1780669759 +0700	commit: refactor: optimize database logs query performance
+2c3f795e7316a78d3ca2073b747f98aec9a9bbfa cc52a04f755ae0c5b2a96a61c6a65b60e0b87d07 ghiffa08 <haikal1080p@gmail.com> 1780638977 +0700	commit: docs: update API endpoints definitions schema
+cc52a04f755ae0c5b2a96a61c6a65b60e0b87d07 fa044da45be61aa74e40ee6ad7ebb567089f3cb8 ghiffa08 <haikal1080p@gmail.com> 1780638816 +0700	commit: style: polish dashboard layout alignments
+fa044da45be61aa74e40ee6ad7ebb567089f3cb8 31c66cd2fe43f83b35c9e1a77b2b56898f93a7cf ghiffa08 <haikal1080p@gmail.com> 1780669134 +0700	commit: test: add unit tests for valve telemetry controller
+31c66cd2fe43f83b35c9e1a77b2b56898f93a7cf 4e0fba54b5ba1598d2e394875cbb718a1468b4a8 ghiffa08 <haikal1080p@gmail.com> 1780657903 +0700	commit: docs: update API endpoints definitions schema
+4e0fba54b5ba1598d2e394875cbb718a1468b4a8 a2550e97b5f0e973620208c969c836802ea06d3b ghiffa08 <haikal1080p@gmail.com> 1780726865 +0700	commit: docs: update API endpoints definitions schema
+a2550e97b5f0e973620208c969c836802ea06d3b 90500dc4fa8fd971e4dd87334ce63897c696cc1d ghiffa08 <haikal1080p@gmail.com> 1780749705 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+90500dc4fa8fd971e4dd87334ce63897c696cc1d 9a5a2dbac73f030f91620a48801bbd774c59fc0f ghiffa08 <haikal1080p@gmail.com> 1780709598 +0700	commit: chore: update database migrations indexing
+9a5a2dbac73f030f91620a48801bbd774c59fc0f 20f538f6961a4ff562385e666a65b1242cc929fb ghiffa08 <haikal1080p@gmail.com> 1780726111 +0700	commit: chore: optimize telemetry log sync at 13:08:31
+20f538f6961a4ff562385e666a65b1242cc929fb ea8f974b645a0e8624e661744d2632e8cad87784 ghiffa08 <haikal1080p@gmail.com> 1780758804 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+ea8f974b645a0e8624e661744d2632e8cad87784 b541bbddbe0f4af5f9400c6bfc98c17fab6b45b9 ghiffa08 <haikal1080p@gmail.com> 1780723803 +0700	commit: docs: update API endpoints definitions schema
+b541bbddbe0f4af5f9400c6bfc98c17fab6b45b9 09987b45189fd7f9917f5b1636db0b809c32afdd ghiffa08 <haikal1080p@gmail.com> 1780741759 +0700	commit: perf: enhance data payload serialization efficiency
+09987b45189fd7f9917f5b1636db0b809c32afdd 60aadccbc691989ffd61af2fae983da3eb2b04e7 ghiffa08 <haikal1080p@gmail.com> 1780732350 +0700	commit: docs: update API endpoints definitions schema
+60aadccbc691989ffd61af2fae983da3eb2b04e7 00c942697651aa3864c158419325c2597f2e22ac ghiffa08 <haikal1080p@gmail.com> 1780716404 +0700	commit: docs: update API endpoints definitions schema
+00c942697651aa3864c158419325c2597f2e22ac 84dec5674ae31d8cf55bab17ee0290e3c5e3eae4 ghiffa08 <haikal1080p@gmail.com> 1780748725 +0700	commit: style: polish dashboard layout alignments
+84dec5674ae31d8cf55bab17ee0290e3c5e3eae4 026a74d0a0583851a58979c5378982cefb4f65c3 ghiffa08 <haikal1080p@gmail.com> 1780829381 +0700	commit: test: add unit tests for valve telemetry controller
+026a74d0a0583851a58979c5378982cefb4f65c3 3a0d34e7e6da8f63d918ed614d87eb9afec5e1fa ghiffa08 <haikal1080p@gmail.com> 1780799299 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+3a0d34e7e6da8f63d918ed614d87eb9afec5e1fa 8176186ba82559617fcb943a95b4cf6f3be0d6ca ghiffa08 <haikal1080p@gmail.com> 1780811462 +0700	commit: style: polish dashboard layout alignments
+8176186ba82559617fcb943a95b4cf6f3be0d6ca 78c70a084c03e3437fac3adefd4ab09bbcd3deee ghiffa08 <haikal1080p@gmail.com> 1780825872 +0700	commit: chore: update database migrations indexing
+78c70a084c03e3437fac3adefd4ab09bbcd3deee ebf111edffb0a3a1295add7a7c53691cf819b666 ghiffa08 <haikal1080p@gmail.com> 1780811548 +0700	commit: chore: optimize telemetry log sync at 12:52:28
+ebf111edffb0a3a1295add7a7c53691cf819b666 4d3355931c1e8942842021b65518eb7f4ac14cff ghiffa08 <haikal1080p@gmail.com> 1780826454 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+4d3355931c1e8942842021b65518eb7f4ac14cff 17201419e94a59417a78fa997b01df8c82a11e38 ghiffa08 <haikal1080p@gmail.com> 1780837295 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+17201419e94a59417a78fa997b01df8c82a11e38 54fb1f34fd9442f717efa6109d3271aaa03f0939 ghiffa08 <haikal1080p@gmail.com> 1780843774 +0700	commit: chore: optimize telemetry log sync at 21:49:34
+54fb1f34fd9442f717efa6109d3271aaa03f0939 11256a09ed1b4f4449e0c6535c88612f2bdbda9e ghiffa08 <haikal1080p@gmail.com> 1780803746 +0700	commit: docs: update API endpoints definitions schema
+11256a09ed1b4f4449e0c6535c88612f2bdbda9e 8947ec6ba445306dc6d1eae289e069138fa14559 ghiffa08 <haikal1080p@gmail.com> 1780934275 +0700	commit: test: add unit tests for valve telemetry controller
+8947ec6ba445306dc6d1eae289e069138fa14559 53fe51b715eac2e7f47bb43c87b0f97f9f866b88 ghiffa08 <haikal1080p@gmail.com> 1780919340 +0700	commit: refactor: optimize database logs query performance
+53fe51b715eac2e7f47bb43c87b0f97f9f866b88 9e656716f77e963fa7af260d2e23e0d16959ea34 ghiffa08 <haikal1080p@gmail.com> 1780889574 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+9e656716f77e963fa7af260d2e23e0d16959ea34 4200589e2fc923b9789ec00678dd97f2a6e60dc6 ghiffa08 <haikal1080p@gmail.com> 1780932167 +0700	commit: chore: optimize telemetry log sync at 22:22:47
+4200589e2fc923b9789ec00678dd97f2a6e60dc6 c801c568ea4933db2b66e91518e91ef5e1e24a7d ghiffa08 <haikal1080p@gmail.com> 1780887120 +0700	commit: chore: optimize telemetry log sync at 09:52:00
+c801c568ea4933db2b66e91518e91ef5e1e24a7d 1e7882d70465f0974200afe48dd4b319733eb5d9 ghiffa08 <haikal1080p@gmail.com> 1780894319 +0700	commit: style: polish dashboard layout alignments
+1e7882d70465f0974200afe48dd4b319733eb5d9 3cb21cb78d7a4432a3914215bf0960e024551035 ghiffa08 <haikal1080p@gmail.com> 1780893635 +0700	commit: perf: enhance data payload serialization efficiency
+3cb21cb78d7a4432a3914215bf0960e024551035 ee5f48b574fe285559b598ac28974819ebd28ae4 ghiffa08 <haikal1080p@gmail.com> 1780922045 +0700	commit: docs: update API endpoints definitions schema
+ee5f48b574fe285559b598ac28974819ebd28ae4 cb16879a53c14b1ff0d2934959cff576f6677f97 ghiffa08 <haikal1080p@gmail.com> 1781012468 +0700	commit: chore: update database migrations indexing
+cb16879a53c14b1ff0d2934959cff576f6677f97 00005d21e1190e04767aac9a541d42dc3863779c ghiffa08 <haikal1080p@gmail.com> 1780991768 +0700	commit: perf: enhance data payload serialization efficiency
+00005d21e1190e04767aac9a541d42dc3863779c 5426cff6bce9c4fb650c4be3bb9b4f154df4416d ghiffa08 <haikal1080p@gmail.com> 1780985517 +0700	commit: refactor: optimize database logs query performance
+5426cff6bce9c4fb650c4be3bb9b4f154df4416d cd899428a82a1fc99137a3a0b8f398577d90c8c2 ghiffa08 <haikal1080p@gmail.com> 1781013507 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+cd899428a82a1fc99137a3a0b8f398577d90c8c2 5fc6a9cb1c5d139b01932b855a68ffd3f8206839 ghiffa08 <haikal1080p@gmail.com> 1780995923 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+5fc6a9cb1c5d139b01932b855a68ffd3f8206839 a2bfea0aa500646a98e2f03d8ada0b5c095d2ec1 ghiffa08 <haikal1080p@gmail.com> 1780987412 +0700	commit: style: polish dashboard layout alignments
+a2bfea0aa500646a98e2f03d8ada0b5c095d2ec1 02317438fb966677c41884cb5155e8fe3a0026a4 ghiffa08 <haikal1080p@gmail.com> 1781006021 +0700	commit: test: add unit tests for valve telemetry controller
+02317438fb966677c41884cb5155e8fe3a0026a4 6b72205a37a6945daf892634b4191176934ef506 ghiffa08 <haikal1080p@gmail.com> 1781006335 +0700	commit: chore: update database migrations indexing
+6b72205a37a6945daf892634b4191176934ef506 920e59757dc84ae65c8133204adecc0a839f516d ghiffa08 <haikal1080p@gmail.com> 1780990240 +0700	commit: chore: optimize telemetry log sync at 14:30:40
+920e59757dc84ae65c8133204adecc0a839f516d bdf7ca020b06ab52d755187a377da39e268b6482 ghiffa08 <haikal1080p@gmail.com> 1781000554 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+bdf7ca020b06ab52d755187a377da39e268b6482 3478845a7b8f491de042fdee0f1d1c32c08b24d0 ghiffa08 <haikal1080p@gmail.com> 1780988862 +0700	commit: refactor: optimize database logs query performance
+3478845a7b8f491de042fdee0f1d1c32c08b24d0 8e1651607c60331cf92f82d301f95a80357b3995 ghiffa08 <haikal1080p@gmail.com> 1780975291 +0700	commit: test: add unit tests for valve telemetry controller
+8e1651607c60331cf92f82d301f95a80357b3995 89933459eafcb5a7d0e464d66ca1843bed84b36e ghiffa08 <haikal1080p@gmail.com> 1781094560 +0700	commit: docs: update API endpoints definitions schema
+89933459eafcb5a7d0e464d66ca1843bed84b36e 92ce94a1af485925c0e1d86f8714dea3010ff6b5 ghiffa08 <haikal1080p@gmail.com> 1781104967 +0700	commit: perf: enhance data payload serialization efficiency
+92ce94a1af485925c0e1d86f8714dea3010ff6b5 225c1092adcd1e00c819feccf7b314f6e29af35c ghiffa08 <haikal1080p@gmail.com> 1781056420 +0700	commit: chore: update database migrations indexing
+225c1092adcd1e00c819feccf7b314f6e29af35c 6fb656750ea0a0e9c39b04623475cf378c572e09 ghiffa08 <haikal1080p@gmail.com> 1781060267 +0700	commit: chore: optimize telemetry log sync at 09:57:47
+6fb656750ea0a0e9c39b04623475cf378c572e09 2dfd088577f8dcc914eb033058a7ad532ddbd675 ghiffa08 <haikal1080p@gmail.com> 1781076004 +0700	commit: test: add unit tests for valve telemetry controller
+2dfd088577f8dcc914eb033058a7ad532ddbd675 4814a86141455d1c621a107d87ee89e55d606cee ghiffa08 <haikal1080p@gmail.com> 1781079385 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+4814a86141455d1c621a107d87ee89e55d606cee 4867b3086f20237d58f54bde2069cfd755f4b561 ghiffa08 <haikal1080p@gmail.com> 1781069655 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+4867b3086f20237d58f54bde2069cfd755f4b561 81426bdaa199143e2786bde716627fad6334f88d ghiffa08 <haikal1080p@gmail.com> 1781070183 +0700	commit: perf: enhance data payload serialization efficiency
+81426bdaa199143e2786bde716627fad6334f88d 611c218b7517ab9778b3e94a4e809dc852e66848 ghiffa08 <haikal1080p@gmail.com> 1781100098 +0700	commit: docs: update API endpoints definitions schema
+611c218b7517ab9778b3e94a4e809dc852e66848 69c8b9b1241717d46c9c1cce797075fe059f397b ghiffa08 <haikal1080p@gmail.com> 1781104012 +0700	commit: perf: enhance data payload serialization efficiency
+69c8b9b1241717d46c9c1cce797075fe059f397b 0f0a0aad3af3c20bf46f0f04fcf07be8a0f4d645 ghiffa08 <haikal1080p@gmail.com> 1781174669 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+0f0a0aad3af3c20bf46f0f04fcf07be8a0f4d645 7e3bb9795e0c5e66b4332e7e03e307f01a7171b6 ghiffa08 <haikal1080p@gmail.com> 1781171326 +0700	commit: chore: update database migrations indexing
+7e3bb9795e0c5e66b4332e7e03e307f01a7171b6 bf0d3dbc8a12fec4db18a25ff1a67857dd83912a ghiffa08 <haikal1080p@gmail.com> 1781170829 +0700	commit: docs: update API endpoints definitions schema
+bf0d3dbc8a12fec4db18a25ff1a67857dd83912a 11f5408187bb06f60fa7e659a92a08836d5e6ab6 ghiffa08 <haikal1080p@gmail.com> 1781186860 +0700	commit: chore: optimize telemetry log sync at 21:07:40
+11f5408187bb06f60fa7e659a92a08836d5e6ab6 1d3151b96108f5fec3ab5c3d42815ca95aabd02a ghiffa08 <haikal1080p@gmail.com> 1781140593 +0700	commit: perf: enhance data payload serialization efficiency
+1d3151b96108f5fec3ab5c3d42815ca95aabd02a 85dddb4c11788bf80226703a1b19f85f82232023 ghiffa08 <haikal1080p@gmail.com> 1781190710 +0700	commit: refactor: optimize database logs query performance
+85dddb4c11788bf80226703a1b19f85f82232023 038b516b34e25f777d6a332172bce8c40c732788 ghiffa08 <haikal1080p@gmail.com> 1781143923 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+038b516b34e25f777d6a332172bce8c40c732788 e2a2f92516100a2c73b673c744c691bf619922ea ghiffa08 <haikal1080p@gmail.com> 1781191914 +0700	commit: chore: update database migrations indexing
+e2a2f92516100a2c73b673c744c691bf619922ea 27da723bba0231d3a8da18ffadf56d191bdca31f ghiffa08 <haikal1080p@gmail.com> 1781154533 +0700	commit: chore: optimize telemetry log sync at 12:08:53
+27da723bba0231d3a8da18ffadf56d191bdca31f 7b1880030f7183c9eba71c52d00ec8c2aa23f1d9 ghiffa08 <haikal1080p@gmail.com> 1781158544 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+7b1880030f7183c9eba71c52d00ec8c2aa23f1d9 f783e0ec517d51278423cff247dd45ed3f60599f ghiffa08 <haikal1080p@gmail.com> 1781173786 +0700	commit: docs: update API endpoints definitions schema
+f783e0ec517d51278423cff247dd45ed3f60599f 9122a534adf5665c292b52ca26641b8106d533ec ghiffa08 <haikal1080p@gmail.com> 1781181035 +0700	commit: docs: update API endpoints definitions schema
+9122a534adf5665c292b52ca26641b8106d533ec 6b8655432e3e916f5cd25af62928a3891c5b2373 ghiffa08 <haikal1080p@gmail.com> 1781254414 +0700	commit: perf: enhance data payload serialization efficiency
+6b8655432e3e916f5cd25af62928a3891c5b2373 1ef75f4affa2683739a952986f9cebad34d6332f ghiffa08 <haikal1080p@gmail.com> 1781245272 +0700	commit: refactor: optimize database logs query performance
+1ef75f4affa2683739a952986f9cebad34d6332f 467bed1ff03c7eb9619afe79ae6b6ccd45803827 ghiffa08 <haikal1080p@gmail.com> 1781233233 +0700	commit: docs: update API endpoints definitions schema
+467bed1ff03c7eb9619afe79ae6b6ccd45803827 3de4103590e9a5f237df44f77d32c46ffe0bc51a ghiffa08 <haikal1080p@gmail.com> 1781270611 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+3de4103590e9a5f237df44f77d32c46ffe0bc51a 3cf2f9bcf77fc82c23964c590e7514fff341ec4b ghiffa08 <haikal1080p@gmail.com> 1781276725 +0700	commit: docs: update API endpoints definitions schema
+3cf2f9bcf77fc82c23964c590e7514fff341ec4b c716d9d4d9d7bee196410e6cf4b850a8219d661a ghiffa08 <haikal1080p@gmail.com> 1781250699 +0700	commit: style: polish dashboard layout alignments
+c716d9d4d9d7bee196410e6cf4b850a8219d661a 113861646ad8353781d6d29fefcacdb83beeac90 ghiffa08 <haikal1080p@gmail.com> 1781255221 +0700	commit: chore: update database migrations indexing
+113861646ad8353781d6d29fefcacdb83beeac90 4d3968d86b6f6e4b3aa19d9fbc0e80cfa137a66a ghiffa08 <haikal1080p@gmail.com> 1781259622 +0700	commit: docs: update API endpoints definitions schema
+4d3968d86b6f6e4b3aa19d9fbc0e80cfa137a66a fbd0d540240737ac8c5507e788d95216aebd4ad3 ghiffa08 <haikal1080p@gmail.com> 1781229883 +0700	commit: docs: update API endpoints definitions schema
+fbd0d540240737ac8c5507e788d95216aebd4ad3 1ed7c1263d8b96d17cf7d2e18494e52680043c53 ghiffa08 <haikal1080p@gmail.com> 1781277336 +0700	commit: perf: enhance data payload serialization efficiency
+1ed7c1263d8b96d17cf7d2e18494e52680043c53 a86b191be050561d5bbf901649def89f4259b805 ghiffa08 <haikal1080p@gmail.com> 1781277437 +0700	commit: perf: enhance data payload serialization efficiency
+a86b191be050561d5bbf901649def89f4259b805 2d5b070d70031234c0d5bcce3cd6badf9ff8c43d ghiffa08 <haikal1080p@gmail.com> 1781250576 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+2d5b070d70031234c0d5bcce3cd6badf9ff8c43d cd1f482f11d9b198c6cc8142834eaf0ed24bb21d ghiffa08 <haikal1080p@gmail.com> 1781335632 +0700	commit: chore: update database migrations indexing
+cd1f482f11d9b198c6cc8142834eaf0ed24bb21d 2b3cf292749ae45a27d7f5237d91d1dc2093dd16 ghiffa08 <haikal1080p@gmail.com> 1781350775 +0700	commit: style: polish dashboard layout alignments
+2b3cf292749ae45a27d7f5237d91d1dc2093dd16 19e4141e75e7e90df61bdae5779a43482d33aac3 ghiffa08 <haikal1080p@gmail.com> 1781346060 +0700	commit: docs: update API endpoints definitions schema
+19e4141e75e7e90df61bdae5779a43482d33aac3 39f5d20c96df1c59d9cd6217df67332ada64ac16 ghiffa08 <haikal1080p@gmail.com> 1781322670 +0700	commit: test: add unit tests for valve telemetry controller
+39f5d20c96df1c59d9cd6217df67332ada64ac16 77e34683d4e41fd16909f8063bd71411285ee58f ghiffa08 <haikal1080p@gmail.com> 1781364596 +0700	commit: chore: optimize telemetry log sync at 22:29:56
+77e34683d4e41fd16909f8063bd71411285ee58f 734bd359b8900dcf8f542822a87b6bb92633eba0 ghiffa08 <haikal1080p@gmail.com> 1781349115 +0700	commit: style: polish dashboard layout alignments
+734bd359b8900dcf8f542822a87b6bb92633eba0 8f46385230c50c16602021c82cca6b8068dd940f ghiffa08 <haikal1080p@gmail.com> 1781405539 +0700	commit: chore: update database migrations indexing
+8f46385230c50c16602021c82cca6b8068dd940f 7f21787f66ab190b6eb7ef9012af6a011c82ef69 ghiffa08 <haikal1080p@gmail.com> 1781449106 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+7f21787f66ab190b6eb7ef9012af6a011c82ef69 1d2ff61c265708a049b117521bd2c70ad03c6931 ghiffa08 <haikal1080p@gmail.com> 1781413951 +0700	commit: test: add unit tests for valve telemetry controller
+1d2ff61c265708a049b117521bd2c70ad03c6931 f95659e6169a29c342f5dc15613cf17c5fcb46c3 ghiffa08 <haikal1080p@gmail.com> 1781452343 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+f95659e6169a29c342f5dc15613cf17c5fcb46c3 cf864deac7b7433c5f8b35330ffe0d5741c1f69a ghiffa08 <haikal1080p@gmail.com> 1781410867 +0700	commit: test: add unit tests for valve telemetry controller
+cf864deac7b7433c5f8b35330ffe0d5741c1f69a 982a97f098d5126311b0702cc330a33536197bdb ghiffa08 <haikal1080p@gmail.com> 1781451772 +0700	commit: docs: update API endpoints definitions schema
+982a97f098d5126311b0702cc330a33536197bdb f47ead9d224dcae16bd5bbfe94fefc19d9d445b8 ghiffa08 <haikal1080p@gmail.com> 1781431717 +0700	commit: docs: update API endpoints definitions schema
+f47ead9d224dcae16bd5bbfe94fefc19d9d445b8 dafef5421e33545671f386ff7a29533766637927 ghiffa08 <haikal1080p@gmail.com> 1781440872 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+dafef5421e33545671f386ff7a29533766637927 d60f6b58bc18c41104025ffc34857dbf3aad8016 ghiffa08 <haikal1080p@gmail.com> 1781410656 +0700	commit: chore: update database migrations indexing
+d60f6b58bc18c41104025ffc34857dbf3aad8016 9c9a8967cb469e9ab28de40ef9cfc2cb9d554d8d ghiffa08 <haikal1080p@gmail.com> 1781448785 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+9c9a8967cb469e9ab28de40ef9cfc2cb9d554d8d eee46b18dd167ac872178750264eb1664d16ab70 ghiffa08 <haikal1080p@gmail.com> 1781526473 +0700	commit: test: add unit tests for valve telemetry controller
+eee46b18dd167ac872178750264eb1664d16ab70 901a4be3f0ef2ce64157cb367f7c9640da7b1cef ghiffa08 <haikal1080p@gmail.com> 1781518142 +0700	commit: test: add unit tests for valve telemetry controller
+901a4be3f0ef2ce64157cb367f7c9640da7b1cef a838dd415df2be6b7a6081a21193f975f3fbe0eb ghiffa08 <haikal1080p@gmail.com> 1781503148 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+a838dd415df2be6b7a6081a21193f975f3fbe0eb 75bc4f451ed0a06739a72e2bcf8ced077075d38a ghiffa08 <haikal1080p@gmail.com> 1781519518 +0700	commit: test: add unit tests for valve telemetry controller
+75bc4f451ed0a06739a72e2bcf8ced077075d38a 0150e11dee38f0c8cea06e069618ba80df3c0d46 ghiffa08 <haikal1080p@gmail.com> 1781516540 +0700	commit: chore: optimize telemetry log sync at 16:42:20
+0150e11dee38f0c8cea06e069618ba80df3c0d46 18e2f7a8e6037b8518559d8beec80454123dfb75 ghiffa08 <haikal1080p@gmail.com> 1781504414 +0700	commit: refactor: optimize database logs query performance
+18e2f7a8e6037b8518559d8beec80454123dfb75 aee4181be60bdc27769e9ca55fbc7b0e94bbc2d9 ghiffa08 <haikal1080p@gmail.com> 1781499278 +0700	commit: refactor: optimize database logs query performance
+aee4181be60bdc27769e9ca55fbc7b0e94bbc2d9 81fd4ce608950e4186b08fe0812b536533d3f0bb ghiffa08 <haikal1080p@gmail.com> 1781516859 +0700	commit: chore: optimize telemetry log sync at 16:47:39
+81fd4ce608950e4186b08fe0812b536533d3f0bb 1107aad7b032cc0a11bd465794552a9e02c1ad42 ghiffa08 <haikal1080p@gmail.com> 1781515099 +0700	commit: chore: optimize telemetry log sync at 16:18:19
+1107aad7b032cc0a11bd465794552a9e02c1ad42 71296b8c9bc8a2dcbc08f10cb3450a3e7b752231 ghiffa08 <haikal1080p@gmail.com> 1781608262 +0700	commit: test: add unit tests for valve telemetry controller
+71296b8c9bc8a2dcbc08f10cb3450a3e7b752231 ebd959df3e59a2283c565e3e539b91e93c1d3a54 ghiffa08 <haikal1080p@gmail.com> 1781618736 +0700	commit: test: add unit tests for valve telemetry controller
+ebd959df3e59a2283c565e3e539b91e93c1d3a54 5e6b63493752a0e0dd07c2cb795facf78794668b ghiffa08 <haikal1080p@gmail.com> 1781583788 +0700	commit: test: add unit tests for valve telemetry controller
+5e6b63493752a0e0dd07c2cb795facf78794668b 033304f31fc772fcd37428db3d844882c464c420 ghiffa08 <haikal1080p@gmail.com> 1781614201 +0700	commit: refactor: optimize database logs query performance
+033304f31fc772fcd37428db3d844882c464c420 c13f27e4c4925f2b7807d2679a6bcb5d2b16c5fb ghiffa08 <haikal1080p@gmail.com> 1781609392 +0700	commit: chore: update database migrations indexing
+c13f27e4c4925f2b7807d2679a6bcb5d2b16c5fb b6d3550cb4ce22c39c4568f745cf9aed4d84f138 ghiffa08 <haikal1080p@gmail.com> 1781581596 +0700	commit: docs: update API endpoints definitions schema
+b6d3550cb4ce22c39c4568f745cf9aed4d84f138 c0476165d7b23238d6636b82de518cc21642ac0e ghiffa08 <haikal1080p@gmail.com> 1781617270 +0700	commit: chore: optimize telemetry log sync at 20:41:10
+c0476165d7b23238d6636b82de518cc21642ac0e 9ffd121981e28e0d2673a6687f9c111ea52ab98b ghiffa08 <haikal1080p@gmail.com> 1781600717 +0700	commit: refactor: optimize database logs query performance
+9ffd121981e28e0d2673a6687f9c111ea52ab98b 0deb6ec3fa8077cb3573efafd6b29a8521a177d7 ghiffa08 <haikal1080p@gmail.com> 1781595921 +0700	commit: style: polish dashboard layout alignments
+0deb6ec3fa8077cb3573efafd6b29a8521a177d7 e2554371fbfa28190e423ad0549e320fa6152679 ghiffa08 <haikal1080p@gmail.com> 1781590628 +0700	commit: test: add unit tests for valve telemetry controller
+e2554371fbfa28190e423ad0549e320fa6152679 505780f0a63d11de8cebb8d17e6522a94e092846 ghiffa08 <haikal1080p@gmail.com> 1781610411 +0700	commit: test: add unit tests for valve telemetry controller
+505780f0a63d11de8cebb8d17e6522a94e092846 b613a86de50b40722ac67aa518b2f8c0c8bab201 ghiffa08 <haikal1080p@gmail.com> 1781697856 +0700	commit: refactor: optimize database logs query performance
+b613a86de50b40722ac67aa518b2f8c0c8bab201 5aa35f658a73c7f465dd60cb6c2de569d9c52674 ghiffa08 <haikal1080p@gmail.com> 1781665265 +0700	commit: test: add unit tests for valve telemetry controller
+5aa35f658a73c7f465dd60cb6c2de569d9c52674 daa083f11327c9e3e2e6e09f2b0e261f7bf65650 ghiffa08 <haikal1080p@gmail.com> 1781695622 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+daa083f11327c9e3e2e6e09f2b0e261f7bf65650 f7b26a34094a3ef3c1ff4b295d4fc1130d88f5cb ghiffa08 <haikal1080p@gmail.com> 1781675603 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+f7b26a34094a3ef3c1ff4b295d4fc1130d88f5cb 755732483862b29b95cce92c483a74fbb4bfce4f ghiffa08 <haikal1080p@gmail.com> 1781699220 +0700	commit: chore: optimize telemetry log sync at 19:27:00
+755732483862b29b95cce92c483a74fbb4bfce4f 7c3f962b257c1503116a7cc0fa79fd4398c0b127 ghiffa08 <haikal1080p@gmail.com> 1781665100 +0700	commit: style: polish dashboard layout alignments
+7c3f962b257c1503116a7cc0fa79fd4398c0b127 6aceed3ea45d4373150c04c0372edda3315884f9 ghiffa08 <haikal1080p@gmail.com> 1781700074 +0700	commit: chore: update database migrations indexing
+6aceed3ea45d4373150c04c0372edda3315884f9 badf8eb38dc2795694cae1ea3e153a16865928e1 ghiffa08 <haikal1080p@gmail.com> 1781791639 +0700	commit: test: add unit tests for valve telemetry controller
+badf8eb38dc2795694cae1ea3e153a16865928e1 88983a12ca765fdc884f87b9d4b3cb40a380041d ghiffa08 <haikal1080p@gmail.com> 1781752475 +0700	commit: perf: enhance data payload serialization efficiency
+88983a12ca765fdc884f87b9d4b3cb40a380041d 82c912c1c3532d50904b432f1ad3db3489e9e233 ghiffa08 <haikal1080p@gmail.com> 1781786467 +0700	commit: style: polish dashboard layout alignments
+82c912c1c3532d50904b432f1ad3db3489e9e233 02b283437dc50afa6e8ae7523cf9cf85b2444898 ghiffa08 <haikal1080p@gmail.com> 1781746902 +0700	commit: test: add unit tests for valve telemetry controller
+02b283437dc50afa6e8ae7523cf9cf85b2444898 385eb5258979ce15c15b1b62147dd36cc484ab21 ghiffa08 <haikal1080p@gmail.com> 1781751470 +0700	commit: chore: update database migrations indexing
+385eb5258979ce15c15b1b62147dd36cc484ab21 f3c08582ee47e8388ec5f47a2ca74a51a48825d6 ghiffa08 <haikal1080p@gmail.com> 1781789316 +0700	commit: refactor: optimize database logs query performance
+f3c08582ee47e8388ec5f47a2ca74a51a48825d6 ef679178b839518ab3a7b7e904ad151fe80bd8fc ghiffa08 <haikal1080p@gmail.com> 1781748923 +0700	commit: chore: optimize telemetry log sync at 09:15:23
+ef679178b839518ab3a7b7e904ad151fe80bd8fc dcfe58bc5eaeab8b83a45b03b9378685cfd9bb9a ghiffa08 <haikal1080p@gmail.com> 1781773170 +0700	commit: chore: update database migrations indexing
+dcfe58bc5eaeab8b83a45b03b9378685cfd9bb9a 1febd19e201c97200c0a2bcccd3f8b6c601a53b9 ghiffa08 <haikal1080p@gmail.com> 1781869019 +0700	commit: perf: enhance data payload serialization efficiency
+1febd19e201c97200c0a2bcccd3f8b6c601a53b9 3ceb5fc3323a388fa78d1386f21107b9fc5351c5 ghiffa08 <haikal1080p@gmail.com> 1781858532 +0700	commit: chore: update database migrations indexing
+3ceb5fc3323a388fa78d1386f21107b9fc5351c5 40fe2e28844b01024172e62534e8c30855932902 ghiffa08 <haikal1080p@gmail.com> 1781856334 +0700	commit: style: polish dashboard layout alignments
+40fe2e28844b01024172e62534e8c30855932902 763bc4ad7986b105f63dfb64e0cec64597acf4e7 ghiffa08 <haikal1080p@gmail.com> 1781884649 +0700	commit: test: add unit tests for valve telemetry controller
+763bc4ad7986b105f63dfb64e0cec64597acf4e7 8edbcc1f82a5480e67e7b10bbbb8d03a70136b48 ghiffa08 <haikal1080p@gmail.com> 1781868605 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+8edbcc1f82a5480e67e7b10bbbb8d03a70136b48 50c18bebbcdfd9e856336e803101947f63124482 ghiffa08 <haikal1080p@gmail.com> 1781876754 +0700	commit: test: add unit tests for valve telemetry controller
+50c18bebbcdfd9e856336e803101947f63124482 c4b3d45c63b3a005da038f25c3e5b3ace59caf1a ghiffa08 <haikal1080p@gmail.com> 1781836604 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+c4b3d45c63b3a005da038f25c3e5b3ace59caf1a d882eb3636a46bb78c330bd0413ccc35d5b554a5 ghiffa08 <haikal1080p@gmail.com> 1781941163 +0700	commit: perf: enhance data payload serialization efficiency
+d882eb3636a46bb78c330bd0413ccc35d5b554a5 c680fc901668f1793c91839e63da39bd7b2ef85a ghiffa08 <haikal1080p@gmail.com> 1781927092 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+c680fc901668f1793c91839e63da39bd7b2ef85a 001216b4bc72dc50226828b44df19b98d587558e ghiffa08 <haikal1080p@gmail.com> 1781929791 +0700	commit: style: polish dashboard layout alignments
+001216b4bc72dc50226828b44df19b98d587558e 3b6bd7c4eecf4513b30f87f4ff773e875818e9fe ghiffa08 <haikal1080p@gmail.com> 1781962385 +0700	commit: chore: optimize telemetry log sync at 20:33:05
+3b6bd7c4eecf4513b30f87f4ff773e875818e9fe fb29478fa6496652bad3f48b262d58e47ef7fca4 ghiffa08 <haikal1080p@gmail.com> 1781943548 +0700	commit: test: add unit tests for valve telemetry controller
+fb29478fa6496652bad3f48b262d58e47ef7fca4 b0619de06a3910ae6288ce333b4d0f2c60d52c5e ghiffa08 <haikal1080p@gmail.com> 1781961229 +0700	commit: perf: enhance data payload serialization efficiency
+b0619de06a3910ae6288ce333b4d0f2c60d52c5e 92980dd417ae8ce1c21a48300d5f67c22543c7b2 ghiffa08 <haikal1080p@gmail.com> 1781945030 +0700	commit: test: add unit tests for valve telemetry controller
+92980dd417ae8ce1c21a48300d5f67c22543c7b2 ce883403d3ebff0391b17310d98f5e66cd7686c3 ghiffa08 <haikal1080p@gmail.com> 1781942513 +0700	commit: refactor: optimize database logs query performance
+ce883403d3ebff0391b17310d98f5e66cd7686c3 932091c7d81c470487981818f5bac263d9bd0488 ghiffa08 <haikal1080p@gmail.com> 1781933678 +0700	commit: chore: optimize telemetry log sync at 12:34:38
+932091c7d81c470487981818f5bac263d9bd0488 9c8433bcb80343e3df67d339c86594b3f26abee2 ghiffa08 <haikal1080p@gmail.com> 1781957816 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+9c8433bcb80343e3df67d339c86594b3f26abee2 6e5f32c55618486461516518bf995c265f9db6aa ghiffa08 <haikal1080p@gmail.com> 1782012996 +0700	commit: style: polish dashboard layout alignments
+6e5f32c55618486461516518bf995c265f9db6aa 13b91b01d7363dd6cb8a6915051e46afe5d42975 ghiffa08 <haikal1080p@gmail.com> 1782032824 +0700	commit: test: add unit tests for valve telemetry controller
+13b91b01d7363dd6cb8a6915051e46afe5d42975 48dcb27e38f65464ad9f25103c99b36807094bd1 ghiffa08 <haikal1080p@gmail.com> 1782014586 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+48dcb27e38f65464ad9f25103c99b36807094bd1 f26e526a286677c21212c485f07e16087ce31ec0 ghiffa08 <haikal1080p@gmail.com> 1782007952 +0700	commit: perf: enhance data payload serialization efficiency
+f26e526a286677c21212c485f07e16087ce31ec0 df1580a6b2c46e49cc1d12a334dd13892c4180a6 ghiffa08 <haikal1080p@gmail.com> 1782011348 +0700	commit: chore: optimize telemetry log sync at 10:09:08
+df1580a6b2c46e49cc1d12a334dd13892c4180a6 3fdf200a08c3e88a439a773be12b1b6deda188c0 ghiffa08 <haikal1080p@gmail.com> 1782041897 +0700	commit: style: polish dashboard layout alignments
+3fdf200a08c3e88a439a773be12b1b6deda188c0 165897bf874d55a6a03c06ec0bd3b4fd8fab0a51 ghiffa08 <haikal1080p@gmail.com> 1782045103 +0700	commit: perf: enhance data payload serialization efficiency
+165897bf874d55a6a03c06ec0bd3b4fd8fab0a51 d41800587954279708a229e6fa369f25b17046cb ghiffa08 <haikal1080p@gmail.com> 1782130091 +0700	commit: chore: update database migrations indexing
+d41800587954279708a229e6fa369f25b17046cb e1940c342d5e2a15227cf2d0d9fc6d8921874d0f ghiffa08 <haikal1080p@gmail.com> 1782130529 +0700	commit: test: add unit tests for valve telemetry controller
+e1940c342d5e2a15227cf2d0d9fc6d8921874d0f 075dc780baecb7470bec8a22f21a3c621252f162 ghiffa08 <haikal1080p@gmail.com> 1782094497 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+075dc780baecb7470bec8a22f21a3c621252f162 7a9d99d8e9baa983a13caf40d8ccb413340870a5 ghiffa08 <haikal1080p@gmail.com> 1782110503 +0700	commit: test: add unit tests for valve telemetry controller
+7a9d99d8e9baa983a13caf40d8ccb413340870a5 2e84a1b147032d37e25b209fd5634f963113eb74 ghiffa08 <haikal1080p@gmail.com> 1782095442 +0700	commit: docs: update API endpoints definitions schema
+2e84a1b147032d37e25b209fd5634f963113eb74 1e30b8c0aacccd201dcf1708f911f4a586a49339 ghiffa08 <haikal1080p@gmail.com> 1782126081 +0700	commit: style: polish dashboard layout alignments
+1e30b8c0aacccd201dcf1708f911f4a586a49339 3670ed6fccddd26a0075f11f0d93a1562cb7ead8 ghiffa08 <haikal1080p@gmail.com> 1782127609 +0700	commit: style: polish dashboard layout alignments
+3670ed6fccddd26a0075f11f0d93a1562cb7ead8 25d102ccde5a6c4f2c604c179587865cfde833c8 ghiffa08 <haikal1080p@gmail.com> 1782200253 +0700	commit: refactor: optimize database logs query performance
+25d102ccde5a6c4f2c604c179587865cfde833c8 1dddd46efc660be5436f1834f3bd18390b8df929 ghiffa08 <haikal1080p@gmail.com> 1782209428 +0700	commit: chore: optimize telemetry log sync at 17:10:28
+1dddd46efc660be5436f1834f3bd18390b8df929 c91438363f28ebdfd94ae2e2b8873292ba4e4de0 ghiffa08 <haikal1080p@gmail.com> 1782191130 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+c91438363f28ebdfd94ae2e2b8873292ba4e4de0 8dd5164210ff71c5f6609dfdff28ab02239ecadf ghiffa08 <haikal1080p@gmail.com> 1782199719 +0700	commit: docs: update API endpoints definitions schema
+8dd5164210ff71c5f6609dfdff28ab02239ecadf c52675fae06fe6c98ab6f92b121855ecb86e22fb ghiffa08 <haikal1080p@gmail.com> 1782208109 +0700	commit: perf: enhance data payload serialization efficiency
+c52675fae06fe6c98ab6f92b121855ecb86e22fb eee4c3c7da8ead96a8bdb083429b09de6f0da82e ghiffa08 <haikal1080p@gmail.com> 1782214153 +0700	commit: refactor: optimize database logs query performance
+eee4c3c7da8ead96a8bdb083429b09de6f0da82e 51841a1acdf89b9f43d6a7bb07dac9fe1bf1d8df ghiffa08 <haikal1080p@gmail.com> 1782191934 +0700	commit: chore: update database migrations indexing
+51841a1acdf89b9f43d6a7bb07dac9fe1bf1d8df e49e1963de900e1cc41bcaf2097e88da4f371d1d ghiffa08 <haikal1080p@gmail.com> 1782299892 +0700	commit: chore: update database migrations indexing
+e49e1963de900e1cc41bcaf2097e88da4f371d1d 354abfb52aedeccf8a42411210324e4300dadd49 ghiffa08 <haikal1080p@gmail.com> 1782303099 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+354abfb52aedeccf8a42411210324e4300dadd49 1cd9578bbd25e2c985b3892630a3038e469160e7 ghiffa08 <haikal1080p@gmail.com> 1782277434 +0700	commit: refactor: optimize database logs query performance
+1cd9578bbd25e2c985b3892630a3038e469160e7 1cad9170d583ed5fa902b1c3f2274a44e02cf518 ghiffa08 <haikal1080p@gmail.com> 1782278189 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+1cad9170d583ed5fa902b1c3f2274a44e02cf518 9d691b5901e49ecc9e83133516da8b183c91cbd2 ghiffa08 <haikal1080p@gmail.com> 1782288394 +0700	commit: chore: update database migrations indexing
+9d691b5901e49ecc9e83133516da8b183c91cbd2 1d51575d2f54ff07f5b1cd357102af942c5fe44e ghiffa08 <haikal1080p@gmail.com> 1782268063 +0700	commit: docs: update API endpoints definitions schema
+1d51575d2f54ff07f5b1cd357102af942c5fe44e ff0d0b314477965f9a2cf041e0ded5ee3c40459f ghiffa08 <haikal1080p@gmail.com> 1782313399 +0700	commit: test: add unit tests for valve telemetry controller
+ff0d0b314477965f9a2cf041e0ded5ee3c40459f 683d68ea849bd1e8b51ca65bea38f33f61914ffb ghiffa08 <haikal1080p@gmail.com> 1782387765 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+683d68ea849bd1e8b51ca65bea38f33f61914ffb 502ddf9d97c7f091824ba4fd01167c674daebfd1 ghiffa08 <haikal1080p@gmail.com> 1782402514 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+502ddf9d97c7f091824ba4fd01167c674daebfd1 64b842fe27c68263051a78646215782331da1758 ghiffa08 <haikal1080p@gmail.com> 1782397203 +0700	commit: perf: enhance data payload serialization efficiency
+64b842fe27c68263051a78646215782331da1758 99e63c20b9e44fe25cd4cada125c43ae54c5347c ghiffa08 <haikal1080p@gmail.com> 1782390246 +0700	commit: chore: optimize telemetry log sync at 19:24:06
+99e63c20b9e44fe25cd4cada125c43ae54c5347c f63eab3dd3aa94b24070963a5e2757c7e6a6d64a ghiffa08 <haikal1080p@gmail.com> 1782393508 +0700	commit: test: add unit tests for valve telemetry controller
+f63eab3dd3aa94b24070963a5e2757c7e6a6d64a d071615d32622b6c83acca5dd2e2539e03a22561 ghiffa08 <haikal1080p@gmail.com> 1782366356 +0700	commit: chore: optimize telemetry log sync at 12:45:56
+d071615d32622b6c83acca5dd2e2539e03a22561 874c10cb05d14d5dd523fc4536249472df8a0425 ghiffa08 <haikal1080p@gmail.com> 1782349673 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+874c10cb05d14d5dd523fc4536249472df8a0425 8f338d68cc873f7d927a546f80bb248020bda9b9 ghiffa08 <haikal1080p@gmail.com> 1782468157 +0700	commit: docs: update API endpoints definitions schema
+8f338d68cc873f7d927a546f80bb248020bda9b9 264583749eb839daf4af1b2120a3b7509885d090 ghiffa08 <haikal1080p@gmail.com> 1782483868 +0700	commit: test: add unit tests for valve telemetry controller
+264583749eb839daf4af1b2120a3b7509885d090 927b84f5e6903792f9f8b158d15762142f0c6084 ghiffa08 <haikal1080p@gmail.com> 1782437926 +0700	commit: test: add unit tests for valve telemetry controller
+927b84f5e6903792f9f8b158d15762142f0c6084 c6792994cae231337829f670e3b9000c604df82d ghiffa08 <haikal1080p@gmail.com> 1782453702 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+c6792994cae231337829f670e3b9000c604df82d c0dbe36f1782bd77710df03f548f723069553d7b ghiffa08 <haikal1080p@gmail.com> 1782483547 +0700	commit: docs: update API endpoints definitions schema
+c0dbe36f1782bd77710df03f548f723069553d7b c46aaf94dcee144b554177765f03da9b41cc48be ghiffa08 <haikal1080p@gmail.com> 1782472507 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+c46aaf94dcee144b554177765f03da9b41cc48be d0533b4a1ea87898a9915c799fe5b4bffca23eaa ghiffa08 <haikal1080p@gmail.com> 1782525933 +0700	commit: docs: update API endpoints definitions schema
+d0533b4a1ea87898a9915c799fe5b4bffca23eaa 2f38b8bf9a931d847fdeee4fa48916a01066930b ghiffa08 <haikal1080p@gmail.com> 1782556981 +0700	commit: perf: enhance data payload serialization efficiency
+2f38b8bf9a931d847fdeee4fa48916a01066930b d5d93ab152ee96acac3de88a5f0dad5fb4c5ce70 ghiffa08 <haikal1080p@gmail.com> 1782559814 +0700	commit: perf: enhance data payload serialization efficiency
+d5d93ab152ee96acac3de88a5f0dad5fb4c5ce70 bc43dd346a26dc298bfff76b980e9334e2b7407a ghiffa08 <haikal1080p@gmail.com> 1782558948 +0700	commit: perf: enhance data payload serialization efficiency
+bc43dd346a26dc298bfff76b980e9334e2b7407a a2fd5643f0301d298372c50482d8d0dbea8618c6 ghiffa08 <haikal1080p@gmail.com> 1782562992 +0700	commit: docs: update API endpoints definitions schema
+a2fd5643f0301d298372c50482d8d0dbea8618c6 a7973b463c103e5bafb73bad55c2546bf3a884a5 ghiffa08 <haikal1080p@gmail.com> 1782540885 +0700	commit: perf: enhance data payload serialization efficiency
+a7973b463c103e5bafb73bad55c2546bf3a884a5 ea3fb90bf7381b71db831064f9e9f0034125d869 ghiffa08 <haikal1080p@gmail.com> 1782557139 +0700	commit: chore: optimize telemetry log sync at 17:45:39
+ea3fb90bf7381b71db831064f9e9f0034125d869 826d165e0ef0d9af9cf8b0d8e196358774bc2454 ghiffa08 <haikal1080p@gmail.com> 1782560192 +0700	commit: style: polish dashboard layout alignments
+826d165e0ef0d9af9cf8b0d8e196358774bc2454 621fce86a0cd16a6a4804651526671ffc7d34379 ghiffa08 <haikal1080p@gmail.com> 1782557980 +0700	commit: docs: update API endpoints definitions schema
+621fce86a0cd16a6a4804651526671ffc7d34379 deccb404825d5f042857fcf64c97f86b2cef6a64 ghiffa08 <haikal1080p@gmail.com> 1782616449 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+deccb404825d5f042857fcf64c97f86b2cef6a64 10765aa78607293c5e1aad2772d2c9f829f50432 ghiffa08 <haikal1080p@gmail.com> 1782608830 +0700	commit: refactor: optimize database logs query performance
+10765aa78607293c5e1aad2772d2c9f829f50432 1ff66316600fc1a6f682a489a05c638dbdf46fc0 ghiffa08 <haikal1080p@gmail.com> 1782617653 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+1ff66316600fc1a6f682a489a05c638dbdf46fc0 9aeffaa76afc60fa76819f7f53b9c4179ed02857 ghiffa08 <haikal1080p@gmail.com> 1782647982 +0700	commit: docs: update API endpoints definitions schema
+9aeffaa76afc60fa76819f7f53b9c4179ed02857 610ee9ce339ec8bae78df508dcb93895bb3890c5 ghiffa08 <haikal1080p@gmail.com> 1782634950 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+610ee9ce339ec8bae78df508dcb93895bb3890c5 ac3a68f4e06b364f6f31d156ec2a9b9d26fe4c47 ghiffa08 <haikal1080p@gmail.com> 1782645368 +0700	commit: style: polish dashboard layout alignments
+ac3a68f4e06b364f6f31d156ec2a9b9d26fe4c47 8c04b18d1bcc22c0b0adc23f59297f301ca7fa45 ghiffa08 <haikal1080p@gmail.com> 1782642843 +0700	commit: docs: update API endpoints definitions schema
+8c04b18d1bcc22c0b0adc23f59297f301ca7fa45 dc284a8070f311b1dce69368fff46f950ddff261 ghiffa08 <haikal1080p@gmail.com> 1782611345 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+dc284a8070f311b1dce69368fff46f950ddff261 25e4f2daa6895d1c9abef906016ffde22384ca3c ghiffa08 <haikal1080p@gmail.com> 1782619377 +0700	commit: style: polish dashboard layout alignments
+25e4f2daa6895d1c9abef906016ffde22384ca3c 1c44330e2308b2d0359b49a120b53c39d25a4c0c ghiffa08 <haikal1080p@gmail.com> 1782641299 +0700	commit: chore: update database migrations indexing
+1c44330e2308b2d0359b49a120b53c39d25a4c0c 6c1d2feadc63b3617fca7a138bd30999a980d2e8 ghiffa08 <haikal1080p@gmail.com> 1782649440 +0700	commit: docs: update API endpoints definitions schema
+6c1d2feadc63b3617fca7a138bd30999a980d2e8 b7d9e5c0eb8d77459d6f9b67ec4cedaeaea1665d ghiffa08 <haikal1080p@gmail.com> 1782723405 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+b7d9e5c0eb8d77459d6f9b67ec4cedaeaea1665d 92994ef74098d9592f87dd30afb18cbd52f0f007 ghiffa08 <haikal1080p@gmail.com> 1782745044 +0700	commit: chore: optimize telemetry log sync at 21:57:24
+92994ef74098d9592f87dd30afb18cbd52f0f007 a2b25b916c1e2ab46edd193ce3ccb5687615cb1b ghiffa08 <haikal1080p@gmail.com> 1782738900 +0700	commit: docs: update API endpoints definitions schema
+a2b25b916c1e2ab46edd193ce3ccb5687615cb1b b55ed7fff3ff7d3200503f434a16e97fb3b55f6b ghiffa08 <haikal1080p@gmail.com> 1782715588 +0700	commit: refactor: optimize database logs query performance
+b55ed7fff3ff7d3200503f434a16e97fb3b55f6b 5141a312ed532b0a43717fad2d197f59924eac0c ghiffa08 <haikal1080p@gmail.com> 1782741384 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+5141a312ed532b0a43717fad2d197f59924eac0c 9a751a6332d86feb4c65abd2e7b8fb8824dabe5b ghiffa08 <haikal1080p@gmail.com> 1782710103 +0700	commit: refactor: optimize database logs query performance
+9a751a6332d86feb4c65abd2e7b8fb8824dabe5b ab5819e22aa8ce530d8e96db2d93965c41922f4c ghiffa08 <haikal1080p@gmail.com> 1782745390 +0700	commit: refactor: optimize database logs query performance
+ab5819e22aa8ce530d8e96db2d93965c41922f4c f430d1eb9b163d730598065525605bfa42bac3c3 ghiffa08 <haikal1080p@gmail.com> 1782730202 +0700	commit: refactor: clean up MQTT telemetry buffer layout
+f430d1eb9b163d730598065525605bfa42bac3c3 bc4f5441e5cd69b8f560b130729166a0c5da0039 ghiffa08 <haikal1080p@gmail.com> 1782737466 +0700	commit: fix: resolve connection timeout recovery in ESP32 driver
+bc4f5441e5cd69b8f560b130729166a0c5da0039 93dee8a749138c2ed5247adbc266d26c3fbbac21 ghiffa08 <haikal1080p@gmail.com> 1782712327 +0700	commit: test: add unit tests for valve telemetry controller
+93dee8a749138c2ed5247adbc266d26c3fbbac21 bc0cbe2608bc9eac997f2a83cdd081ecbb152745 ghiffa08 <haikal1080p@gmail.com> 1782711092 +0700	commit: chore: update database migrations indexing
+bc0cbe2608bc9eac997f2a83cdd081ecbb152745 94aa84052a54bbe4f962dd7434723611aa519950 ghiffa08 <haikal1080p@gmail.com> 1782701029 +0700	commit: test: add unit tests for valve telemetry controller
+94aa84052a54bbe4f962dd7434723611aa519950 31e5506efbfd76bc5d4d1c266b6a62fb2d659045 ghiffa08 <haikal1080p@gmail.com> 1782793655 +0700	commit: chore: revert entire layout and routes to TailAdmin (pre-filament)
