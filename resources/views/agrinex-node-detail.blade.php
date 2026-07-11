@@ -59,10 +59,10 @@
                                     <span class="text-sm font-bold text-lightText uppercase tracking-wider">Status Koneksi</span>
                                     <div class="px-3 py-1.5 rounded-full shadow-[inset_4px_4px_8px_#a3b1c6,inset_-4px_-4px_8px_#ffffff] flex items-center gap-2">
                                         <div class="w-2.5 h-2.5 rounded-full" 
-                                             :class="node?.connection_state === 'connected' ? 'bg-[#00D26A] shadow-[0_0_8px_#00D26A]' : 'bg-[#EF4444] animate-pulse'"></div>
+                                             :class="node?.connection_state === 'online' ? 'bg-[#00D26A] shadow-[0_0_8px_#00D26A]' : 'bg-[#EF4444] animate-pulse'"></div>
                                         <span class="text-[10px] font-bold uppercase tracking-wider"
-                                              :class="node?.connection_state === 'connected' ? 'text-[#00D26A]' : 'text-[#EF4444]'"
-                                              x-text="node?.connection_state === 'connected' ? 'ONLINE' : 'OFFLINE'"></span>
+                                              :class="node?.connection_state === 'online' ? 'text-[#00D26A]' : 'text-[#EF4444]'"
+                                              x-text="node?.connection_state === 'online' ? 'ONLINE' : 'OFFLINE'"></span>
                                     </div>
                                 </div>
                                 <div class="text-xs text-lightText font-medium">

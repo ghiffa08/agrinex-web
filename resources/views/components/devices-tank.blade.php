@@ -30,10 +30,10 @@
                             </div>
                             <div class="flex items-center gap-2 px-3 py-1 rounded-full shadow-[inset_4px_4px_8px_#a3b1c6,inset_-4px_-4px_8px_#ffffff]">
                                 <div class="w-2 h-2 rounded-full" 
-                                     :class="node.connection_state === 'connected' ? 'bg-[#00D26A]' : 'bg-[#EF4444] animate-pulse'"></div>
+                                     :class="node.connection_state === 'online' ? 'bg-[#00D26A]' : 'bg-[#EF4444] animate-pulse'"></div>
                                 <span class="text-[10px] font-bold uppercase tracking-wider"
-                                      :class="node.connection_state === 'connected' ? 'text-[#00D26A]' : 'text-[#EF4444]'"
-                                      x-text="node.connection_state === 'connected' ? 'ONLINE' : 'OFFLINE'"></span>
+                                      :class="node.connection_state === 'online' ? 'text-[#00D26A]' : 'text-[#EF4444]'"
+                                      x-text="node.connection_state === 'online' ? 'ONLINE' : 'OFFLINE'"></span>
                             </div>
                         </div>
                         

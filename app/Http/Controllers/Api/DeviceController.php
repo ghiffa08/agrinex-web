@@ -3,76 +3,57 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Services\DeviceService;
 use Illuminate\Http\JsonResponse;
 
 class DeviceController extends Controller
 {
+    public function __construct(protected DeviceService $deviceService) {}
+
     /**
-     * Get irrigation sessions for a specific device
+     * GET /api/devices/{deviceId}/irrigation/sessions
      */
-    public function getIrrigationSessions($deviceId): JsonResponse
+    public function getIrrigationSessions(int|string $deviceId): JsonResponse
     {
-        // Mock data - implement when irrigate_logs table available
+        $data = $this->deviceService->getIrrigationSessions($deviceId);
+
         return response()->json([
-            'success' => true,
-            'data' => [],
-            'note' => 'irrigate_logs table not available'
+            'success'  => true,
+            'sessions' => $data['sessions'],
+            'summary'  => $data['summary'],
         ]);
     }
 
     /**
-     * Get usage history for a specific device
+     * GET /api/devices/{deviceId}/usage-history
      */
-    public function getUsageHistory($deviceId): JsonResponse
+    public function getUsageHistory(int|string $deviceId): JsonResponse
     {
-        // Mock data - implement when irrigate_logs table available
+        $data = $this->deviceService->getUsageHistory($deviceId);
+
         return response()->json([
             'success' => true,
-            'data' => [],
-            'note' => 'irrigate_logs table not available'
+            'history' => $data['history'],
         ]);
     }
 
     /**
-     * Get chart history data for a specific device
+     * GET /api/devices/{deviceId}/chart-data
      */
-    public function getChartData($deviceId): JsonResponse
+    public function getChartData(int|string $deviceId): JsonResponse
     {
         try {
-            $response = \Illuminate\Support\Facades\Cache::remember("chart_data_{$deviceId}", 5, function () use ($deviceId) {
-                $data = \App\Models\SensorNodeData::where('node_id', $deviceId)
-                            ->orderBy('received_at', 'desc')
-                            ->take(100)
-                            ->get()
-                            ->reverse()
-                            ->values();
-                
-                $labels = [];
-                $temperature = [];
-                $soilMoisture = [];
-                
-                foreach ($data as $item) {
-                    $time = \Carbon\Carbon::parse($item->received_at)->format('H:i');
-                    $labels[] = $time;
-                    $temperature[] = (float) $item->temp_c;
-                    $soilMoisture[] = (float) $item->soil_pct;
-                }
+            $data = $this->deviceService->getChartData($deviceId);
 
-                return [
-                    'success' => true,
-                    'labels' => $labels,
-                    'datasets' => [
-                        'temperature' => $temperature,
-                        'soil_moisture' => $soilMoisture,
-                    ]
-                ];
-            });
-
-            return response()->json($response);
+            return response()->json([
+                'success'  => true,
+                'labels'   => $data['labels'],
+                'datasets' => $data['datasets'],
+            ]);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error fetching chart data: ' . $e->getMessage()
+                'message' => 'Error fetching chart data: ' . $e->getMessage(),
             ], 500);
         }
     }

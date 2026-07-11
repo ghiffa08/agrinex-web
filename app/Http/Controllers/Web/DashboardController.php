@@ -3,211 +3,69 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\DataSession;
-use App\Models\IrrigationLog;
-use App\Models\Device;
-use App\Models\DeviceLog;
-use App\Models\SensorData;
-use App\Models\WeatherData;
-use App\Models\ValveLog;
-use Carbon\Carbon;
+use App\Repositories\Contracts\DashboardRepositoryInterface;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
+    public function __construct(
+        protected DashboardRepositoryInterface $dashboardRepo
+    ) {}
+
     /**
-     * Show the dashboard
+     * Admin dashboard - statistics view
      */
     public function index()
     {
-        // Get all devices (formerly nodes)
-        $nodes = Device::all();
-        
-        // Statistics
+        $devices = $this->dashboardRepo->getDevices();
+        $tank    = $this->dashboardRepo->getTank();
+
         $stats = [
-            'total_nodes' => $nodes->count(),
-            'active_nodes' => $this->getActiveNodes(),
-            'total_plots' => $nodes->whereNotNull('kode_perlakuan')->count(),
-            'active_alerts' => $this->getActiveAlerts(),
-            'ongoing_irrigation' => IrrigationLog::whereNull('ended_at')->count(),
+            'total_nodes'        => count($devices),
+            'active_nodes'       => count(array_filter($devices, fn ($d) => $d['connection_state'] === 'online')),
+            'total_plots'        => count(array_filter($devices, fn ($d) => !empty($d['kode_perlakuan']))),
+            'active_alerts'      => 0,
+            'ongoing_irrigation' => 0,
         ];
 
-        // Get latest sensor readings for each device
-        $nodesWithData = $nodes->map(function ($node) {
-            $latestData = SensorData::where('device_id', $node->id)
-                ->latest('recorded_at')
-                ->first();
-            
-            $latestLog = DeviceLog::where('device_id', $node->id)
-                ->latest('logged_at')
-                ->first();
-            
-            $node->latestReading = $latestData;
-            $node->lastCommunication = $latestLog?->logged_at;
-            $node->is_active = $latestLog && Carbon::parse($latestLog->logged_at)->gt(Carbon::now()->subHours(24));
-            
-            return $node;
-        });
-
-        // Get latest weather data (Assuming Device ID 65 is still weather)
-        $weather = WeatherData::where('device_id', 65)
-            ->latest('recorded_at')
-            ->first();
-
-        // Get recent alerts (from node logs with status issues)
-        $recentAlerts = $this->getRecentAlerts();
-
-        // Get today's irrigation events
-        $todayIrrigation = IrrigationLog::whereDate('started_at', Carbon::today())
-            ->latest('started_at')
-            ->limit(5)
-            ->get();
-
-        return view('dashboard.index', compact(
-            'stats',
-            'nodes',
-            'nodesWithData',
-            'weather',
-            'recentAlerts',
-            'todayIrrigation'
-        ));
+        return view('dashboard.index', compact('stats', 'devices', 'tank'));
     }
 
     /**
-     * Get chart data for specific node
+     * Chart data for a specific node - delegated to API
      */
-    public function chartData(Request $request)
+    public function chartData(Request $request): JsonResponse
     {
-        $nodeId = $request->input('node_id');
-        $hours = $request->input('hours', 24);
-        
-        $startTime = Carbon::now()->subHours($hours);
-        
-        // Get sensor node data
-        $sensorData = SensorData::where('device_id', $nodeId)
-            ->where('recorded_at', '>=', $startTime)
-            ->orderBy('recorded_at')
-            ->get();
-        
-        // Get weather data
-        $weatherData = WeatherData::where('device_id', 65)
-            ->where('recorded_at', '>=', $startTime)
-            ->orderBy('recorded_at')
-            ->get();
-        
-        $labels = $sensorData->pluck('recorded_at')->map(function ($date) {
-            return Carbon::parse($date)->format('H:i');
-        });
-        
+        // Thin proxy - actual logic lives in DeviceService via DeviceController
         return response()->json([
-            'labels' => $labels,
-            'soil_moisture' => $sensorData->pluck('soil_moisture'),
-            'soil_temperature' => $sensorData->pluck('temperature'),
-            'air_temperature' => $weatherData->pluck('temp_c'),
-            'air_humidity' => $weatherData->pluck('humidity_pct'),
-        ]);
+            'message' => 'Use /api/devices/{id}/chart-data instead',
+        ], 301);
     }
 
     /**
-     * Get realtime data for dashboard refresh
+     * Realtime data - delegated to API
      */
-    public function realtimeData()
+    public function realtimeData(): JsonResponse
     {
-        $nodes = Device::all()->map(function ($node) {
-            $latestData = SensorData::where('device_id', $node->id)
-                ->latest('recorded_at')
-                ->first();
-            
-            return [
-                'node_id' => $node->id,
-                'node_code' => $node->id,
-                'soil_moisture' => $latestData?->soil_moisture,
-                'temperature' => $latestData?->temperature,
-                'last_reading' => $latestData?->recorded_at,
-            ];
-        });
+        $devices = $this->dashboardRepo->getDevices();
 
         return response()->json([
-            'nodes' => $nodes,
-            'active_alerts' => $this->getActiveAlerts(),
+            'nodes'     => array_map(fn ($d) => [
+                'node_id'      => $d['id'],
+                'soil_moisture' => $d['soil_moisture_pct'],
+                'temperature'   => $d['temperature_c'],
+                'last_reading'  => $d['last_seen'],
+            ], $devices),
             'timestamp' => now(),
         ]);
     }
 
     /**
-     * Show the monitor page
+     * System monitor page
      */
     public function monitor()
     {
         return view('monitor');
-    }
-
-    /**
-     * Get count of active nodes (communicated in last 24 hours)
-     */
-    private function getActiveNodes()
-    {
-        return DeviceLog::where('is_active', true)
-            ->where('logged_at', '>=', Carbon::now()->subHours(24))
-            ->distinct('device_id')
-            ->count();
-    }
-
-    /**
-     * Get active alerts from node logs
-     */
-    private function getActiveAlerts()
-    {
-        return DeviceLog::where('logged_at', '>=', Carbon::now()->subHours(24))
-            ->where('is_active', false)
-            ->orWhereRaw("LOWER(remarks) LIKE '%error%'")
-            ->orWhereRaw("LOWER(remarks) LIKE '%gagal%'")
-            ->count();
-    }
-
-    /**
-     * Get recent alerts
-     */
-    private function getRecentAlerts()
-    {
-        $alerts = [];
-        
-        // Check for nodes with communication issues
-        $failedNodes = DeviceLog::where('logged_at', '>=', Carbon::now()->subHours(24))
-            ->where('is_active', false)
-            ->latest('logged_at')
-            ->limit(5)
-            ->get();
-        
-        foreach ($failedNodes as $log) {
-            $alerts[] = (object)[
-                'severity' => 'warning',
-                'message' => "Device {$log->device_id} communication failed",
-                'timestamp' => $log->logged_at,
-            ];
-        }
-        
-        // Check for low soil moisture
-        $lowMoisture = SensorData::where('recorded_at', '>=', Carbon::now()->subHours(24))
-            ->where('soil_moisture', '<', 30)
-            ->latest('recorded_at')
-            ->limit(3)
-            ->get();
-        
-        foreach ($lowMoisture as $reading) {
-            $alerts[] = (object)[
-                'severity' => 'critical',
-                'message' => "Low soil moisture on Device {$reading->device_id} ({$reading->soil_moisture}%)",
-                'timestamp' => $reading->recorded_at,
-            ];
-        }
-        
-        // Sort by timestamp
-        usort($alerts, function ($a, $b) {
-            return Carbon::parse($b->timestamp)->timestamp - Carbon::parse($a->timestamp)->timestamp;
-        });
-        
-        return array_slice($alerts, 0, 5);
     }
 }

@@ -3,299 +3,237 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\JsonBackup;
-use Illuminate\Http\Request;
 use App\Services\ChartDataService;
 use App\Http\Resources\ChartDataResource;
 use App\Repositories\Contracts\DashboardRepositoryInterface;
+use App\Repositories\Contracts\JsonBackupRepositoryInterface;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class DashboardApiController extends Controller
 {
-    protected $dashboardRepository;
-
-    public function __construct(DashboardRepositoryInterface $dashboardRepository)
-    {
-        $this->dashboardRepository = $dashboardRepository;
-    }
+    public function __construct(
+        protected DashboardRepositoryInterface  $dashboardRepo,
+        protected JsonBackupRepositoryInterface $backupRepo,
+    ) {}
 
     /**
-     * Get all devices with latest sensor data
      * GET /api/v1/dashboard/devices
      */
-    public function getDevices()
+    public function getDevices(): JsonResponse
     {
         try {
-            $devices = $this->dashboardRepository->getDevices();
-
-            if (empty($devices)) {
-                return response()->json([
-                    'success' => true,
-                    'data' => [],
-                    'message' => 'No nodes found'
-                ]);
-            }
+            $devices = $this->dashboardRepo->getDevices();
 
             return response()->json([
-                'success' => true,
-                'data'    => $devices,
-                'session_info' => [
-                    'total_nodes' => count($devices),
-                ]
+                'success'      => true,
+                'data'         => $devices,
+                'session_info' => ['total_nodes' => count($devices)],
             ]);
-
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Error fetching devices: ' . $e->getMessage()
-            ], 500);
+            return $this->serverError('Error fetching devices', $e);
         }
     }
-    
+
     /**
-     * Get water tank information
      * GET /api/v1/dashboard/tank
      */
-    public function getTank()
+    public function getTank(): JsonResponse
     {
         try {
-            $tank = $this->dashboardRepository->getTank();
+            return response()->json([
+                'success' => true,
+                'data'    => $this->dashboardRepo->getTank(),
+            ]);
+        } catch (\Exception $e) {
+            // Return a safe default instead of 500
+            return response()->json([
+                'success' => true,
+                'data'    => $this->emptyTank(),
+                'note'    => 'No data available',
+            ]);
+        }
+    }
+
+    /**
+     * GET /api/v1/dashboard/schedule
+     */
+    public function getSchedule(): JsonResponse
+    {
+        try {
+            $schedule = $this->dashboardRepo->getSchedule();
 
             return response()->json([
                 'success' => true,
-                'data' => $tank
-            ]);
-            
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => true,
-                'data' => [
-                    'id' => null,
-                    'tank_name' => 'Tangki Air Utama',
-                    'name' => 'Tangki Air Utama',
-                    'capacity' => 0,
-                    'capacity_liters' => 0,
-                    'current_volume_liters' => 0,
-                    'water_level_cm' => 0,
-                    'percentage' => 0,
-                    'status' => 'no_data',
-                    'updated_at' => null
-                ],
-                'note' => 'No data available'
-            ]);
-        }
-    }
-    
-    /**
-     * Get irrigation schedule
-     * GET /api/v1/dashboard/schedule
-     */
-    public function getSchedule()
-    {
-        try {
-            $schedule = $this->dashboardRepository->getSchedule();
-            
-            return response()->json([
-                'success' => true,
-                'data' => [
-                    'date' => today()->format('Y-m-d'),
+                'data'    => [
+                    'date'           => today()->format('Y-m-d'),
                     'total_sessions' => count($schedule),
-                    'sessions' => $schedule
-                ]
+                    'sessions'       => $schedule,
+                ],
             ]);
-            
         } catch (\Exception $e) {
             return response()->json([
                 'success' => true,
-                'data' => [
-                    'date' => today()->format('Y-m-d'),
-                    'total_sessions' => 0,
-                    'sessions' => []
-                ],
-                'note' => 'No data available: ' . $e->getMessage()
+                'data'    => ['date' => today()->format('Y-m-d'), 'total_sessions' => 0, 'sessions' => []],
+                'note'    => 'No data available',
             ]);
         }
     }
-    
+
     /**
-     * Get 30-day water usage history
      * GET /api/v1/dashboard/usage
      */
-    public function getUsage()
+    public function getUsage(): JsonResponse
     {
         try {
-            $usage = $this->dashboardRepository->getUsage();
-            
+            $usage = $this->dashboardRepo->getUsage();
+
             return response()->json([
                 'success' => true,
-                'data' => $usage,
-                'summary' => [
-                    'total_days' => count($usage),
-                    'total_usage_l' => array_sum(array_column($usage, 'total_l')),
-                    'average_usage_l' => count($usage) > 0 ? round(array_sum(array_column($usage, 'total_l')) / count($usage), 2) : 0,
-                    'period' => '30 days'
-                ]
+                'data'    => $usage,
+                'summary' => $this->usageSummary($usage, 'total_days', '30 days'),
             ]);
-            
         } catch (\Exception $e) {
             return response()->json([
                 'success' => true,
-                'data' => [],
-                'summary' => [
-                    'total_days' => 0,
-                    'total_usage_l' => 0,
-                    'average_usage_l' => 0,
-                    'period' => '30 days'
-                ],
-                'note' => 'No data available: ' . $e->getMessage()
+                'data'    => [],
+                'summary' => $this->usageSummary([], 'total_days', '30 days'),
             ]);
         }
     }
-    
+
     /**
-     * Get 24-hour water usage history (hourly)
      * GET /api/v1/dashboard/usage/daily
      */
-    public function getUsageDaily()
+    public function getUsageDaily(): JsonResponse
     {
         try {
-            $usage = $this->dashboardRepository->getUsageDaily();
-            
+            $usage = $this->dashboardRepo->getUsageDaily();
+
             return response()->json([
                 'success' => true,
-                'data' => $usage,
-                'summary' => [
-                    'total_hours' => count($usage),
-                    'total_usage_l' => array_sum(array_column($usage, 'total_l')),
-                    'average_usage_l' => count($usage) > 0 ? round(array_sum(array_column($usage, 'total_l')) / count($usage), 2) : 0,
-                    'period' => '24 hours'
-                ]
+                'data'    => $usage,
+                'summary' => $this->usageSummary($usage, 'total_hours', '24 hours'),
             ]);
-            
         } catch (\Exception $e) {
             return response()->json([
                 'success' => true,
-                'data' => [],
-                'summary' => [
-                    'total_hours' => 0,
-                    'total_usage_l' => 0,
-                    'average_usage_l' => 0,
-                    'period' => '24 hours'
-                ],
-                'note' => 'No data available: ' . $e->getMessage()
+                'data'    => [],
+                'summary' => $this->usageSummary([], 'total_hours', '24 hours'),
             ]);
         }
     }
-    
+
     /**
-     * Get chart data for environmental monitoring
      * GET /api/v1/dashboard/charts
      */
-    public function getChartData(Request $request, ChartDataService $chartService)
+    public function getChartData(Request $request, ChartDataService $chartService): JsonResponse
     {
         try {
-            $type = $request->input('type', 'all');
-            $days = $request->input('days', 7);
-            $limit = $request->input('limit', null);
-            
+            $type   = $request->input('type', 'all');
+            $days   = $request->input('days', 7);
+            $limit  = $request->input('limit');
+
             $result = $chartService->getSessions($days, $limit);
-            
-            $formattedData = (new ChartDataResource($result['sessions']))
-                                ->setType($type)
-                                ->resolve();
-            
+
+            $formatted = (new ChartDataResource($result['sessions']))
+                ->setType($type)
+                ->resolve();
+
             return response()->json([
                 'success' => true,
-                'data' => $formattedData,
-                'meta' => [
-                    'total_points' => $result['sessions']->count(),
+                'data'    => $formatted,
+                'meta'    => [
+                    'total_points'    => $result['sessions']->count(),
                     'time_range_days' => $days ?? ($limit ? 'limited' : 7),
-                    'start_time' => $result['start_time']->format('Y-m-d H:i:s'),
-                    'end_time' => now()->format('Y-m-d H:i:s')
-                ]
+                    'start_time'      => $result['start_time']->format('Y-m-d H:i:s'),
+                    'end_time'        => now()->format('Y-m-d H:i:s'),
+                ],
             ]);
-            
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Error fetching chart data: ' . $e->getMessage()
-            ], 500);
+            return $this->serverError('Error fetching chart data', $e);
         }
     }
-    
+
     /**
-     * Get current weather from latest sensor reading
      * GET /api/v1/dashboard/weather
      */
-    public function getWeather()
+    public function getWeather(): JsonResponse
     {
         try {
-            $weather = $this->dashboardRepository->getWeather();
-            
+            $weather = $this->dashboardRepo->getWeather();
+
             if (!$weather) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'No weather data available'
-                ], 200); // 200 to prevent console errors
+                return response()->json(['success' => false, 'message' => 'No weather data available']);
             }
-            
-            return response()->json([
-                'success' => true,
-                'data' => $weather
-            ]);
-            
+
+            return response()->json(['success' => true, 'data' => $weather]);
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Error fetching weather: ' . $e->getMessage()
-            ], 500);
+            return $this->serverError('Error fetching weather', $e);
         }
     }
-    
+
     /**
-     * Get JSON backup history
      * GET /api/v1/dashboard/json-backup
      */
-    public function getJsonBackup(Request $request)
+    public function getJsonBackup(Request $request): JsonResponse
     {
         try {
-            $query = JsonBackup::orderBy('backup_timestamp', 'desc');
-            
-            // Filter by sesi_id_getdata if provided
-            if ($request->has('sesi_id_getdata')) {
-                $query->where('sesi_id_getdata', $request->sesi_id_getdata);
-            }
-            
-            // Filter by date range if provided
-            if ($request->has('date_from')) {
-                $query->whereDate('backup_timestamp', '>=', $request->date_from);
-            }
-            if ($request->has('date_to')) {
-                $query->whereDate('backup_timestamp', '<=', $request->date_to);
-            }
-            
-            // Limit results
-            $limit = min($request->get('limit', 50), 200);
-            $backups = $query->limit($limit)->get();
-            
+            $limit   = min((int) $request->get('limit', 50), 200);
+            $filters = $request->only(['sesi_id_getdata', 'date_from', 'date_to']);
+
+            $backups = $this->backupRepo->getBackups($filters, $limit);
+
             return response()->json([
-                'success' => true,
-                'data' => $backups,
+                'success'  => true,
+                'data'     => $backups,
                 'metadata' => [
-                    'total_records' => $backups->count(),
-                    'limit' => $limit,
-                    'filters_applied' => [
-                        'sesi_id_getdata' => $request->sesi_id_getdata,
-                        'date_from' => $request->date_from,
-                        'date_to' => $request->date_to,
-                    ]
-                ]
+                    'total_records'   => $backups->count(),
+                    'limit'           => $limit,
+                    'filters_applied' => $filters,
+                ],
             ]);
-            
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Error fetching JSON backup: ' . $e->getMessage()
-            ], 500);
+            return $this->serverError('Error fetching JSON backup', $e);
         }
+    }
+
+    // ─── Helpers ─────────────────────────────────────────────────────────────
+
+    private function usageSummary(array $usage, string $countKey, string $period): array
+    {
+        $total = array_sum(array_column($usage, 'total_l'));
+        $count = count($usage);
+
+        return [
+            $countKey    => $count,
+            'total_usage_l'   => $total,
+            'average_usage_l' => $count > 0 ? round($total / $count, 2) : 0,
+            'period'          => $period,
+        ];
+    }
+
+    private function emptyTank(): array
+    {
+        return [
+            'id'                    => null,
+            'tank_name'             => 'Tangki Air Utama',
+            'name'                  => 'Tangki Air Utama',
+            'capacity'              => 0,
+            'capacity_liters'       => 0,
+            'current_volume_liters' => 0,
+            'water_level_cm'        => 0,
+            'percentage'            => 0,
+            'status'                => 'no_data',
+            'updated_at'            => null,
+        ];
+    }
+
+    private function serverError(string $message, \Exception $e): JsonResponse
+    {
+        return response()->json([
+            'success' => false,
+            'message' => $message . ': ' . $e->getMessage(),
+        ], 500);
     }
 }
