@@ -29,8 +29,8 @@ jobs:
             
             # 3. [OPSIONAL] Jalankan command build/install sesuai framework Anda
             # Jika pakai Laravel:
-            # composer install --no-interaction --prefer-dist --optimize-autoloader
-            # php artisan migrate --force
+            composer install --no-interaction --prefer-dist --optimize-autoloader
+            php artisan optimize:clear
             
             # Jika pakai Node.js (Next/React/Vue):
             # npm install
