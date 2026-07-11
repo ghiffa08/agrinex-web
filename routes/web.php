@@ -35,6 +35,15 @@ Route::get('/connection-test', [TestConnectionController::class, 'index'])->name
 Route::get('/database-cleanup', [CleanupController::class, 'index'])->name('cleanup');
 Route::post('/database-cleanup/execute', [CleanupController::class, 'execute'])->name('cleanup.execute');
 
+// Hostinger / Shared Hosting Optimization Helper
+Route::get('/hostinger-optimize-artisan-route-99x', function () {
+    \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+    \Illuminate\Support\Facades\Artisan::call('config:cache');
+    \Illuminate\Support\Facades\Artisan::call('route:cache');
+    \Illuminate\Support\Facades\Artisan::call('view:cache');
+    return 'Hostinger optimization complete: config, routes, and views cached successfully.';
+});
+
 // Authentication Routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');

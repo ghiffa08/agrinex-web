@@ -43,24 +43,58 @@ class DeviceService
 
     /**
      * Get irrigation sessions for a specific device.
-     * Returns empty until irrigate_logs table is properly wired.
      */
     public function getIrrigationSessions(int|string $deviceId): array
     {
-        return [
-            'sessions' => [],
-            'summary'  => null,
-        ];
+        return Cache::remember("irrigation_sessions_{$deviceId}", 300, function () use ($deviceId) {
+            $hasTable = \Illuminate\Support\Facades\Schema::hasTable('irrigation_logs');
+            if (!$hasTable) {
+                return ['sessions' => [], 'summary' => null];
+            }
+
+            $sessions = \Illuminate\Support\Facades\DB::table('valve_logs')
+                ->join('irrigation_logs', 'valve_logs.irrigation_log_id', '=', 'irrigation_logs.id')
+                ->where('valve_logs.device_id', $deviceId)
+                ->orderBy('irrigation_logs.started_at', 'desc')
+                ->limit(20)
+                ->select('irrigation_logs.id as session_id', 'irrigation_logs.started_at', 'irrigation_logs.ended_at', 'irrigation_logs.status', 'valve_logs.valve_status')
+                ->get()
+                ->toArray();
+
+            return [
+                'sessions' => $sessions,
+                'summary'  => ['total_sessions' => count($sessions)],
+            ];
+        });
     }
 
     /**
      * Get usage history (last 7 days) for a specific device.
-     * Returns empty until irrigate_logs table is properly wired.
      */
     public function getUsageHistory(int|string $deviceId): array
     {
-        return [
-            'history' => [],
-        ];
+        return Cache::remember("usage_history_{$deviceId}", 300, function () use ($deviceId) {
+            $hasTable = \Illuminate\Support\Facades\Schema::hasTable('irrigation_logs');
+            if (!$hasTable) {
+                return ['history' => []];
+            }
+
+            $hasVolume = \Illuminate\Support\Facades\Schema::hasColumn('valve_logs', 'volume_ml');
+            $volumeSql = $hasVolume ? 'SUM(valve_logs.volume_ml)' : '0';
+
+            $history = \Illuminate\Support\Facades\DB::table('valve_logs')
+                ->join('irrigation_logs', 'valve_logs.irrigation_log_id', '=', 'irrigation_logs.id')
+                ->where('valve_logs.device_id', $deviceId)
+                ->where('irrigation_logs.started_at', '>=', Carbon::now()->subDays(7))
+                ->groupByRaw('DATE(irrigation_logs.started_at)')
+                ->orderByRaw('DATE(irrigation_logs.started_at) ASC')
+                ->selectRaw("DATE(irrigation_logs.started_at) as date, COUNT(valve_logs.id) as count, {$volumeSql} as total_volume_ml")
+                ->get()
+                ->toArray();
+
+            return [
+                'history' => $history,
+            ];
+        });
     }
 }

@@ -191,19 +191,23 @@ class EloquentDashboardRepository implements DashboardRepositoryInterface
             if (!$this->hasIrrigationLogsTable()) {
                 return [];
             }
+            $hasVolume = Schema::hasColumn('valve_logs', 'volume_ml');
+            $volumeSql = $hasVolume ? 'SUM(v.volume_ml)' : '0';
 
-            return IrrigationLog::where('started_at', '>=', Carbon::now()->subDays(30))
-                ->where('status', 'completed')
-                ->with('valveLogs')
+            return DB::table('irrigation_logs as i')
+                ->selectRaw("DATE(i.started_at) as date, COUNT(DISTINCT i.id) as sessions, COALESCE({$volumeSql}, 0) as total_volume")
+                ->leftJoin('valve_logs as v', 'i.id', '=', 'v.irrigation_log_id')
+                ->where('i.started_at', '>=', Carbon::now()->subDays(30))
+                ->where('i.status', 'completed')
+                ->groupByRaw('DATE(i.started_at)')
+                ->orderByRaw('DATE(i.started_at) ASC')
                 ->get()
-                ->groupBy(fn ($item) => Carbon::parse($item->started_at)->format('Y-m-d'))
-                ->map(fn ($daySessions, $date) => [
-                    'date'         => $date,
-                    'usage_date'   => $date,
-                    'total_l'      => round($daySessions->sum(fn ($s) => $s->valveLogs->sum('volume_ml')) / 1000, 2),
-                    'sessions'     => $daySessions->count(),
+                ->map(fn ($row) => [
+                    'date'       => $row->date,
+                    'usage_date' => $row->date,
+                    'total_l'    => round($row->total_volume / 1000, 2),
+                    'sessions'   => (int) $row->sessions,
                 ])
-                ->values()
                 ->toArray();
         });
     }
@@ -214,19 +218,23 @@ class EloquentDashboardRepository implements DashboardRepositoryInterface
             if (!$this->hasIrrigationLogsTable()) {
                 return [];
             }
+            $hasVolume = Schema::hasColumn('valve_logs', 'volume_ml');
+            $volumeSql = $hasVolume ? 'SUM(v.volume_ml)' : '0';
 
-            return IrrigationLog::where('started_at', '>=', Carbon::now()->subHours(24))
-                ->where('status', 'completed')
-                ->with('valveLogs')
+            return DB::table('irrigation_logs as i')
+                ->selectRaw("DATE_FORMAT(i.started_at, '%Y-%m-%d %H:00') as datetime, COUNT(DISTINCT i.id) as sessions, COALESCE({$volumeSql}, 0) as total_volume")
+                ->leftJoin('valve_logs as v', 'i.id', '=', 'v.irrigation_log_id')
+                ->where('i.started_at', '>=', Carbon::now()->subHours(24))
+                ->where('i.status', 'completed')
+                ->groupByRaw("DATE_FORMAT(i.started_at, '%Y-%m-%d %H:00')")
+                ->orderByRaw("DATE_FORMAT(i.started_at, '%Y-%m-%d %H:00') ASC")
                 ->get()
-                ->groupBy(fn ($item) => Carbon::parse($item->started_at)->format('Y-m-d H:00'))
-                ->map(fn ($hourSessions, $datetime) => [
-                    'hour'      => Carbon::parse($datetime)->format('H:00'),
-                    'datetime'  => $datetime,
-                    'total_l'   => round($hourSessions->sum(fn ($s) => $s->valveLogs->sum('volume_ml')) / 1000, 2),
-                    'sessions'  => $hourSessions->count(),
+                ->map(fn ($row) => [
+                    'hour'      => Carbon::parse($row->datetime)->format('H:00'),
+                    'datetime'  => $row->datetime,
+                    'total_l'   => round($row->total_volume / 1000, 2),
+                    'sessions'  => (int) $row->sessions,
                 ])
-                ->values()
                 ->toArray();
         });
     }

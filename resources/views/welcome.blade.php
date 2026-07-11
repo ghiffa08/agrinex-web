@@ -82,7 +82,7 @@
     @include('components.bottom-nav')
 
     @include('components.modals')
-    @include('partials.chart-fix')
+
 
     </div>
 
