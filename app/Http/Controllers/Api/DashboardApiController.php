@@ -29,7 +29,8 @@ class DashboardApiController extends Controller
                 'success'      => true,
                 'data'         => $devices,
                 'session_info' => ['total_nodes' => count($devices)],
-            ]);
+            ])->header('Cache-Control', 'public, max-age=30')
+              ->header('X-Content-Type-Options', 'nosniff');
         } catch (\Exception $e) {
             return $this->serverError('Error fetching devices', $e);
         }
@@ -44,14 +45,15 @@ class DashboardApiController extends Controller
             return response()->json([
                 'success' => true,
                 'data'    => $this->dashboardRepo->getTank(),
-            ]);
+            ])->header('Cache-Control', 'public, max-age=60')
+              ->header('X-Content-Type-Options', 'nosniff');
         } catch (\Exception $e) {
             // Return a safe default instead of 500
             return response()->json([
                 'success' => true,
                 'data'    => $this->emptyTank(),
                 'note'    => 'No data available',
-            ]);
+            ])->header('Cache-Control', 'public, max-age=30');
         }
     }
 

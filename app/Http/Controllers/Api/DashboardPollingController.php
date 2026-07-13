@@ -123,7 +123,6 @@ class DashboardPollingController extends Controller
     }
 
     /**
-     * Get environment summary (aggregated sensor + BMKG weather)
      * GET /api/v1/dashboard/environment
      */
     public function environment(Request $request)
@@ -134,7 +133,8 @@ class DashboardPollingController extends Controller
             return response()->json([
                 'success' => true,
                 'data' => $summary,
-            ]);
+            ])->header('Cache-Control', 'public, max-age=60')
+              ->header('X-Content-Type-Options', 'nosniff');
 
         } catch (\Exception $e) {
             Log::error('Environment summary error', [
@@ -144,7 +144,8 @@ class DashboardPollingController extends Controller
             
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to fetch environment summary: ' . $e->getMessage(),
+                'message' => 'Failed to fetch environment summary',
+                'data' => null,
             ], 500);
         }
     }

@@ -35,11 +35,13 @@ Route::prefix('v1')->group(function () {
     });
     
     // Dashboard Endpoints (NEW - for web dashboard)
-    Route::prefix('dashboard')->group(function () {
+    Route::prefix('dashboard')->middleware(['throttle:120,1'])->group(function () {
         Route::get('/poll', [DashboardPollingController::class, 'poll']);
         Route::get('/poll-status', [DashboardPollingController::class, 'pollStatus']);
         Route::get('/environment', [DashboardPollingController::class, 'environment']);
         Route::get('/status', [DashboardPollingController::class, 'status']); // deprecated
+        Route::get('/devices', [DashboardApiController::class, 'getDevices']);
+        Route::get('/tank', [DashboardApiController::class, 'getTank']);
         Route::get('/schedule', [DashboardApiController::class, 'getSchedule']);
         Route::get('/usage', [DashboardApiController::class, 'getUsage']);
         Route::get('/usage/daily', [DashboardApiController::class, 'getUsageDaily']);
