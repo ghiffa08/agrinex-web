@@ -17,19 +17,22 @@ class SensorDataService
     protected $weatherRepo;
     protected $sessionRepo;
     protected $logRepo;
+    protected CacheService $cacheService;
 
     public function __construct(
         DeviceRepositoryInterface $deviceRepo,
         SensorDataRepositoryInterface $sensorRepo,
         WeatherDataRepositoryInterface $weatherRepo,
         SessionRepositoryInterface $sessionRepo,
-        LogRepositoryInterface $logRepo
+        LogRepositoryInterface $logRepo,
+        CacheService $cacheService
     ) {
         $this->deviceRepo = $deviceRepo;
         $this->sensorRepo = $sensorRepo;
         $this->weatherRepo = $weatherRepo;
         $this->sessionRepo = $sessionRepo;
         $this->logRepo = $logRepo;
+        $this->cacheService = $cacheService;
     }
 
     public function processSensorData(array $requestData)
@@ -133,15 +136,25 @@ class SensorDataService
     public function getLatestReadings($nodeId = null)
     {
         if ($nodeId) {
-            return $this->sensorRepo->getLatestForNode($nodeId);
+            return $this->cacheService->remember(
+                "sensor_latest_{$nodeId}",
+                CacheService::TTL_SHORT,
+                fn() => $this->sensorRepo->getLatestForNode($nodeId)
+            );
         }
-        return $this->sensorRepo->getLatestForDevices();
+        return $this->cacheService->remember(
+            'sensor_latest_all',
+            CacheService::TTL_SHORT,
+            fn() => $this->sensorRepo->getLatestForDevices()
+        );
     }
 
     public function getLatestWeatherData()
     {
-        return \Illuminate\Support\Facades\Cache::remember('dashboard_weather_repo', 60, function () {
-            return $this->weatherRepo->getLatestWeatherData();
-        });
+        return $this->cacheService->remember(
+            CacheService::KEY_DASHBOARD_WEATHER,
+            CacheService::TTL_SHORT,
+            fn() => $this->weatherRepo->getLatestWeatherData()
+        );
     }
 }

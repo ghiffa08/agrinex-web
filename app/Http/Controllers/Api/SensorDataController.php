@@ -11,10 +11,12 @@ use Illuminate\Support\Facades\Validator;
 class SensorDataController extends Controller
 {
     protected $sensorService;
+    protected $cacheService;
 
-    public function __construct(SensorDataService $sensorService)
+    public function __construct(SensorDataService $sensorService, \App\Services\CacheService $cacheService)
     {
         $this->sensorService = $sensorService;
+        $this->cacheService = $cacheService;
     }
 
     /**
@@ -65,9 +67,8 @@ class SensorDataController extends Controller
                 $request->all()
             );
 
-            \Illuminate\Support\Facades\Cache::forget('dashboard_devices_repo');
-            \Illuminate\Support\Facades\Cache::forget('dashboard_weather_repo');
-            \Illuminate\Support\Facades\Cache::put('dashboard_last_update', now()->timestamp, 300);
+            // Invalidate all dashboard caches
+            $this->cacheService->invalidateDashboard();
 
             Log::info('Data processed successfully', [
                 'sesi_id' => $result['sesi_id_getdata'],
