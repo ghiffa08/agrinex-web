@@ -17,7 +17,7 @@ class EloquentDeviceRepository implements DeviceRepositoryInterface
     public function allNodes()
     {
         // Legacy method - now uses devices table
-        return Device::with('lahanPantau')->orderBy('node_id')->get();
+        return Device::with('lahanPantau')->orderBy('id')->get();
     }
 
     public function findById($id)
@@ -27,14 +27,29 @@ class EloquentDeviceRepository implements DeviceRepositoryInterface
 
     public function findNodeById($nodeId)
     {
-        // Legacy method - now uses devices table
-        return Device::where('node_id', $nodeId)->first();
+        // Legacy method - node_id column doesn't exist anymore
+        // Treat nodeId as device.id
+        return Device::find($nodeId);
     }
 
     public function firstOrCreateNode(array $search, array $values)
     {
-        // Legacy method - now uses devices table
-        return Device::firstOrCreate($search, $values);
+        // Legacy method - devices table no longer has node_id column
+        // Simply check if device with ID exists
+        if (isset($search['node_id'])) {
+            $deviceId = $search['node_id'];
+            $device = Device::find($deviceId);
+            
+            if (!$device) {
+                // Device doesn't exist - log warning but don't auto-create
+                // (devices should be pre-registered via admin panel)
+                \Log::warning("Device ID {$deviceId} not found - data will be saved but device should be registered");
+            }
+            
+            return $device;
+        }
+        
+        return null;
     }
 
     public function firstOrCreateDevice(array $search, array $values)

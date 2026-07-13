@@ -3,7 +3,6 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\IrrigationLog;
-use App\Models\IrrigateLog;
 use App\Models\ValveLog;
 use App\Repositories\Contracts\IrrigationRepositoryInterface;
 use Carbon\Carbon;
@@ -17,7 +16,15 @@ class EloquentIrrigationRepository implements IrrigationRepositoryInterface
 
     public function createIrrigateLog(array $data)
     {
-        return IrrigateLog::create($data);
+        // Map legacy irrigate_logs fields to new irrigation_logs schema
+        return IrrigationLog::create([
+            'session_id' => $data['sesi_id_irrigate'],
+            'started_at' => $data['waktu_mulai'] ?? now(),
+            'ended_at' => $data['waktu_akhir'] ?? $data['waktu_selesai'] ?? null,
+            'success_count' => $data['node_sukses'] ?? 0,
+            'failed_count' => $data['node_gagal'] ?? 0,
+            'valve_on_count' => $data['valve_on_akhir'] ?? 0,
+        ]);
     }
 
     public function createValveLog(array $data)

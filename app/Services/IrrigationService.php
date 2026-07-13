@@ -61,10 +61,21 @@ class IrrigationService
                 $insertedCounts['valve_logs'] = count($data['valve_logs']);
             }
 
-            // 3. Insert node_logs
+            // 3. Insert node_logs (device_logs)
             if (!empty($data['node_logs'])) {
                 foreach ($data['node_logs'] as $nodeLog) {
-                    $this->logRepo->createNodeLog($nodeLog);
+                    // Map legacy field names to new schema
+                    $this->logRepo->createNodeLog([
+                        'node_id' => $nodeLog['node_id'],
+                        'sesi_id' => $sesiId,
+                        'rssi_dbm' => $nodeLog['rssi_dbm'] ?? null,
+                        'snr_db' => $nodeLog['snr_db'] ?? null,
+                        'signal_quality' => $nodeLog['signal_quality'] ?? null,
+                        'status' => $nodeLog['status'] ?? 'success',
+                        'type_sesi' => 'irrigate',
+                        'keterangan' => $nodeLog['keterangan'] ?? null,
+                        'waktu' => $nodeLog['waktu'] ?? now(),
+                    ]);
 
                     // Auto-register master node if it doesn't exist
                     if (isset($nodeLog['node_id'])) {

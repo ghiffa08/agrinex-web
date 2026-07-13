@@ -3,7 +3,6 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\DeviceLog;
-use App\Models\NodeLog;
 use App\Repositories\Contracts\LogRepositoryInterface;
 
 class EloquentLogRepository implements LogRepositoryInterface
@@ -15,7 +14,18 @@ class EloquentLogRepository implements LogRepositoryInterface
 
     public function createNodeLog(array $data)
     {
-        return NodeLog::create($data);
+        // Map legacy node_logs fields to new device_logs schema
+        return DeviceLog::create([
+            'device_id' => $data['node_id'],
+            'rssi_dbm' => $data['rssi_dbm'] ?? null,
+            'snr_db' => $data['snr_db'] ?? null,
+            'signal_quality' => $data['signal_quality'] ?? null,
+            'is_active' => ($data['status'] ?? 'success') === 'success',
+            'session_type' => $data['type_sesi'] ?? 'getdata',
+            'session_ref_id' => $data['sesi_id'] ?? null,
+            'remarks' => $data['keterangan'] ?? null,
+            'logged_at' => $data['waktu'] ?? now(),
+        ]);
     }
 
     public function getLatestDeviceLogs()
@@ -28,8 +38,9 @@ class EloquentLogRepository implements LogRepositoryInterface
 
     public function getLatestForNode($nodeId)
     {
-        return NodeLog::where('node_id', $nodeId)
-            ->latest('waktu')
+        // Updated to use DeviceLog instead of legacy NodeLog
+        return DeviceLog::where('device_id', $nodeId)
+            ->latest('logged_at')
             ->first();
     }
 
