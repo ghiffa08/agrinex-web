@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Services\SensorDataService;
 use App\Services\IrrigationService;
-use App\Repositories\Contracts\JsonBackupRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
@@ -14,16 +13,13 @@ class DataIngestionController extends Controller
 {
     protected $sensorDataService;
     protected $irrigationService;
-    protected $backupRepo;
 
     public function __construct(
         SensorDataService $sensorDataService,
-        IrrigationService $irrigationService,
-        JsonBackupRepositoryInterface $backupRepo
+        IrrigationService $irrigationService
     ) {
         $this->sensorDataService = $sensorDataService;
         $this->irrigationService = $irrigationService;
-        $this->backupRepo = $backupRepo;
     }
 
     /**
@@ -57,28 +53,11 @@ class DataIngestionController extends Controller
                 ], 422);
             }
 
-            // Backup JSON request to json_backup table
-            $requestData = $request->all();
-            $jsonString = json_encode($requestData);
-            $dataSizeKb = round(strlen($jsonString) / 1024, 2);
-
-            // Calculate statistics from request
-            $statistics = $requestData['statistics'] ?? [];
-            $recordsByTable = $statistics['records_by_table'] ?? [];
-            
-            $this->backupRepo->createBackup([
-                'sesi_id_getdata' => $request->input('metadata.sesi_id_getdata'),
-                'json_data' => $requestData,
-                'data_size_kb' => $dataSizeKb,
-                'total_records' => $statistics['total_records'] ?? 0,
-                'node_completeness' => $statistics['node_status']['completeness_percentage'] ?? '0.00%',
-                'getdata_logs_count' => $recordsByTable['getdata_logs'] ?? 0,
-                'sensor_weather_count' => $recordsByTable['sensor_weather_data'] ?? 0,
-                'sensor_node_count' => $recordsByTable['sensor_node_data'] ?? 0,
-                'backup_timestamp' => now()
-            ]);
+            // Legacy json_backup table removed in migration 2026_07_14_000900
+            // Backup functionality disabled - data persisted in normalized schema
 
             // Process sensor data
+            $requestData = $request->all();
             $result = $this->sensorDataService->processSensorData($requestData);
 
             Log::info('Sensor data ingestion successful', [
@@ -138,36 +117,12 @@ class DataIngestionController extends Controller
                 ], 422);
             }
 
-            // Backup JSON request to json_backup table
-            $requestData = $request->all();
-            $jsonString = json_encode($requestData);
-            $dataSizeKb = round(strlen($jsonString) / 1024, 2);
-
-            // Calculate statistics from request
-            $statistics = $requestData['statistics'] ?? [];
-            $recordsByTable = $statistics['records_by_table'] ?? [];
-            
-            $backup = $this->backupRepo->createBackup([
-                'sesi_id_getdata' => $request->input('metadata.sesi_id_irrigate'),
-                'json_data' => $requestData,
-                'data_size_kb' => $dataSizeKb,
-                'total_records' => $statistics['total_records'] ?? 0,
-                'node_completeness' => $statistics['irrigation_summary']['nodes_irrigated'] ?? 0 . ' nodes',
-                'getdata_logs_count' => 0,
-                'sensor_weather_count' => 0,
-                'sensor_node_count' => $recordsByTable['valve_logs'] ?? 0,
-                'backup_timestamp' => now()
-            ]);
+            // Legacy json_backup table removed in migration 2026_07_14_000900
+            // Backup functionality disabled - data persisted in normalized schema
 
             // Process irrigation data
+            $requestData = $request->all();
             $result = $this->irrigationService->processIrrigationData($requestData);
-            
-            // Add backup info to result
-            $result['backup_info'] = [
-                'json_backup_id' => $backup->id,
-                'data_size_kb' => $dataSizeKb,
-                'backup_timestamp' => $backup->backup_timestamp->toIso8601String()
-            ];
 
             Log::info('Valve ON data ingestion successful', [
                 'sesi_id' => $request->input('metadata.sesi_id_irrigate'),
@@ -225,36 +180,12 @@ class DataIngestionController extends Controller
                 ], 422);
             }
 
-            // Backup JSON request to json_backup table
-            $requestData = $request->all();
-            $jsonString = json_encode($requestData);
-            $dataSizeKb = round(strlen($jsonString) / 1024, 2);
-
-            // Calculate statistics from request
-            $statistics = $requestData['statistics'] ?? [];
-            $sessions = $statistics['sessions'] ?? [];
-            
-            $backup = $this->backupRepo->createBackup([
-                'sesi_id_getdata' => $sessions[0] ?? $request->input('metadata.node_id'),
-                'json_data' => $requestData,
-                'data_size_kb' => $dataSizeKb,
-                'total_records' => $statistics['total_records'] ?? 0,
-                'node_completeness' => 'Node ' . $request->input('metadata.node_id'),
-                'getdata_logs_count' => 0,
-                'sensor_weather_count' => 0,
-                'sensor_node_count' => $statistics['total_records'] ?? 0,
-                'backup_timestamp' => now()
-            ]);
+            // Legacy json_backup table removed in migration 2026_07_14_000900
+            // Backup functionality disabled - data persisted in normalized schema
 
             // Process valve OFF data
+            $requestData = $request->all();
             $result = $this->irrigationService->processValveOffData($requestData);
-            
-            // Add backup info to result
-            $result['backup_info'] = [
-                'json_backup_id' => $backup->id,
-                'data_size_kb' => $dataSizeKb,
-                'backup_timestamp' => $backup->backup_timestamp->toIso8601String()
-            ];
 
             Log::info('Valve OFF data ingestion successful', [
                 'node_id' => $request->input('metadata.node_id'),

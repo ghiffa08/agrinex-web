@@ -31,10 +31,7 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Repositories\Contracts\IrrigationRepositoryInterface::class,
             \App\Repositories\Eloquent\EloquentIrrigationRepository::class
         );
-        $this->app->bind(
-            \App\Repositories\Contracts\JsonBackupRepositoryInterface::class,
-            \App\Repositories\Eloquent\EloquentJsonBackupRepository::class
-        );
+        // JsonBackupRepository removed - table dropped in migration 2026_07_14_000900
         $this->app->bind(
             \App\Repositories\Contracts\LogRepositoryInterface::class,
             \App\Repositories\Eloquent\EloquentLogRepository::class

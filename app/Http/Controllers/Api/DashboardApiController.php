@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Services\ChartDataService;
 use App\Http\Resources\ChartDataResource;
 use App\Repositories\Contracts\DashboardRepositoryInterface;
-use App\Repositories\Contracts\JsonBackupRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -14,7 +13,6 @@ class DashboardApiController extends Controller
 {
     public function __construct(
         protected DashboardRepositoryInterface  $dashboardRepo,
-        protected JsonBackupRepositoryInterface $backupRepo,
     ) {}
 
     /**

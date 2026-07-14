@@ -46,7 +46,8 @@ class SensorDataService
         return DB::transaction(function () use ($data, $sesiId, $statistics) {
             $insertedCounts = [];
 
-            // 1. Insert getdata_logs (create DataSession first to get ID)
+            // 1. Create DataSession from legacy getdata_logs payload
+            // ESP32 still sends 'getdata_logs' key for backward compatibility
             $session = null;
             if (!empty($data['getdata_logs'])) {
                 foreach ($data['getdata_logs'] as $log) {
@@ -74,7 +75,7 @@ class SensorDataService
             // Get session ID (auto-increment primary key)
             $sessionId = $session ? $session->id : null;
 
-            // 2. Insert weather_data
+            // 2. Insert weather_data from legacy 'sensor_weather_data' payload
             if (!empty($data['sensor_weather_data']) && $sessionId) {
                 foreach ($data['sensor_weather_data'] as $weather) {
                     $this->weatherRepo->createWeatherRecord([
@@ -91,7 +92,7 @@ class SensorDataService
                 $insertedCounts['weather_data'] = count($data['sensor_weather_data']);
             }
 
-            // 3. Insert sensor_data
+            // 3. Insert sensor_data from legacy 'sensor_node_data' payload
             if (!empty($data['sensor_node_data']) && $sessionId) {
                 foreach ($data['sensor_node_data'] as $node) {
                     $this->sensorRepo->createSensorRecord([
@@ -121,7 +122,7 @@ class SensorDataService
                 $insertedCounts['sensor_data'] = count($data['sensor_node_data']);
             }
 
-            // 4. Insert node_logs (device_logs)
+            // 4. Process device_logs from legacy 'node_logs' payload
             if (!empty($data['node_logs'])) {
                 foreach ($data['node_logs'] as $nodeLog) {
                     // Map legacy field names to new schema

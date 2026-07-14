@@ -1,0 +1,65 @@
+HOTFIX: Alpine.js refreshTasks() Undefined Error - RESOLVED
+==============================================================
+
+MASALAH
+-------
+Alpine.js Error: refreshTasks is not defined
+Location: resources/views/components/weekly-tasks.blade.php:51
+Button: Refresh tasks button (@click="refreshTasks()")
+
+Error Message:
+  cdn.min.js:1 Alpine Expression Error: refreshTasks is not defined
+  cdn.min.js:5 Uncaught ReferenceError: refreshTasks is not defined
+
+ROOT CAUSE
+----------
+Function refreshTasks() dipanggil di template tapi tidak ada implementasinya
+di public/js/dashboard.js
+
+FIX APPLIED
+-----------
+✓ File: public/js/dashboard.js (line 728-732)
+
+Added new function:
+  async refreshTasks() {
+      // Refresh plan, usage, and rebuild tasks
+      await Promise.allSettled([this.loadPlan(), this.loadUsage(), this.loadUsageDaily()]);
+      this.buildTasks();
+  }
+
+Function ini:
+  1. Reload data plan (jadwal irigasi)
+  2. Reload usage 30 hari
+  3. Reload usage 24 jam
+  4. Rebuild tasks list berdasarkan data terbaru
+
+VERIFICATION
+------------
+✓ npm run build: PASSED (3.71s)
+✓ Function exists: line 728
+✓ App bootstrap: OK
+
+FILES MODIFIED
+--------------
+1. public/js/dashboard.js (+6 lines)
+
+DEPLOY TO PRODUCTION
+--------------------
+Upload file:
+  public/js/dashboard.js
+
+No cache clear needed (frontend JS only)
+
+EXPECTED RESULT
+---------------
+✓ Refresh button di weekly tasks berfungsi
+✓ Tidak ada Alpine.js error di console
+✓ Tasks list ter-refresh ketika button diklik
+
+TOTAL HOTFIX SUMMARY (All 3 Issues)
+------------------------------------
+1. EloquentDashboardRepository.php - Fix devices API (node → devices)
+2. ChartDataService.php - Fix charts API (waktu_mulai → started_at)
+3. dashboard.js - Fix weekLegend + refreshTasks()
+
+Semua error setelah normalisasi database sudah resolved! ✅

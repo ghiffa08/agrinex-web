@@ -156,13 +156,13 @@ class ExportService
 
     protected function getSesiColumnName($table)
     {
+        // Legacy table references removed - migration 2026_07_14_000900
         $columnMap = [
-            'getdata_logs' => 'sesi_id_getdata',
-            'sensor_node_data' => 'sesi_id_getdata',
-            'sensor_weather_data' => 'sesi_id_getdata',
-            // 'irrigate_logs' => 'sesi_id_irrigate',
-            // 'valve_logs' => 'sesi_id_irrigate',
-            'node_logs' => 'sesi_id',
+            'sensor_data' => 'data_session_id',
+            'weather_data' => 'data_session_id',
+            'device_logs' => 'sesi_id',
+            'valve_logs' => 'irrigation_log_id',
+            'irrigation_logs' => 'sesi_id_irrigate',
         ];
 
         return $columnMap[$table] ?? null;
