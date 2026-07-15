@@ -49,9 +49,8 @@ return new class extends Migration
             if (!$this->foreignKeyExists('sensor_data', 'sensor_data_device_id_foreign')) {
                 $table->foreign('device_id')->references('id')->on('devices')->onDelete('cascade');
             }
-            if (!$this->foreignKeyExists('sensor_data', 'sensor_data_data_session_id_foreign')) {
-                $table->foreign('data_session_id')->references('id')->on('data_sessions')->onDelete('set null');
-            }
+            // Skip data_session_id FK - column is NOT NULL but FK requires SET NULL (incompatible)
+            // The column exists and has data, but can't add FK constraint due to MySQL requirement
         });
         
         Schema::table('weather_data', function (Blueprint $table) {

@@ -1,0 +1,71 @@
+DEVICE & DETAIL FIXES - AgriNex SmartDrip (COMPLETED)
+=========================================================
+
+## MASALAH YANG DIPERBAIKI:
+
+1. ✅ Database production tidak memiliki kolom `is_active`, `name`, `location` di tabel `devices`
+2. ✅ Service layer mencari kolom yang tidak ada → FIXED: Gunakan kolom actual (lokasi, group, kode_perlakuan)
+3. ✅ Deep sleep history tidak tampil → FIXED: Query adaptive_sleep_duration dari sensor_data
+4. ✅ Device list kosong karena filter is_active=true gagal → FIXED: Hapus filter, tambah kolom via migration
+
+## STRUKTUR DATABASE SETELAH PERBAIKAN:
+
+### Tabel devices (UPDATED):
+- id, user_id, group, kode_perlakuan, lokasi, keterangan, fc_target, threshold, image_url
+- **name** (BARU - auto-populated: "Device 1", "Device 2", dst)
+- **is_active** (BARU - default: true)
+- **location** (BARU - copy dari kolom lokasi)
+- timestamps, lahan_pantau_id
+
+### Tabel sensor_data (TIDAK BERUBAH):
+- id, data_session_id, device_id, voltage_v, battery_pct, current_ma, power_mw
+- flow_rate, total_volume_l, temperature, soil_moisture, soil_adc
+- ai_valve_decision, **adaptive_sleep_duration** (untuk sleep history)
+- rssi, ts_counter, recorded_at
+
+## FILE YANG DIUBAH:
+
+1. **app/Services/DeviceService.php**
+   - getAllDevicesWithLatestData(): Hapus filter is_active, gunakan lokasi/group/kode_perlakuan
+   - getDevicesStatusOnly(): Sesuaikan select kolom yang ada
+
+2. **app/Repositories/Eloquent/EloquentDashboardRepository.php**
+   - buildNodeData(): Map kolom DB actual (lokasi → location, keterangan → description, dll)
+   - getDevices(): Map kolom DB actual untuk semua devices
+
+3. **database/migrations/2026_07_15_222247_add_missing_columns_to_devices_table.php** (BARU)
+   - Tambah kolom: name, is_active, location
+   - Auto-populate: name = "Device {id}", location = lokasi
+
+4. **database/migrations/2026_07_14_000900_normalize_database_drop_legacy_tables.php** (FIXED)
+   - Skip FK sensor_data.data_session_id (kolom NOT NULL, FK butuh SET NULL - incompatible)
+
+## MIGRASI BERHASIL DIJALANKAN:
+```
+✅ 2026_07_14_000900_normalize_database_drop_legacy_tables ... DONE
+✅ 2026_07_15_222247_add_missing_columns_to_devices_table ... DONE
+```
+
+## API ENDPOINTS YANG TERSEDIA:
+
+1. GET /api/v1/dashboard/devices → List semua devices dengan sensor data terbaru
+2. GET /api/v1/devices/{id}/sleep-history?period=week → Riwayat deep sleep
+3. GET /api/v1/devices/{id}/battery-history?period=week → Riwayat baterai
+4. GET /api/v1/devices/{id}/chart-data → Chart temperature & soil moisture
+5. GET /api/v1/devices/{id}/irrigation-sessions → Sesi irigasi
+6. GET /api/v1/devices/{id}/usage-history → Riwayat penggunaan
+
+## HALAMAN WEB:
+
+1. /devices → Daftar semua devices (agrinex-devices.blade.php)
+2. /node/{id} → Detail device (agrinex-node-detail.blade.php)
+
+## TESTING:
+Lihat file: TEST_DEVICES_API.md untuk command testing lengkap
+
+## CATATAN PENTING:
+- Deep sleep history menggunakan field `adaptive_sleep_duration` (seconds) dari sensor_data
+- Battery history prefer `battery_pct` dari device, fallback ke kalkulasi dari voltage
+- Semua devices di DB dianggap active (is_active = 1)
+- Field mapping: lokasi → location, keterangan → description, group → group, kode_perlakuan → treatment_code
+

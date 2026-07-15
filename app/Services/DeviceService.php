@@ -194,8 +194,7 @@ class DeviceService
             CacheService::TTL_SHORT, 
             function () {
                 $devices = \Illuminate\Support\Facades\DB::table('devices')
-                    ->where('is_active', true)
-                    ->orderBy('id', 'asc')  // Order by node_id (id) ascending
+                    ->orderBy('id', 'asc')  // Order by device id ascending
                     ->get();
 
                 $result = [];
@@ -206,9 +205,11 @@ class DeviceService
 
                     $result[] = [
                         'id' => $device->id,
-                        'name' => $device->name,
-                        'location' => $device->location ?? 'Unknown',
-                        'is_active' => (bool) $device->is_active,
+                        'name' => 'Device ' . $device->id,
+                        'location' => $device->lokasi ?? 'Unknown',
+                        'group' => $device->group,
+                        'kode_perlakuan' => $device->kode_perlakuan,
+                        'is_active' => true, // Assume all devices in DB are active
                         'latest_data' => $latestData ? [
                             'temperature' => (float) $latestData->temperature,
                             'soil_moisture' => (float) $latestData->soil_moisture,
@@ -229,8 +230,7 @@ class DeviceService
     public function getDevicesStatusOnly(): array
     {
         $devices = \Illuminate\Support\Facades\DB::table('devices')
-            ->where('is_active', true)
-            ->select('id', 'name', 'is_active')
+            ->select('id', 'group', 'kode_perlakuan', 'lokasi')
             ->get();
 
         $result = [];
@@ -241,7 +241,7 @@ class DeviceService
 
             $result[] = [
                 'id' => $device->id,
-                'name' => $device->name,
+                'name' => 'Device ' . $device->id,
                 'online' => $hasRecentData,
             ];
         }
