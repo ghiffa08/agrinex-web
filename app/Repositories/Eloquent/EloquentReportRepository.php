@@ -16,18 +16,23 @@ class EloquentReportRepository implements ReportRepositoryInterface
     {
         $query = SensorData::with('device:id,name,lokasi');
 
-        if (!empty($filters['start_date'])) {
-            $query->whereDate('recorded_at', '>=', $filters['start_date']);
+        // Use whereBetween with timestamps for better index usage
+        if (!empty($filters['start_date']) && !empty($filters['end_date'])) {
+            $startDateTime = Carbon::parse($filters['start_date'])->startOfDay();
+            $endDateTime = Carbon::parse($filters['end_date'])->endOfDay();
+            $query->whereBetween('recorded_at', [$startDateTime, $endDateTime]);
+        } elseif (!empty($filters['start_date'])) {
+            $query->where('recorded_at', '>=', Carbon::parse($filters['start_date'])->startOfDay());
+        } elseif (!empty($filters['end_date'])) {
+            $query->where('recorded_at', '<=', Carbon::parse($filters['end_date'])->endOfDay());
         }
-        if (!empty($filters['end_date'])) {
-            $query->whereDate('recorded_at', '<=', $filters['end_date']);
-        }
+        
         if (!empty($filters['device_id'])) {
             $query->where('device_id', $filters['device_id']);
         }
 
         $query->orderBy('recorded_at', 'desc');
-        $limit = $filters['limit'] ?? 1000;
+        $limit = min($filters['limit'] ?? 1000, 5000); // Cap at 5000 for performance
         $query->limit($limit);
 
         return $query->get()->map(function ($item) {
@@ -49,15 +54,19 @@ class EloquentReportRepository implements ReportRepositoryInterface
     {
         $query = WeatherData::query();
 
-        if (!empty($filters['start_date'])) {
-            $query->whereDate('recorded_at', '>=', $filters['start_date']);
-        }
-        if (!empty($filters['end_date'])) {
-            $query->whereDate('recorded_at', '<=', $filters['end_date']);
+        // Use whereBetween with timestamps for better index usage
+        if (!empty($filters['start_date']) && !empty($filters['end_date'])) {
+            $startDateTime = Carbon::parse($filters['start_date'])->startOfDay();
+            $endDateTime = Carbon::parse($filters['end_date'])->endOfDay();
+            $query->whereBetween('recorded_at', [$startDateTime, $endDateTime]);
+        } elseif (!empty($filters['start_date'])) {
+            $query->where('recorded_at', '>=', Carbon::parse($filters['start_date'])->startOfDay());
+        } elseif (!empty($filters['end_date'])) {
+            $query->where('recorded_at', '<=', Carbon::parse($filters['end_date'])->endOfDay());
         }
 
         $query->orderBy('recorded_at', 'desc');
-        $limit = $filters['limit'] ?? 1000;
+        $limit = min($filters['limit'] ?? 1000, 5000); // Cap at 5000 for performance
         $query->limit($limit);
 
         return $query->get()->map(function ($item) {
@@ -79,18 +88,23 @@ class EloquentReportRepository implements ReportRepositoryInterface
     {
         $query = IrrigationLog::with('device:id,name,lokasi');
 
-        if (!empty($filters['start_date'])) {
-            $query->whereDate('started_at', '>=', $filters['start_date']);
+        // Use whereBetween with timestamps for better index usage
+        if (!empty($filters['start_date']) && !empty($filters['end_date'])) {
+            $startDateTime = Carbon::parse($filters['start_date'])->startOfDay();
+            $endDateTime = Carbon::parse($filters['end_date'])->endOfDay();
+            $query->whereBetween('started_at', [$startDateTime, $endDateTime]);
+        } elseif (!empty($filters['start_date'])) {
+            $query->where('started_at', '>=', Carbon::parse($filters['start_date'])->startOfDay());
+        } elseif (!empty($filters['end_date'])) {
+            $query->where('started_at', '<=', Carbon::parse($filters['end_date'])->endOfDay());
         }
-        if (!empty($filters['end_date'])) {
-            $query->whereDate('started_at', '<=', $filters['end_date']);
-        }
+        
         if (!empty($filters['device_id'])) {
             $query->where('device_id', $filters['device_id']);
         }
 
         $query->orderBy('started_at', 'desc');
-        $limit = $filters['limit'] ?? 1000;
+        $limit = min($filters['limit'] ?? 1000, 5000); // Cap at 5000 for performance
         $query->limit($limit);
 
         return $query->get()->map(function ($item) {
@@ -109,29 +123,39 @@ class EloquentReportRepository implements ReportRepositoryInterface
 
     public function getDeviceActivityReport(array $filters): array
     {
+        $startDateTime = !empty($filters['start_date']) 
+            ? Carbon::parse($filters['start_date'])->startOfDay() 
+            : null;
+        $endDateTime = !empty($filters['end_date']) 
+            ? Carbon::parse($filters['end_date'])->endOfDay() 
+            : null;
+
         $query = Device::withCount([
-            'sensorData' => function ($q) use ($filters) {
-                if (!empty($filters['start_date'])) {
-                    $q->whereDate('recorded_at', '>=', $filters['start_date']);
-                }
-                if (!empty($filters['end_date'])) {
-                    $q->whereDate('recorded_at', '<=', $filters['end_date']);
+            'sensorData' => function ($q) use ($startDateTime, $endDateTime) {
+                if ($startDateTime && $endDateTime) {
+                    $q->whereBetween('recorded_at', [$startDateTime, $endDateTime]);
+                } elseif ($startDateTime) {
+                    $q->where('recorded_at', '>=', $startDateTime);
+                } elseif ($endDateTime) {
+                    $q->where('recorded_at', '<=', $endDateTime);
                 }
             },
-            'irrigationLogs' => function ($q) use ($filters) {
-                if (!empty($filters['start_date'])) {
-                    $q->whereDate('started_at', '>=', $filters['start_date']);
-                }
-                if (!empty($filters['end_date'])) {
-                    $q->whereDate('started_at', '<=', $filters['end_date']);
+            'irrigationLogs' => function ($q) use ($startDateTime, $endDateTime) {
+                if ($startDateTime && $endDateTime) {
+                    $q->whereBetween('started_at', [$startDateTime, $endDateTime]);
+                } elseif ($startDateTime) {
+                    $q->where('started_at', '>=', $startDateTime);
+                } elseif ($endDateTime) {
+                    $q->where('started_at', '<=', $endDateTime);
                 }
             }
-        ])->with(['sensorData' => function ($q) use ($filters) {
-            if (!empty($filters['start_date'])) {
-                $q->whereDate('recorded_at', '>=', $filters['start_date']);
-            }
-            if (!empty($filters['end_date'])) {
-                $q->whereDate('recorded_at', '<=', $filters['end_date']);
+        ])->with(['sensorData' => function ($q) use ($startDateTime, $endDateTime) {
+            if ($startDateTime && $endDateTime) {
+                $q->whereBetween('recorded_at', [$startDateTime, $endDateTime]);
+            } elseif ($startDateTime) {
+                $q->where('recorded_at', '>=', $startDateTime);
+            } elseif ($endDateTime) {
+                $q->where('recorded_at', '<=', $endDateTime);
             }
             $q->latest('recorded_at')->limit(1);
         }]);
@@ -169,12 +193,22 @@ class EloquentReportRepository implements ReportRepositoryInterface
             )
             ->groupBy('device_id');
 
-        if (!empty($filters['start_date'])) {
-            $query->whereDate('started_at', '>=', $filters['start_date']);
+        // Use whereBetween with timestamps for better index usage
+        $startDateTime = !empty($filters['start_date']) 
+            ? Carbon::parse($filters['start_date'])->startOfDay() 
+            : null;
+        $endDateTime = !empty($filters['end_date']) 
+            ? Carbon::parse($filters['end_date'])->endOfDay() 
+            : null;
+
+        if ($startDateTime && $endDateTime) {
+            $query->whereBetween('started_at', [$startDateTime, $endDateTime]);
+        } elseif ($startDateTime) {
+            $query->where('started_at', '>=', $startDateTime);
+        } elseif ($endDateTime) {
+            $query->where('started_at', '<=', $endDateTime);
         }
-        if (!empty($filters['end_date'])) {
-            $query->whereDate('started_at', '<=', $filters['end_date']);
-        }
+        
         if (!empty($filters['device_id'])) {
             $query->where('device_id', $filters['device_id']);
         }
@@ -196,19 +230,26 @@ class EloquentReportRepository implements ReportRepositoryInterface
     {
         $startDate = $filters['start_date'] ?? Carbon::now()->subDays(30)->toDateString();
         $endDate = $filters['end_date'] ?? Carbon::now()->toDateString();
+        
+        // Parse to datetime for better index usage
+        $startDateTime = Carbon::parse($startDate)->startOfDay();
+        $endDateTime = Carbon::parse($endDate)->endOfDay();
 
+        // Get all counts in fewer queries
         $totalDevices = Device::count();
-        $activeDevices = Device::whereHas('sensorData', function ($q) use ($startDate, $endDate) {
-            $q->whereBetween('recorded_at', [$startDate, $endDate]);
+        
+        $activeDevices = Device::whereHas('sensorData', function ($q) use ($startDateTime, $endDateTime) {
+            $q->whereBetween('recorded_at', [$startDateTime, $endDateTime]);
         })->count();
 
-        $totalReadings = SensorData::whereBetween('recorded_at', [$startDate, $endDate])->count();
-        $totalIrrigations = IrrigationLog::whereBetween('started_at', [$startDate, $endDate])->count();
-        $totalWaterUsage = IrrigationLog::whereBetween('started_at', [$startDate, $endDate])
-            ->sum('water_used_liters');
+        // Combined sensor data stats
+        $sensorStats = SensorData::whereBetween('recorded_at', [$startDateTime, $endDateTime])
+            ->selectRaw('COUNT(*) as total_readings, AVG(temperature) as avg_temp, AVG(soil_moisture) as avg_soil_moisture')
+            ->first();
 
-        $avgConditions = SensorData::whereBetween('recorded_at', [$startDate, $endDate])
-            ->selectRaw('AVG(temperature) as avg_temp, AVG(soil_moisture) as avg_soil_moisture')
+        // Combined irrigation stats
+        $irrigationStats = IrrigationLog::whereBetween('started_at', [$startDateTime, $endDateTime])
+            ->selectRaw('COUNT(*) as total_sessions, SUM(water_used_liters) as total_water')
             ->first();
 
         return [
@@ -221,18 +262,17 @@ class EloquentReportRepository implements ReportRepositoryInterface
                 'active' => $activeDevices,
             ],
             'readings' => [
-                'total' => $totalReadings,
+                'total' => $sensorStats->total_readings ?? 0,
             ],
             'irrigation' => [
-                'total_sessions' => $totalIrrigations,
-                'total_water_liters' => round($totalWaterUsage, 2),
+                'total_sessions' => $irrigationStats->total_sessions ?? 0,
+                'total_water_liters' => round($irrigationStats->total_water ?? 0, 2),
             ],
             'environment' => [
-                'avg_temperature_c' => round($avgConditions->avg_temp ?? 0, 1),
+                'avg_temperature_c' => round($sensorStats->avg_temp ?? 0, 1),
                 'avg_humidity_pct' => 0,
-                'avg_soil_moisture_pct' => round($avgConditions->avg_soil_moisture ?? 0, 1),
+                'avg_soil_moisture_pct' => round($sensorStats->avg_soil_moisture ?? 0, 1),
                 'avg_light_lux' => 0,
             ],
         ];
     }
-}

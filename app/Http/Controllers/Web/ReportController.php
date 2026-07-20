@@ -25,9 +25,26 @@ class ReportController extends Controller
     public function index()
     {
         $reports = $this->reportService->getAvailableReports();
-        $devices = \App\Models\Device::select('id', 'name', 'lokasi')->get();
         
-        return view('reports.index', compact('reports', 'devices'));
+        return view('reports.index', compact('reports'));
+    }
+
+    /**
+     * Get devices list for dropdown (API)
+     */
+    public function getDevices()
+    {
+        $devices = \App\Models\Device::select('id', 'name', 'lokasi')
+            ->orderBy('name')
+            ->get()
+            ->map(function ($device) {
+                return [
+                    'id' => $device->id,
+                    'label' => $device->name . ' - ' . $device->lokasi,
+                ];
+            });
+        
+        return response()->json($devices);
     }
 
     /**

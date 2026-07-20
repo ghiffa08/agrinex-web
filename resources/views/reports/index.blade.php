@@ -43,7 +43,9 @@
                     class="w-full px-4 py-2 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
                 >
                     <option value="">Semua Device</option>
-                    <!-- Will be populated via API -->
+                    <template x-for="device in devices" :key="device.id">
+                        <option :value="device.id" x-text="device.label"></option>
+                    </template>
                 </select>
             </div>
         </div>
@@ -114,36 +116,58 @@ function reportGenerator() {
             end_date: new Date().toISOString().split('T')[0],
             device_id: ''
         },
+        devices: [],
         reports: @json($reports),
         loading: null,
         showToast: false,
         toastMessage: '',
         toastType: 'success',
 
+        init() {
+            // Load devices on init
+            this.loadDevices();
+        },
+
+        async loadDevices() {
+            try {
+                const response = await fetch('{{ route("reports.devices") }}');
+                const data = await response.json();
+                this.devices = data;
+            } catch (error) {
+                console.error('Failed to load devices:', error);
+            }
+        },
+
+        validateDateRange() {
+            const start = new Date(this.filters.start_date);
+            const end = new Date(this.filters.end_date);
+            const diffDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+
+            if (diffDays < 0) {
+                this.displayToast('Tanggal mulai tidak boleh lebih besar dari tanggal selesai', 'error');
+                return false;
+            }
+
+            if (diffDays > 90) {
+                this.displayToast('Rentang tanggal maksimal 90 hari', 'error');
+                return false;
+            }
+
+            return true;
+        },
+
         generateReport(reportType) {
             if (this.loading) return;
+            
+            if (!this.validateDateRange()) return;
             
             this.loading = reportType;
 
             // Create form and submit
             const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = '{{ route("reports.generate") }}';
+            form.method = 'GET';
+            form.action = `/reports/generate/${reportType}`;
             form.style.display = 'none';
-
-            // CSRF Token
-            const csrfInput = document.createElement('input');
-            csrfInput.type = 'hidden';
-            csrfInput.name = '_token';
-            csrfInput.value = '{{ csrf_token() }}';
-            form.appendChild(csrfInput);
-
-            // Report Type
-            const typeInput = document.createElement('input');
-            typeInput.type = 'hidden';
-            typeInput.name = 'report_type';
-            typeInput.value = reportType;
-            form.appendChild(typeInput);
 
             // Filters
             Object.keys(this.filters).forEach(key => {
@@ -158,34 +182,15 @@ function reportGenerator() {
 
             document.body.appendChild(form);
 
-            // Use fetch to check for errors
-            fetch('{{ route("reports.generate") }}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                    report_type: reportType,
-                    ...this.filters
-                })
-            }).then(response => {
-                if (response.ok) {
-                    // If OK, submit the form for download
-                    form.submit();
-                    this.displayToast('Laporan berhasil di-generate!', 'success');
-                } else {
-                    return response.json().then(data => {
-                        throw new Error(data.message || 'Gagal generate laporan');
-                    });
-                }
-            }).catch(error => {
-                this.displayToast(error.message || 'Gagal generate laporan', 'error');
-            }).finally(() => {
+            // Submit form directly for download
+            form.submit();
+            
+            this.displayToast('Laporan sedang di-generate...', 'success');
+            
+            setTimeout(() => {
                 this.loading = null;
                 document.body.removeChild(form);
-            });
+            }, 2000);
         },
 
         displayToast(message, type = 'success') {

@@ -66,8 +66,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/node/{id}', [AgriNexDashboardController::class, 'nodeDetail'])->name('agrinex.node-detail');
 
     // Reports Routes - New Reporting System
-    Route::get('/reports', [\App\Http\Controllers\Web\ReportController::class, 'index'])->name('reports.index');
-    Route::get('/reports/generate/{reportType}', [\App\Http\Controllers\Web\ReportController::class, 'generate'])->name('reports.generate');
+    Route::get('/reports', [\\App\\Http\\Controllers\\Web\\ReportController::class, 'index'])->name('reports.index');
+    Route::get('/reports/devices', [\\App\\Http\\Controllers\\Web\\ReportController::class, 'getDevices'])->name('reports.devices');
+    Route::get('/reports/generate/{reportType}', [\\App\\Http\\Controllers\\Web\\ReportController::class, 'generate'])->name('reports.generate');
 
     // Profile Routes
     Route::post('/profile/update', [\App\Http\Controllers\Web\ProfileController::class, 'update'])->name('profile.update');
