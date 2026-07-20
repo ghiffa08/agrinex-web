@@ -582,6 +582,18 @@
                 'Content-Type': 'application/json'
             }
         };
+
+        // Auto-refresh session every 15 minutes to prevent 401 errors
+        setInterval(function() {
+            fetch('{{ route("agrinex.dashboard") }}', {
+                method: 'HEAD',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                }
+            }).catch(function(error) {
+                console.log('Session refresh ping failed:', error);
+            });
+        }, 15 * 60 * 1000); // 15 minutes
     </script>
 
     @stack('scripts')

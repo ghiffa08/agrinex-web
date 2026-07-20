@@ -25,5 +25,35 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->appendToGroup('api', \App\Http\Middleware\QueryProfiler::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        // Handle authentication exceptions (401)
+        $exceptions->renderable(function (\Illuminate\Auth\AuthenticationException $e, $request) {
+            if ($request->expectsJson()) {
+                return response()->json(['message' => 'Unauthenticated.'], 401);
+            }
+            return redirect()->guest(route('login'))->with('error', 'Session Anda telah berakhir. Silakan login kembali.');
+        });
+
+        // Handle session errors gracefully
+        $exceptions->renderable(function (\Symfony\Component\HttpKernel\Exception\HttpException $e, $request) {
+            if ($e->getStatusCode() === 419) {
+                return redirect()->back()->with('error', 'Halaman kadaluarsa. Silakan coba lagi.');
+            }
+        });
+
+        // Handle 500 errors with user-friendly message
+        $exceptions->renderable(function (\Throwable $e, $request) {
+            if (app()->environment('production') && !$request->expectsJson()) {
+                if ($e instanceof \ErrorException || $e instanceof \Error) {
+                    \Log::error('Server Error 500', [
+                        'message' => $e->getMessage(),
+                        'file' => $e->getFile(),
+                        'line' => $e->getLine(),
+                        'url' => $request->fullUrl(),
+                        'user' => $request->user()?->id,
+                    ]);
+                    
+                    return response()->view('errors.500', [], 500);
+                }
+            }
+        });
     })->create();
