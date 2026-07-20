@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dashboard - AgriNex Mobile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        neuBg: '#e0e5ec',
+                        brand: '#22c55e',
+                        darkText: '#2c3e50',
+                        lightText: '#7f8c8d'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-neuBg text-darkText min-h-screen" x-data="dashboardApp()" x-init="init()">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-neuBg shadow-[0_4px_8px_#a3b1c6]">
+        <div class="px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-neuBg shadow-[2px_2px_4px_#a3b1c6,-2px_-2px_4px_#ffffff] flex items-center justify-center">
+                    <svg class="w-6 h-6 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-darkText">AgriNex</h1>
+                    <p class="text-xs text-lightText" x-text="user?.full_name || 'Dashboard'"></p>
+                </div>
+            </div>
+            
+            <button @click="logout()" class="p-2 rounded-xl bg-neuBg shadow-[2px_2px_4px_#a3b1c6,-2px_-2px_4px_#ffffff] active:shadow-[inset_2px_2px_4px_#a3b1c6,inset_-2px_-2px_4px_#ffffff]">
+                <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Loading State -->
+    <div x-show="loading" class="flex items-center justify-center py-20">
+        <div class="text-center">
+            <div class="w-12 h-12 border-4 border-brand border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p class="text-lightText">Loading dashboard...</p>
+        </div>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div x-show="!loading" class="p-4 space-y-4">
+        
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-2 gap-4">
+            <div class="bg-neuBg rounded-2xl p-4 shadow-[4px_4px_8px_#a3b1c6,-4px_-4px_8px_#ffffff]">
+                <div class="text-2xl font-bold text-brand" x-text="stats.devices || 0"></div>
+                <div class="text-sm text-lightText">Devices</div>
+            </div>
+            <div class="bg-neuBg rounded-2xl p-4 shadow-[4px_4px_8px_#a3b1c6,-4px_-4px_8px_#ffffff]">
+                <div class="text-2xl font-bold text-green-600" x-text="stats.active || 0"></div>
+                <div class="text-sm text-lightText">Active</div>
+            </div>
+        </div>
+
+        <!-- Welcome Message -->
+        <div class="bg-neuBg rounded-2xl p-6 shadow-[4px_4px_8px_#a3b1c6,-4px_-4px_8px_#ffffff]">
+            <h2 class="text-xl font-bold text-darkText mb-2">Welcome Back!</h2>
+            <p class="text-sm text-lightText">
+                AgriNex mobile app is now running with API token authentication.
+                Your session is secure and persistent.
+            </p>
+        </div>
+
+        <!-- API Info -->
+        <div class="bg-neuBg rounded-2xl p-4 shadow-[4px_4px_8px_#a3b1c6,-4px_-4px_8px_#ffffff] text-xs text-lightText">
+            <div class="font-bold mb-2">Session Info:</div>
+            <div>User: <span x-text="user?.username"></span></div>
+            <div>Role: <span x-text="user?.role"></span></div>
+            <div>Auth: Token-based (Strategy B)</div>
+        </div>
+
+    </div>
+
+    <script>
+        function dashboardApp() {
+            return {
+                loading: true,
+                user: null,
+                token: null,
+                stats: {
+                    devices: 0,
+                    active: 0
+                },
+
+                async init() {
+                    // Check auth
+                    this.token = localStorage.getItem('agrinex_token');
+                    if (!this.token) {
+                        window.location.href = '/mobile/login.html';
+                        return;
+                    }
+
+                    // Load user
+                    const userData = localStorage.getItem('agrinex_user');
+                    if (userData) {
+                        this.user = JSON.parse(userData);
+                    }
+
+                    // Verify token
+                    await this.verifyToken();
+
+                    // Load dashboard data
+                    await this.loadStats();
+
+                    this.loading = false;
+                },
+
+                async verifyToken() {
+                    try {
+                        const response = await fetch('/api/auth/me', {
+                            headers: {
+                                'Authorization': `Bearer ${this.token}`,
+                                'Accept': 'application/json'
+                            }
+                        });
+
+                        const data = await response.json();
+
+                        if (!data.success) {
+                            throw new Error('Token invalid');
+                        }
+
+                        this.user = data.data;
+                        localStorage.setItem('agrinex_user', JSON.stringify(data.data));
+
+                    } catch (error) {
+                        console.error('Token verification failed:', error);
+                        localStorage.removeItem('agrinex_token');
+                        localStorage.removeItem('agrinex_user');
+                        window.location.href = '/mobile/login.html';
+                    }
+                },
+
+                async loadStats() {
+                    try {
+                        // Mock stats for now - you can replace with real API call
+                        this.stats = {
+                            devices: 5,
+                            active: 3
+                        };
+
+                        // Example real API call:
+                        // const response = await fetch('/api/dashboard/stats', {
+                        //     headers: {
+                        //         'Authorization': `Bearer ${this.token}`,
+                        //         'Accept': 'application/json'
+                        //     }
+                        // });
+                        // const data = await response.json();
+                        // this.stats = data.data;
+
+                    } catch (error) {
+                        console.error('Failed to load stats:', error);
+                    }
+                },
+
+                async logout() {
+                    if (!confirm('Logout dari aplikasi?')) return;
+
+                    try {
+                        // Call logout API
+                        await fetch('/api/auth/logout', {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': `Bearer ${this.token}`,
+                                'Accept': 'application/json'
+                            }
+                        });
+                    } catch (error) {
+                        console.error('Logout error:', error);
+                    }
+
+                    // Clear local storage
+                    localStorage.removeItem('agrinex_token');
+                    localStorage.removeItem('agrinex_user');
+
+                    // Redirect to login
+                    window.location.href = '/mobile/login.html';
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>

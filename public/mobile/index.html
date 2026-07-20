@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriNex Mobile</title>
+    <script>
+        // Auto-redirect logic
+        const token = localStorage.getItem('agrinex_token');
+        
+        if (token) {
+            // Has token, verify then go to dashboard
+            fetch(window.location.origin + '/api/auth/me', {
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Accept': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.replace('/mobile/dashboard.html');
+                } else {
+                    // Invalid token
+                    localStorage.removeItem('agrinex_token');
+                    localStorage.removeItem('agrinex_user');
+                    window.location.replace('/mobile/login.html');
+                }
+            })
+            .catch(() => {
+                window.location.replace('/mobile/login.html');
+            });
+        } else {
+            // No token, go to login
+            window.location.replace('/mobile/login.html');
+        }
+    </script>
+</head>
+<body>
+    <div style="display: flex; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif;">
+        <p>Loading...</p>
+    </div>
+</body>
+</html>

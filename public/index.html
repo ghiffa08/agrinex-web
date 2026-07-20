@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>AgriNex Smart Drip</title>
+    
+    <!-- Capacitor Core -->
+    <script type="module" src="/build/assets/app-CKLqfVGG.js"></script>
+    <link rel="stylesheet" href="/build/assets/app-C2ARV1qV.css">
+    
+    <!-- Splash Screen -->
+    <style>
+        #splash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        #splash h1 {
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+        #splash .spinner {
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div id="splash">
+        <div class="spinner"></div>
+        <h1>AgriNex Smart Drip</h1>
+    </div>
+
+    <!-- App will redirect to Laravel backend -->
+    <script>
+        // Hide splash after load
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('splash').style.display = 'none';
+            }, 1500);
+        });
+
+        // For hybrid mode, redirect to Laravel backend
+        // Change this URL to your production domain
+        const BACKEND_URL = 'http://localhost:8000'; // Development
+        // const BACKEND_URL = 'https://agrinex.yourdomain.com'; // Production
+        
+        // Redirect to Laravel welcome page
+        setTimeout(function() {
+            window.location.href = BACKEND_URL;
+        }, 2000);
+    </script>
+</body>
+</html>

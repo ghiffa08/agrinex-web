@@ -1,54 +1,264 @@
-// Basic Service Worker for AgriNex PWA
-const CACHE_NAME = 'agrinex-cache-v2';
-const urlsToCache = [
-  '/',
-  '/manifest.json'
+/**
+ * Service Worker - AgriNex Smart Drip
+ * Offline Strategy: Cache-First with Network Fallback
+ */
+
+const CACHE_VERSION = 'agrinex-v1.0.0';
+const CACHE_STATIC = `${CACHE_VERSION}-static`;
+const CACHE_DYNAMIC = `${CACHE_VERSION}-dynamic`;
+const CACHE_API = `${CACHE_VERSION}-api`;
+
+// Static assets to cache on install
+const STATIC_ASSETS = [
+    '/',
+    '/offline.html',
+    '/build/assets/app-C2ARV1qV.css',
+    '/build/assets/app-CKLqfVGG.js',
+    '/favicon.ico',
 ];
 
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('Opened cache');
-        return cache.addAll(urlsToCache);
-      })
-  );
-});
+// API endpoints to cache (with TTL)
+const API_CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
 
-self.addEventListener('fetch', event => {
-  // Only handle GET requests
-  if (event.request.method !== 'GET') return;
-
-  event.respondWith(
-    fetch(event.request)
-      .then(response => {
-        // Cache the latest response if successful
-        if (response && response.status === 200 && response.type === 'basic') {
-            const responseToCache = response.clone();
-            caches.open(CACHE_NAME).then(cache => {
-                cache.put(event.request, responseToCache);
-            });
-        }
-        return response;
-      })
-      .catch(() => {
-        // Network failed, fallback to cache
-        return caches.match(event.request);
-      })
-  );
-});
-
-self.addEventListener('activate', event => {
-  const cacheWhitelist = [CACHE_NAME];
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
-            return caches.delete(cacheName);
-          }
+// Install event - cache static assets
+self.addEventListener('install', (event) => {
+    console.log('[SW] Installing service worker...');
+    
+    event.waitUntil(
+        caches.open(CACHE_STATIC).then((cache) => {
+            console.log('[SW] Caching static assets');
+            return cache.addAll(STATIC_ASSETS.map(url => new Request(url, {credentials: 'same-origin'})));
+        }).catch(err => {
+            console.warn('[SW] Failed to cache some assets:', err);
         })
-      );
-    })
-  );
+    );
+    
+    self.skipWaiting();
+});
+
+// Activate event - clean old caches
+self.addEventListener('activate', (event) => {
+    console.log('[SW] Activating service worker...');
+    
+    event.waitUntil(
+        caches.keys().then((cacheNames) => {
+            return Promise.all(
+                cacheNames
+                    .filter(name => name.startsWith('agrinex-') && name !== CACHE_STATIC && name !== CACHE_DYNAMIC && name !== CACHE_API)
+                    .map(name => {
+                        console.log('[SW] Deleting old cache:', name);
+                        return caches.delete(name);
+                    })
+            );
+        })
+    );
+    
+    self.clients.claim();
+});
+
+// Fetch event - cache strategy
+self.addEventListener('fetch', (event) => {
+    const { request } = event;
+    const url = new URL(request.url);
+    
+    // Skip non-GET requests
+    if (request.method !== 'GET') {
+        return;
+    }
+    
+    // Skip chrome extensions
+    if (url.protocol === 'chrome-extension:') {
+        return;
+    }
+    
+    // API requests - Network First with cache fallback
+    if (url.pathname.startsWith('/api/')) {
+        event.respondWith(
+            networkFirstStrategy(request, CACHE_API)
+        );
+        return;
+    }
+    
+    // Static assets - Cache First
+    if (
+        url.pathname.startsWith('/build/') ||
+        url.pathname.includes('.css') ||
+        url.pathname.includes('.js') ||
+        url.pathname.includes('.jpg') ||
+        url.pathname.includes('.png') ||
+        url.pathname.includes('.svg')
+    ) {
+        event.respondWith(
+            cacheFirstStrategy(request, CACHE_STATIC)
+        );
+        return;
+    }
+    
+    // HTML pages - Network First with cache fallback
+    if (request.headers.get('accept').includes('text/html')) {
+        event.respondWith(
+            networkFirstStrategy(request, CACHE_DYNAMIC)
+        );
+        return;
+    }
+    
+    // Default - Network First
+    event.respondWith(
+        networkFirstStrategy(request, CACHE_DYNAMIC)
+    );
+});
+
+/**
+ * Cache First Strategy
+ * Try cache first, if miss then fetch from network and cache
+ */
+async function cacheFirstStrategy(request, cacheName) {
+    try {
+        // Try cache first
+        const cachedResponse = await caches.match(request);
+        if (cachedResponse) {
+            return cachedResponse;
+        }
+        
+        // Cache miss - fetch from network
+        const networkResponse = await fetch(request);
+        
+        // Cache successful response
+        if (networkResponse.ok) {
+            const cache = await caches.open(cacheName);
+            cache.put(request, networkResponse.clone());
+        }
+        
+        return networkResponse;
+    } catch (error) {
+        console.error('[SW] Cache first failed:', error);
+        
+        // Try cache as fallback
+        const cachedResponse = await caches.match(request);
+        if (cachedResponse) {
+            return cachedResponse;
+        }
+        
+        // Return offline page for HTML requests
+        if (request.headers.get('accept').includes('text/html')) {
+            return caches.match('/offline.html');
+        }
+        
+        throw error;
+    }
+}
+
+/**
+ * Network First Strategy
+ * Try network first, if fail then use cache
+ */
+async function networkFirstStrategy(request, cacheName) {
+    try {
+        // Try network first
+        const networkResponse = await fetch(request);
+        
+        // Cache successful response
+        if (networkResponse.ok) {
+            const cache = await caches.open(cacheName);
+            
+            // Add timestamp for API cache expiration
+            const clonedResponse = networkResponse.clone();
+            const responseToCache = new Response(clonedResponse.body, {
+                status: clonedResponse.status,
+                statusText: clonedResponse.statusText,
+                headers: clonedResponse.headers,
+            });
+            
+            cache.put(request, responseToCache);
+        }
+        
+        return networkResponse;
+    } catch (error) {
+        console.warn('[SW] Network failed, trying cache:', error);
+        
+        // Network failed - try cache
+        const cachedResponse = await caches.match(request);
+        
+        if (cachedResponse) {
+            // Check if API cache is expired (5 minutes)
+            if (cacheName === CACHE_API) {
+                const dateHeader = cachedResponse.headers.get('date');
+                if (dateHeader) {
+                    const cachedTime = new Date(dateHeader).getTime();
+                    const now = Date.now();
+                    
+                    if (now - cachedTime > API_CACHE_DURATION) {
+                        console.warn('[SW] API cache expired');
+                        throw new Error('Cache expired');
+                    }
+                }
+            }
+            
+            return cachedResponse;
+        }
+        
+        // No cache available - return offline page for HTML
+        if (request.headers.get('accept').includes('text/html')) {
+            return caches.match('/offline.html');
+        }
+        
+        throw error;
+    }
+}
+
+// Background sync for offline actions
+self.addEventListener('sync', (event) => {
+    console.log('[SW] Background sync:', event.tag);
+    
+    if (event.tag === 'sync-offline-data') {
+        event.waitUntil(syncOfflineData());
+    }
+});
+
+async function syncOfflineData() {
+    console.log('[SW] Syncing offline data...');
+    
+    // TODO: Implement offline data sync
+    // Read from IndexedDB and POST to server
+}
+
+// Push notification handler
+self.addEventListener('push', (event) => {
+    console.log('[SW] Push notification received');
+    
+    let data = {};
+    
+    if (event.data) {
+        try {
+            data = event.data.json();
+        } catch (e) {
+            data = { title: 'AgriNex', body: event.data.text() };
+        }
+    }
+    
+    const title = data.title || 'AgriNex Smart Drip';
+    const options = {
+        body: data.body || 'New notification',
+        icon: '/icon.svg',
+        badge: '/favicon.ico',
+        data: data.data || {},
+        vibrate: [200, 100, 200],
+        requireInteraction: false,
+    };
+    
+    event.waitUntil(
+        self.registration.showNotification(title, options)
+    );
+});
+
+// Notification click handler
+self.addEventListener('notificationclick', (event) => {
+    console.log('[SW] Notification clicked');
+    
+    event.notification.close();
+    
+    // Navigate to app
+    event.waitUntil(
+        clients.openWindow('/')
+    );
 });

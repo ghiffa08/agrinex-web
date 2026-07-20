@@ -11,6 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (!Schema::hasTable('getdata_logs')) {
+            return;
+        }
+        
         Schema::table('getdata_logs', function (Blueprint $table) {
             $table->index('waktu_mulai');
             $table->index('sesi_id_getdata');

@@ -1,0 +1,29 @@
+{
+  "appId": "com.agrinex.smartdrip",
+  "appName": "AgriNex Smart Drip",
+  "webDir": "public",
+  "server": {
+    "url": "https://smartdrip-system.agrinex.io",
+    "cleartext": false,
+    "allowNavigation": [
+      "https://*.agrinex.io",
+      "https://*.agrinex.com"
+    ]
+  },
+  "android": {
+    "allowMixedContent": false,
+    "backgroundColor": "#22c55e"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 2000,
+      "backgroundColor": "#22c55e",
+      "showSpinner": true,
+      "spinnerColor": "#ffffff",
+      "androidSpinnerStyle": "large"
+    },
+    "PushNotifications": {
+      "presentationOptions": ["badge", "sound", "alert"]
+    }
+  }
+}

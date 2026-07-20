@@ -13,6 +13,8 @@ use App\Http\Controllers\Api\DeviceController;
 use App\Http\Controllers\Api\TelemetryApiController;
 use App\Http\Controllers\Api\DashboardPollingController;
 use App\Http\Controllers\Api\DeviceDetailController;
+use App\Http\Controllers\Api\MobileApiController;
+use App\Http\Controllers\Api\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,6 +89,9 @@ Route::prefix('v1')->group(function () {
         Route::get('/list', [ExportController::class, 'list']);
     });
     
+    // Report Preview API
+    Route::get('/reports/preview', [\App\Http\Controllers\Api\ReportApiController::class, 'preview']);
+    
     // Monitor Endpoints
     Route::prefix('monitor')->group(function () {
         Route::get('/stats', [MonitorController::class, 'getStats']);
@@ -159,5 +164,26 @@ Route::get('/docs', function () {
         'documentation_url' => url('/api/docs'),
         'support' => 'agrinex@example.com'
     ]);
+});
+
+// Mobile App API Routes
+Route::prefix('v1/mobile')->group(function () {
+    Route::post('/fcm-token', [MobileApiController::class, 'registerFcmToken'])->middleware('auth:sanctum');
+    Route::post('/test-notification', [MobileApiController::class, 'testNotification'])->middleware('auth:sanctum');
+    Route::get('/version', [MobileApiController::class, 'version']);
+    Route::get('/health', [MobileApiController::class, 'health']);
+    Route::post('/oauth-session', [MobileApiController::class, 'setOAuthSession']);
+});
+
+// Authentication API Routes (Strategy B - Token Based)
+Route::prefix('auth')->group(function () {
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/register', [AuthController::class, 'register']);
+    
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('/me', [AuthController::class, 'me']);
+        Route::post('/refresh', [AuthController::class, 'refresh']);
+        Route::post('/logout', [AuthController::class, 'logout']);
+    });
 });
 

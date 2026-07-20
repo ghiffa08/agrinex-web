@@ -1,0 +1,145 @@
+═══════════════════════════════════════════════════════════════════
+🚀 CAPACITOR.JS IMPLEMENTATION - AGRINEX SMART DRIP
+═══════════════════════════════════════════════════════════════════
+
+Strategy: A - Hybrid WebView
+Timeline: 2-3 hari
+Focus: Push Notifications + Offline Strategy
+Date: 21 Juli 2026
+
+═══════════════════════════════════════════════════════════════════
+PHASE 1: SETUP CAPACITOR (30 menit)
+═══════════════════════════════════════════════════════════════════
+
+1. Install Capacitor Core & CLI
+   
+   npm install @capacitor/core @capacitor/cli --save-dev
+   
+2. Initialize Capacitor
+   
+   npx cap init "AgriNex Smart Drip" com.agrinex.smartdrip --web-dir=public
+   
+3. Install Android Platform
+   
+   npm install @capacitor/android
+   npx cap add android
+   
+4. Install Required Plugins (Notifications + Offline)
+   
+   npm install @capacitor/push-notifications \
+               @capacitor/network \
+               @capacitor/preferences \
+               @capacitor/app \
+               @capacitor/splash-screen
+
+═══════════════════════════════════════════════════════════════════
+PHASE 2: CONFIGURE CAPACITOR (15 menit)
+═══════════════════════════════════════════════════════════════════
+
+File: capacitor.config.ts (akan di-generate)
+
+Key Configuration:
+  - appId: com.agrinex.smartdrip
+  - appName: AgriNex Smart Drip
+  - server.url: https://agrinex.yourdomain.com (production)
+  - plugins: PushNotifications, SplashScreen
+
+═══════════════════════════════════════════════════════════════════
+PHASE 3: LARAVEL CORS & SESSION (20 menit)
+═══════════════════════════════════════════════════════════════════
+
+Update config/cors.php:
+  - Add capacitor://localhost to allowed_origins
+  - Enable credentials support
+
+Update .env:
+  - SESSION_DRIVER=database (untuk persistent session)
+  - SESSION_DOMAIN sesuai domain production
+
+═══════════════════════════════════════════════════════════════════
+PHASE 4: PUSH NOTIFICATIONS (45 menit)
+═══════════════════════════════════════════════════════════════════
+
+A. Firebase Cloud Messaging (FCM) Setup
+   1. Create Firebase project
+   2. Add Android app
+   3. Download google-services.json
+   4. Add to android/app/
+
+B. Laravel Backend - FCM Integration
+   1. Install kreait/firebase-php
+   2. Create NotificationService
+   3. API endpoint: POST /api/v1/device-token/register
+   4. Send notification: POST /api/v1/notifications/send
+
+C. Frontend Integration
+   1. Request permission on app load
+   2. Save FCM token to Laravel backend
+   3. Handle foreground notifications
+   4. Handle background notifications
+
+═══════════════════════════════════════════════════════════════════
+PHASE 5: OFFLINE STRATEGY (60 menit)
+═══════════════════════════════════════════════════════════════════
+
+A. Service Worker (Cache-First Strategy)
+   1. Cache static assets (CSS, JS, images)
+   2. Cache API responses (TTL 5 minutes)
+   3. Cache HTML pages (dashboard, devices)
+   4. Fallback offline page
+
+B. Capacitor Network Plugin
+   1. Detect online/offline status
+   2. Show banner saat offline
+   3. Queue API calls saat offline
+   4. Auto-sync saat online kembali
+
+C. Capacitor Preferences (Offline Data)
+   1. Save last dashboard data
+   2. Save devices list
+   3. Save user preferences
+   4. Display cached data saat offline
+
+═══════════════════════════════════════════════════════════════════
+PHASE 6: BUILD & TEST (45 menit)
+═══════════════════════════════════════════════════════════════════
+
+1. Build Laravel assets
+   npm run build
+   
+2. Sync to Capacitor
+   npx cap sync
+   
+3. Open Android Studio
+   npx cap open android
+   
+4. Build APK
+   Build → Build Bundle(s) / APK(s) → Build APK(s)
+   
+5. Test di device
+   - Install APK
+   - Test push notifications
+   - Test offline mode
+   - Test online/offline switch
+
+═══════════════════════════════════════════════════════════════════
+ESTIMATED TIMELINE
+═══════════════════════════════════════════════════════════════════
+
+Day 1 (4 jam):
+  ✓ Phase 1: Setup Capacitor (30 min)
+  ✓ Phase 2: Configure (15 min)
+  ✓ Phase 3: Laravel CORS (20 min)
+  ✓ Phase 4: Push Notifications (45 min)
+  ✓ Phase 5 partial: Service Worker (60 min)
+
+Day 2 (3 jam):
+  ✓ Phase 5 complete: Offline Strategy (60 min)
+  ✓ Phase 6: Build & Test (45 min)
+  ✓ Refinement & bug fixes (75 min)
+
+TOTAL: ~7 jam spread over 2-3 hari
+
+═══════════════════════════════════════════════════════════════════
+NEXT: Detailed implementation files akan di-generate
+═══════════════════════════════════════════════════════════════════

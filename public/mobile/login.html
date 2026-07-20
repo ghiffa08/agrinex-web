@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Login - AgriNex Mobile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        neuBg: '#e0e5ec',
+                        brand: '#22c55e',
+                        darkText: '#2c3e50',
+                        lightText: '#7f8c8d'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-neuBg text-darkText min-h-screen flex items-center justify-center p-4">
+
+    <div class="w-full max-w-md bg-neuBg rounded-[2rem] p-8 shadow-[8px_8px_16px_#a3b1c6,-8px_-8px_16px_#ffffff]">
+        
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-neuBg shadow-[4px_4px_8px_#a3b1c6,-4px_-4px_8px_#ffffff] mb-6">
+                <svg class="w-12 h-12 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+            </div>
+            <h1 class="text-2xl font-extrabold tracking-tight text-darkText mb-1">AgriNex Mobile</h1>
+            <p class="text-sm font-medium text-lightText">Smart Drip Irrigation System</p>
+        </div>
+
+        <!-- Error Message -->
+        <div id="error-message" class="hidden mb-6 p-4 rounded-xl bg-red-50 text-red-600 text-sm border border-red-200"></div>
+
+        <!-- Login Form -->
+        <form id="login-form" class="space-y-6">
+            
+            <!-- Username/Email -->
+            <div class="space-y-2">
+                <label class="block text-sm font-bold text-lightText ml-1">Username or Email</label>
+                <input type="text" id="username" required autofocus
+                    class="w-full bg-neuBg text-darkText px-5 py-3.5 rounded-xl outline-none
+                    shadow-[inset_4px_4px_8px_#a3b1c6,inset_-4px_-4px_8px_#ffffff]
+                    focus:shadow-[inset_6px_6px_12px_#a3b1c6,inset_-6px_-6px_12px_#ffffff]
+                    transition-shadow duration-200">
+            </div>
+
+            <!-- Password -->
+            <div class="space-y-2">
+                <label class="block text-sm font-bold text-lightText ml-1">Password</label>
+                <input type="password" id="password" required
+                    class="w-full bg-neuBg text-darkText px-5 py-3.5 rounded-xl outline-none
+                    shadow-[inset_4px_4px_8px_#a3b1c6,inset_-4px_-4px_8px_#ffffff]
+                    focus:shadow-[inset_6px_6px_12px_#a3b1c6,inset_-6px_-6px_12px_#ffffff]
+                    transition-shadow duration-200">
+            </div>
+
+            <!-- Remember Me -->
+            <div class="flex items-center ml-1">
+                <input type="checkbox" id="remember" class="w-5 h-5 text-brand rounded">
+                <label for="remember" class="ml-3 text-sm font-semibold text-lightText">Remember me</label>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" id="login-btn"
+                class="w-full py-4 rounded-xl font-bold text-white bg-brand
+                shadow-[4px_4px_8px_#a3b1c6,-4px_-4px_8px_#ffffff]
+                active:shadow-[inset_4px_4px_8px_#a3b1c6,inset_-4px_-4px_8px_#ffffff]
+                transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
+                Sign In
+            </button>
+        </form>
+
+    </div>
+
+    <script>
+        const API_BASE = window.location.origin + '/api';
+        
+        const loginForm = document.getElementById('login-form');
+        const loginBtn = document.getElementById('login-btn');
+        const errorDiv = document.getElementById('error-message');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const rememberInput = document.getElementById('remember');
+
+        // Show error message
+        function showError(message) {
+            errorDiv.textContent = message;
+            errorDiv.classList.remove('hidden');
+        }
+
+        // Hide error message
+        function hideError() {
+            errorDiv.classList.add('hidden');
+        }
+
+        // Handle login
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            hideError();
+
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value;
+
+            if (!username || !password) {
+                showError('Please fill in all fields');
+                return;
+            }
+
+            // Disable button
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Signing in...';
+
+            try {
+                const response = await fetch(`${API_BASE}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        password: password
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Store token
+                    localStorage.setItem('agrinex_token', data.data.token);
+                    localStorage.setItem('agrinex_user', JSON.stringify(data.data.user));
+                    
+                    // Redirect to dashboard
+                    window.location.href = '/mobile/dashboard.html';
+                } else {
+                    showError(data.message || 'Login failed');
+                    loginBtn.disabled = false;
+                    loginBtn.textContent = 'Sign In';
+                }
+
+            } catch (error) {
+                console.error('Login error:', error);
+                showError('Network error. Please check your connection.');
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Sign In';
+            }
+        });
+
+        // Check if already logged in
+        window.addEventListener('DOMContentLoaded', () => {
+            const token = localStorage.getItem('agrinex_token');
+            if (token) {
+                // Verify token
+                fetch(`${API_BASE}/auth/me`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        // Already logged in, redirect
+                        window.location.href = '/mobile/dashboard.html';
+                    }
+                })
+                .catch(() => {
+                    // Token invalid, clear
+                    localStorage.removeItem('agrinex_token');
+                    localStorage.removeItem('agrinex_user');
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

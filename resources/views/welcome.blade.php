@@ -36,6 +36,42 @@
             <main x-show="currentView === 'dashboard'" x-transition.opacity
                 class="flex-1 px-4 md:px-6 xl:px-8 pt-6 pb-28 md:pb-10 w-full max-w-[1400px] mx-auto space-y-6 md:space-y-8">
 
+                {{-- Toast Notification --}}
+                <div x-show="showToast" x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 transform translate-y-2"
+                    x-transition:enter-end="opacity-100 transform translate-y-0"
+                    x-transition:leave="transition ease-in duration-200"
+                    x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+                    class="fixed top-20 right-4 z-50 max-w-sm"
+                    style="display: none;">
+                    <div class="rounded-2xl p-4 shadow-[8px_8px_16px_#a3b1c6,-8px_-8px_16px_#ffffff]"
+                        :class="toastType === 'error' ? 'bg-red-50' : toastType === 'success' ? 'bg-green-50' : 'bg-blue-50'">
+                        <div class="flex items-start gap-3">
+                            <div class="flex-shrink-0">
+                                <svg x-show="toastType === 'error'" class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <svg x-show="toastType === 'success'" class="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <svg x-show="toastType === 'info'" class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm font-semibold"
+                                    :class="toastType === 'error' ? 'text-red-800' : toastType === 'success' ? 'text-green-800' : 'text-blue-800'"
+                                    x-text="toastMessage"></p>
+                            </div>
+                            <button @click="showToast = false" class="flex-shrink-0 text-gray-400 hover:text-gray-600">
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
                 {{-- Section 1: Weather + Devices --}}
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 md:gap-8">
                     <div class="lg:col-span-4 flex flex-col">

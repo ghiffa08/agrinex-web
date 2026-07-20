@@ -1,6 +1,51 @@
 {
+  "node_modules/@capacitor/app/dist/esm/web.js": {
+    "file": "assets/web-DcTNXBHH.js",
+    "name": "web",
+    "src": "node_modules/@capacitor/app/dist/esm/web.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "node_modules/@capacitor/browser/dist/esm/web.js": {
+    "file": "assets/web-CaNI6Xit.js",
+    "name": "web",
+    "src": "node_modules/@capacitor/browser/dist/esm/web.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "node_modules/@capacitor/network/dist/esm/web.js": {
+    "file": "assets/web-zOqF9VzM.js",
+    "name": "web",
+    "src": "node_modules/@capacitor/network/dist/esm/web.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "node_modules/@capacitor/preferences/dist/esm/web.js": {
+    "file": "assets/web-BSOa1r7p.js",
+    "name": "web",
+    "src": "node_modules/@capacitor/preferences/dist/esm/web.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "node_modules/@capacitor/splash-screen/dist/esm/web.js": {
+    "file": "assets/web-B7tA45mG.js",
+    "name": "web",
+    "src": "node_modules/@capacitor/splash-screen/dist/esm/web.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
   "resources/css/app.css": {
-    "file": "assets/app-CUuRS93D.css",
+    "file": "assets/app-BskbsJzF.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "name": "app",
@@ -9,9 +54,16 @@
     ]
   },
   "resources/js/app.js": {
-    "file": "assets/app-CKLqfVGG.js",
+    "file": "assets/app-DY-u2Li9.js",
     "name": "app",
     "src": "resources/js/app.js",
-    "isEntry": true
+    "isEntry": true,
+    "dynamicImports": [
+      "node_modules/@capacitor/network/dist/esm/web.js",
+      "node_modules/@capacitor/preferences/dist/esm/web.js",
+      "node_modules/@capacitor/app/dist/esm/web.js",
+      "node_modules/@capacitor/splash-screen/dist/esm/web.js",
+      "node_modules/@capacitor/browser/dist/esm/web.js"
+    ]
   }
 }
