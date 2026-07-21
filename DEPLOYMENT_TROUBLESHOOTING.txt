@@ -1,0 +1,294 @@
+═══════════════════════════════════════════════════════════════════════════════
+                    TROUBLESHOOTING: ERROR 500 PRODUCTION
+═══════════════════════════════════════════════════════════════════════════════
+
+Tanggal: 2026-07-21
+URL: https://smartdrip-system.agrinex.io/
+Error: GET / 500 (Internal Server Error)
+
+═══════════════════════════════════════════════════════════════════════════════
+🔍 KEMUNGKINAN PENYEBAB
+═══════════════════════════════════════════════════════════════════════════════
+
+1. ❌ Production server belum pull latest changes (commit 6fe81db)
+2. ❌ Cache tidak di-clear setelah push
+3. ❌ Build assets belum di-compile di server
+4. ❌ File permissions issue (storage/logs tidak writable)
+5. ❌ .env production configuration issue
+6. ❌ Composer autoload outdated
+
+═══════════════════════════════════════════════════════════════════════════════
+🚀 SOLUSI: DEPLOYMENT CHECKLIST
+═══════════════════════════════════════════════════════════════════════════════
+
+STEP 1: SSH ke Production Server
+  ssh user@smartdrip-system.agrinex.io
+  cd /path/to/agrinex-web
+
+STEP 2: Pull Latest Changes
+  git fetch origin
+  git pull origin main
+  # Verify commit hash
+  git log --oneline -3
+  # Expected: 6fe81db fix: sidebar dashboard active state
+
+STEP 3: Install/Update Dependencies
+  composer install --no-dev --optimize-autoloader
+  npm install
+  npm run build
+
+STEP 4: Clear All Caches
+  php artisan cache:clear
+  php artisan config:clear
+  php artisan route:clear
+  php artisan view:clear
+  
+  # Rebuild caches
+  php artisan config:cache
+  php artisan route:cache
+  php artisan view:cache
+
+STEP 5: Fix Permissions
+  chmod -R 775 storage bootstrap/cache
+  chown -R www-data:www-data storage bootstrap/cache
+  # Or sesuaikan dengan user web server
+
+STEP 6: Check Logs
+  tail -50 storage/logs/laravel.log
+  # Look for actual error message
+
+STEP 7: Restart Services
+  # Nginx
+  sudo systemctl restart nginx
+  
+  # PHP-FPM (sesuaikan versi)
+  sudo systemctl restart php8.2-fpm
+  
+  # Laravel Queue (if any)
+  php artisan queue:restart
+
+═══════════════════════════════════════════════════════════════════════════════
+🔧 QUICK FIX SCRIPT
+═══════════════════════════════════════════════════════════════════════════════
+
+Buat file: deploy.sh di production server
+
+```bash
+#!/bin/bash
+set -e
+
+echo "🚀 Starting deployment..."
+
+# Pull latest
+echo "📥 Pulling latest changes..."
+git pull origin main
+
+# Dependencies
+echo "📦 Installing dependencies..."
+composer install --no-dev --optimize-autoloader
+npm ci
+npm run build
+
+# Clear caches
+echo "🗑️  Clearing caches..."
+php artisan cache:clear
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear
+
+# Rebuild caches
+echo "🔨 Rebuilding caches..."
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+
+# Fix permissions
+echo "🔐 Fixing permissions..."
+chmod -R 775 storage bootstrap/cache
+
+# Restart services
+echo "♻️  Restarting services..."
+sudo systemctl restart php8.2-fpm
+sudo systemctl restart nginx
+
+echo "✅ Deployment complete!"
+echo "🌐 Check: https://smartdrip-system.agrinex.io/"
+```
+
+Usage:
+  chmod +x deploy.sh
+  ./deploy.sh
+
+═══════════════════════════════════════════════════════════════════════════════
+🩺 DIAGNOSTIC COMMANDS
+═══════════════════════════════════════════════════════════════════════════════
+
+1. Check Git Status:
+   git status
+   git log --oneline -5
+
+2. Check Laravel Environment:
+   php artisan about
+   php artisan env
+
+3. Check Routes:
+   php artisan route:list | grep "agrinex.dashboard"
+   # Expected: GET / → AgriNexDashboardController@index
+
+4. Check Permissions:
+   ls -la storage/
+   ls -la bootstrap/cache/
+
+5. Check PHP Errors:
+   tail -100 storage/logs/laravel.log
+   # Grep for today's errors:
+   grep "$(date +%Y-%m-%d)" storage/logs/laravel.log | tail -50
+
+6. Check Nginx Error Log:
+   sudo tail -50 /var/log/nginx/error.log
+
+7. Check PHP-FPM Error Log:
+   sudo tail -50 /var/log/php8.2-fpm.log
+
+8. Test Controller Directly:
+   php artisan tinker
+   >>> app()->make(\App\Http\Controllers\Web\AgriNexDashboardController::class)->index();
+
+═══════════════════════════════════════════════════════════════════════════════
+📋 COMMON ISSUES & FIXES
+═══════════════════════════════════════════════════════════════════════════════
+
+ISSUE 1: "Class not found" Error
+  FIX:
+    composer dump-autoload
+    php artisan clear-compiled
+
+ISSUE 2: "Route not defined" Error
+  FIX:
+    php artisan route:clear
+    php artisan route:cache
+
+ISSUE 3: "View not found" Error
+  FIX:
+    php artisan view:clear
+    php artisan view:cache
+    # Check: resources/views/welcome.blade.php exists
+
+ISSUE 4: "Permission denied" on storage
+  FIX:
+    chmod -R 775 storage bootstrap/cache
+    chown -R www-data:www-data storage bootstrap/cache
+
+ISSUE 5: "CSRF token mismatch"
+  FIX:
+    php artisan cache:clear
+    php artisan config:clear
+    # Check .env APP_KEY exists
+
+ISSUE 6: Assets not loading (404)
+  FIX:
+    npm run build
+    # Check: public/build/manifest.json exists
+    # Check: public/build/assets/ has files
+
+ISSUE 7: Database connection error
+  FIX:
+    # Check .env production:
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=agrinex
+    DB_USERNAME=root
+    DB_PASSWORD=***
+    
+    # Test connection:
+    php artisan tinker
+    >>> DB::connection()->getPdo();
+
+═══════════════════════════════════════════════════════════════════════════════
+🔐 PRODUCTION .ENV CHECKLIST
+═══════════════════════════════════════════════════════════════════════════════
+
+Verify these settings di production:
+
+APP_ENV=production
+APP_DEBUG=false
+APP_URL=https://smartdrip-system.agrinex.io
+
+SESSION_LIFETIME=1440
+SESSION_DRIVER=file
+
+CACHE_DRIVER=file
+QUEUE_CONNECTION=sync
+
+LOG_CHANNEL=stack
+LOG_LEVEL=error
+
+BROADCAST_DRIVER=reverb
+REVERB_APP_ID=***
+REVERB_APP_KEY=***
+REVERB_APP_SECRET=***
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_DATABASE=agrinex
+DB_USERNAME=***
+DB_PASSWORD=***
+
+═══════════════════════════════════════════════════════════════════════════════
+📞 JIKA MASIH ERROR
+═══════════════════════════════════════════════════════════════════════════════
+
+1. Check actual error di production:
+   ssh user@smartdrip-system.agrinex.io
+   tail -50 storage/logs/laravel.log
+
+2. Copy paste exact error message
+
+3. Check commit history:
+   git log --oneline -10
+   # Should include:
+   # 6fe81db fix: sidebar dashboard active state
+   # 4490967 fix: Alpine.js console errors
+
+4. Verify controller exists:
+   ls -la app/Http/Controllers/Web/AgriNexDashboardController.php
+
+5. Verify view exists:
+   ls -la resources/views/welcome.blade.php
+
+6. Test route manually:
+   php artisan route:list | grep "GET.*/$"
+
+═══════════════════════════════════════════════════════════════════════════════
+✅ EXPECTED RESULT AFTER FIX
+═══════════════════════════════════════════════════════════════════════════════
+
+URL: https://smartdrip-system.agrinex.io/
+Status: 200 OK
+
+Console (F12):
+  ✅ No Alpine.js errors
+  ✅ No 500 errors
+  ⚠️  Warning about Tailwind CDN is NOT present (we use Vite build)
+
+Sidebar:
+  ✅ Only 1 menu active at a time
+  ✅ Dashboard active only when at /admin/dashboard
+  ✅ Other menus don't show Dashboard as active
+
+Performance:
+  ✅ Assets loading from /build/ directory
+  ✅ CSS compiled (not CDN)
+  ✅ JS compiled (not CDN)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+NOTE: Error 500 di production biasanya karena:
+  1. Server belum pull latest code
+  2. Cache belum di-clear
+  3. Build assets belum di-run
+
+Run deployment script di atas untuk fix semua sekaligus.
+
+═══════════════════════════════════════════════════════════════════════════════

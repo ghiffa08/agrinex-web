@@ -139,4 +139,28 @@ class User extends Authenticatable
         
         return $initials ?: strtoupper(substr($name, 0, 1));
     }
+
+    /**
+     * Check if user is admin
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    /**
+     * Check if user is operator
+     */
+    public function isOperator(): bool
+    {
+        return $this->role === 'operator';
+    }
+
+    /**
+     * Check if user is viewer
+     */
+    public function isViewer(): bool
+    {
+        return $this->role === 'viewer';
+    }
 }
