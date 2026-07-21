@@ -446,6 +446,7 @@
             </a>
             --}}
 
+            {{--
             <a href="{{ route('admin.irrigate-logs.index') }}"
                 class="menu-item {{ request()->routeIs('admin.irrigate-logs.*') ? 'active' : '' }}">
                 <i class="bi bi-water"></i>
@@ -469,6 +470,7 @@
                 <i class="bi bi-database"></i>
                 <span>JSON Backup</span>
             </a>
+            --}}
 
             <div class="menu-section-title">System</div>
 
