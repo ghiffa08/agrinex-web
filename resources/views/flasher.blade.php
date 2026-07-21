@@ -417,42 +417,65 @@
                     this.addLog('=== FLASH STARTED ===');
 
                     const manifestUrl = `/flasher-firmware/${this.selectedFirmware}/manifest.json`;
+                    this.addLog(`Loading manifest: ${manifestUrl}`);
+                    
                     const response = await fetch(manifestUrl);
                     if (!response.ok) throw new Error(`Manifest tidak ditemukan: ${manifestUrl}`);
+                    
                     const manifest = await response.json();
+                    
+                    // Validate manifest structure
+                    if (!manifest || !manifest.parts || !Array.isArray(manifest.parts)) {
+                        throw new Error('Manifest format tidak valid atau parts tidak ditemukan');
+                    }
 
-                    this.addLog(`Firmware: ${manifest.name} v${manifest.version}`);
-                    this.addLog(`Chip Family: ${manifest.chipFamily}`);
+                    this.addLog(`✓ Firmware: ${manifest.name || 'Unknown'} v${manifest.version || '1.0'}`);
+                    this.addLog(`✓ Chip Family: ${manifest.chipFamily || 'ESP32'}`);
+                    this.addLog(`✓ Parts to flash: ${manifest.parts.length}`);
                     this.statusMessage = 'Mengunduh firmware...';
 
                     const fileArray = await Promise.all(
                         manifest.parts.map(async (part) => {
                             const url = `/flasher-firmware/${this.selectedFirmware}/${part.path}`;
-                            this.addLog(`Downloading: ${part.path}`);
+                            this.addLog(`Downloading: ${part.path}...`);
                             const resp = await fetch(url);
                             if (!resp.ok) throw new Error(`Gagal download: ${url}`);
-                            return { data: await resp.arrayBuffer(), address: part.offset };
+                            const data = await resp.arrayBuffer();
+                            this.addLog(`✓ Downloaded: ${part.path} (${(data.byteLength / 1024).toFixed(1)} KB)`);
+                            return { data: data, address: parseInt(part.offset) };
                         })
                     );
 
-                    if (!this.esploader) {
+                    // Ensure we have a valid connection
+                    if (!this.esploader || !this.transport) {
+                        this.addLog('Initializing ESP32 connection...');
                         const espLoaderTerminal = {
                             clean: () => {},
                             writeLine: (data) => this.addLog(data),
                             write: (data) => this.addLog(data)
                         };
+                        
                         this.transport = new esptooljs.Transport(this.port);
                         this.esploader = new esptooljs.ESPLoader({
                             transport: this.transport,
                             baudrate: 115200,
                             terminal: espLoaderTerminal
                         });
+                        
                         this.statusMessage = 'Connecting to ESP32...';
+                        this.addLog('Detecting chip...');
                         await this.esploader.main();
+                        
+                        this.chipInfo = {
+                            type: this.esploader.chipName || 'ESP32',
+                            macAddress: this.esploader.macAddr ? this.esploader.macAddr() : 'Unknown'
+                        };
+                        this.addLog(`✓ Chip: ${this.chipInfo.type}`);
+                        this.addLog(`✓ MAC: ${this.chipInfo.macAddress}`);
                     }
 
                     this.statusMessage = 'Flashing firmware...';
-                    this.addLog('Starting flash process...');
+                    this.addLog('Starting flash write...');
 
                     await this.esploader.writeFlash({
                         fileArray: fileArray,
@@ -477,9 +500,23 @@
 
                 } catch (error) {
                     console.error('Flash error:', error);
-                    this.addLog(`ERROR: ${error.message}`);
-                    this.statusMessage = '✗ Flash gagal: ' + error.message;
-                    alert('Flash gagal: ' + error.message);
+                    
+                    let errorMsg = error.message || 'Unknown error';
+                    
+                    // Provide helpful error messages
+                    if (errorMsg.includes('Manifest')) {
+                        errorMsg = 'File manifest.json tidak ditemukan atau format salah';
+                    } else if (errorMsg.includes('parts')) {
+                        errorMsg = 'Struktur firmware tidak valid (parts missing)';
+                    } else if (errorMsg.includes('download')) {
+                        errorMsg = 'Gagal mengunduh file firmware dari server';
+                    } else if (errorMsg.includes('port') || errorMsg.includes('serial')) {
+                        errorMsg = 'Koneksi serial terputus. Coba reconnect ESP32';
+                    }
+                    
+                    this.addLog(`✗ ERROR: ${errorMsg}`);
+                    this.statusMessage = '✗ Flash gagal';
+                    alert(`Flash gagal!\n\n${errorMsg}\n\nCek console log untuk detail.`);
                     await this._cleanupPort();
                 } finally {
                     this.isFlashing = false;
